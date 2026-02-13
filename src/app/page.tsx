@@ -3,108 +3,169 @@
 import React from "react";
 import { SENTINEL, FONTS } from "@/components/design-system/tokens";
 import FadeIn from "@/components/design-system/FadeIn";
+import { Masthead } from "@/components/sentinel";
+import ArticleCard from "@/components/sentinel/ArticleCard";
+import { BriefingCTA } from "@/components/sentinel";
+import { SubscribeBlock } from "@/components/sentinel";
+import { SentinelFooter } from "@/components/sentinel";
+import {
+  FEATURED_ARTICLE,
+  ARTICLES,
+  TRIAL_ARTICLE,
+  NAV_CATEGORIES,
+} from "@/data/newsletter-articles";
+import ThemeToggle from "@/components/shared/ThemeToggle";
 
 export default function Home() {
   return (
     <div style={{ minHeight: "100vh", background: SENTINEL.bg, fontFamily: FONTS.sans }}>
       <div style={{ maxWidth: 680, margin: "0 auto", padding: "0 24px 80px" }}>
         {/* Masthead */}
-        <div style={{ textAlign: "center", padding: "48px 0 20px", borderBottom: `3px double ${SENTINEL.sentinel}` }}>
-          <div
-            style={{
-              fontSize: 10,
-              letterSpacing: "0.35em",
-              textTransform: "uppercase",
-              color: SENTINEL.inkMuted,
-              fontFamily: FONTS.sans,
-              fontWeight: 500,
-              marginBottom: 8,
-            }}
-          >
-            A CaseGlide Publication · Vol. 1 · Issue 12
-          </div>
-          <h1
-            style={{
-              fontSize: "clamp(36px, 6vw, 56px)",
-              fontFamily: FONTS.serif,
-              fontWeight: 700,
-              color: SENTINEL.sentinel,
-              margin: "0 0 6px",
-              letterSpacing: "-0.02em",
-              lineHeight: 1.05,
-            }}
-          >
-            Litigation Sentinel
-          </h1>
-          <div
-            style={{
-              width: 48,
-              height: 3,
-              background: SENTINEL.sentinelAccent,
-              margin: "10px auto 12px",
-            }}
-          />
-          <div
-            style={{
-              fontSize: 12,
-              color: SENTINEL.inkMuted,
-              fontFamily: FONTS.sans,
-              letterSpacing: "0.08em",
-              textTransform: "uppercase",
-            }}
-          >
-            Intelligence for Corporate Litigation Leaders
-          </div>
-          <div style={{ fontSize: 11, color: SENTINEL.inkFaint, fontFamily: FONTS.sans, marginTop: 8 }}>
-            February 12, 2026
-          </div>
-        </div>
+        <Masthead />
 
-        {/* Placeholder for Phase 2 newsletter content */}
-        <FadeIn delay={200}>
-          <div style={{ padding: "80px 0", textAlign: "center" }}>
-            <div style={{ fontSize: 48, marginBottom: 16 }}>📰</div>
-            <h2
+        {/* Category Nav Strip */}
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            gap: 20,
+            padding: "14px 0",
+            borderBottom: `1px solid ${SENTINEL.border}`,
+            flexWrap: "wrap",
+          }}
+        >
+          {NAV_CATEGORIES.map((cat, i) => (
+            <span
+              key={i}
               style={{
-                fontFamily: FONTS.serif,
-                fontSize: 24,
+                fontSize: 11,
+                color: SENTINEL.inkMuted,
+                fontFamily: FONTS.sans,
+                letterSpacing: "0.06em",
+                textTransform: "uppercase",
+                cursor: "pointer",
                 fontWeight: 500,
-                color: SENTINEL.ink,
-                margin: "0 0 8px",
               }}
             >
-              Litigation Sentinel
+              {cat}
+            </span>
+          ))}
+        </div>
+
+        {/* Featured Article — links to Council */}
+        <FadeIn delay={100}>
+          <a
+            href="/council"
+            style={{
+              display: "block",
+              padding: "32px 0 24px",
+              borderBottom: `1px solid ${SENTINEL.border}`,
+              cursor: "pointer",
+              textDecoration: "none",
+            }}
+          >
+            <span
+              style={{
+                display: "inline-block",
+                fontSize: 9,
+                fontWeight: 600,
+                letterSpacing: "0.1em",
+                textTransform: "uppercase",
+                color: SENTINEL.sentinelAccent,
+                fontFamily: FONTS.sans,
+                background: SENTINEL.goldSoft,
+                padding: "2px 8px",
+                borderRadius: 3,
+              }}
+            >
+              {FEATURED_ARTICLE.tag}
+            </span>
+            <h2
+              style={{
+                fontSize: "clamp(24px, 4vw, 32px)",
+                fontFamily: FONTS.serif,
+                fontWeight: 600,
+                color: SENTINEL.sentinel,
+                margin: "10px 0 10px",
+                lineHeight: 1.25,
+                letterSpacing: "-0.015em",
+              }}
+            >
+              {FEATURED_ARTICLE.title}
             </h2>
-            <p style={{ fontSize: 14, color: SENTINEL.inkLight, lineHeight: 1.6 }}>
-              Premium editorial newsletter — coming in Phase 2.
+            <p
+              style={{
+                fontSize: 15,
+                color: SENTINEL.inkLight,
+                lineHeight: 1.7,
+                margin: "0 0 12px",
+                fontFamily: FONTS.sans,
+              }}
+            >
+              {FEATURED_ARTICLE.subtitle}
             </p>
-            <div style={{ display: "flex", gap: 16, justifyContent: "center", marginTop: 24, flexWrap: "wrap" }}>
-              <a href="/briefing" style={{ padding: "10px 20px", background: SENTINEL.sentinel, color: "#fff", borderRadius: 8, fontSize: 13, fontWeight: 600, textDecoration: "none" }}>
-                Executive Briefing →
-              </a>
-              <a href="/council" style={{ padding: "10px 20px", background: "transparent", color: SENTINEL.sentinel, border: `1px solid ${SENTINEL.border}`, borderRadius: 8, fontSize: 13, fontWeight: 600, textDecoration: "none" }}>
-                Council Program →
-              </a>
-              <a href="/trial" style={{ padding: "10px 20px", background: "transparent", color: SENTINEL.sentinel, border: `1px solid ${SENTINEL.border}`, borderRadius: 8, fontSize: 13, fontWeight: 600, textDecoration: "none" }}>
-                Trial →
-              </a>
+            <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+              <span style={{ fontSize: 11, color: SENTINEL.inkMuted }}>
+                {FEATURED_ARTICLE.readTime}
+              </span>
+              <span
+                style={{
+                  fontSize: 11,
+                  color: SENTINEL.accent,
+                  fontWeight: 600,
+                }}
+              >
+                Read the full story →
+              </span>
             </div>
-          </div>
+          </a>
         </FadeIn>
 
-        {/* Footer */}
-        <div style={{ marginTop: 48, padding: "20px 0", borderTop: `2px solid ${SENTINEL.sentinel}`, textAlign: "center" }}>
-          <div style={{ fontSize: 14, fontFamily: FONTS.serif, fontWeight: 600, color: SENTINEL.sentinel, marginBottom: 4 }}>
-            Litigation Sentinel
-          </div>
-          <div style={{ fontSize: 10, color: SENTINEL.inkFaint, fontFamily: FONTS.sans }}>
-            Published by CaseGlide · www.LitigationSentinel.com
-          </div>
-          <div style={{ fontSize: 10, color: SENTINEL.inkFaint, fontFamily: FONTS.sans, marginTop: 2 }}>
-            © 2026 CaseGlide, Inc. All rights reserved.
-          </div>
-        </div>
+        {/* First batch of articles (3) */}
+        {ARTICLES.slice(0, 3).map((a, i) => (
+          <ArticleCard
+            key={i}
+            article={a}
+            delay={180 + i * 60}
+          />
+        ))}
+
+        {/* Executive Briefing CTA — dark ad card between articles */}
+        <BriefingCTA delay={400} />
+
+        {/* How-To article → links to Council */}
+        <a href="/council" style={{ textDecoration: "none", display: "block" }}>
+          <ArticleCard
+            article={ARTICLES[3]}
+            delay={460}
+          />
+        </a>
+
+        {/* Trial article — links to Trial */}
+        <a href="/trial" style={{ textDecoration: "none", display: "block" }}>
+          <ArticleCard
+            article={TRIAL_ARTICLE}
+            delay={500}
+          />
+        </a>
+
+        {/* Remaining articles */}
+        {ARTICLES.slice(4).map((a, i) => (
+          <ArticleCard
+            key={i + 4}
+            article={a}
+            delay={560 + i * 60}
+          />
+        ))}
+
+        {/* Subscribe block */}
+        <SubscribeBlock delay={700} />
+
+        {/* Software Suite footer + copyright */}
+        <SentinelFooter delay={750} />
       </div>
+
+      <ThemeToggle />
     </div>
   );
 }
