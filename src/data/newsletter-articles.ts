@@ -15,56 +15,73 @@ export const ISSUE = {
 
 export const FEATURED_ARTICLE: NewsletterArticle = {
   tag: "Deep Dive",
-  title: "Inside the 90-Day Activation: How One Legal Team Transformed Their Litigation Operations",
-  subtitle: "A step-by-step look at how a Fortune 500 company went from quarterly attorney reports to real-time case intelligence — and what their first Trial proved about reducing spend by 15%.",
+  title: "Litigation Management Is Dead. Here's What Replaces It.",
+  subtitle:
+    "For twenty years, 'litigation management' meant tracking spend and hoping your outside counsel told you the truth. That era is over. The companies pulling ahead are running on something fundamentally different — and it starts with a formula most legal departments have never seen.",
   readTime: "8 min read",
-  linksTo: "council",
+  linksTo: "briefing",
 };
 
 export const ARTICLES: NewsletterArticle[] = [
   {
-    section: "Litigation Strategy", tag: "Case Watch",
-    title: "What the $42M Opioid MDL Bellwether Tells Us About Litigation Budgeting",
-    subtitle: "The gap between initial reserves and actual outcomes widened to 340%. Here's what data-driven departments are doing differently.",
-    readTime: "5 min",
-  },
-  {
-    section: "Litigation Tech", tag: "Tools",
-    title: "Top 10 Prompts for Getting Actionable Case Summaries from AI",
-    subtitle: "The difference between a useless AI summary and one that changes your strategy comes down to how you ask. These prompts work across platforms.",
-    readTime: "4 min",
-  },
-  {
-    section: "Litigation Strategy", tag: "Analysis",
-    title: "Nuclear Verdicts Are Up 28% — But the Real Risk Is in the Data You Don't Have",
-    subtitle: "Verdict data alone doesn't predict exposure. The teams winning are combining Precedent analysis with real-time docket monitoring to identify risk before it escalates.",
+    section: "Litigation Strategy",
+    tag: "Case Watch",
+    title: "Judicial Hellholes Keep Getting Worse — But the Real Problem Isn't the Venue",
+    subtitle:
+      "Everyone knows about St. Clair County and South Florida. But the defense teams actually winning in these jurisdictions aren't avoiding them — they're outpreparing the plaintiff bar with data most legal departments don't even collect.",
     readTime: "6 min",
   },
   {
-    section: "Litigation Tech", tag: "How-To",
+    section: "Litigation Tech",
+    tag: "Analysis",
+    title: "Your Quarterly Attorney Report Is Lying to You",
+    subtitle:
+      "Not on purpose. But when you're getting a narrative summary 90 days after the fact, you're making decisions on stale information. Here's what real-time case intelligence actually looks like — and why the difference matters more than most CLOs realize.",
+    readTime: "5 min",
+    linksTo: "briefing",
+  },
+  {
+    section: "Litigation Strategy",
+    tag: "Analysis",
+    title: "Nuclear Verdicts Are Up 28%. Your Reserve Model Probably Can't Handle It.",
+    subtitle:
+      "The gap between initial reserves and actual outcomes widened to 340% last year. Verdict data alone doesn't predict exposure — you need performance data, venue data, and attorney outcome data working together. Most companies have one of the three.",
+    readTime: "6 min",
+  },
+  {
+    section: "Litigation Tech",
+    tag: "How-To",
     title: "How to Build a Litigation Intelligence Stack Without Replacing Your Claims System",
-    subtitle: "The best implementations layer intelligence on top of existing systems. Here's the architecture that works — and the one mistake that derails it.",
+    subtitle:
+      "The best implementations layer intelligence on top of what you already have. Here's the architecture that actually works — and the one mistake that derails the whole thing.",
     readTime: "7 min",
     linksTo: "council",
   },
   {
-    section: "Litigation Strategy", tag: "Benchmark",
-    title: "Outside Counsel Performance: What the Top 10% of Legal Departments Measure",
-    subtitle: "Most companies track spend. The best track outcome quality, cycle time, and strategic compliance. Here's the scorecard they use.",
+    section: "Litigation Strategy",
+    tag: "Benchmark",
+    title: "Outside Counsel Performance: What the Top 10% of Legal Departments Actually Measure",
+    subtitle:
+      "Most companies track spend. A few track cycle time. The ones winning track outcome quality calibrated by case difficulty, venue, and opposing counsel. Here's their scorecard.",
     readTime: "5 min",
   },
   {
-    section: "Litigation Tech", tag: "How-To",
-    title: "Top 5 Tools for Litigation Operations Teams in 2026",
-    subtitle: "From case intake automation to AI-powered settlement analysis — the tools that are actually moving the needle for operations teams managing 100+ matters.",
-    readTime: "4 min",
+    section: "Litigation Strategy",
+    tag: "Opinion",
+    title: "Morgan & Morgan Is Eating Your Lunch — And Your Data Is the Reason",
+    subtitle:
+      "The plaintiff bar has gotten scary good at pattern recognition. They know which venues favor them, which adjusters settle fast, and which defense firms fold under pressure. The question is whether you know the same things about your own portfolio.",
+    readTime: "5 min",
   },
 ];
 
 export const TRIAL_ARTICLE: NewsletterArticle = {
-  section: "Case Study", tag: "Results",
-  title: "10 Cases, 30 Days: How a Litigation Trial Changed One CLO's Approach to Settlement Strategy",
-  subtitle: "The before and after was stark — from 'waiting for the quarterly report' to 'we knew the optimal settlement range before mediation started.' Here's what happened.",
+  section: "Case Study",
+  tag: "Results",
+  title:
+    "10 Cases, 30 Days: How One CLO Went From 'We Think We're Doing Fine' to 'We Had No Idea'",
+  subtitle:
+    "They picked their ten hardest cases. Ran real data through real dashboards. Within two weeks, they found three cases that should have settled months ago and two attorneys who were consistently underperforming. The math was hard to argue with.",
   readTime: "6 min",
   linksTo: "trial",
 };

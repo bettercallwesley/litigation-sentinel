@@ -52,10 +52,10 @@ export default function Home() {
           ))}
         </div>
 
-        {/* Featured Article — links to Council */}
+        {/* Featured Article — links to Executive Briefing */}
         <FadeIn delay={100}>
           <a
-            href="/council"
+            href="/briefing"
             style={{
               display: "block",
               padding: "32px 0 24px",
