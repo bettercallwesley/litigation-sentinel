@@ -1,0 +1,88 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Base Styles ────────────────────────────────────────────────────────── */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* ─── Scrollbar ──────────────────────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* ─── Selection ──────────────────────────────────────────────────────────── */
+::selection {
+  background: rgba(59, 130, 246, 0.3);
+  color: #F1F3F7;
+}
+
+/* ─── Focus Outline ──────────────────────────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid #3B82F6;
+  outline-offset: 2px;
+}
+
+button:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* ─── Mobile Responsive Media Queries ────────────────────────────────────── */
+@media (min-width: 700px) {
+  .app-layout {
+    display: flex !important;
+  }
+  .app-sidebar {
+    display: flex !important;
+  }
+  .app-topbar {
+    display: none !important;
+  }
+}
+
+@media (max-width: 699px) {
+  .app-layout {
+    display: block !important;
+  }
+  .app-sidebar {
+    display: none !important;
+  }
+  .app-topbar {
+    display: flex !important;
+  }
+  .responsive-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .trial-2col {
+    grid-template-columns: 1fr !important;
+  }
+  .council-grid-stats {
+    grid-template-columns: 1fr 1fr !important;
+  }
+}

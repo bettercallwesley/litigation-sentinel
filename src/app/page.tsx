@@ -1,101 +1,110 @@
-import Image from "next/image";
+"use client";
+
+import React from "react";
+import { SENTINEL, FONTS } from "@/components/design-system/tokens";
+import FadeIn from "@/components/design-system/FadeIn";
 
 export default function Home() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+    <div style={{ minHeight: "100vh", background: SENTINEL.bg, fontFamily: FONTS.sans }}>
+      <div style={{ maxWidth: 680, margin: "0 auto", padding: "0 24px 80px" }}>
+        {/* Masthead */}
+        <div style={{ textAlign: "center", padding: "48px 0 20px", borderBottom: `3px double ${SENTINEL.sentinel}` }}>
+          <div
+            style={{
+              fontSize: 10,
+              letterSpacing: "0.35em",
+              textTransform: "uppercase",
+              color: SENTINEL.inkMuted,
+              fontFamily: FONTS.sans,
+              fontWeight: 500,
+              marginBottom: 8,
+            }}
           >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            A CaseGlide Publication · Vol. 1 · Issue 12
+          </div>
+          <h1
+            style={{
+              fontSize: "clamp(36px, 6vw, 56px)",
+              fontFamily: FONTS.serif,
+              fontWeight: 700,
+              color: SENTINEL.sentinel,
+              margin: "0 0 6px",
+              letterSpacing: "-0.02em",
+              lineHeight: 1.05,
+            }}
           >
-            Read our docs
-          </a>
+            Litigation Sentinel
+          </h1>
+          <div
+            style={{
+              width: 48,
+              height: 3,
+              background: SENTINEL.sentinelAccent,
+              margin: "10px auto 12px",
+            }}
+          />
+          <div
+            style={{
+              fontSize: 12,
+              color: SENTINEL.inkMuted,
+              fontFamily: FONTS.sans,
+              letterSpacing: "0.08em",
+              textTransform: "uppercase",
+            }}
+          >
+            Intelligence for Corporate Litigation Leaders
+          </div>
+          <div style={{ fontSize: 11, color: SENTINEL.inkFaint, fontFamily: FONTS.sans, marginTop: 8 }}>
+            February 12, 2026
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+
+        {/* Placeholder for Phase 2 newsletter content */}
+        <FadeIn delay={200}>
+          <div style={{ padding: "80px 0", textAlign: "center" }}>
+            <div style={{ fontSize: 48, marginBottom: 16 }}>📰</div>
+            <h2
+              style={{
+                fontFamily: FONTS.serif,
+                fontSize: 24,
+                fontWeight: 500,
+                color: SENTINEL.ink,
+                margin: "0 0 8px",
+              }}
+            >
+              Litigation Sentinel
+            </h2>
+            <p style={{ fontSize: 14, color: SENTINEL.inkLight, lineHeight: 1.6 }}>
+              Premium editorial newsletter — coming in Phase 2.
+            </p>
+            <div style={{ display: "flex", gap: 16, justifyContent: "center", marginTop: 24, flexWrap: "wrap" }}>
+              <a href="/briefing" style={{ padding: "10px 20px", background: SENTINEL.sentinel, color: "#fff", borderRadius: 8, fontSize: 13, fontWeight: 600, textDecoration: "none" }}>
+                Executive Briefing →
+              </a>
+              <a href="/council" style={{ padding: "10px 20px", background: "transparent", color: SENTINEL.sentinel, border: `1px solid ${SENTINEL.border}`, borderRadius: 8, fontSize: 13, fontWeight: 600, textDecoration: "none" }}>
+                Council Program →
+              </a>
+              <a href="/trial" style={{ padding: "10px 20px", background: "transparent", color: SENTINEL.sentinel, border: `1px solid ${SENTINEL.border}`, borderRadius: 8, fontSize: 13, fontWeight: 600, textDecoration: "none" }}>
+                Trial →
+              </a>
+            </div>
+          </div>
+        </FadeIn>
+
+        {/* Footer */}
+        <div style={{ marginTop: 48, padding: "20px 0", borderTop: `2px solid ${SENTINEL.sentinel}`, textAlign: "center" }}>
+          <div style={{ fontSize: 14, fontFamily: FONTS.serif, fontWeight: 600, color: SENTINEL.sentinel, marginBottom: 4 }}>
+            Litigation Sentinel
+          </div>
+          <div style={{ fontSize: 10, color: SENTINEL.inkFaint, fontFamily: FONTS.sans }}>
+            Published by CaseGlide · www.LitigationSentinel.com
+          </div>
+          <div style={{ fontSize: 10, color: SENTINEL.inkFaint, fontFamily: FONTS.sans, marginTop: 2 }}>
+            © 2026 CaseGlide, Inc. All rights reserved.
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
