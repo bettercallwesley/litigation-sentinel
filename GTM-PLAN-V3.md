@@ -487,62 +487,375 @@ Claude generates these prompts fresh each session with current data, ready for W
 
 ---
 
-## Implementation Roadmap
+## Execution Schedule — Day by Day
 
-### Week 1: Foundation (Feb 20–28)
+**Three phases. 14 weeks. 10 hours/week max from Wes.**
 
-**Claude builds:**
-- [ ] Apollo API integration scripts (search, enrich, create, enroll)
-- [ ] Pipedrive API integration scripts (deals, contacts, pipeline, activities)
-- [ ] Typefully API integration for LinkedIn posting
-- [ ] Newsletter signup form connected to email service
-- [ ] Executive Briefing request form connected to Pipedrive
+Every session below: open Claude Code in the `litigation-sentinel` repo and paste the exact prompt shown. Claude reads CLAUDE.md automatically, which loads the full GTM context and document references.
 
-**Wes does:**
-- [ ] Provide Apollo API key
-- [ ] Provide Pipedrive API token
-- [ ] Sign up for Typefully Creator plan ($19/mo), provide API key
-- [ ] Choose email service for newsletter (Beehiiv, ConvertKit, or Mailchimp)
-- [ ] Execute Claude Chrome prompt to create/update Apollo email sequences
+---
 
-**Steve delivers (by Mar 1):**
-- [ ] All credential transfers
-- [ ] Industry Media Target List
-- [ ] Pipedrive pipeline review
+### PHASE 1: FOUNDATION BUILD (Feb 20 – Mar 7)
 
-### Week 2: Launch Apollo Engine (Mar 1–7)
+Build all integrations, create all sequences, test everything end-to-end. Heavy setup — drops to maintenance rhythm after this.
 
-- Apollo sequences active with updated messaging and Executive Briefing destination
-- Claude begins automated enrollment: 500+ contacts/week
-- Pipedrive auto-creating deals from engagement signals
-- First 3 LinkedIn posts scheduled via Typefully
-- Newsletter accepting signups
+#### Day 0 — Fri Feb 20 | 1 hr Wes time
 
-### Week 3–4: Optimize and Scale (Mar 8–21)
+**Wes does (no Claude prompt needed):**
+- [x] Provide Apollo API key ✓
+- [x] Provide Pipedrive API token ✓
+- [x] Provide Typefully API key ✓
+- [ ] Sign up for Beehiiv (free tier, beehiiv.com) → provide API key to Claude
+- [ ] Approve 5-email sequence copy (see "Email Sequence" section above in this plan)
 
-- Scale Apollo to 1,000+ contacts/week
-- Launch LinkedIn ads (Campaign D) with retargeting
-- First newsletter issue sent
-- Begin Promoter outreach (Campaign C) to top 10 media targets
-- Weekly performance reviews — which segments respond best?
+**Prompt to paste after providing Beehiiv key:**
+```
+Read GTM-PLAN-V3.md. Add the Beehiiv API key to .env. Then build all four API integration modules:
+1. Apollo API (search, enrich, create contacts, enroll in sequences, poll engagement)
+2. Pipedrive API (create pipeline with stages from GTM plan, create custom fields, CRUD deals/contacts/activities/notes)
+3. Typefully API (schedule LinkedIn posts to my profile)
+4. Beehiiv API (manage subscribers, prepare for newsletter sends)
+Build these as utility scripts in a new src/lib/api/ directory. Test each integration against the live APIs to confirm authentication works. Show me the results.
+```
 
-### Weeks 5–14: Full Execution (Mar 22 – May 31)
+**Milestone:** All 4 API connections verified working.
 
-- All campaigns running simultaneously
-- Claude automating execution across all channels
-- Wes + Liana conducting prospect meetings (Claude provides meeting prep)
-- Monthly decision: scale what's working, kill what's not
-- Continuous list expansion via Apollo People Search
-- Promoter campaign generating media appearances
+---
 
-### May 31: Decision Point
+#### Day 1 — Mon Feb 23 | 2.5 hrs Wes time
+
+**Prompt:**
+```
+Read GTM-PLAN-V3.md. Today is Day 1: Apollo Sequence Setup.
+1. Generate a Claude Chrome prompt for me to create the 5-step email sequence in Apollo UI. Use the exact copy from the "Email Sequence (Approved Template)" section of the GTM plan. Include sequence name, schedule settings (business days, 8am-6pm ET, 150/day limit), and auto-stop on reply.
+2. Generate a second Claude Chrome prompt for me to connect my sending mailbox in Apollo and configure warm-up settings.
+3. Using the Pipedrive API, create the full pipeline with these stages: Newsletter Subscriber → Briefing Scheduled → Briefing Completed → Council Proposed → Council Active → Trial → Contract. Create all custom fields (campaign_source, icp_segment, engagement_score, last_apollo_activity, linkedin_engaged).
+4. Show me the Pipedrive pipeline is live.
+```
+
+**Wes does after Claude finishes:**
+- Execute Chrome prompt #1: Create Apollo sequence (45 min)
+- Execute Chrome prompt #2: Connect mailbox + warm-up (30 min)
+- Review Pipedrive pipeline in UI, confirm stages look right (15 min)
+- Confirm to Claude that sequence and mailbox are set up (paste sequence ID if visible)
+
+**Milestone:** Apollo sequence created. Pipedrive pipeline live. Mailbox warming up.
+
+---
+
+#### Day 2 — Wed Feb 26 | 1.5 hrs Wes time
+
+**Prompt:**
+```
+Read GTM-PLAN-V3.md. Today is Day 2: Newsletter & Forms.
+1. Add a working newsletter signup form to the Litigation Sentinel page that connects to Beehiiv (creates subscriber via API). Include email field and a "Subscribe to Litigation Sentinel" button.
+2. Add a working Executive Briefing request form that creates a Pipedrive deal at the "Briefing Scheduled" stage with contact info. Include name, email, company, title fields.
+3. Schedule 3 LinkedIn posts for this week via Typefully API. Content pillars: litigation intelligence insight, nuclear verdict trend, governance gap. Use the voice/tone from docs/caseglide-master-context-memo-v2.md.
+4. Show me all three working: newsletter form, briefing form, scheduled posts.
+```
+
+**Wes does after Claude finishes:**
+- Test newsletter signup with a personal email — confirm it appears in Beehiiv (15 min)
+- Test Executive Briefing form — confirm deal appears in Pipedrive (15 min)
+- Review 3 LinkedIn posts in Typefully UI — approve/edit/reject (15 min)
+- Respond to any existing LinkedIn engagement (15 min)
+
+**Milestone:** Both conversion destinations functional. First LinkedIn posts queued.
+
+---
+
+#### Day 3 — Fri Feb 28 | 1.5 hrs Wes time
+
+**Prompt:**
+```
+Read GTM-PLAN-V3.md. Today is Day 3: Integration Testing.
+1. Run an end-to-end test: Use Apollo API to search for 10 contacts matching our ICP (F500 GC/CLO titles, 1000+ employees). Enrich them. Show me the results with names, titles, companies, and emails found.
+2. DO NOT enroll them yet — just show me the search + enrich flow works.
+3. Test the Apollo → Pipedrive bridge: create one test deal in Pipedrive from one of the enriched contacts. Show me it created correctly with all custom fields.
+4. Show me a mock weekly report using whatever test data we have — I want to see the format before we go live.
+5. Generate a checklist of everything that's ready vs. anything that still needs attention before we start enrolling real contacts Monday.
+```
+
+**Wes does after Claude finishes:**
+- Review search results — are these the right people? (15 min)
+- Review test Pipedrive deal (10 min)
+- Review weekly report format — request any changes (15 min)
+- Review go-live checklist — flag any blockers (15 min)
+- Confirm: "Go for warm-up enrollment Monday" or flag issues (5 min)
+
+**Milestone:** Full integration tested end-to-end. Go/no-go decision for Monday launch.
+
+---
+
+#### Day 4 — Mon Mar 2 | 2 hrs Wes time
+
+**Prompt:**
+```
+Read GTM-PLAN-V3.md. Today is Day 4: Warm-Up Launch.
+1. Search Apollo for the first batch: 50 contacts matching ICP criteria. Prioritize F500 GC, CLO, VP Legal titles. Enrich all 50.
+2. Enroll all 50 in the approved email sequence. This is warm-up volume — we'll scale after deliverability is confirmed.
+3. Create Pipedrive deals for all 50 enrolled contacts at "Newsletter Subscriber" stage with campaign_source = Apollo.
+4. Generate the first real Monday scan report: enrolled count, pipeline snapshot, any issues.
+5. Search Apollo for the next 200 contacts (don't enroll yet) — build the queue for Wednesday and Friday batches this week.
+```
+
+**Wes does after Claude finishes:**
+- Review Monday scan report (15 min)
+- Review the 50 enrolled contacts — any names to exclude? (15 min)
+- Review the 200-contact queue — approve for enrollment later this week (15 min)
+- Prospect meetings if scheduled (1 hr)
+
+**Milestone:** First 50 contacts enrolled. Apollo warm-up begins. Pipeline populated.
+
+---
+
+#### Day 5 — Wed Mar 5 | 1.5 hrs Wes time
+
+**Prompt:**
+```
+Post prep. Also: enroll the next batch of 100 contacts from Monday's queue. Poll Apollo for any engagement signals from the first 50 (opens, clicks, replies). Update Pipedrive with any engagement data. Schedule 3 new LinkedIn posts via Typefully for this week.
+```
+
+**Wes does after Claude finishes:**
+- Review engagement data from first 50 (15 min)
+- Review 3 LinkedIn posts in Typefully (15 min)
+- Respond to LinkedIn DMs/comments (15 min)
+- Prospect meetings if scheduled (45 min)
+
+**Milestone:** 150 total contacts enrolled. First engagement signals arriving.
+
+---
+
+#### Day 6 — Fri Mar 7 | 1.5 hrs Wes time
+
+**Prompt:**
+```
+Weekly report. Full Week 1 performance: Apollo deliverability (bounce rate, open rate for first 50), total enrolled, engagement signals, Pipedrive pipeline snapshot, LinkedIn post performance. Enroll the remaining 100 from the queue. Recommend volume for next week based on deliverability. Also: draft an outline for the first Litigation Sentinel newsletter issue — just the outline, not the full draft.
+```
+
+**Wes does after Claude finishes:**
+- Review weekly report (20 min)
+- Approve volume recommendation for next week (10 min)
+- Review newsletter outline — approve or redirect (15 min)
+- Next week planning (15 min)
+
+**Milestone:** End of Phase 1. 250 contacts enrolled. Deliverability data in. Ready to scale.
+
+---
+
+### PHASE 2: SCALE & LAUNCH ALL CHANNELS (Mar 9 – Mar 21)
+
+Scale Apollo to full volume. Send first newsletter. Prepare LinkedIn ads.
+
+#### Day 7 — Mon Mar 9 | 2 hrs Wes time
+
+**Prompt:**
+```
+Monday scan. Scale Apollo enrollment: search and enroll 300 new contacts (or whatever volume last week's deliverability supports). Poll all existing contacts for engagement. Update Pipedrive — move any 2+ email openers to engaged status. Flag any replies for my review. Show the full Monday report.
+```
+
+**Wes actions:** Review report (20 min), review flagged replies (20 min), prospect meetings (1 hr), strategy notes (20 min).
+
+---
+
+#### Day 8 — Wed Mar 12 | 2 hrs Wes time
+
+**Prompt:**
+```
+Post prep. Schedule 3 LinkedIn posts. Also: draft the full first issue of the Litigation Sentinel newsletter using the approved outline from Friday. Use the voice/tone from docs/caseglide-master-context-memo-v2.md. Lead article: 1,000-1,500 words on litigation intelligence. 2-3 shorter insights. Executive Briefing CTA. Format it for Beehiiv. Show me the draft for review.
+```
+
+**Wes actions:** Review LinkedIn posts in Typefully (15 min), review full newsletter draft — mark edits (30 min), LinkedIn engagement (15 min), prospect meetings (1 hr).
+
+---
+
+#### Day 9 — Fri Mar 14 | 1.5 hrs Wes time
+
+**Prompt:**
+```
+Weekly report. Full Week 2 performance. Apply my edits to the newsletter draft: [paste any edits here, or say "approved as-is"]. Prepare the newsletter for send via Beehiiv on Monday. Generate a Claude Chrome prompt for setting up LinkedIn ads — Campaign D from the GTM plan. Include all targeting specs, budget ($1,500/mo), and creative recommendations.
+```
+
+**Wes actions:** Review report (20 min), confirm newsletter ready (10 min), review LinkedIn ads Chrome prompt — plan to execute next week (20 min), next week planning (15 min).
+
+---
+
+#### Day 10 — Mon Mar 16 | 2.5 hrs Wes time
+
+**Prompt:**
+```
+Monday scan. Send the first Litigation Sentinel newsletter via Beehiiv to all subscribers. Enroll next Apollo batch (500+ if deliverability supports it). Full Monday report. Any replies to review?
+```
+
+**Wes actions:** Review report (20 min), review replies (15 min), execute LinkedIn ads Chrome prompt from Friday (45 min), prospect meetings (1 hr).
+
+**Milestone:** First newsletter sent. LinkedIn ads launching. Apollo at scale volume.
+
+---
+
+#### Day 11 — Wed Mar 19 | 1.5 hrs Wes time
+
+**Prompt:**
+```
+Post prep. Schedule 3 LinkedIn posts. Check newsletter open/click metrics from Monday's send. Poll Apollo engagement — focus on any contacts who opened email AND clicked. Those are high-intent. Update Pipedrive accordingly.
+```
+
+**Wes actions:** Review LinkedIn posts (15 min), review newsletter metrics (15 min), review high-intent contacts — any to follow up personally? (15 min), LinkedIn engagement (15 min), prospect meetings if scheduled (30 min).
+
+---
+
+#### Day 12 — Fri Mar 21 | 1.5 hrs Wes time
+
+**Prompt:**
+```
+Weekly report. Full Week 3 performance including: Apollo (total enrolled, deliverability, engagement by segment), newsletter (subscribers, open rate, clicks), LinkedIn (post engagement, follower growth), Pipedrive (deals by stage, new this week, stale). Begin Promoter campaign: identify top 10 media targets from docs and draft personalized pitches for each. Show me the pitches for approval.
+```
+
+**Wes actions:** Review report (20 min), review 10 media pitches — approve/edit (25 min), next week planning (15 min).
+
+**Milestone:** End of Phase 2. All channels live. Apollo at full volume. Newsletter sent. Ads running. Promoter outreach drafted.
+
+---
+
+### PHASE 3: FULL EXECUTION (Mar 23 – May 31)
+
+Steady-state rhythm. Same schedule every week. Claude runs the engine. Wes drives conversations.
+
+#### Every Monday | 2–2.5 hrs Wes time
+
+**Prompt:**
+```
+Monday scan
+```
+
+**What Claude does automatically:**
+- Searches and enrolls next Apollo batch (target: 500+/week)
+- Polls all contacts for engagement signals (opens, clicks, replies)
+- Updates Pipedrive — new deals, stage movements, engagement scores
+- Flags replies and high-intent contacts for Wes review
+- Generates weekly performance report (Apollo, newsletter, LinkedIn, pipeline)
+- Identifies stale deals (no movement in 7+ days), recommends action
+
+**Wes actions:**
+- Review performance report (30 min)
+- Review engaged contacts — decide on personal follow-ups (15 min)
+- Strategy adjustments if needed (15 min)
+- Prospect meetings (1–1.5 hrs)
+
+---
+
+#### Every Wednesday | 1.5–2 hrs Wes time
+
+**Prompt:**
+```
+Post prep
+```
+
+**What Claude does automatically:**
+- Drafts and schedules 3 LinkedIn posts via Typefully
+- Checks mid-week Apollo metrics
+- Updates Pipedrive with new signals
+- Drafts media pitches for Promoter campaign if active
+- Second Wednesday of each month: drafts full newsletter issue for review
+
+**Wes actions:**
+- Review LinkedIn posts in Typefully (15 min)
+- Respond to LinkedIn DMs/comments (15 min)
+- Review media pitches if applicable (15 min)
+- Review newsletter draft if applicable (30 min)
+- Prospect meetings (45 min–1 hr)
+
+---
+
+#### Every Thursday | 2 hrs Wes time
+
+**No prompt unless meetings are scheduled.**
+
+**Prompt if meeting scheduled:**
+```
+Meeting prep [company name]
+```
+
+**What Claude does:**
+- Researches the prospect company (litigation portfolio, public filings, news)
+- Identifies likely pain points from ICP profile
+- Suggests talking points tied to the demo script
+- Prepares a one-page briefing
+
+**Wes actions:**
+- Review meeting prep (15 min)
+- Conduct prospect meetings (1.5 hrs)
+
+---
+
+#### Every Friday | 1–1.5 hrs Wes time
+
+**Prompt:**
+```
+Weekly report
+```
+
+**What Claude does automatically:**
+- Comprehensive weekly report (all channels, all metrics)
+- Pipeline review with specific recommendations
+- Sequence copy performance (which emails get opened/clicked most)
+- Next week priorities
+- Last Friday of each month: monthly summary with trends and strategy recommendations
+
+**Wes actions:**
+- Review report (30 min)
+- Review newsletter draft if monthly (30 min)
+- Next week planning (15 min)
+
+---
+
+### Weekly Time Budget (Phase 3 Steady State)
+
+| Day | Wes Time | Activities |
+|-----|----------|-----------|
+| Monday | 2–2.5 hrs | Report review, engaged contacts, strategy, meetings |
+| Wednesday | 1.5–2 hrs | LinkedIn review, newsletter (monthly), media pitches, meetings |
+| Thursday | 2 hrs | Meeting prep, prospect meetings |
+| Friday | 1–1.5 hrs | Weekly report, planning |
+| **Total** | **7–8 hrs** | **2 hrs buffer for overflow** |
+
+---
+
+### Monthly Cadence (Within Weekly Rhythm)
+
+| When | What | Prompt |
+|------|------|--------|
+| 1st Monday | Monthly deep review | `Monday scan. Include monthly summary: trends, conversion rates by segment, what's working, what's not, strategy recommendations.` |
+| 2nd Wednesday | Newsletter draft | `Post prep. Also draft the monthly Litigation Sentinel newsletter issue.` |
+| 2nd Friday | Newsletter send approval | `Weekly report. Also finalize the newsletter with my edits: [paste edits]. Send via Beehiiv on Monday.` |
+| 3rd Monday | Newsletter send | `Monday scan. Send the newsletter via Beehiiv.` |
+| Last Friday | Month-end review | `Weekly report. Include month-end summary: total outreach, conversion rates, pipeline value, Executive Briefings completed, next month priorities. Propose any sequence copy changes based on engagement data.` |
+
+---
+
+### Key Milestones & Decision Points
+
+| Date | Milestone | Decision |
+|------|-----------|----------|
+| Feb 28 | All integrations tested | Go/no-go for Apollo warm-up |
+| Mar 7 | 250 contacts enrolled, deliverability confirmed | Go/no-go for full volume |
+| Mar 16 | First newsletter sent, ads launching | All channels live |
+| Mar 31 | Month 1 complete | First monthly review — which segments respond? |
+| Apr 14 | First Executive Briefings should be happening | Is the funnel converting? Adjust messaging? |
+| Apr 30 | Month 2 complete | Scale what's working, kill what's not |
+| May 15 | 2 weeks to decision | Final push — are we seeing traction? |
+| May 31 | **Decision point** | Are F500 legal and insurance viable for CaseGlide? |
+
+### May 31: Decision Criteria
 
 By end of May, we should have enough data to answer the core question. The metrics that matter:
-- Executive Briefings completed
-- Council programs proposed
+- Executive Briefings completed (target: 15–20)
+- Council programs proposed (target: 4–8)
 - Conversion rates by campaign and segment
-- Pipeline value
+- Pipeline value (target: $500K+)
 - Which ICP segments (F500 legal vs. insurance) show stronger signal
+- Total outreach volume achieved
+- Reply rate and quality of conversations
 
 ---
 
