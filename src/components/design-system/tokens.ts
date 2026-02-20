@@ -108,9 +108,9 @@ export const w95button = {
 
 // ─── Typography ─────────────────────────────────────────────────────────────
 export const FONTS = {
-  serif: "'Source Serif 4', Georgia, serif",
-  sans: "'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif",
-  mono: "'JetBrains Mono', 'SF Mono', monospace",
+  serif: "'Source Serif 4 Variable', 'Source Serif 4', Georgia, serif",
+  sans: "'DM Sans Variable', 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif",
+  mono: "'JetBrains Mono Variable', 'JetBrains Mono', 'SF Mono', monospace",
 } as const;
 
 // ─── Spacing Scale ──────────────────────────────────────────────────────────

@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { COLORS, FONTS, RADIUS } from "@/components/design-system/tokens";
+import { COLORS, FONTS } from "@/components/design-system/tokens";
 import { Card, Badge, FadeIn } from "@/components/design-system";
 import { CAMPAIGNS } from "@/data/campaigns";
 import { PROSPECTS } from "@/data/prospects";
@@ -50,7 +50,6 @@ function ChangeIndicator({ current, previous }: { current: number; previous: num
 export default function WeeklyReport() {
   const weekOf = "Feb 14 – Feb 20, 2026";
   const totalMeetings = CAMPAIGNS.reduce((sum, c) => sum + c.metrics.meetings, 0);
-  const pipelineProspects = PROSPECTS.filter(p => p.stage !== "subscriber");
 
   return (
     <div>
