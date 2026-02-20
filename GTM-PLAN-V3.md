@@ -505,7 +505,7 @@ Build all integrations, create all sequences, test everything end-to-end. Heavy 
 - [x] Provide Apollo API key ✓
 - [x] Provide Pipedrive API token ✓
 - [x] Provide Typefully API key ✓
-- [ ] Sign up for Beehiiv (free tier, beehiiv.com) → provide API key to Claude
+- [x] Sign up for Beehiiv (free tier, beehiiv.com) → provide API key to Claude ✓
 - [ ] Approve 5-email sequence copy (see "Email Sequence" section above in this plan)
 
 **Prompt to paste after providing Beehiiv key:**
