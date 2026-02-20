@@ -43,14 +43,15 @@
 - Test in both Fortune 500 and Insurance Company (Win95) modes
 
 ## GTM Execution Context (CRITICAL — read every session)
-- The full GTM Plan v2 is in **GTM-PLAN-V2.md** at the project root. READ IT at the start of any GTM-related session.
+- The full GTM Plan is in **GTM-PLAN-V3.md** at the project root. READ IT at the start of any GTM-related session. (V2 is archived in GTM-PLAN-V2.md.)
 - CaseGlide sells **Litigation Intelligence** to F500 GCs, CLOs, CROs, VP Claims, and insurance executives.
-- **Four campaigns:** A (Apollo email volume), B (LinkedIn precision InMail + organic), C (Promoter marketing to media/podcasts), D (LinkedIn ads)
+- **Primary objective:** Determine by May 31, 2026 whether F500 corporate legal and insurance are viable growth markets for CaseGlide.
+- **Campaign priority order:** 1) Apollo Volume Engine (API-automated email at scale), 2) Pipedrive Pipeline (API-automated CRM), 3) Litigation Sentinel Newsletter (holding bin), 4) LinkedIn Organic via Typefully API, 5) LinkedIn Ads, 6) Promoter Marketing. InMail is deprioritized.
 - **Two conversion destinations:** Executive Briefing (direct CTA) and Litigation Sentinel Newsletter (holding bin)
 - **Sales funnel:** Newsletter Subscriber → Briefing Scheduled → Briefing Completed → Council Proposed → Council Active → Trial → Contract
-- **Team:** Wes Todd (CEO, 10 hrs/week GTM), Liana Rodriguez (VP Client Ops, demos), Claude (automation, content drafting, research, meeting prep)
-- **Tools:** Apollo, Sales Navigator, LinkedIn, Campaign Manager, Pipedrive, Leadpages, WordPress, Litigation Sentinel platform
-- **Rules:** Never send InMail, publish LinkedIn post, change Apollo copy, or send Promoter outreach without Wes approval. All other actions (drafting, research, reporting, meeting prep) run autonomously.
+- **Team:** Wes Todd (CEO, 10 hrs/week GTM), Liana Rodriguez (VP Client Ops, demos), Claude (automation engine — API-driven execution)
+- **API Stack:** Apollo API (search, enrich, enroll, auto-send), Pipedrive API (deals, pipeline, contacts, webhooks), Typefully API (LinkedIn post scheduling)
+- **Automation-first rules:** Wes approves TEMPLATES and STRATEGY once. Claude executes autonomously within approved framework. No per-item approval bottleneck. Claude never modifies active sequences, sends from personal email, or changes caseglide.com without Wes approval.
+- **Claude Chrome prompts:** For non-API tasks (creating Apollo sequences, LinkedIn InMail, Sales Navigator, Campaign Manager), Claude generates atomic prompts for Wes to paste into Claude Chrome.
 - **Shortcuts:** "Monday scan" | "Post prep" | "InMail queue" | "Enroll batch" | "Promoter outreach" | "Weekly report" | "Pipeline review" | "Meeting prep [prospect]"
-- **Primary objective:** Determine by May 31, 2026 whether F500 corporate legal and insurance are viable growth markets for CaseGlide.
 - **Steve Kiernan** departed March 1. All GTM execution is Wes + Claude after that date.
