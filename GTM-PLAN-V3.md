@@ -307,7 +307,7 @@ The holding bin needs to actually function. Today it's a beautiful static site t
 
 ### What Needs to Be Built
 
-1. **Email signup form** on the Litigation Sentinel site → connected to an email service (Beehiiv, ConvertKit, or Mailchimp)
+1. **Email signup form** on the Litigation Sentinel site → connected to Beehiiv (free tier, REST API)
 2. **Executive Briefing request form** → creates a Pipedrive deal via API
 3. **Email delivery pipeline** → newsletter actually gets sent to subscribers
 4. **Vercel Analytics** → track traffic and conversion (free, already available)
