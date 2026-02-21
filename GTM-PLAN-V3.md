@@ -177,6 +177,107 @@ Steve's original list: 3,500 contacts. With 2 mailboxes, we cycle the entire lis
 
 Wes approves this copy ONCE. Claude executes it at scale.
 
+**Rule:** These emails sell the executive conversation, never the software. No feature dumps. No screenshots. No pricing.
+
+---
+
+**Email 1 | Day 1**
+**Subject:** The case everyone knows, the lesson no one applied
+
+{{first_name}},
+
+The McDonald's hot coffee verdict is the case every executive thinks they understand. Most don't. The real lesson isn't about frivolous lawsuits. It's about how quietly a routine claim drifts into a catastrophic outcome when nobody is watching the right signals.
+
+That pattern plays out inside corporate litigation portfolios constantly. Cases sit. Negotiations stall. Counsel sounds confident, but nothing moves. By the time leadership notices, severity has hardened and the outcome is already expensive.
+
+We work with legal and risk teams to surface those drift signals early, before matters age into problems that show up in board reports.
+
+I'd welcome 30 minutes to share what we're seeing across portfolios like {{company}}'s and where early intervention tends to change outcomes. Worth a conversation?
+
+Wes Todd
+CEO, CaseGlide
+
+---
+
+**Email 2 | Day 3**
+**Subject:** Where outcomes actually get set
+
+{{first_name}},
+
+Most litigation outcomes are effectively decided well before mediation or trial. They get set in small moments that rarely show up in status reports:
+
+/ How long since the last real negotiation movement
+/ Whether cases hit key inflection points on schedule
+/ Which firms push matters forward vs. let them age
+/ Which matters get senior attorney attention and which don't
+
+The challenge is that these moments are invisible unless you have a portfolio-level view. Individual case updates won't show you the pattern. And by the time a quarterly review surfaces the problem, the window for intervention has closed.
+
+We help leadership see these moments across the full portfolio, not just case by case. Happy to walk you through what that looks like in practice.
+
+Wes Todd
+CEO, CaseGlide
+
+---
+
+**Email 3 | Day 6**
+**Subject:** The questions boards ask
+
+{{first_name}},
+
+When boards and risk committees ask about litigation, they don't want matter summaries. They ask three things:
+
+/ Are we exposed right now?
+/ Is that exposure getting better or worse?
+/ If we could intervene in three places, where would we do it?
+
+Most legal teams struggle to answer those questions clearly because the truth lives in emails, PDFs, and individual attorney relationships. The information exists. It's just not structured in a way that produces defensible answers under pressure.
+
+We've spent a decade helping litigation teams close that gap. I'd value 30 minutes to show you how other leadership teams are building that narrative without overhauling their existing workflow.
+
+Wes Todd
+CEO, CaseGlide
+
+---
+
+**Email 4 | Day 9**
+**Subject:** What early visibility changes
+
+{{first_name}},
+
+Late visibility is the most expensive failure mode in litigation.
+
+Once severity hardens on a case, the cost of resolution goes up and the leverage to change direction goes down. The problem is that most teams only get a clear picture when something has already gone wrong, during a reserve spike, a surprise verdict, or a board question they can't answer confidently.
+
+Early visibility doesn't mean more reports or more dashboards. It means seeing where outcomes are being set across the portfolio and knowing which matters need attention before they drift past the point of intervention.
+
+That's the conversation I'd like to have. 30 minutes, no pitch, just a look at what early visibility changes for teams managing litigation at {{company}}'s scale.
+
+Wes Todd
+CEO, CaseGlide
+
+---
+
+**Email 5 | Day 14**
+**Subject:** Next step or close the loop?
+
+{{first_name}},
+
+I've sent a few notes about how legal and risk teams are getting earlier visibility into litigation outcomes. I want to be respectful of your time.
+
+If this is relevant to what you're working on at {{company}}, I'd welcome a 30-minute conversation. No preparation needed on your end.
+
+If the timing isn't right or this isn't a priority, no problem at all. Just say the word and I'll close the loop.
+
+Either way, appreciate your time.
+
+Wes Todd
+CEO, CaseGlide
+
+---
+
+**Summary Table:**
+
 | # | Day | Subject Line | Core Message |
 |---|-----|-------------|--------------|
 | 1 | 1 | The case everyone knows, the lesson no one applied | Portfolio drift is invisible until it's expensive. Offer executive briefing. |
@@ -184,8 +285,6 @@ Wes approves this copy ONCE. Claude executes it at scale.
 | 3 | 6 | The questions boards ask | Boards ask exposure, direction, top 3 interventions. Info trapped in emails/PDFs. |
 | 4 | 9 | What early visibility changes | Visibility is the most expensive failure mode. Severity hardens. |
 | 5 | 14 | Next step or close the loop? | Polite close. Yes/no. Permission to stop if not relevant. |
-
-**Rule:** These emails sell the executive conversation, never the software. No feature dumps. No screenshots. No pricing.
 
 ### What Needs UI Setup (Claude Chrome Prompts)
 
