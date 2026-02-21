@@ -1174,11 +1174,6 @@ Weekly report. Also write next week's newsletter based on this direction: [PASTE
 
 ---
 
-**Prompt:**
-```
-Post prep
-```
-
 ### Weekly Time Budget (Phase 3 Steady State)
 
 | Day | Wes Time | Activities |
