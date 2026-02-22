@@ -43,22 +43,28 @@
 - Test in both Fortune 500 and Insurance Company (Win95) modes
 
 ## Reference Documents (READ before any GTM or content task)
-- **GTM-PLAN-V3.md** — Full GTM plan. READ IT at the start of any GTM-related session. (V2 archived in GTM-PLAN-V2.md.)
+- **GTM-PLAN-V3.md** — Full GTM plan **with V3.1 amendment (newsletter-first strategy)**. READ IT at the start of any GTM-related session. The V3.1 amendment near the top overrides specific parts of V3 — read it carefully.
+- **DAILY-PROMPTS.md** — Phone-friendly daily execution prompts for Phase 1-2. Reference for one-time setup tasks.
 - **docs/caseglide-master-context-memo-v2.md** — Product positioning, messaging pillars, buyer personas, competitive landscape, voice/tone guide. READ before writing any outbound copy, newsletter content, LinkedIn posts, or sales materials.
 - **docs/caseglide-demo-script.md** — 25-minute demo script (McDonald's hot coffee case). READ before any meeting prep or demo-related work.
 - **SPEC.md** — Platform specification. READ before building any feature.
-- **.env** — API keys for Apollo, Pipedrive, Typefully (gitignored, local only)
+- **.env** — API keys for Apollo, Pipedrive, Typefully, Beehiiv (gitignored, local only)
 - **.env.example** — Template showing required keys
 
 ## GTM Execution Context (CRITICAL — read every session)
 - CaseGlide sells **Litigation Intelligence** to F500 GCs, CLOs, CROs, VP Claims, and insurance executives.
 - **Primary objective:** Determine by May 31, 2026 whether F500 corporate legal and insurance are viable growth markets for CaseGlide.
-- **Campaign priority order:** 1) Apollo Volume Engine (API-automated email at scale), 2) Pipedrive Pipeline (API-automated CRM), 3) Litigation Sentinel Newsletter (holding bin), 4) LinkedIn Organic via Typefully API, 5) LinkedIn Ads, 6) Promoter Marketing. InMail is deprioritized.
-- **Two conversion destinations:** Executive Briefing (direct CTA) and Litigation Sentinel Newsletter (holding bin)
-- **Sales funnel:** Newsletter Subscriber → Briefing Scheduled → Briefing Completed → Council Proposed → Council Active → Trial → Contract
+- **V3.1 STRATEGY (Feb 21, 2026):** Newsletter-first GTM. The Litigation Sentinel website is the PRIMARY destination for ALL outbound. Build the destination first, then drive traffic. See GTM-PLAN-V3.md V3.1 amendment for full details.
+- **Campaign priority order (V3.1 updated):** 1) Litigation Sentinel Newsletter Website (must be compelling before outbound launches), 2) Apollo Volume Engine (emails drive to newsletter, not direct briefing pitch), 3) Pipedrive Pipeline, 4) LinkedIn Organic via Typefully (link in comment, not body), 5) LinkedIn Ads (drive to newsletter), 6) Promoter Marketing.
+- **The funnel:** Apollo/LinkedIn/Ads → Litigation Sentinel Website → Newsletter Subscription → Weekly Newsletter (embedded ads) → Executive Briefing (email gate) / Council Landing Page (email capture) / Trial Landing Page (email capture) → Briefing → Council → Trial → Contract
+- **Weekly newsletter cadence:** Published every Monday. Claude researches Wed, writes Fri, Wes reviews Fri, Claude sends Mon.
+- **Sales funnel stages:** Newsletter Subscriber → Briefing Scheduled → Briefing Completed → Council Proposed → Council Active → Trial → Contract
 - **Team:** Wes Todd (CEO, 10 hrs/week GTM), Liana Rodriguez (VP Client Ops, demos), Claude (automation engine — API-driven execution)
-- **API Stack:** Apollo API (search, enrich, enroll, auto-send), Pipedrive API (deals, pipeline, contacts, webhooks), Typefully API (LinkedIn post scheduling). Keys stored in .env file.
+- **API Stack:** Apollo API (search, enrich, enroll, auto-send), Pipedrive API (deals, pipeline, contacts, webhooks), Typefully API (LinkedIn post scheduling), Beehiiv API (newsletter subscribers, email sends). Keys stored in .env file.
 - **Automation-first rules:** Wes approves TEMPLATES and STRATEGY once. Claude executes autonomously within approved framework. No per-item approval bottleneck. Claude never modifies active sequences, sends from personal email, or changes caseglide.com without Wes approval.
 - **Claude Chrome prompts:** For non-API tasks (creating Apollo sequences, LinkedIn InMail, Sales Navigator, Campaign Manager), Claude generates atomic prompts for Wes to paste into Claude Chrome.
-- **Shortcuts:** "Monday scan" | "Post prep" | "InMail queue" | "Enroll batch" | "Promoter outreach" | "Weekly report" | "Pipeline review" | "Meeting prep [prospect]"
+- **Custom slash commands (in .claude/commands/):** `/monday-scan` | `/post-prep` | `/weekly-report` | `/meeting-prep [company]` | `/enroll-batch` | `/pipeline-review` — These are the Phase 3 recurring prompts. For Phase 1-2 one-time tasks, see DAILY-PROMPTS.md.
 - **Steve Kiernan** departed March 1. All GTM execution is Wes + Claude after that date.
+- **Content pillars (current, Feb 2026):** Litigation funding transparency, RICO fraud ecosystem, AI in courts, nuclear verdicts/venue risk, plaintiff bar tactics. Content must be CURRENT — what F500 GCs care about THIS week.
+- **LinkedIn rules (V3.1):** No links in post body (throttled). Link goes in first comment. End with a question.
+- **Email gate rules (V3.1):** Executive Briefing requires email to get report. Council and Trial link to landing pages with email capture, NOT directly to apps.
