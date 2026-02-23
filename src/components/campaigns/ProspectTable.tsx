@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { COLORS, FONTS, RADIUS } from "@/components/design-system/tokens";
 import { Card, Badge, FadeIn } from "@/components/design-system";
-import { PROSPECTS, Prospect } from "@/data/prospects";
+import { PROSPECTS } from "@/data/prospects";
 import { PipelineStage, PIPELINE_STAGES } from "@/data/campaigns";
 
 const STAGE_COLORS: Record<PipelineStage, string> = {
