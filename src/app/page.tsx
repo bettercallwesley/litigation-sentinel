@@ -52,10 +52,10 @@ export default function Home() {
           ))}
         </div>
 
-        {/* Featured Article — links to Executive Briefing */}
+        {/* Featured Article */}
         <FadeIn delay={100}>
           <a
-            href="/briefing"
+            href={`/article/${FEATURED_ARTICLE.slug}`}
             style={{
               display: "block",
               padding: "32px 0 24px",
@@ -123,26 +123,27 @@ export default function Home() {
 
         {/* First batch of articles (3) */}
         {ARTICLES.slice(0, 3).map((a, i) => (
-          <ArticleCard
-            key={i}
-            article={a}
-            delay={180 + i * 60}
-          />
+          <a key={i} href={a.slug ? `/article/${a.slug}` : undefined} style={{ textDecoration: "none", display: "block" }}>
+            <ArticleCard
+              article={a}
+              delay={180 + i * 60}
+            />
+          </a>
         ))}
 
         {/* Executive Briefing CTA — dark ad card between articles */}
         <BriefingCTA delay={400} />
 
-        {/* How-To article → links to Council */}
-        <a href="/council" style={{ textDecoration: "none", display: "block" }}>
+        {/* How-To article */}
+        <a href={ARTICLES[3].slug ? `/article/${ARTICLES[3].slug}` : "/council"} style={{ textDecoration: "none", display: "block" }}>
           <ArticleCard
             article={ARTICLES[3]}
             delay={460}
           />
         </a>
 
-        {/* Trial article — links to Trial */}
-        <a href="/trial" style={{ textDecoration: "none", display: "block" }}>
+        {/* Trial article */}
+        <a href={TRIAL_ARTICLE.slug ? `/article/${TRIAL_ARTICLE.slug}` : "/trial"} style={{ textDecoration: "none", display: "block" }}>
           <ArticleCard
             article={TRIAL_ARTICLE}
             delay={500}
@@ -151,11 +152,12 @@ export default function Home() {
 
         {/* Remaining articles */}
         {ARTICLES.slice(4).map((a, i) => (
-          <ArticleCard
-            key={i + 4}
-            article={a}
-            delay={560 + i * 60}
-          />
+          <a key={i + 4} href={a.slug ? `/article/${a.slug}` : undefined} style={{ textDecoration: "none", display: "block" }}>
+            <ArticleCard
+              article={a}
+              delay={560 + i * 60}
+            />
+          </a>
         ))}
 
         {/* Subscribe block */}
