@@ -153,6 +153,89 @@ export default function Home() {
         {/* Executive Briefing CTA — dark ad card between articles */}
         <BriefingCTA delay={400} />
 
+        {/* Nuclear Verdicts Heat Map CTA */}
+        <FadeIn delay={430}>
+          <a
+            href="/nuclear-verdicts"
+            style={{
+              display: "block",
+              margin: "16px 0",
+              padding: "20px 24px",
+              background: SENTINEL.surface,
+              borderRadius: 14,
+              border: `1px solid ${SENTINEL.border}`,
+              cursor: "pointer",
+              textDecoration: "none",
+              transition: "border-color 0.2s",
+            }}
+          >
+            <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 6 }}>
+              <span
+                style={{
+                  fontSize: 9,
+                  fontWeight: 700,
+                  letterSpacing: "0.15em",
+                  textTransform: "uppercase",
+                  color: SENTINEL.sentinel,
+                  fontFamily: FONTS.sans,
+                }}
+              >
+                Interactive Tool
+              </span>
+              <span
+                style={{
+                  display: "inline-block",
+                  fontSize: 9,
+                  fontWeight: 600,
+                  letterSpacing: "0.1em",
+                  textTransform: "uppercase",
+                  color: SENTINEL.rose,
+                  fontFamily: FONTS.sans,
+                  background: "rgba(184, 84, 80, 0.06)",
+                  padding: "2px 8px",
+                  borderRadius: 3,
+                }}
+              >
+                New
+              </span>
+            </div>
+            <h3
+              style={{
+                fontSize: 16,
+                fontFamily: FONTS.serif,
+                fontWeight: 600,
+                color: SENTINEL.ink,
+                margin: "0 0 4px",
+                lineHeight: 1.35,
+              }}
+            >
+              Nuclear Verdicts® Heat Map: Explore Verdict Risk by State
+            </h3>
+            <p
+              style={{
+                fontSize: 13,
+                color: SENTINEL.inkLight,
+                lineHeight: 1.6,
+                margin: "0 0 6px",
+                fontFamily: FONTS.sans,
+              }}
+            >
+              Interactive state-by-state analysis of nuclear verdict frequency, total damages,
+              Judicial Hellhole® overlays, and year-over-year trends. 135 verdicts totaling $31.3B in 2024.
+            </p>
+            <span
+              style={{
+                fontSize: 11,
+                color: SENTINEL.accent,
+                fontFamily: FONTS.sans,
+                fontWeight: 600,
+              }}
+            >
+              Explore the map →
+            </span>
+          </a>
+        </FadeIn>
+
         {/* How-To article */}
         <a href={ARTICLES[3].slug ? `/article/${ARTICLES[3].slug}` : "/council"} style={{ textDecoration: "none", display: "block" }}>
           <ArticleCard
