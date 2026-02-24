@@ -23,6 +23,25 @@ import {
 import { US_STATE_PATHS, SMALL_STATE_LABELS } from "@/data/us-map-paths";
 import NuclearVerdictStateDetail from "./NuclearVerdictStateDetail";
 
+// ─── Dark-background heat colors (for the map panel only) ────────────────────
+
+function getDarkMapFill(tier: number): string {
+  switch (tier) {
+    case 1:
+      return "#334155"; // dark slate
+    case 2:
+      return "#92704C"; // warm bronze
+    case 3:
+      return "#D97706"; // amber
+    case 4:
+      return "#DC2626"; // red
+    case 5:
+      return "#B91C1C"; // deep crimson
+    default:
+      return "#334155";
+  }
+}
+
 // ─── Sub-components ──────────────────────────────────────────────────────────
 
 function StatCard({
@@ -39,14 +58,29 @@ function StatCard({
   return (
     <div
       style={{
-        padding: "16px 14px",
+        padding: "20px 16px 18px",
         background: SENTINEL.surface,
         border: `1px solid ${SENTINEL.border}`,
-        borderRadius: 12,
+        borderRadius: 14,
         textAlign: "center",
         minWidth: 0,
+        borderTop: "none",
+        position: "relative",
+        overflow: "hidden",
       }}
     >
+      {/* Accent gradient top border */}
+      <div
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          right: 0,
+          height: 3,
+          background: `linear-gradient(90deg, ${SENTINEL.sentinelAccent}, ${SENTINEL.accent}, ${SENTINEL.sentinelAccent})`,
+          borderRadius: "14px 14px 0 0",
+        }}
+      />
       <div
         style={{
           fontSize: 9,
@@ -55,14 +89,14 @@ function StatCard({
           textTransform: "uppercase",
           color: SENTINEL.inkMuted,
           fontFamily: FONTS.sans,
-          marginBottom: 6,
+          marginBottom: 8,
         }}
       >
         {label}
       </div>
       <div
         style={{
-          fontSize: "clamp(20px, 3vw, 28px)",
+          fontSize: "clamp(22px, 3vw, 32px)",
           fontFamily: FONTS.serif,
           fontWeight: 700,
           color: color || SENTINEL.sentinel,
@@ -72,7 +106,14 @@ function StatCard({
         {value}
       </div>
       {subtext && (
-        <div style={{ fontSize: 10, color: SENTINEL.inkMuted, fontFamily: FONTS.sans, marginTop: 4 }}>
+        <div
+          style={{
+            fontSize: 11,
+            color: SENTINEL.inkMuted,
+            fontFamily: FONTS.sans,
+            marginTop: 6,
+          }}
+        >
           {subtext}
         </div>
       )}
@@ -86,14 +127,12 @@ function TrendChart() {
   const chartW = 100;
   const chartH = 60;
 
-  // Build polyline points for damages
   const damagesPoints = NATIONAL_TRENDS.map((t, i) => {
     const x = (i / (NATIONAL_TRENDS.length - 1)) * chartW;
     const y = chartH - (t.totalDamages / maxDamages) * chartH;
     return `${x},${y}`;
   }).join(" ");
 
-  // Build polyline for verdict counts
   const verdictsPoints = NATIONAL_TRENDS.map((t, i) => {
     const x = (i / (NATIONAL_TRENDS.length - 1)) * chartW;
     const y = chartH - (t.totalVerdicts / maxVerdicts) * chartH;
@@ -103,12 +142,25 @@ function TrendChart() {
   return (
     <div
       style={{
-        padding: "16px",
+        padding: "20px",
         background: SENTINEL.surface,
         border: `1px solid ${SENTINEL.border}`,
-        borderRadius: 12,
+        borderRadius: 14,
+        position: "relative",
+        overflow: "hidden",
       }}
     >
+      <div
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          right: 0,
+          height: 3,
+          background: `linear-gradient(90deg, ${SENTINEL.sentinelAccent}, ${SENTINEL.accent}, ${SENTINEL.sentinelAccent})`,
+          borderRadius: "14px 14px 0 0",
+        }}
+      />
       <div
         style={{
           fontSize: 9,
@@ -117,16 +169,33 @@ function TrendChart() {
           textTransform: "uppercase",
           color: SENTINEL.sentinelAccent,
           fontFamily: FONTS.sans,
-          marginBottom: 12,
+          marginBottom: 4,
         }}
       >
         5-Year Trend (2020–2024)
       </div>
+      <div
+        style={{
+          fontSize: 10,
+          color: SENTINEL.inkMuted,
+          fontFamily: FONTS.sans,
+          marginBottom: 14,
+        }}
+      >
+        Marathon Strategies 2025 Report
+      </div>
       <svg
         viewBox={`-8 -4 ${chartW + 16} ${chartH + 24}`}
-        style={{ width: "100%", height: "auto", maxHeight: 120 }}
+        style={{ width: "100%", height: "auto", maxHeight: 140 }}
         preserveAspectRatio="xMidYMid meet"
       >
+        <defs>
+          <linearGradient id="damagesFill" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor={SENTINEL.rose} stopOpacity={0.15} />
+            <stop offset="100%" stopColor={SENTINEL.rose} stopOpacity={0.01} />
+          </linearGradient>
+        </defs>
+
         {/* Grid lines */}
         {[0, 0.25, 0.5, 0.75, 1].map((pct) => (
           <line
@@ -136,14 +205,14 @@ function TrendChart() {
             x2={chartW}
             y2={chartH - pct * chartH}
             stroke={SENTINEL.border}
-            strokeWidth={0.5}
+            strokeWidth={0.4}
           />
         ))}
 
         {/* Area fill for damages */}
         <polygon
           points={`0,${chartH} ${damagesPoints} ${chartW},${chartH}`}
-          fill="rgba(184,84,80,0.08)"
+          fill="url(#damagesFill)"
         />
 
         {/* Damages line */}
@@ -151,7 +220,7 @@ function TrendChart() {
           points={damagesPoints}
           fill="none"
           stroke={SENTINEL.rose}
-          strokeWidth={1.5}
+          strokeWidth={1.8}
           strokeLinecap="round"
           strokeLinejoin="round"
         />
@@ -161,7 +230,7 @@ function TrendChart() {
           points={verdictsPoints}
           fill="none"
           stroke={SENTINEL.accent}
-          strokeWidth={1.5}
+          strokeWidth={1.8}
           strokeLinecap="round"
           strokeLinejoin="round"
           strokeDasharray="3,2"
@@ -189,25 +258,70 @@ function TrendChart() {
         {NATIONAL_TRENDS.map((t, i) => {
           const x = (i / (NATIONAL_TRENDS.length - 1)) * chartW;
           const y = chartH - (t.totalDamages / maxDamages) * chartH;
-          return <circle key={`d-${t.year}`} cx={x} cy={y} r={2} fill={SENTINEL.rose} />;
+          return (
+            <g key={`d-${t.year}`}>
+              <circle cx={x} cy={y} r={3.5} fill={SENTINEL.surface} stroke={SENTINEL.rose} strokeWidth={1.5} />
+              <circle cx={x} cy={y} r={1.5} fill={SENTINEL.rose} />
+            </g>
+          );
+        })}
+
+        {/* Data points for verdicts */}
+        {NATIONAL_TRENDS.map((t, i) => {
+          const x = (i / (NATIONAL_TRENDS.length - 1)) * chartW;
+          const y = chartH - (t.totalVerdicts / maxVerdicts) * chartH;
+          return (
+            <g key={`v-${t.year}`}>
+              <circle cx={x} cy={y} r={3} fill={SENTINEL.surface} stroke={SENTINEL.accent} strokeWidth={1.2} />
+              <circle cx={x} cy={y} r={1.2} fill={SENTINEL.accent} />
+            </g>
+          );
         })}
       </svg>
-      <div style={{ display: "flex", gap: 16, marginTop: 8, justifyContent: "center" }}>
-        <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
-          <div style={{ width: 16, height: 2, background: SENTINEL.rose, borderRadius: 1 }} />
-          <span style={{ fontSize: 10, color: SENTINEL.inkMuted, fontFamily: FONTS.sans }}>Total Damages ($B)</span>
-        </div>
-        <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
+      <div
+        style={{
+          display: "flex",
+          gap: 20,
+          marginTop: 12,
+          justifyContent: "center",
+        }}
+      >
+        <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
           <div
             style={{
-              width: 16,
-              height: 2,
-              background: SENTINEL.accent,
-              borderRadius: 1,
-              borderTop: "1px dashed",
+              width: 18,
+              height: 3,
+              background: SENTINEL.rose,
+              borderRadius: 2,
             }}
           />
-          <span style={{ fontSize: 10, color: SENTINEL.inkMuted, fontFamily: FONTS.sans }}>Verdict Count</span>
+          <span
+            style={{
+              fontSize: 10,
+              color: SENTINEL.inkMuted,
+              fontFamily: FONTS.sans,
+            }}
+          >
+            Total Damages ($B)
+          </span>
+        </div>
+        <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+          <div
+            style={{
+              width: 18,
+              height: 0,
+              borderTop: `2px dashed ${SENTINEL.accent}`,
+            }}
+          />
+          <span
+            style={{
+              fontSize: 10,
+              color: SENTINEL.inkMuted,
+              fontFamily: FONTS.sans,
+            }}
+          >
+            Verdict Count
+          </span>
         </div>
       </div>
     </div>
@@ -218,12 +332,25 @@ function CaseTypeChart() {
   return (
     <div
       style={{
-        padding: "16px",
+        padding: "20px",
         background: SENTINEL.surface,
         border: `1px solid ${SENTINEL.border}`,
-        borderRadius: 12,
+        borderRadius: 14,
+        position: "relative",
+        overflow: "hidden",
       }}
     >
+      <div
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          right: 0,
+          height: 3,
+          background: `linear-gradient(90deg, ${SENTINEL.sentinelAccent}, ${SENTINEL.accent}, ${SENTINEL.sentinelAccent})`,
+          borderRadius: "14px 14px 0 0",
+        }}
+      />
       <div
         style={{
           fontSize: 9,
@@ -232,26 +359,55 @@ function CaseTypeChart() {
           textTransform: "uppercase",
           color: SENTINEL.sentinelAccent,
           fontFamily: FONTS.sans,
-          marginBottom: 12,
+          marginBottom: 4,
         }}
       >
-        Case Type Breakdown (2024)
+        Case Type Breakdown
+      </div>
+      <div
+        style={{
+          fontSize: 10,
+          color: SENTINEL.inkMuted,
+          fontFamily: FONTS.sans,
+          marginBottom: 14,
+        }}
+      >
+        Marathon Strategies 2025 Report
       </div>
       {CASE_TYPE_BREAKDOWN.map((ct) => (
-        <div key={ct.type} style={{ marginBottom: 8 }}>
-          <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 3 }}>
-            <span style={{ fontSize: 11, color: SENTINEL.ink, fontFamily: FONTS.sans, fontWeight: 500 }}>
+        <div key={ct.type} style={{ marginBottom: 10 }}>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              marginBottom: 4,
+            }}
+          >
+            <span
+              style={{
+                fontSize: 11,
+                color: SENTINEL.ink,
+                fontFamily: FONTS.sans,
+                fontWeight: 600,
+              }}
+            >
               {ct.type}
             </span>
-            <span style={{ fontSize: 11, color: SENTINEL.inkMuted, fontFamily: FONTS.sans }}>
-              {ct.percentage}% · ${ct.medianAward}M median
+            <span
+              style={{
+                fontSize: 11,
+                color: SENTINEL.inkMuted,
+                fontFamily: FONTS.sans,
+              }}
+            >
+              {ct.percentage}% &middot; ${ct.medianAward}M median
             </span>
           </div>
           <div
             style={{
-              height: 6,
+              height: 7,
               background: SENTINEL.bgWarm,
-              borderRadius: 3,
+              borderRadius: 4,
               overflow: "hidden",
             }}
           >
@@ -259,9 +415,9 @@ function CaseTypeChart() {
               style={{
                 width: `${ct.percentage}%`,
                 height: "100%",
-                background: ct.color,
-                borderRadius: 3,
-                transition: "width 0.8s cubic-bezier(0.22, 1, 0.36, 1)",
+                background: `linear-gradient(90deg, ${ct.color}, ${ct.color}dd)`,
+                borderRadius: 4,
+                transition: "width 1s cubic-bezier(0.22, 1, 0.36, 1)",
               }}
             />
           </div>
@@ -275,12 +431,25 @@ function HellholesList() {
   return (
     <div
       style={{
-        padding: "16px",
+        padding: "20px",
         background: SENTINEL.surface,
         border: `1px solid ${SENTINEL.border}`,
-        borderRadius: 12,
+        borderRadius: 14,
+        position: "relative",
+        overflow: "hidden",
       }}
     >
+      <div
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          right: 0,
+          height: 3,
+          background: `linear-gradient(90deg, ${SENTINEL.rose}, ${SENTINEL.amber})`,
+          borderRadius: "14px 14px 0 0",
+        }}
+      />
       <div
         style={{
           fontSize: 9,
@@ -292,9 +461,16 @@ function HellholesList() {
           marginBottom: 4,
         }}
       >
-        Judicial Hellholes® 2025–2026
+        Judicial Hellholes&reg; 2025–2026
       </div>
-      <div style={{ fontSize: 10, color: SENTINEL.inkMuted, fontFamily: FONTS.sans, marginBottom: 12 }}>
+      <div
+        style={{
+          fontSize: 10,
+          color: SENTINEL.inkMuted,
+          fontFamily: FONTS.sans,
+          marginBottom: 14,
+        }}
+      >
         Source: American Tort Reform Association
       </div>
       {JUDICIAL_HELLHOLES.map((h) => (
@@ -302,21 +478,21 @@ function HellholesList() {
           key={h.rank}
           style={{
             display: "flex",
-            gap: 10,
-            padding: "8px 0",
+            gap: 12,
+            padding: "10px 0",
             borderBottom: `1px solid ${SENTINEL.border}`,
             alignItems: "flex-start",
           }}
         >
           <span
             style={{
-              width: 22,
-              height: 22,
+              width: 24,
+              height: 24,
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              borderRadius: 6,
-              background: SENTINEL.rose,
+              borderRadius: 7,
+              background: `linear-gradient(135deg, ${SENTINEL.rose}, #922B28)`,
               color: "#fff",
               fontSize: 11,
               fontWeight: 700,
@@ -326,11 +502,26 @@ function HellholesList() {
           >
             {h.rank}
           </span>
-          <div>
-            <div style={{ fontSize: 12, fontWeight: 600, color: SENTINEL.ink, fontFamily: FONTS.sans }}>
+          <div style={{ flex: 1 }}>
+            <div
+              style={{
+                fontSize: 12,
+                fontWeight: 600,
+                color: SENTINEL.ink,
+                fontFamily: FONTS.sans,
+              }}
+            >
               {h.jurisdiction}
             </div>
-            <div style={{ fontSize: 11, color: SENTINEL.inkMuted, fontFamily: FONTS.sans, lineHeight: 1.4 }}>
+            <div
+              style={{
+                fontSize: 11,
+                color: SENTINEL.inkMuted,
+                fontFamily: FONTS.sans,
+                lineHeight: 1.45,
+                marginTop: 2,
+              }}
+            >
               {h.detail}
             </div>
           </div>
@@ -340,14 +531,14 @@ function HellholesList() {
       {/* Watch List */}
       <div
         style={{
-          marginTop: 14,
+          marginTop: 16,
           fontSize: 9,
           fontWeight: 700,
           letterSpacing: "0.15em",
           textTransform: "uppercase",
           color: SENTINEL.amber,
           fontFamily: FONTS.sans,
-          marginBottom: 8,
+          marginBottom: 10,
         }}
       >
         Watch List
@@ -362,7 +553,7 @@ function HellholesList() {
               fontWeight: 500,
               color: SENTINEL.amber,
               background: SENTINEL.goldSoft,
-              padding: "3px 10px",
+              padding: "4px 12px",
               borderRadius: 100,
               border: "1px solid rgba(193,154,62,0.15)",
             }}
@@ -375,7 +566,7 @@ function HellholesList() {
   );
 }
 
-// ─── Tooltip ─────────────────────────────────────────────────────────────────
+// ─── Map Tooltip (Glassmorphic) ──────────────────────────────────────────────
 
 function MapTooltip({
   state,
@@ -397,23 +588,33 @@ function MapTooltip({
         left: x,
         top: y,
         transform: "translate(-50%, -110%)",
-        background: SENTINEL.surface,
-        border: `1px solid ${SENTINEL.border}`,
-        borderRadius: 10,
-        padding: "10px 14px",
-        boxShadow: "0 4px 20px rgba(0,0,0,0.10)",
+        background: "rgba(15,23,42,0.95)",
+        backdropFilter: "blur(12px)",
+        WebkitBackdropFilter: "blur(12px)",
+        border: "1px solid rgba(255,255,255,0.1)",
+        borderRadius: 12,
+        padding: "12px 16px",
+        boxShadow:
+          "0 8px 32px rgba(0,0,0,0.4), 0 2px 8px rgba(0,0,0,0.2)",
         pointerEvents: "none",
         zIndex: 20,
-        minWidth: 180,
+        minWidth: 200,
         whiteSpace: "nowrap",
       }}
     >
-      <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4 }}>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: 8,
+          marginBottom: 6,
+        }}
+      >
         <span
           style={{
-            fontSize: 13,
-            fontWeight: 600,
-            color: SENTINEL.sentinel,
+            fontSize: 14,
+            fontWeight: 700,
+            color: "#F1F5F9",
             fontFamily: FONTS.sans,
           }}
         >
@@ -427,7 +628,7 @@ function MapTooltip({
             textTransform: "uppercase",
             color: riskTextColor,
             background: riskColor,
-            padding: "1px 6px",
+            padding: "2px 8px",
             borderRadius: 100,
             fontFamily: FONTS.sans,
           }}
@@ -437,83 +638,186 @@ function MapTooltip({
       </div>
       {state.verdictCount2024 > 0 ? (
         <>
-          <div style={{ fontSize: 11, color: SENTINEL.inkLight, fontFamily: FONTS.sans }}>
-            <strong>{state.verdictCount2024}</strong> nuclear verdicts · <strong>${state.totalDamages2024 >= 1000 ? `${(state.totalDamages2024 / 1000).toFixed(1)}B` : `${state.totalDamages2024}M`}</strong> total
+          <div
+            style={{
+              fontSize: 12,
+              color: "#CBD5E1",
+              fontFamily: FONTS.sans,
+              lineHeight: 1.5,
+            }}
+          >
+            <strong style={{ color: "#F1F5F9" }}>
+              {state.verdictCount2024}
+            </strong>{" "}
+            nuclear verdicts &middot;{" "}
+            <strong style={{ color: "#F1F5F9" }}>
+              $
+              {state.totalDamages2024 >= 1000
+                ? `${(state.totalDamages2024 / 1000).toFixed(1)}B`
+                : `${state.totalDamages2024}M`}
+            </strong>{" "}
+            total
           </div>
           {state.judicialHellhole && (
-            <div style={{ fontSize: 10, color: SENTINEL.rose, fontFamily: FONTS.sans, marginTop: 2 }}>
-              &#9888; Judicial Hellhole®
+            <div
+              style={{
+                fontSize: 10,
+                color: "#FCA5A5",
+                fontFamily: FONTS.sans,
+                marginTop: 3,
+              }}
+            >
+              &#9888; Judicial Hellhole&reg;
             </div>
           )}
         </>
       ) : (
-        <div style={{ fontSize: 11, color: SENTINEL.inkMuted, fontFamily: FONTS.sans }}>
+        <div
+          style={{
+            fontSize: 12,
+            color: "#64748B",
+            fontFamily: FONTS.sans,
+          }}
+        >
           No nuclear verdicts recorded in 2024
         </div>
       )}
-      <div style={{ fontSize: 10, color: SENTINEL.accent, fontFamily: FONTS.sans, marginTop: 4 }}>
-        Click for details
+      <div
+        style={{
+          fontSize: 11,
+          color: "#60A5FA",
+          fontFamily: FONTS.sans,
+          marginTop: 6,
+          fontWeight: 500,
+        }}
+      >
+        Click to explore &rarr;
       </div>
     </div>
   );
 }
 
-// ─── Legend ───────────────────────────────────────────────────────────────────
+// ─── Map Legend (Gradient bar) ────────────────────────────────────────────────
 
 function MapLegend() {
-  const tiers = [1, 2, 3, 4, 5] as const;
+  const tiers = [
+    { tier: 1, label: "Low", color: "#334155" },
+    { tier: 2, label: "Moderate", color: "#92704C" },
+    { tier: 3, label: "Elevated", color: "#D97706" },
+    { tier: 4, label: "High", color: "#DC2626" },
+    { tier: 5, label: "Critical", color: "#B91C1C" },
+  ];
+
   return (
     <div
       style={{
         display: "flex",
+        flexDirection: "column",
         alignItems: "center",
-        justifyContent: "center",
-        gap: 4,
-        padding: "10px 0",
-        flexWrap: "wrap",
+        gap: 6,
+        padding: "14px 0 6px",
       }}
     >
-      <span style={{ fontSize: 10, color: SENTINEL.inkMuted, fontFamily: FONTS.sans, marginRight: 4 }}>
-        Risk:
-      </span>
-      {tiers.map((tier) => (
-        <div key={tier} style={{ display: "flex", alignItems: "center", gap: 3 }}>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: 0,
+          borderRadius: 6,
+          overflow: "hidden",
+          border: "1px solid rgba(255,255,255,0.1)",
+        }}
+      >
+        {tiers.map((t) => (
           <div
+            key={t.tier}
             style={{
-              width: 14,
+              width: 48,
               height: 14,
-              borderRadius: 3,
-              background: getRiskColor(tier),
-              border: tier === 1 ? `1px solid ${SENTINEL.border}` : "none",
+              background: t.color,
             }}
           />
-          <span style={{ fontSize: 10, color: SENTINEL.inkMuted, fontFamily: FONTS.sans, marginRight: 6 }}>
-            {getRiskLabel(tier)}
+        ))}
+      </div>
+      <div
+        style={{
+          display: "flex",
+          width: 240,
+          justifyContent: "space-between",
+        }}
+      >
+        {tiers.map((t) => (
+          <span
+            key={t.tier}
+            style={{
+              fontSize: 9,
+              color: "rgba(255,255,255,0.5)",
+              fontFamily: FONTS.sans,
+              textAlign: "center",
+              width: 48,
+            }}
+          >
+            {t.label}
           </span>
-        </div>
-      ))}
-      <div style={{ display: "flex", alignItems: "center", gap: 3, marginLeft: 8 }}>
-        <span style={{ fontSize: 12, color: SENTINEL.rose }}>&#9888;</span>
-        <span style={{ fontSize: 10, color: SENTINEL.inkMuted, fontFamily: FONTS.sans }}>
-          Judicial Hellhole®
+        ))}
+      </div>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: 6,
+          marginTop: 4,
+        }}
+      >
+        <span
+          className="hellhole-pulse"
+          style={{
+            width: 10,
+            height: 10,
+            borderRadius: "50%",
+            background: "#DC2626",
+            display: "inline-block",
+          }}
+        />
+        <span
+          style={{
+            fontSize: 10,
+            color: "rgba(255,255,255,0.5)",
+            fontFamily: FONTS.sans,
+          }}
+        >
+          Judicial Hellhole&reg;
         </span>
       </div>
     </div>
   );
 }
 
-// ─── Notable Verdicts ────────────────────────────────────────────────────────
+// ─── Notable Verdicts Table ──────────────────────────────────────────────────
 
 function NotableVerdictsTable() {
   return (
     <div
       style={{
-        padding: "16px",
+        padding: "20px",
         background: SENTINEL.surface,
         border: `1px solid ${SENTINEL.border}`,
-        borderRadius: 12,
+        borderRadius: 14,
+        position: "relative",
+        overflow: "hidden",
       }}
     >
+      <div
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          right: 0,
+          height: 3,
+          background: `linear-gradient(90deg, ${SENTINEL.rose}, ${SENTINEL.sentinelAccent}, ${SENTINEL.accent})`,
+          borderRadius: "14px 14px 0 0",
+        }}
+      />
       <div
         style={{
           fontSize: 9,
@@ -525,10 +829,18 @@ function NotableVerdictsTable() {
           marginBottom: 4,
         }}
       >
-        Notable Nuclear Verdicts® — Verified Landmark Cases
+        Notable Nuclear Verdicts&reg; — Verified Landmark Cases
       </div>
-      <div style={{ fontSize: 10, color: SENTINEL.inkMuted, fontFamily: FONTS.sans, marginBottom: 12 }}>
-        Sources: Marathon Strategies, Morgan &amp; Morgan Verdict Magazine, Tyson &amp; Mendes
+      <div
+        style={{
+          fontSize: 10,
+          color: SENTINEL.inkMuted,
+          fontFamily: FONTS.sans,
+          marginBottom: 14,
+        }}
+      >
+        Sources: Marathon Strategies 2025 Report, Morgan &amp; Morgan Verdict
+        Magazine, Tyson &amp; Mendes
       </div>
       <div style={{ overflowX: "auto" }}>
         <table
@@ -541,24 +853,26 @@ function NotableVerdictsTable() {
         >
           <thead>
             <tr>
-              {["Amount", "Case", "State", "Year", "Type", "Source"].map((h) => (
-                <th
-                  key={h}
-                  style={{
-                    textAlign: "left",
-                    padding: "6px 8px",
-                    borderBottom: `2px solid ${SENTINEL.border}`,
-                    fontSize: 9,
-                    fontWeight: 700,
-                    letterSpacing: "0.08em",
-                    textTransform: "uppercase",
-                    color: SENTINEL.inkMuted,
-                    whiteSpace: "nowrap",
-                  }}
-                >
-                  {h}
-                </th>
-              ))}
+              {["Amount", "Case", "State", "Year", "Type", "Source"].map(
+                (h) => (
+                  <th
+                    key={h}
+                    style={{
+                      textAlign: "left",
+                      padding: "8px 10px",
+                      borderBottom: `2px solid ${SENTINEL.border}`,
+                      fontSize: 9,
+                      fontWeight: 700,
+                      letterSpacing: "0.08em",
+                      textTransform: "uppercase",
+                      color: SENTINEL.inkMuted,
+                      whiteSpace: "nowrap",
+                    }}
+                  >
+                    {h}
+                  </th>
+                )
+              )}
             </tr>
           </thead>
           <tbody>
@@ -569,45 +883,123 @@ function NotableVerdictsTable() {
                   borderBottom: `1px solid ${SENTINEL.border}`,
                 }}
                 onMouseEnter={(e) => {
-                  (e.currentTarget as HTMLTableRowElement).style.background = SENTINEL.bgWarm;
+                  (
+                    e.currentTarget as HTMLTableRowElement
+                  ).style.background = SENTINEL.bgWarm;
                 }}
                 onMouseLeave={(e) => {
-                  (e.currentTarget as HTMLTableRowElement).style.background = "transparent";
+                  (
+                    e.currentTarget as HTMLTableRowElement
+                  ).style.background = "transparent";
                 }}
               >
                 <td
                   style={{
-                    padding: "8px 8px",
+                    padding: "10px 10px",
                     fontWeight: 700,
-                    color: v.amount >= 1000 ? SENTINEL.rose : SENTINEL.ink,
+                    color:
+                      v.amount >= 1000 ? SENTINEL.rose : SENTINEL.ink,
                     fontFamily: FONTS.serif,
-                    fontSize: 13,
+                    fontSize: 14,
                     whiteSpace: "nowrap",
                   }}
                 >
-                  {v.amountLabel}
+                  <span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
+                    {v.amountLabel}
+                    {v.amount >= 1000 && (
+                      <span
+                        style={{
+                          fontSize: 8,
+                          fontWeight: 800,
+                          letterSpacing: "0.1em",
+                          textTransform: "uppercase",
+                          color: "#fff",
+                          background: `linear-gradient(135deg, ${SENTINEL.rose}, #922B28)`,
+                          padding: "2px 6px",
+                          borderRadius: 4,
+                          fontFamily: FONTS.sans,
+                          lineHeight: 1,
+                        }}
+                      >
+                        BILLION
+                      </span>
+                    )}
+                    {v.year === 2025 && (
+                      <span
+                        style={{
+                          fontSize: 8,
+                          fontWeight: 800,
+                          letterSpacing: "0.1em",
+                          textTransform: "uppercase",
+                          color: "#fff",
+                          background: `linear-gradient(135deg, ${SENTINEL.emerald}, #1a5e45)`,
+                          padding: "2px 6px",
+                          borderRadius: 4,
+                          fontFamily: FONTS.sans,
+                          lineHeight: 1,
+                        }}
+                      >
+                        NEW
+                      </span>
+                    )}
+                  </span>
                 </td>
-                <td style={{ padding: "8px 8px", maxWidth: 220 }}>
-                  <div style={{ fontWeight: 600, color: SENTINEL.ink, fontSize: 11, lineHeight: 1.3 }}>
+                <td style={{ padding: "10px 10px", maxWidth: 240 }}>
+                  <div
+                    style={{
+                      fontWeight: 600,
+                      color: SENTINEL.ink,
+                      fontSize: 11,
+                      lineHeight: 1.3,
+                    }}
+                  >
                     {v.caseName}
                   </div>
-                  <div style={{ fontSize: 10, color: SENTINEL.inkMuted, lineHeight: 1.4, marginTop: 2 }}>
+                  <div
+                    style={{
+                      fontSize: 10,
+                      color: SENTINEL.inkMuted,
+                      lineHeight: 1.45,
+                      marginTop: 2,
+                    }}
+                  >
                     {v.detail}
                   </div>
                 </td>
-                <td style={{ padding: "8px 8px", whiteSpace: "nowrap", color: SENTINEL.ink }}>
+                <td
+                  style={{
+                    padding: "10px 10px",
+                    whiteSpace: "nowrap",
+                    color: SENTINEL.ink,
+                  }}
+                >
                   {v.state}
-                  <div style={{ fontSize: 9, color: SENTINEL.inkMuted }}>{v.jurisdiction}</div>
+                  <div
+                    style={{
+                      fontSize: 9,
+                      color: SENTINEL.inkMuted,
+                    }}
+                  >
+                    {v.jurisdiction}
+                  </div>
                 </td>
-                <td style={{ padding: "8px 8px", color: SENTINEL.inkLight }}>{v.year}</td>
-                <td style={{ padding: "8px 8px" }}>
+                <td
+                  style={{
+                    padding: "10px 10px",
+                    color: SENTINEL.inkLight,
+                    fontWeight: v.year === 2025 ? 700 : 400,
+                  }}
+                >
+                  {v.year}
+                </td>
+                <td style={{ padding: "10px 10px" }}>
                   <span
                     style={{
                       fontSize: 9,
                       fontWeight: 600,
                       color: SENTINEL.accent,
                       background: SENTINEL.accentSoft,
-                      padding: "2px 6px",
+                      padding: "3px 8px",
                       borderRadius: 100,
                       whiteSpace: "nowrap",
                     }}
@@ -615,7 +1007,14 @@ function NotableVerdictsTable() {
                     {v.caseType}
                   </span>
                 </td>
-                <td style={{ padding: "8px 8px", fontSize: 10, color: SENTINEL.inkMuted, whiteSpace: "nowrap" }}>
+                <td
+                  style={{
+                    padding: "10px 10px",
+                    fontSize: 10,
+                    color: SENTINEL.inkMuted,
+                    whiteSpace: "nowrap",
+                  }}
+                >
                   {v.source}
                 </td>
               </tr>
@@ -627,19 +1026,32 @@ function NotableVerdictsTable() {
   );
 }
 
-// ─── Industry Breakdown ─────────────────────────────────────────────────────
+// ─── Industry Breakdown ──────────────────────────────────────────────────────
 
 function IndustryChart() {
   const maxDmg = Math.max(...INDUSTRY_BREAKDOWN.map((b) => b.totalDamages));
   return (
     <div
       style={{
-        padding: "16px",
+        padding: "20px",
         background: SENTINEL.surface,
         border: `1px solid ${SENTINEL.border}`,
-        borderRadius: 12,
+        borderRadius: 14,
+        position: "relative",
+        overflow: "hidden",
       }}
     >
+      <div
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          right: 0,
+          height: 3,
+          background: `linear-gradient(90deg, ${SENTINEL.sentinelAccent}, ${SENTINEL.accent}, ${SENTINEL.sentinelAccent})`,
+          borderRadius: "14px 14px 0 0",
+        }}
+      />
       <div
         style={{
           fontSize: 9,
@@ -651,26 +1063,52 @@ function IndustryChart() {
           marginBottom: 4,
         }}
       >
-        Industry Breakdown (2024)
+        Industry Breakdown
       </div>
-      <div style={{ fontSize: 10, color: SENTINEL.inkMuted, fontFamily: FONTS.sans, marginBottom: 12 }}>
-        Source: Marathon Strategies
+      <div
+        style={{
+          fontSize: 10,
+          color: SENTINEL.inkMuted,
+          fontFamily: FONTS.sans,
+          marginBottom: 14,
+        }}
+      >
+        Marathon Strategies 2025 Report &middot; Total damages by sector
       </div>
       {INDUSTRY_BREAKDOWN.map((b) => (
-        <div key={b.industry} style={{ marginBottom: 8 }}>
-          <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 3 }}>
-            <span style={{ fontSize: 11, color: SENTINEL.ink, fontFamily: FONTS.sans, fontWeight: 500 }}>
+        <div key={b.industry} style={{ marginBottom: 10 }}>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              marginBottom: 4,
+            }}
+          >
+            <span
+              style={{
+                fontSize: 11,
+                color: SENTINEL.ink,
+                fontFamily: FONTS.sans,
+                fontWeight: 600,
+              }}
+            >
               {b.industry}
             </span>
-            <span style={{ fontSize: 11, color: SENTINEL.inkMuted, fontFamily: FONTS.sans }}>
+            <span
+              style={{
+                fontSize: 11,
+                color: SENTINEL.inkMuted,
+                fontFamily: FONTS.sans,
+              }}
+            >
               ${b.totalDamages}B
             </span>
           </div>
           <div
             style={{
-              height: 6,
+              height: 7,
               background: SENTINEL.bgWarm,
-              borderRadius: 3,
+              borderRadius: 4,
               overflow: "hidden",
             }}
           >
@@ -678,9 +1116,9 @@ function IndustryChart() {
               style={{
                 width: `${(b.totalDamages / maxDmg) * 100}%`,
                 height: "100%",
-                background: b.color,
-                borderRadius: 3,
-                transition: "width 0.8s cubic-bezier(0.22, 1, 0.36, 1)",
+                background: `linear-gradient(90deg, ${b.color}, ${b.color}dd)`,
+                borderRadius: 4,
+                transition: "width 1s cubic-bezier(0.22, 1, 0.36, 1)",
               }}
             />
           </div>
@@ -690,7 +1128,7 @@ function IndustryChart() {
   );
 }
 
-// ─── Key Findings (Social Inflation Stats) ──────────────────────────────────
+// ─── Key Findings (Social Inflation Stats) ───────────────────────────────────
 
 function KeyFindings() {
   const stats = SOCIAL_INFLATION_STATS;
@@ -712,6 +1150,12 @@ function KeyFindings() {
       value: `$3M avg → $20M avg award`,
       source: "Swiss Re",
       color: SENTINEL.sentinel,
+    },
+    {
+      label: "Juror Attitude Shift",
+      value: `"Too many lawsuits": 90% agreed (2016) → 56% agree (2025)`,
+      source: "Swiss Re Verdicts on Trial 2025",
+      color: "#E74C3C",
     },
     {
       label: "Trucking Avg Verdict Growth",
@@ -748,12 +1192,25 @@ function KeyFindings() {
   return (
     <div
       style={{
-        padding: "16px",
+        padding: "20px",
         background: SENTINEL.surface,
         border: `1px solid ${SENTINEL.border}`,
-        borderRadius: 12,
+        borderRadius: 14,
+        position: "relative",
+        overflow: "hidden",
       }}
     >
+      <div
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          right: 0,
+          height: 3,
+          background: `linear-gradient(90deg, ${SENTINEL.sentinelAccent}, ${SENTINEL.accent}, ${SENTINEL.sentinelAccent})`,
+          borderRadius: "14px 14px 0 0",
+        }}
+      />
       <div
         style={{
           fontSize: 9,
@@ -765,19 +1222,32 @@ function KeyFindings() {
           marginBottom: 4,
         }}
       >
-        Key Findings — Social Inflation & Defense Intelligence
+        Key Findings — Social Inflation &amp; Defense Intelligence
       </div>
-      <div style={{ fontSize: 10, color: SENTINEL.inkMuted, fontFamily: FONTS.sans, marginBottom: 12 }}>
+      <div
+        style={{
+          fontSize: 10,
+          color: SENTINEL.inkMuted,
+          fontFamily: FONTS.sans,
+          marginBottom: 14,
+        }}
+      >
         Multi-source actuarial and industry data
       </div>
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: 10 }}>
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
+          gap: 12,
+        }}
+      >
         {findings.map((f) => (
           <div
             key={f.label}
             style={{
-              padding: "12px",
+              padding: "14px",
               background: SENTINEL.bgWarm,
-              borderRadius: 8,
+              borderRadius: 10,
               borderLeft: `3px solid ${f.color}`,
             }}
           >
@@ -787,7 +1257,7 @@ function KeyFindings() {
                 fontWeight: 600,
                 color: SENTINEL.inkLight,
                 fontFamily: FONTS.sans,
-                marginBottom: 4,
+                marginBottom: 6,
               }}
             >
               {f.label}
@@ -799,12 +1269,18 @@ function KeyFindings() {
                 fontWeight: 600,
                 color: SENTINEL.ink,
                 lineHeight: 1.3,
-                marginBottom: 4,
+                marginBottom: 6,
               }}
             >
               {f.value}
             </div>
-            <div style={{ fontSize: 9, color: SENTINEL.inkMuted, fontFamily: FONTS.sans }}>
+            <div
+              style={{
+                fontSize: 9,
+                color: SENTINEL.inkMuted,
+                fontFamily: FONTS.sans,
+              }}
+            >
               Source: {f.source}
             </div>
           </div>
@@ -814,18 +1290,31 @@ function KeyFindings() {
   );
 }
 
-// ─── Data Sources ───────────────────────────────────────────────────────────
+// ─── Data Sources ────────────────────────────────────────────────────────────
 
 function SourcesList() {
   return (
     <div
       style={{
-        padding: "16px",
+        padding: "20px",
         background: SENTINEL.surface,
         border: `1px solid ${SENTINEL.border}`,
-        borderRadius: 12,
+        borderRadius: 14,
+        position: "relative",
+        overflow: "hidden",
       }}
     >
+      <div
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          right: 0,
+          height: 3,
+          background: `linear-gradient(90deg, ${SENTINEL.sentinelAccent}, ${SENTINEL.accent}, ${SENTINEL.sentinelAccent})`,
+          borderRadius: "14px 14px 0 0",
+        }}
+      />
       <div
         style={{
           fontSize: 9,
@@ -834,29 +1323,36 @@ function SourcesList() {
           textTransform: "uppercase",
           color: SENTINEL.sentinelAccent,
           fontFamily: FONTS.sans,
-          marginBottom: 12,
+          marginBottom: 14,
         }}
       >
-        Data Sources & Methodology
+        Data Sources &amp; Methodology
       </div>
       <div
         style={{
           display: "grid",
           gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
-          gap: 8,
+          gap: 10,
         }}
       >
         {DATA_SOURCES.map((s) => (
           <div
             key={s.name}
             style={{
-              padding: "10px 12px",
+              padding: "12px 14px",
               background: SENTINEL.bgWarm,
-              borderRadius: 8,
+              borderRadius: 10,
               border: `1px solid ${SENTINEL.border}`,
             }}
           >
-            <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 4 }}>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: 6,
+                marginBottom: 6,
+              }}
+            >
               <span
                 style={{
                   fontSize: 11,
@@ -875,9 +1371,15 @@ function SourcesList() {
                   fontWeight: 700,
                   letterSpacing: "0.06em",
                   textTransform: "uppercase",
-                  color: s.accessLevel === "free" ? SENTINEL.emerald : SENTINEL.amber,
-                  background: s.accessLevel === "free" ? "rgba(45,122,95,0.08)" : "rgba(196,140,44,0.08)",
-                  padding: "2px 6px",
+                  color:
+                    s.accessLevel === "free"
+                      ? SENTINEL.emerald
+                      : SENTINEL.amber,
+                  background:
+                    s.accessLevel === "free"
+                      ? "rgba(45,122,95,0.08)"
+                      : "rgba(196,140,44,0.08)",
+                  padding: "2px 8px",
                   borderRadius: 100,
                   fontFamily: FONTS.sans,
                   flexShrink: 0,
@@ -886,7 +1388,14 @@ function SourcesList() {
                 {s.accessLevel}
               </span>
             </div>
-            <div style={{ fontSize: 10, color: SENTINEL.inkMuted, fontFamily: FONTS.sans, lineHeight: 1.4 }}>
+            <div
+              style={{
+                fontSize: 10,
+                color: SENTINEL.inkMuted,
+                fontFamily: FONTS.sans,
+                lineHeight: 1.45,
+              }}
+            >
               {s.description}
             </div>
           </div>
@@ -898,23 +1407,39 @@ function SourcesList() {
 
 // ─── Main Component ──────────────────────────────────────────────────────────
 
-interface NuclearVerdictsHeatMapProps {
+export default function NuclearVerdictsHeatMap({
+  isPreview = false,
+}: {
   isPreview?: boolean;
-}
-
-export default function NuclearVerdictsHeatMap({ isPreview = false }: NuclearVerdictsHeatMapProps) {
+}) {
   const [hoveredState, setHoveredState] = useState<string | null>(null);
-  const [selectedState, setSelectedState] = useState<StateVerdictData | null>(null);
+  const [selectedState, setSelectedState] = useState<StateVerdictData | null>(
+    null
+  );
   const [tooltipPos, setTooltipPos] = useState({ x: 0, y: 0 });
 
-  // States shown in preview mode (top 5 + a few low-risk for contrast)
-  const previewStates = new Set(["TX", "CA", "PA", "NY", "NV", "FL", "OH", "WI", "OR"]);
+  // States shown in preview mode
+  const previewStates = new Set([
+    "TX",
+    "CA",
+    "PA",
+    "NY",
+    "NV",
+    "FL",
+    "OH",
+    "WI",
+    "OR",
+  ]);
 
   const handleMouseEnter = useCallback(
     (stateId: string, event: React.MouseEvent<SVGPathElement>) => {
       setHoveredState(stateId);
-      const rect = (event.target as SVGPathElement).ownerSVGElement?.getBoundingClientRect();
-      const targetRect = (event.target as SVGPathElement).getBoundingClientRect();
+      const rect = (
+        event.target as SVGPathElement
+      ).ownerSVGElement?.getBoundingClientRect();
+      const targetRect = (
+        event.target as SVGPathElement
+      ).getBoundingClientRect();
       if (rect) {
         setTooltipPos({
           x: targetRect.left + targetRect.width / 2 - rect.left,
@@ -922,23 +1447,20 @@ export default function NuclearVerdictsHeatMap({ isPreview = false }: NuclearVer
         });
       }
     },
-    [],
+    []
   );
 
   const handleMouseLeave = useCallback(() => {
     setHoveredState(null);
   }, []);
 
-  const handleClick = useCallback(
-    (stateId: string) => {
-      const stateData = STATE_VERDICT_DATA.find((s) => s.id === stateId);
-      if (stateData) {
-        setSelectedState(stateData);
-        setHoveredState(null);
-      }
-    },
-    [],
-  );
+  const handleClick = useCallback((stateId: string) => {
+    const stateData = STATE_VERDICT_DATA.find((s) => s.id === stateId);
+    if (stateData) {
+      setSelectedState(stateData);
+      setHoveredState(null);
+    }
+  }, []);
 
   const hoveredStateData = hoveredState
     ? STATE_VERDICT_DATA.find((s) => s.id === hoveredState) || null
@@ -946,54 +1468,136 @@ export default function NuclearVerdictsHeatMap({ isPreview = false }: NuclearVer
 
   const stateDataMap = new Map(STATE_VERDICT_DATA.map((s) => [s.id, s]));
 
-  // Determine if a state is blurred in preview mode
-  const isBlurred = (stateId: string) => isPreview && !previewStates.has(stateId);
+  const isBlurred = (stateId: string) =>
+    isPreview && !previewStates.has(stateId);
+
+  // Judicial hellhole positions for pulsing dots
+  const hellholePositions = JUDICIAL_HELLHOLES.map((h) => {
+    const sp = US_STATE_PATHS.find((s) => s.id === h.state);
+    return sp ? { ...h, labelX: sp.labelX, labelY: sp.labelY } : null;
+  }).filter(Boolean) as Array<{
+    rank: number;
+    jurisdiction: string;
+    state: string;
+    detail: string;
+    labelX: number;
+    labelY: number;
+  }>;
 
   return (
     <div>
+      {/* ─── Pulsing animation keyframes ─── */}
+      <style
+        dangerouslySetInnerHTML={{
+          __html: `
+            @keyframes hellholePulse {
+              0% {
+                box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.6);
+                transform: scale(1);
+              }
+              50% {
+                box-shadow: 0 0 0 6px rgba(220, 38, 38, 0);
+                transform: scale(1.1);
+              }
+              100% {
+                box-shadow: 0 0 0 0 rgba(220, 38, 38, 0);
+                transform: scale(1);
+              }
+            }
+            @keyframes svgPulse {
+              0% { r: 5; opacity: 0.9; }
+              50% { r: 8; opacity: 0.4; }
+              100% { r: 5; opacity: 0.9; }
+            }
+            @keyframes svgPulseOuter {
+              0% { r: 8; opacity: 0.3; }
+              50% { r: 14; opacity: 0; }
+              100% { r: 8; opacity: 0.3; }
+            }
+            .hellhole-pulse {
+              animation: hellholePulse 2s ease-in-out infinite;
+            }
+            .map-state-path {
+              transition: filter 0.2s ease, opacity 0.2s ease, stroke-width 0.2s ease;
+            }
+            .map-state-path:hover {
+              filter: drop-shadow(0 0 8px rgba(255,255,255,0.4));
+            }
+          `,
+        }}
+      />
+
       {/* ─── Hero Header ─── */}
       <FadeIn delay={100}>
-        <div style={{ textAlign: "center", marginBottom: 32 }}>
+        <div style={{ textAlign: "center", marginBottom: 36 }}>
+          {/* Gold pill badge */}
           <div
             style={{
-              fontSize: 9,
-              fontWeight: 700,
-              letterSpacing: "0.2em",
-              textTransform: "uppercase",
-              color: SENTINEL.sentinelAccent,
-              fontFamily: FONTS.sans,
-              marginBottom: 10,
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 6,
+              padding: "6px 16px",
+              background: SENTINEL.goldSoft,
+              border: `1px solid rgba(193,154,62,0.2)`,
+              borderRadius: 100,
+              marginBottom: 16,
             }}
           >
-            Interactive Intelligence
+            <span
+              style={{
+                fontSize: 10,
+                fontWeight: 700,
+                letterSpacing: "0.15em",
+                textTransform: "uppercase",
+                color: SENTINEL.sentinelAccent,
+                fontFamily: FONTS.sans,
+              }}
+            >
+              2025 Report — Interactive Intelligence
+            </span>
           </div>
           <h1
             style={{
-              fontSize: "clamp(28px, 5vw, 42px)",
+              fontSize: "clamp(30px, 5vw, 48px)",
               fontFamily: FONTS.serif,
               fontWeight: 700,
               color: SENTINEL.sentinel,
-              margin: "0 0 10px",
-              lineHeight: 1.15,
+              margin: "0 0 14px",
+              lineHeight: 1.12,
               letterSpacing: "-0.02em",
             }}
           >
-            Nuclear Verdicts<sup style={{ fontSize: "0.5em", verticalAlign: "super" }}>&reg;</sup> Heat Map
+            Nuclear Verdicts
+            <sup style={{ fontSize: "0.4em", verticalAlign: "super" }}>
+              &reg;
+            </sup>{" "}
+            Heat Map
           </h1>
           <p
             style={{
               fontSize: 15,
               color: SENTINEL.inkLight,
-              lineHeight: 1.65,
-              maxWidth: 540,
+              lineHeight: 1.7,
+              maxWidth: 580,
               margin: "0 auto",
               fontFamily: FONTS.sans,
             }}
           >
             Explore the geography of nuclear verdicts across the United States.
-            Click any state to see verdict frequency, total damages, judicial risk factors,
-            and year-over-year trends.
+            Click any state to see verdict frequency, total damages, judicial
+            risk factors, and year-over-year trends.
           </p>
+          <div
+            style={{
+              marginTop: 14,
+              fontSize: 11,
+              color: SENTINEL.inkMuted,
+              fontFamily: FONTS.sans,
+            }}
+          >
+            Data: Marathon Strategies 2025 Report &middot; Morgan &amp; Morgan
+            2025 &middot; 15+ actuarial sources
+          </div>
         </div>
       </FadeIn>
 
@@ -1002,13 +1606,13 @@ export default function NuclearVerdictsHeatMap({ isPreview = false }: NuclearVer
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))",
-            gap: 10,
-            marginBottom: 28,
+            gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))",
+            gap: 12,
+            marginBottom: 32,
           }}
         >
           <StatCard
-            label="Nuclear Verdicts® (2024)"
+            label="Nuclear Verdicts&reg;"
             value={KEY_STATS.totalVerdicts2024.toString()}
             subtext={`+${KEY_STATS.yoyVerdictGrowth}% YoY`}
             color={SENTINEL.rose}
@@ -1033,38 +1637,87 @@ export default function NuclearVerdictsHeatMap({ isPreview = false }: NuclearVer
         </div>
       </FadeIn>
 
-      {/* ─── Interactive Map ─── */}
+      {/* ─── Dark Map Panel ─── */}
       <FadeIn delay={300}>
         <div
           style={{
             position: "relative",
-            background: SENTINEL.surface,
-            border: `1px solid ${SENTINEL.border}`,
+            background: "linear-gradient(135deg, #0F172A 0%, #1E293B 50%, #0F172A 100%)",
             borderRadius: 14,
-            padding: "20px 16px 8px",
-            marginBottom: 12,
+            padding: "28px 20px 12px",
+            marginBottom: 16,
             overflow: "hidden",
+            border: "1px solid rgba(255,255,255,0.06)",
           }}
         >
+          {/* Ambient glow effects */}
+          <div
+            style={{
+              position: "absolute",
+              top: "-20%",
+              left: "10%",
+              width: 400,
+              height: 400,
+              background:
+                "radial-gradient(circle, rgba(185,28,28,0.08) 0%, transparent 60%)",
+              pointerEvents: "none",
+            }}
+          />
+          <div
+            style={{
+              position: "absolute",
+              bottom: "-10%",
+              right: "15%",
+              width: 350,
+              height: 350,
+              background:
+                "radial-gradient(circle, rgba(217,119,6,0.06) 0%, transparent 60%)",
+              pointerEvents: "none",
+            }}
+          />
+          <div
+            style={{
+              position: "absolute",
+              top: "30%",
+              left: "50%",
+              width: 500,
+              height: 500,
+              transform: "translateX(-50%)",
+              background:
+                "radial-gradient(circle, rgba(27,77,143,0.05) 0%, transparent 60%)",
+              pointerEvents: "none",
+            }}
+          />
+
           <div
             style={{
               fontSize: 9,
               fontWeight: 700,
-              letterSpacing: "0.15em",
+              letterSpacing: "0.2em",
               textTransform: "uppercase",
-              color: SENTINEL.sentinelAccent,
+              color: "rgba(255,255,255,0.4)",
               fontFamily: FONTS.sans,
-              marginBottom: 12,
+              marginBottom: 16,
               textAlign: "center",
+              position: "relative",
+              zIndex: 1,
             }}
           >
-            Click a state to explore
+            Click a state to explore &middot; {KEY_STATS.statesWithNuclearVerdicts} states with nuclear verdicts
           </div>
 
-          {/* SVG Map container with aspect ratio */}
-          <div style={{ position: "relative", width: "100%", maxWidth: 800, margin: "0 auto" }}>
+          {/* SVG Map */}
+          <div
+            style={{
+              position: "relative",
+              width: "100%",
+              maxWidth: 860,
+              margin: "0 auto",
+              zIndex: 1,
+            }}
+          >
             <svg
-              viewBox="100 90 810 480"
+              viewBox="-65 0 1050 620"
               style={{
                 width: "100%",
                 height: "auto",
@@ -1075,7 +1728,7 @@ export default function NuclearVerdictsHeatMap({ isPreview = false }: NuclearVer
               {US_STATE_PATHS.map((sp) => {
                 const sd = stateDataMap.get(sp.id);
                 const tier = sd?.riskTier || 1;
-                const fill = getRiskColor(tier);
+                const fill = getDarkMapFill(tier);
                 const isHovered = hoveredState === sp.id;
                 const blurred = isBlurred(sp.id);
 
@@ -1083,28 +1736,41 @@ export default function NuclearVerdictsHeatMap({ isPreview = false }: NuclearVer
                   <path
                     key={sp.id}
                     d={sp.d}
-                    fill={blurred ? "#D5D3CE" : fill}
-                    stroke={isHovered ? SENTINEL.sentinel : "#FFFFFF"}
-                    strokeWidth={isHovered ? 2 : 1}
+                    fill={blurred ? "rgba(51,65,85,0.3)" : fill}
+                    stroke={
+                      isHovered
+                        ? "#FFFFFF"
+                        : "rgba(255,255,255,0.12)"
+                    }
+                    strokeWidth={isHovered ? 2.5 : 0.8}
+                    className="map-state-path"
                     style={{
-                      cursor: "pointer",
-                      transition: "fill 0.2s, stroke-width 0.2s",
-                      opacity: blurred ? 0.4 : isHovered ? 1 : 0.88,
-                      filter: blurred ? "blur(1px)" : "none",
+                      cursor: blurred ? "default" : "pointer",
+                      opacity: blurred ? 0.3 : isHovered ? 1 : 0.92,
+                      filter: blurred
+                        ? "blur(1.5px)"
+                        : isHovered
+                        ? "drop-shadow(0 0 12px rgba(255,255,255,0.35))"
+                        : "none",
                     }}
-                    onMouseEnter={(e) => !blurred && handleMouseEnter(sp.id, e)}
+                    onMouseEnter={(e) =>
+                      !blurred && handleMouseEnter(sp.id, e)
+                    }
                     onMouseLeave={handleMouseLeave}
                     onClick={() => !blurred && handleClick(sp.id)}
                   />
                 );
               })}
 
-              {/* State labels (only for larger states) */}
+              {/* State labels for larger states */}
               {US_STATE_PATHS.filter(
-                (sp) => !SMALL_STATE_LABELS.some((s) => s.id === sp.id),
+                (sp) =>
+                  !SMALL_STATE_LABELS.some((s) => s.id === sp.id)
               ).map((sp) => {
                 const blurred = isBlurred(sp.id);
                 if (blurred) return null;
+                const sd = stateDataMap.get(sp.id);
+                const tier = sd?.riskTier || 1;
                 return (
                   <text
                     key={`label-${sp.id}`}
@@ -1112,9 +1778,13 @@ export default function NuclearVerdictsHeatMap({ isPreview = false }: NuclearVer
                     y={sp.labelY}
                     textAnchor="middle"
                     dominantBaseline="middle"
-                    fill={getRiskTextColor(stateDataMap.get(sp.id)?.riskTier || 1)}
-                    fontSize={9}
-                    fontWeight={600}
+                    fill={
+                      tier >= 3
+                        ? "rgba(255,255,255,0.9)"
+                        : "rgba(255,255,255,0.6)"
+                    }
+                    fontSize={10}
+                    fontWeight={700}
                     fontFamily={FONTS.sans}
                     style={{ pointerEvents: "none" }}
                   >
@@ -1123,7 +1793,7 @@ export default function NuclearVerdictsHeatMap({ isPreview = false }: NuclearVer
                 );
               })}
 
-              {/* Small state external labels with leader lines */}
+              {/* Small state external labels */}
               {SMALL_STATE_LABELS.map((sl) => {
                 const blurred = isBlurred(sl.id);
                 if (blurred) return null;
@@ -1134,7 +1804,7 @@ export default function NuclearVerdictsHeatMap({ isPreview = false }: NuclearVer
                       y1={sl.lineEndY}
                       x2={sl.labelX - 8}
                       y2={sl.labelY}
-                      stroke={SENTINEL.inkFaint}
+                      stroke="rgba(255,255,255,0.15)"
                       strokeWidth={0.5}
                     />
                     <text
@@ -1142,7 +1812,7 @@ export default function NuclearVerdictsHeatMap({ isPreview = false }: NuclearVer
                       y={sl.labelY}
                       textAnchor="start"
                       dominantBaseline="middle"
-                      fill={SENTINEL.inkMuted}
+                      fill="rgba(255,255,255,0.45)"
                       fontSize={8}
                       fontFamily={FONTS.sans}
                     >
@@ -1152,26 +1822,45 @@ export default function NuclearVerdictsHeatMap({ isPreview = false }: NuclearVer
                 );
               })}
 
-              {/* Judicial Hellhole indicators */}
-              {JUDICIAL_HELLHOLES.map((h) => {
-                const sp = US_STATE_PATHS.find((s) => s.id === h.state);
-                if (!sp || isBlurred(h.state)) return null;
+              {/* Pulsing Judicial Hellhole indicators */}
+              {hellholePositions.map((h) => {
+                if (isBlurred(h.state)) return null;
                 return (
                   <g key={`hellhole-${h.state}`}>
+                    {/* Outer pulsing ring */}
                     <circle
-                      cx={sp.labelX}
-                      cy={sp.labelY - 14}
-                      r={5}
-                      fill={SENTINEL.rose}
-                      opacity={0.9}
+                      cx={h.labelX}
+                      cy={h.labelY - 16}
+                      r={10}
+                      fill="none"
+                      stroke="#DC2626"
+                      strokeWidth={1}
+                      opacity={0.3}
+                      style={{
+                        animation:
+                          "svgPulseOuter 2s ease-in-out infinite",
+                      }}
                     />
+                    {/* Pulsing red dot */}
+                    <circle
+                      cx={h.labelX}
+                      cy={h.labelY - 16}
+                      r={6}
+                      fill="#DC2626"
+                      opacity={0.85}
+                      style={{
+                        animation:
+                          "svgPulse 2s ease-in-out infinite",
+                      }}
+                    />
+                    {/* Rank number */}
                     <text
-                      x={sp.labelX}
-                      y={sp.labelY - 11}
+                      x={h.labelX}
+                      y={h.labelY - 13}
                       textAnchor="middle"
                       fill="#fff"
-                      fontSize={6}
-                      fontWeight={700}
+                      fontSize={7}
+                      fontWeight={800}
                       fontFamily={FONTS.sans}
                     >
                       {h.rank}
@@ -1202,35 +1891,51 @@ export default function NuclearVerdictsHeatMap({ isPreview = false }: NuclearVer
             <NuclearVerdictStateDetail
               state={selectedState}
               onClose={() => setSelectedState(null)}
-              isPreview={isPreview && !previewStates.has(selectedState.id)}
+              isPreview={
+                isPreview && !previewStates.has(selectedState.id)
+              }
             />
           </div>
         </FadeIn>
       )}
 
-      {/* ─── Subscriber Gate for detailed analytics ─── */}
+      {/* ─── Subscriber Gate for preview mode ─── */}
       {isPreview && (
         <FadeIn delay={400}>
           <div
             style={{
               margin: "24px 0",
-              padding: "32px 24px",
-              background: SENTINEL.bgDark,
+              padding: "40px 28px",
+              background: "linear-gradient(135deg, #0A0E1A 0%, #1E293B 100%)",
               borderRadius: 14,
               textAlign: "center",
               position: "relative",
               overflow: "hidden",
+              border: "1px solid rgba(255,255,255,0.06)",
             }}
           >
             {/* Background glow */}
             <div
               style={{
                 position: "absolute",
-                top: -40,
-                right: -40,
+                top: -60,
+                right: -60,
+                width: 280,
+                height: 280,
+                background:
+                  "radial-gradient(circle, rgba(184,84,80,0.15) 0%, transparent 70%)",
+                pointerEvents: "none",
+              }}
+            />
+            <div
+              style={{
+                position: "absolute",
+                bottom: -40,
+                left: -40,
                 width: 200,
                 height: 200,
-                background: "radial-gradient(circle, rgba(184,84,80,0.12) 0%, transparent 70%)",
+                background:
+                  "radial-gradient(circle, rgba(193,154,62,0.1) 0%, transparent 70%)",
                 pointerEvents: "none",
               }}
             />
@@ -1242,43 +1947,53 @@ export default function NuclearVerdictsHeatMap({ isPreview = false }: NuclearVer
                   textTransform: "uppercase",
                   color: SENTINEL.sentinelAccent,
                   fontFamily: FONTS.sans,
-                  fontWeight: 600,
-                  marginBottom: 10,
+                  fontWeight: 700,
+                  marginBottom: 12,
                 }}
               >
                 Subscriber Exclusive
               </div>
               <h3
                 style={{
-                  fontSize: "clamp(18px, 3vw, 24px)",
+                  fontSize: "clamp(20px, 3vw, 28px)",
                   fontFamily: FONTS.serif,
                   fontWeight: 600,
                   color: "#F1F3F7",
-                  margin: "0 0 10px",
+                  margin: "0 0 12px",
                   lineHeight: 1.3,
                 }}
               >
-                Unlock the Full Nuclear Verdicts<sup style={{ fontSize: "0.5em" }}>&reg;</sup> Intelligence Map
+                Unlock the Full Nuclear Verdicts
+                <sup style={{ fontSize: "0.45em" }}>&reg;</sup>{" "}
+                Intelligence Map
               </h3>
               <p
                 style={{
-                  fontSize: 13,
+                  fontSize: 14,
                   color: "#8B95A8",
-                  lineHeight: 1.65,
-                  maxWidth: 460,
-                  margin: "0 auto 20px",
+                  lineHeight: 1.7,
+                  maxWidth: 500,
+                  margin: "0 auto 24px",
                   fontFamily: FONTS.sans,
                 }}
               >
                 Get detailed state-by-state analytics, case type breakdowns,
-                judicial risk assessments, trend data, and downloadable reports.
-                Updated monthly with the latest verdict intelligence.
+                judicial risk assessments, trend data, and downloadable
+                reports. Updated monthly with the latest verdict intelligence.
               </p>
-              <div style={{ display: "flex", flexWrap: "wrap", gap: 8, justifyContent: "center", marginBottom: 20 }}>
+              <div
+                style={{
+                  display: "flex",
+                  flexWrap: "wrap",
+                  gap: 8,
+                  justifyContent: "center",
+                  marginBottom: 24,
+                }}
+              >
                 {[
                   "All 50 states + DC",
                   "Case type breakdown",
-                  "Judicial Hellhole® overlay",
+                  "Judicial Hellhole\u00AE overlay",
                   "Trend charts",
                   "Monthly updates",
                 ].map((feat) => (
@@ -1287,9 +2002,9 @@ export default function NuclearVerdictsHeatMap({ isPreview = false }: NuclearVer
                     style={{
                       fontSize: 10,
                       fontFamily: FONTS.sans,
-                      color: "#8B95A8",
+                      color: "#94A3B8",
                       background: "rgba(255,255,255,0.06)",
-                      padding: "4px 10px",
+                      padding: "5px 12px",
                       borderRadius: 100,
                       border: "1px solid rgba(255,255,255,0.08)",
                     }}
@@ -1303,10 +2018,11 @@ export default function NuclearVerdictsHeatMap({ isPreview = false }: NuclearVer
                 style={{
                   display: "inline-flex",
                   alignItems: "center",
-                  gap: 6,
-                  padding: "12px 28px",
-                  background: "linear-gradient(135deg, #B85450, #922B28)",
-                  borderRadius: 10,
+                  gap: 8,
+                  padding: "14px 32px",
+                  background:
+                    "linear-gradient(135deg, #B85450, #922B28)",
+                  borderRadius: 12,
                   color: "#fff",
                   fontSize: 14,
                   fontWeight: 600,
@@ -1314,6 +2030,7 @@ export default function NuclearVerdictsHeatMap({ isPreview = false }: NuclearVer
                   textDecoration: "none",
                   border: "none",
                   cursor: "pointer",
+                  boxShadow: "0 4px 20px rgba(184,84,80,0.3)",
                 }}
               >
                 Subscribe for Full Access
@@ -1323,14 +2040,16 @@ export default function NuclearVerdictsHeatMap({ isPreview = false }: NuclearVer
         </FadeIn>
       )}
 
-      {/* ─── Detailed Analytics (subscribers only in preview mode) ─── */}
+      {/* ─── Detailed Analytics (full mode only) ─── */}
       {!isPreview && (
         <>
+          {/* Trend + Case Type */}
           <FadeIn delay={400}>
             <div
               style={{
                 display: "grid",
-                gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+                gridTemplateColumns:
+                  "repeat(auto-fit, minmax(300px, 1fr))",
                 gap: 16,
                 marginBottom: 24,
               }}
@@ -1340,11 +2059,13 @@ export default function NuclearVerdictsHeatMap({ isPreview = false }: NuclearVer
             </div>
           </FadeIn>
 
+          {/* Hellholes + Industry */}
           <FadeIn delay={500}>
             <div
               style={{
                 display: "grid",
-                gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+                gridTemplateColumns:
+                  "repeat(auto-fit, minmax(300px, 1fr))",
                 gap: 16,
                 marginBottom: 24,
               }}
@@ -1354,24 +2075,37 @@ export default function NuclearVerdictsHeatMap({ isPreview = false }: NuclearVer
             </div>
           </FadeIn>
 
-          {/* ─── Key Findings ─── */}
+          {/* Key Findings */}
           <FadeIn delay={550}>
             <div style={{ marginBottom: 24 }}>
               <KeyFindings />
             </div>
           </FadeIn>
 
-          {/* ─── Top States Table ─── */}
+          {/* ─── Top 10 States Table ─── */}
           <FadeIn delay={600}>
             <div
               style={{
                 marginTop: 24,
-                padding: "16px",
+                padding: "20px",
                 background: SENTINEL.surface,
                 border: `1px solid ${SENTINEL.border}`,
-                borderRadius: 12,
+                borderRadius: 14,
+                position: "relative",
+                overflow: "hidden",
               }}
             >
+              <div
+                style={{
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  height: 3,
+                  background: `linear-gradient(90deg, ${SENTINEL.sentinelAccent}, ${SENTINEL.accent}, ${SENTINEL.sentinelAccent})`,
+                  borderRadius: "14px 14px 0 0",
+                }}
+              />
               <div
                 style={{
                   fontSize: 9,
@@ -1380,10 +2114,21 @@ export default function NuclearVerdictsHeatMap({ isPreview = false }: NuclearVer
                   textTransform: "uppercase",
                   color: SENTINEL.sentinelAccent,
                   fontFamily: FONTS.sans,
-                  marginBottom: 12,
+                  marginBottom: 4,
                 }}
               >
-                Top 10 States by Nuclear Verdict® Count (2024)
+                Top 10 States by Nuclear Verdict&reg; Count
+              </div>
+              <div
+                style={{
+                  fontSize: 10,
+                  color: SENTINEL.inkMuted,
+                  fontFamily: FONTS.sans,
+                  marginBottom: 14,
+                }}
+              >
+                Marathon Strategies 2025 Report &middot; Click any row to
+                explore
               </div>
               <div style={{ overflowX: "auto" }}>
                 <table
@@ -1396,12 +2141,19 @@ export default function NuclearVerdictsHeatMap({ isPreview = false }: NuclearVer
                 >
                   <thead>
                     <tr>
-                      {["State", "Verdicts", "Total Damages", "Median", "YoY", "Risk"].map((h) => (
+                      {[
+                        "State",
+                        "Verdicts",
+                        "Total Damages",
+                        "Median",
+                        "YoY",
+                        "Risk",
+                      ].map((h) => (
                         <th
                           key={h}
                           style={{
                             textAlign: "left",
-                            padding: "6px 10px",
+                            padding: "8px 12px",
                             borderBottom: `2px solid ${SENTINEL.border}`,
                             fontSize: 10,
                             fontWeight: 700,
@@ -1417,7 +2169,10 @@ export default function NuclearVerdictsHeatMap({ isPreview = false }: NuclearVer
                   </thead>
                   <tbody>
                     {[...STATE_VERDICT_DATA]
-                      .sort((a, b) => b.verdictCount2024 - a.verdictCount2024)
+                      .sort(
+                        (a, b) =>
+                          b.verdictCount2024 - a.verdictCount2024
+                      )
                       .slice(0, 10)
                       .map((s) => (
                         <tr
@@ -1428,38 +2183,95 @@ export default function NuclearVerdictsHeatMap({ isPreview = false }: NuclearVer
                             transition: "background 0.15s",
                           }}
                           onMouseEnter={(e) => {
-                            (e.currentTarget as HTMLTableRowElement).style.background = SENTINEL.bgWarm;
+                            (
+                              e.currentTarget as HTMLTableRowElement
+                            ).style.background = SENTINEL.bgWarm;
                           }}
                           onMouseLeave={(e) => {
-                            (e.currentTarget as HTMLTableRowElement).style.background = "transparent";
+                            (
+                              e.currentTarget as HTMLTableRowElement
+                            ).style.background = "transparent";
                           }}
                         >
-                          <td style={{ padding: "8px 10px", borderBottom: `1px solid ${SENTINEL.border}`, fontWeight: 600, color: SENTINEL.ink }}>
+                          <td
+                            style={{
+                              padding: "10px 12px",
+                              borderBottom: `1px solid ${SENTINEL.border}`,
+                              fontWeight: 600,
+                              color: SENTINEL.ink,
+                            }}
+                          >
                             {s.name}
                             {s.judicialHellhole && (
-                              <span style={{ color: SENTINEL.rose, marginLeft: 4, fontSize: 11 }}>&#9888;</span>
+                              <span
+                                style={{
+                                  color: SENTINEL.rose,
+                                  marginLeft: 6,
+                                  fontSize: 11,
+                                }}
+                              >
+                                &#9888;
+                              </span>
                             )}
                           </td>
-                          <td style={{ padding: "8px 10px", borderBottom: `1px solid ${SENTINEL.border}`, color: SENTINEL.ink, fontWeight: 600 }}>
+                          <td
+                            style={{
+                              padding: "10px 12px",
+                              borderBottom: `1px solid ${SENTINEL.border}`,
+                              color: SENTINEL.ink,
+                              fontWeight: 700,
+                              fontFamily: FONTS.serif,
+                              fontSize: 14,
+                            }}
+                          >
                             {s.verdictCount2024}
                           </td>
-                          <td style={{ padding: "8px 10px", borderBottom: `1px solid ${SENTINEL.border}`, color: SENTINEL.ink }}>
-                            ${s.totalDamages2024 >= 1000 ? `${(s.totalDamages2024 / 1000).toFixed(1)}B` : `${s.totalDamages2024}M`}
+                          <td
+                            style={{
+                              padding: "10px 12px",
+                              borderBottom: `1px solid ${SENTINEL.border}`,
+                              color: SENTINEL.ink,
+                            }}
+                          >
+                            $
+                            {s.totalDamages2024 >= 1000
+                              ? `${(s.totalDamages2024 / 1000).toFixed(1)}B`
+                              : `${s.totalDamages2024}M`}
                           </td>
-                          <td style={{ padding: "8px 10px", borderBottom: `1px solid ${SENTINEL.border}`, color: SENTINEL.inkLight }}>
+                          <td
+                            style={{
+                              padding: "10px 12px",
+                              borderBottom: `1px solid ${SENTINEL.border}`,
+                              color: SENTINEL.inkLight,
+                            }}
+                          >
                             ${s.medianVerdict}M
                           </td>
                           <td
                             style={{
-                              padding: "8px 10px",
+                              padding: "10px 12px",
                               borderBottom: `1px solid ${SENTINEL.border}`,
-                              color: s.yoyChange > 0 ? SENTINEL.rose : s.yoyChange < 0 ? SENTINEL.emerald : SENTINEL.inkMuted,
+                              color:
+                                s.yoyChange > 0
+                                  ? SENTINEL.rose
+                                  : s.yoyChange < 0
+                                  ? SENTINEL.emerald
+                                  : SENTINEL.inkMuted,
                               fontWeight: 600,
                             }}
                           >
-                            {s.yoyChange > 0 ? `+${s.yoyChange}%` : s.yoyChange < 0 ? `${s.yoyChange}%` : "—"}
+                            {s.yoyChange > 0
+                              ? `+${s.yoyChange}%`
+                              : s.yoyChange < 0
+                              ? `${s.yoyChange}%`
+                              : "\u2014"}
                           </td>
-                          <td style={{ padding: "8px 10px", borderBottom: `1px solid ${SENTINEL.border}` }}>
+                          <td
+                            style={{
+                              padding: "10px 12px",
+                              borderBottom: `1px solid ${SENTINEL.border}`,
+                            }}
+                          >
                             <span
                               style={{
                                 display: "inline-block",
@@ -1469,7 +2281,7 @@ export default function NuclearVerdictsHeatMap({ isPreview = false }: NuclearVer
                                 textTransform: "uppercase",
                                 color: getRiskTextColor(s.riskTier),
                                 background: getRiskColor(s.riskTier),
-                                padding: "2px 8px",
+                                padding: "3px 10px",
                                 borderRadius: 100,
                               }}
                             >
@@ -1501,13 +2313,13 @@ export default function NuclearVerdictsHeatMap({ isPreview = false }: NuclearVer
       )}
 
       {/* ─── Attribution Footer ─── */}
-      <FadeIn delay={isPreview ? 500 : 700}>
+      <FadeIn delay={isPreview ? 500 : 900}>
         <div
           style={{
-            marginTop: 28,
-            padding: "16px",
+            marginTop: 32,
+            padding: "20px",
             background: SENTINEL.bgWarm,
-            borderRadius: 10,
+            borderRadius: 14,
             border: `1px solid ${SENTINEL.border}`,
           }}
         >
@@ -1522,9 +2334,16 @@ export default function NuclearVerdictsHeatMap({ isPreview = false }: NuclearVer
           >
             {ATTRIBUTION.trademark}
           </div>
-          <div style={{ fontSize: 10, color: SENTINEL.inkMuted, fontFamily: FONTS.sans, lineHeight: 1.6 }}>
+          <div
+            style={{
+              fontSize: 10,
+              color: SENTINEL.inkMuted,
+              fontFamily: FONTS.sans,
+              lineHeight: 1.6,
+            }}
+          >
             <strong style={{ color: SENTINEL.inkLight }}>Sources:</strong>{" "}
-            {ATTRIBUTION.sources.join(" · ")}
+            {ATTRIBUTION.sources.join(" \u00B7 ")}
           </div>
           <div
             style={{
@@ -1532,7 +2351,7 @@ export default function NuclearVerdictsHeatMap({ isPreview = false }: NuclearVer
               color: SENTINEL.inkFaint,
               fontFamily: FONTS.sans,
               lineHeight: 1.6,
-              marginTop: 6,
+              marginTop: 8,
               fontStyle: "italic",
             }}
           >

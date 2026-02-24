@@ -441,10 +441,11 @@ export const ARTICLES: NewsletterArticle[] = [
     tag: "Case Watch",
     title: "Judicial Hellholes Keep Getting Worse — But the Real Problem Isn't the Venue",
     subtitle:
-      "Everyone knows about St. Clair County and South Florida. But the defense teams actually winning in these jurisdictions aren't avoiding them — they're outpreparing the plaintiff bar with data most legal departments don't even collect.",
+      "Everyone knows about St. Clair County and South Florida. But the defense teams actually winning in these jurisdictions aren't avoiding them — they're outpreparing the plaintiff bar with venue intelligence and verdict data most legal departments don't even collect. Litigation Sentinel published a free Nuclear Verdicts and Judicial Hellholes Interactive Heat Map to help you see where the risk is concentrated — and where it's accelerating.",
     readTime: "6 min",
     author: "Wes Todd",
     date: "February 10, 2026",
+    linksTo: "nuclear-verdicts",
     readers: 1631,
   },
   {
@@ -633,10 +634,11 @@ export const ARTICLES: NewsletterArticle[] = [
     tag: "Analysis",
     title: "Nuclear Verdicts Are Up 28%. Your Reserve Model Probably Can't Handle It.",
     subtitle:
-      "The gap between initial reserves and actual outcomes widened to 340% last year. Verdict data alone doesn't predict exposure — you need performance data, venue data, and attorney outcome data working together. Most companies have one of the three.",
+      "The gap between initial reserves and actual outcomes widened to 340% last year. With 135 nuclear verdicts totaling $31.3B in 2024 alone, the risk landscape is shifting faster than most reserve models were built to handle. Litigation Sentinel published a free Nuclear Verdicts and Judicial Hellholes Interactive Heat Map with state-by-state verdict analytics, trend data, and Judicial Hellhole® overlays.",
     readTime: "6 min",
     author: "Wes Todd",
     date: "February 5, 2026",
+    linksTo: "nuclear-verdicts",
     readers: 1187,
   },
   {
