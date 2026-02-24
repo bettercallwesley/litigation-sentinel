@@ -65,7 +65,7 @@ export default function NuclearVerdictStateDetail({ state, onClose, isPreview }:
         borderRadius: 14,
         padding: "24px",
         position: "relative",
-        maxWidth: 420,
+        maxWidth: 520,
         width: "100%",
         boxShadow: "0 8px 32px rgba(0,0,0,0.08)",
       }}
@@ -130,20 +130,55 @@ export default function NuclearVerdictStateDetail({ state, onClose, isPreview }:
         {state.judicialHellhole && hellhole && (
           <div
             style={{
-              display: "flex",
-              alignItems: "center",
-              gap: 6,
-              padding: "6px 10px",
-              background: "rgba(184, 84, 80, 0.06)",
-              borderRadius: 8,
+              padding: "10px 12px",
+              background: "rgba(184, 84, 80, 0.05)",
+              borderRadius: 10,
               border: "1px solid rgba(184, 84, 80, 0.15)",
               marginBottom: 8,
             }}
           >
-            <span style={{ fontSize: 14 }}>&#9888;</span>
-            <span style={{ fontSize: 11, color: SENTINEL.rose, fontFamily: FONTS.sans, fontWeight: 600 }}>
-              Judicial Hellhole® #{hellhole.rank}: {hellhole.jurisdiction}
-            </span>
+            <div
+              style={{
+                fontSize: 9,
+                fontWeight: 700,
+                letterSpacing: "0.12em",
+                textTransform: "uppercase",
+                color: SENTINEL.rose,
+                fontFamily: FONTS.sans,
+                marginBottom: 4,
+              }}
+            >
+              Judicial Hellhole® Ranking
+            </div>
+            <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+              <span
+                style={{
+                  width: 24,
+                  height: 24,
+                  display: "inline-flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  borderRadius: 6,
+                  background: "linear-gradient(135deg, #C0392B, #922B28)",
+                  color: "#fff",
+                  fontSize: 12,
+                  fontWeight: 700,
+                  fontFamily: FONTS.sans,
+                  flexShrink: 0,
+                  boxShadow: "0 2px 6px rgba(192,57,43,0.25)",
+                }}
+              >
+                {hellhole.rank}
+              </span>
+              <div>
+                <div style={{ fontSize: 13, color: SENTINEL.ink, fontFamily: FONTS.sans, fontWeight: 600, lineHeight: 1.3 }}>
+                  #{hellhole.rank} — {hellhole.jurisdiction}
+                </div>
+                <div style={{ fontSize: 10, color: SENTINEL.inkMuted, fontFamily: FONTS.sans, lineHeight: 1.4 }}>
+                  ATRA Judicial Hellholes® 2025–2026 Report
+                </div>
+              </div>
+            </div>
           </div>
         )}
 
@@ -222,7 +257,7 @@ export default function NuclearVerdictStateDetail({ state, onClose, isPreview }:
                 marginBottom: 8,
               }}
             >
-              2024 Overview
+              Latest Data — Marathon Strategies 2025 Report
             </div>
             <StatRow label="Nuclear Verdicts®" value={state.verdictCount2024 || "0"} />
             <StatRow

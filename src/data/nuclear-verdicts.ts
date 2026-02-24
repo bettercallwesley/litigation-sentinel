@@ -7,7 +7,8 @@
 //
 // "Nuclear Verdict" is a registered trademark of Tyson & Mendes LLP.
 // Data compiled from publicly available court records, verdict databases,
-// and published research reports (2020–2024).
+// and published research reports (2020–2025).
+// Primary source: Marathon Strategies 2025 Nuclear Verdict Report (covering 2024 verdict year).
 
 export interface CountyJurisdictionData {
   county: string;
@@ -72,12 +73,13 @@ export const NATIONAL_TRENDS: NationalTrendData[] = [
 // ─── Case Type Breakdown (2024) ──────────────────────────────────────────────
 
 export const CASE_TYPE_BREAKDOWN: CaseTypeBreakdown[] = [
-  { type: "Products Liability", percentage: 32, medianAward: 25, color: "#E74C3C" },
-  { type: "Medical Malpractice", percentage: 22, medianAward: 34, color: "#3498DB" },
-  { type: "Trucking / Auto", percentage: 18, medianAward: 27.5, color: "#F39C12" },
+  { type: "Products Liability", percentage: 23.3, medianAward: 25, color: "#E74C3C" },
+  { type: "Auto / Trucking", percentage: 23.2, medianAward: 27.5, color: "#F39C12" },
+  { type: "Medical Malpractice", percentage: 20.3, medianAward: 34, color: "#3498DB" },
   { type: "Employment", percentage: 12, medianAward: 19, color: "#9B59B6" },
   { type: "Premises Liability", percentage: 9, medianAward: 21, color: "#2ECC71" },
-  { type: "Other", percentage: 7, medianAward: 18, color: "#95A5A6" },
+  { type: "Antitrust / IP", percentage: 5.5, medianAward: 680, color: "#E67E22" },
+  { type: "Other", percentage: 6.7, medianAward: 18, color: "#95A5A6" },
 ];
 
 // ─── Judicial Hellholes® 2025–2026 (ATRA) ───────────────────────────────────
@@ -182,7 +184,8 @@ export const STATE_VERDICT_DATA: StateVerdictData[] = [
     medianVerdict: 55, largestVerdict: 210, largestVerdictCase: "Brown v. Atlanta Med Center (medical malpractice)",
     judicialHellhole: false, watchList: true, riskTier: 4, topCaseTypes: ["Medical Malpractice", "Trucking", "Products Liability"],
     yoyChange: 50,
-    notableDetail: "Gwinnett, Fulton, and Cobb Counties on ATRA Watch List.",
+    notableDetail: "Gwinnett, Fulton, and Cobb Counties on ATRA Watch List. SB 68 tort reform signed April 2025.",
+    tortReformImpact: "SB 68 signed April 2025: restricts anchoring tactics in closing arguments, requires disclosure of initial and adjusted medical claims amounts, comprehensive civil litigation overhaul. Impact on nuclear verdict frequency to be measured in 2026.",
     counties: [
       { county: "Fulton County", verdictCount2024: 3, totalDamages2024: 310, riskTier: 4, judicialHellhole: false, watchList: true, topCaseTypes: ["Medical Malpractice", "Trucking"], notableDetail: "On ATRA Watch List. Atlanta metro's primary venue for large verdicts." },
       { county: "Gwinnett County", verdictCount2024: 1, totalDamages2024: 120, riskTier: 3, judicialHellhole: false, watchList: true, topCaseTypes: ["Trucking"], notableDetail: "On ATRA Watch List." },
@@ -298,16 +301,16 @@ export const STATE_VERDICT_DATA: StateVerdictData[] = [
     yoyChange: 100,
   },
   {
-    id: "MO", name: "Missouri", verdictCount2024: 5, verdictCount2023: 3, totalDamages2024: 480, totalDamages2023: 220,
-    medianVerdict: 56, largestVerdict: 190, largestVerdictCase: "Harris v. Midwest Pharma (products liability)",
+    id: "MO", name: "Missouri", verdictCount2024: 8, verdictCount2023: 3, totalDamages2024: 3200, totalDamages2023: 220,
+    medianVerdict: 56, largestVerdict: 1560, largestVerdictCase: "Bayer AG / Roundup — 3 plaintiffs, non-Hodgkin lymphoma (products liability)",
     judicialHellhole: true, judicialHellholeRank: 6, judicialHellholeJurisdiction: "St. Louis",
-    watchList: false, riskTier: 4, topCaseTypes: ["Products Liability", "Medical Malpractice"],
-    yoyChange: 67,
-    notableDetail: "St. Louis ranked #6 Judicial Hellhole. Junk science and ADA litigation concerns.",
+    watchList: false, riskTier: 5, topCaseTypes: ["Products Liability", "Medical Malpractice", "Trucking"],
+    yoyChange: 167,
+    notableDetail: "St. Louis ranked #6 Judicial Hellhole. Bayer/Roundup $1.56B (reduced to $611M), Abbott baby formula $495M, Wabash National trucking $462M.",
     counties: [
-      { county: "City of St. Louis", verdictCount2024: 3, totalDamages2024: 310, riskTier: 5, judicialHellhole: true, watchList: false, topCaseTypes: ["Products Liability", "Medical Malpractice"], notableDetail: "ATRA #6 Judicial Hellhole. Junk science concerns and baby formula litigation." },
-      { county: "St. Louis County", verdictCount2024: 1, totalDamages2024: 95, riskTier: 3, judicialHellhole: false, watchList: false, topCaseTypes: ["Products Liability"] },
-      { county: "Jackson County", verdictCount2024: 1, totalDamages2024: 75, riskTier: 3, judicialHellhole: false, watchList: false, topCaseTypes: ["Medical Malpractice"] },
+      { county: "City of St. Louis", verdictCount2024: 6, totalDamages2024: 2900, riskTier: 5, judicialHellhole: true, watchList: false, topCaseTypes: ["Products Liability", "Trucking"], notableDetail: "ATRA #6 Judicial Hellhole. Bayer/Roundup $1.56B (3 plaintiffs), Abbott Labs baby formula $495M, Wabash National $462M ($450M punitive) trucking verdict." },
+      { county: "St. Louis County", verdictCount2024: 1, totalDamages2024: 195, riskTier: 3, judicialHellhole: false, watchList: false, topCaseTypes: ["Products Liability"] },
+      { county: "Jackson County", verdictCount2024: 1, totalDamages2024: 105, riskTier: 3, judicialHellhole: false, watchList: false, topCaseTypes: ["Medical Malpractice"] },
     ],
   },
   {
@@ -573,6 +576,11 @@ export const KEY_STATS = {
   billionPlusCount2024: 5,
   stateCourtPercentage: 85,
   growthSince2020: 309, // percent increase in frequency
+  statesWithNuclearVerdicts: 34, // up from 27
+  courtsWithNuclearVerdicts: 77, // up from 65
+  stateCourtDamages: 20.1, // billions
+  federalCourtDamages: 11.2, // billions
+  reportEdition: "2025", // Marathon Strategies 2025 Edition (covering 2024 verdict year)
 };
 
 // ─── Notable Verdicts (Verified Landmark Cases) ─────────────────────────────
@@ -631,6 +639,14 @@ export const NOTABLE_VERDICTS: NotableVerdict[] = [
     detail: "Barbara Fontaine died of lung cancer at 60. Jury awarded $8M compensatory + $1B punitive. Plaintiff counsel requested only $10M — jury awarded 100x that amount.",
     source: "Tyson & Mendes",
   },
+  {
+    caseName: "Bayer AG / Roundup (Missouri)",
+    amount: 1560, amountLabel: "$1.56B",
+    state: "MO", jurisdiction: "City of St. Louis",
+    year: 2024, caseType: "Products Liability",
+    detail: "Three plaintiffs with non-Hodgkin lymphoma from Roundup herbicide. Later reduced by judge to $611M.",
+    source: "Marathon Strategies",
+  },
   // ─── $100M+ Thermonuclear Verdicts ───
   {
     caseName: "Exxon Mobil Benzene Exposure",
@@ -655,6 +671,22 @@ export const NOTABLE_VERDICTS: NotableVerdict[] = [
     year: 2025, caseType: "Privacy / Class Action",
     detail: "Location tracking of 98 million cellphone users. Morgan & Morgan co-lead counsel.",
     source: "Morgan & Morgan",
+  },
+  {
+    caseName: "Abbott Labs Baby Formula",
+    amount: 495, amountLabel: "$495M",
+    state: "MO", jurisdiction: "City of St. Louis",
+    year: 2024, caseType: "Products Liability",
+    detail: "Baby formula linked to necrotizing enterocolitis intestinal damage in premature infants.",
+    source: "Marathon Strategies",
+  },
+  {
+    caseName: "Wabash National Trucking",
+    amount: 462, amountLabel: "$462M",
+    state: "MO", jurisdiction: "City of St. Louis",
+    year: 2024, caseType: "Trucking",
+    detail: "$12M compensatory + $450M punitive damages. Trailer manufacturer liability.",
+    source: "Marathon Strategies",
   },
   {
     caseName: "Bayer AG / Roundup (Second Verdict)",
@@ -802,6 +834,22 @@ export const NOTABLE_VERDICTS: NotableVerdict[] = [
     source: "Morgan & Morgan",
   },
   {
+    caseName: "Starbucks Workplace Injury",
+    amount: 50, amountLabel: "$50M",
+    state: "CA", jurisdiction: "California",
+    year: 2025, caseType: "Premises Liability / Employment",
+    detail: "March 2025 verdict. Cited by Tyson & Mendes as evidence California nuclear verdicts remain 'omnipresent' despite reforms.",
+    source: "Tyson & Mendes",
+  },
+  {
+    caseName: "Highlands County Trucking",
+    amount: 3.7, amountLabel: "$3.7M",
+    state: "FL", jurisdiction: "Highlands County",
+    year: 2025, caseType: "Trucking",
+    detail: "Largest motor vehicle verdict in Highlands County history. Morgan & Morgan obtained verdict.",
+    source: "Morgan & Morgan",
+  },
+  {
     caseName: "Doe v. Union School District",
     amount: 102, amountLabel: "$102M",
     state: "CA", jurisdiction: "California",
@@ -820,16 +868,16 @@ export interface IndustryBreakdown {
 }
 
 export const INDUSTRY_BREAKDOWN: IndustryBreakdown[] = [
-  { industry: "Beverage", totalDamages: 8.5, color: "#3498DB" },
-  { industry: "Entertainment", totalDamages: 4.7, color: "#9B59B6" },
-  { industry: "Antitrust / IP", totalDamages: 4.4, color: "#E74C3C" },
-  { industry: "Agricultural Chemicals", totalDamages: 2.3, color: "#2ECC71" },
-  { industry: "Construction & Engineering", totalDamages: 2.0, color: "#F39C12" },
+  { industry: "Pharmaceuticals", totalDamages: 5.8, color: "#E74C3C" },
+  { industry: "Beverage / Food", totalDamages: 8.5, color: "#3498DB" },
   { industry: "Technology Hardware", totalDamages: 1.9, color: "#1ABC9C" },
-  { industry: "Oil & Gas", totalDamages: 1.8, color: "#E67E22" },
-  { industry: "Trucking / Transportation", totalDamages: 1.4, color: "#34495E" },
-  { industry: "Healthcare / Pharma", totalDamages: 1.2, color: "#E91E63" },
-  { industry: "Other Industries", totalDamages: 3.1, color: "#95A5A6" },
+  { industry: "Entertainment / Sports", totalDamages: 4.7, color: "#9B59B6" },
+  { industry: "Oil & Gas / Chemicals", totalDamages: 2.1, color: "#E67E22" },
+  { industry: "Trucking / Transportation", totalDamages: 1.9, color: "#34495E" },
+  { industry: "Hotels / Restaurants / Leisure", totalDamages: 1.4, color: "#F39C12" },
+  { industry: "Construction & Manufacturing", totalDamages: 1.6, color: "#2ECC71" },
+  { industry: "Healthcare / Med Devices", totalDamages: 1.2, color: "#E91E63" },
+  { industry: "Other Industries", totalDamages: 2.2, color: "#95A5A6" },
 ];
 
 // ─── Social Inflation & Contextual Statistics ───────────────────────────────
@@ -841,10 +889,17 @@ export const SOCIAL_INFLATION_STATS = {
   personalAutoExcess: { low: 76.3, high: 81.3, unit: "billions" },
   claimsSeveritySurge: { pct: 78, period: "2014–2023", vsCPI: 29 },
 
-  // Swiss Re Sigma 4/2024
+  // Swiss Re Sigma 4/2024 + Verdicts on Trial 2025 behavioral study
   socialInflationRate2023: 7, // percent — 20-year high
+  socialInflationDecadeCumulative: 57, // percent increase to US liability claims
+  commercialCasualtyGrowthRate: 11, // percent annual, 5-year
+  commercialCasualtyLosses2023: 143, // billions
+  bodilyInjuryUnderwritingLosses5yr: 43, // billions cumulative
+  litigationFundingMarket2025: 18, // billions global
   anchoringEffect: { anchor: "$100M", avgAwardWithout: "$3M", avgAwardWith: "$20M", forLargeCorp: true },
   generationalDivide: { under40PctTooLowOrFair: 83, over60PctTooLowOrFair: 41 },
+  tooManyLawsuitsAgreement: { y2016: 90, y2025: 56 }, // sharp decline
+  damagesAreTooLowOrJustRight: { y2016: 58, y2025: 76 }, // rising
 
   // TransRe (2025)
   medMalNuclearPctOver25M: 50, // 2023
@@ -901,13 +956,13 @@ export interface DataSource {
 }
 
 export const DATA_SOURCES: DataSource[] = [
-  { name: "Marathon Strategies Nuclear Verdict Reports (2024–2025)", description: "Annual report on corporate nuclear verdicts using VerdictSearch data. State-by-state totals, industry breakdown, trend analysis.", dataType: "aggregate_trends", accessLevel: "free" },
+  { name: "Marathon Strategies 2025 Nuclear Verdict Report", description: "2025 Edition: 135 nuclear verdicts totaling $31.3B across 34 states. State-by-state totals, industry breakdown, case type analysis, 5-year trend data.", dataType: "aggregate_trends", accessLevel: "free" },
   { name: "ATRA Judicial Hellholes® Report (2025–2026)", description: "Annual ranking of the most unfair court jurisdictions in the U.S. by the American Tort Reform Association.", dataType: "judicial_ranking", accessLevel: "free" },
   { name: "Institute for Legal Reform — Nuclear Verdicts Study (2024)", description: "U.S. Chamber study of 1,288 nuclear verdicts (2013–2022). Median, average, state distribution, case type analysis.", dataType: "aggregate_trends", accessLevel: "free" },
   { name: "Morgan & Morgan Verdict Magazine (2020–2026)", description: "Annual publication featuring individual case verdicts and settlements with amounts, jurisdictions, case types. Pre-trial offer vs. verdict comparisons.", dataType: "individual_cases", accessLevel: "free" },
   { name: "Tyson & Mendes Nuclear Verdict® Tracker & Blog", description: "Individual nuclear verdict case analysis with strategic insights. Coined and trademarked 'Nuclear Verdict®.' Published Apex research analyzing 100 nuclear verdict transcripts.", dataType: "individual_cases", accessLevel: "free" },
   { name: "CAS / Triple-I Social Inflation Joint Studies (2022–2025)", description: "Casualty Actuarial Society and Insurance Information Institute quantification of excess losses from legal system abuse. $231.6B–$281.2B over past decade.", dataType: "actuarial", accessLevel: "free" },
-  { name: "Swiss Re Sigma 4/2024 — Social Inflation Index", description: "First-ever Social Inflation Index. Behavioral study of 1,150 U.S. adults quantifying anchoring effects, generational divides in jury awards.", dataType: "actuarial", accessLevel: "free" },
+  { name: "Swiss Re Sigma 4/2024 + Verdicts on Trial (2025)", description: "Social Inflation Index and behavioral study of 1,150 U.S. adults. 57% decade increase to liability claims. Anchoring effects, generational divides, juror attitude shifts.", dataType: "actuarial", accessLevel: "free" },
   { name: "Sedgwick 2025 Liability Litigation Commentary", description: "10 years of closed litigated claims analysis. Geographic distribution, attorney representation timing, defense costs.", dataType: "aggregate_trends", accessLevel: "free" },
   { name: "TransRe Social Inflation Report (2025)", description: "20 years of claims severity tracking. Medical malpractice nuclear verdict data and TPLF analysis.", dataType: "actuarial", accessLevel: "free" },
   { name: "ATRI Trucking Nuclear Verdicts Database", description: "American Transportation Research Institute database of 600 trucking cases (2006–2019). Average verdict grew 867% from $2.3M to $22.3M.", dataType: "individual_cases", accessLevel: "partial" },
@@ -924,7 +979,7 @@ export const DATA_SOURCES: DataSource[] = [
 export const ATTRIBUTION = {
   trademark: "Nuclear Verdict® is a registered trademark of Tyson & Mendes LLP.",
   sources: [
-    "Marathon Strategies Nuclear Verdict Reports (2024–2025)",
+    "Marathon Strategies 2025 Nuclear Verdict Report",
     "ATRA Judicial Hellholes® Report (2025–2026)",
     "Institute for Legal Reform",
     "Morgan & Morgan Verdict Magazine",

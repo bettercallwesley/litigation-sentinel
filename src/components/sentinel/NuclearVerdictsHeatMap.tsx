@@ -23,6 +23,61 @@ import {
 import { US_STATE_PATHS, SMALL_STATE_LABELS } from "@/data/us-map-paths";
 import NuclearVerdictStateDetail from "./NuclearVerdictStateDetail";
 
+// ─── Dark Map Colors ────────────────────────────────────────────────────────
+const DARK_MAP = {
+  bg: "#0F172A",
+  bgGradient: "linear-gradient(180deg, #0F172A 0%, #131D35 100%)",
+  textMuted: "#64748B",
+} as const;
+
+function getDarkRiskColor(tier: number): string {
+  switch (tier) {
+    case 1: return "#334155";
+    case 2: return "#92704C";
+    case 3: return "#D97706";
+    case 4: return "#DC2626";
+    case 5: return "#B91C1C";
+    default: return "#334155";
+  }
+}
+
+function getDarkRiskTextColor(tier: number): string {
+  switch (tier) {
+    case 1: return "#94A3B8";
+    case 2: return "#FDE68A";
+    case 3: return "#FEF3C7";
+    case 4: return "#FEE2E2";
+    case 5: return "#FFFFFF";
+    default: return "#94A3B8";
+  }
+}
+
+function getDarkRiskStroke(tier: number): string {
+  switch (tier) {
+    case 1: return "rgba(148,163,184,0.25)";
+    case 2: return "rgba(146,112,76,0.4)";
+    case 3: return "rgba(217,119,6,0.5)";
+    case 4: return "rgba(220,38,38,0.5)";
+    case 5: return "rgba(185,28,28,0.6)";
+    default: return "rgba(148,163,184,0.25)";
+  }
+}
+
+const pulseKeyframes = `
+@keyframes hellholePulse {
+  0%, 100% { r: 6; opacity: 0.9; }
+  50% { r: 8; opacity: 1; }
+}
+@keyframes glowPulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.8; }
+}
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+`;
+
 // ─── Sub-components ──────────────────────────────────────────────────────────
 
 function StatCard({
@@ -30,23 +85,38 @@ function StatCard({
   value,
   subtext,
   color,
+  accentBorder,
 }: {
   label: string;
   value: string;
   subtext?: string;
   color?: string;
+  accentBorder?: string;
 }) {
   return (
     <div
       style={{
-        padding: "16px 14px",
+        padding: "20px 16px",
         background: SENTINEL.surface,
         border: `1px solid ${SENTINEL.border}`,
-        borderRadius: 12,
+        borderRadius: 14,
         textAlign: "center",
         minWidth: 0,
+        position: "relative",
+        overflow: "hidden",
       }}
     >
+      <div
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          right: 0,
+          height: 3,
+          background: accentBorder || color || SENTINEL.sentinelAccent,
+          borderRadius: "14px 14px 0 0",
+        }}
+      />
       <div
         style={{
           fontSize: 9,
@@ -55,14 +125,14 @@ function StatCard({
           textTransform: "uppercase",
           color: SENTINEL.inkMuted,
           fontFamily: FONTS.sans,
-          marginBottom: 6,
+          marginBottom: 8,
         }}
       >
         {label}
       </div>
       <div
         style={{
-          fontSize: "clamp(20px, 3vw, 28px)",
+          fontSize: "clamp(22px, 3.5vw, 32px)",
           fontFamily: FONTS.serif,
           fontWeight: 700,
           color: color || SENTINEL.sentinel,
@@ -72,7 +142,7 @@ function StatCard({
         {value}
       </div>
       {subtext && (
-        <div style={{ fontSize: 10, color: SENTINEL.inkMuted, fontFamily: FONTS.sans, marginTop: 4 }}>
+        <div style={{ fontSize: 11, color: SENTINEL.inkMuted, fontFamily: FONTS.sans, marginTop: 6 }}>
           {subtext}
         </div>
       )}
@@ -103,10 +173,10 @@ function TrendChart() {
   return (
     <div
       style={{
-        padding: "16px",
+        padding: "20px",
         background: SENTINEL.surface,
         border: `1px solid ${SENTINEL.border}`,
-        borderRadius: 12,
+        borderRadius: 14,
       }}
     >
       <div
@@ -117,7 +187,7 @@ function TrendChart() {
           textTransform: "uppercase",
           color: SENTINEL.sentinelAccent,
           fontFamily: FONTS.sans,
-          marginBottom: 12,
+          marginBottom: 14,
         }}
       >
         5-Year Trend (2020–2024)
@@ -235,7 +305,7 @@ function CaseTypeChart() {
           marginBottom: 12,
         }}
       >
-        Case Type Breakdown (2024)
+        Case Type Breakdown
       </div>
       {CASE_TYPE_BREAKDOWN.map((ct) => (
         <div key={ct.type} style={{ marginBottom: 8 }}>
@@ -386,9 +456,7 @@ function MapTooltip({
   x: number;
   y: number;
 }) {
-  const riskColor = getRiskColor(state.riskTier);
   const riskLabel = getRiskLabel(state.riskTier);
-  const riskTextColor = getRiskTextColor(state.riskTier);
 
   return (
     <div
@@ -396,27 +464,22 @@ function MapTooltip({
         position: "absolute",
         left: x,
         top: y,
-        transform: "translate(-50%, -110%)",
-        background: SENTINEL.surface,
-        border: `1px solid ${SENTINEL.border}`,
-        borderRadius: 10,
-        padding: "10px 14px",
-        boxShadow: "0 4px 20px rgba(0,0,0,0.10)",
+        transform: "translate(-50%, -115%)",
+        background: "rgba(15,23,42,0.95)",
+        backdropFilter: "blur(12px)",
+        border: "1px solid rgba(255,255,255,0.1)",
+        borderRadius: 12,
+        padding: "12px 16px",
+        boxShadow: "0 8px 32px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.05)",
         pointerEvents: "none",
         zIndex: 20,
-        minWidth: 180,
+        minWidth: 200,
         whiteSpace: "nowrap",
+        animation: "fadeSlideUp 0.15s ease-out",
       }}
     >
-      <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4 }}>
-        <span
-          style={{
-            fontSize: 13,
-            fontWeight: 600,
-            color: SENTINEL.sentinel,
-            fontFamily: FONTS.sans,
-          }}
-        >
+      <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 6 }}>
+        <span style={{ fontSize: 14, fontWeight: 700, color: "#F1F5F9", fontFamily: FONTS.serif }}>
           {state.name}
         </span>
         <span
@@ -425,9 +488,9 @@ function MapTooltip({
             fontWeight: 700,
             letterSpacing: "0.06em",
             textTransform: "uppercase",
-            color: riskTextColor,
-            background: riskColor,
-            padding: "1px 6px",
+            color: getDarkRiskTextColor(state.riskTier),
+            background: getDarkRiskColor(state.riskTier),
+            padding: "2px 8px",
             borderRadius: 100,
             fontFamily: FONTS.sans,
           }}
@@ -437,22 +500,23 @@ function MapTooltip({
       </div>
       {state.verdictCount2024 > 0 ? (
         <>
-          <div style={{ fontSize: 11, color: SENTINEL.inkLight, fontFamily: FONTS.sans }}>
-            <strong>{state.verdictCount2024}</strong> nuclear verdicts · <strong>${state.totalDamages2024 >= 1000 ? `${(state.totalDamages2024 / 1000).toFixed(1)}B` : `${state.totalDamages2024}M`}</strong> total
+          <div style={{ fontSize: 12, color: "#CBD5E1", fontFamily: FONTS.sans }}>
+            <strong style={{ color: "#F1F5F9" }}>{state.verdictCount2024}</strong> nuclear verdicts · <strong style={{ color: "#F1F5F9" }}>${state.totalDamages2024 >= 1000 ? `${(state.totalDamages2024 / 1000).toFixed(1)}B` : `${state.totalDamages2024}M`}</strong> total
           </div>
           {state.judicialHellhole && (
-            <div style={{ fontSize: 10, color: SENTINEL.rose, fontFamily: FONTS.sans, marginTop: 2 }}>
-              &#9888; Judicial Hellhole®
+            <div style={{ fontSize: 10, color: "#EF4444", fontFamily: FONTS.sans, marginTop: 4, display: "flex", alignItems: "center", gap: 4 }}>
+              <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#EF4444", display: "inline-block" }} />
+              Judicial Hellhole® #{state.judicialHellholeRank}
             </div>
           )}
         </>
       ) : (
-        <div style={{ fontSize: 11, color: SENTINEL.inkMuted, fontFamily: FONTS.sans }}>
-          No nuclear verdicts recorded in 2024
+        <div style={{ fontSize: 12, color: "#64748B", fontFamily: FONTS.sans }}>
+          No nuclear verdicts recorded
         </div>
       )}
-      <div style={{ fontSize: 10, color: SENTINEL.accent, fontFamily: FONTS.sans, marginTop: 4 }}>
-        Click for details
+      <div style={{ fontSize: 10, color: "#60A5FA", fontFamily: FONTS.sans, marginTop: 6, fontWeight: 500 }}>
+        Click to explore →
       </div>
     </div>
   );
@@ -468,35 +532,26 @@ function MapLegend() {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        gap: 4,
-        padding: "10px 0",
+        gap: 3,
+        padding: "14px 0 6px",
         flexWrap: "wrap",
       }}
     >
-      <span style={{ fontSize: 10, color: SENTINEL.inkMuted, fontFamily: FONTS.sans, marginRight: 4 }}>
-        Risk:
+      <span style={{ fontSize: 10, color: DARK_MAP.textMuted, fontFamily: FONTS.sans, marginRight: 6, fontWeight: 600 }}>
+        Verdict Risk
       </span>
-      {tiers.map((tier) => (
-        <div key={tier} style={{ display: "flex", alignItems: "center", gap: 3 }}>
-          <div
-            style={{
-              width: 14,
-              height: 14,
-              borderRadius: 3,
-              background: getRiskColor(tier),
-              border: tier === 1 ? `1px solid ${SENTINEL.border}` : "none",
-            }}
-          />
-          <span style={{ fontSize: 10, color: SENTINEL.inkMuted, fontFamily: FONTS.sans, marginRight: 6 }}>
-            {getRiskLabel(tier)}
-          </span>
-        </div>
-      ))}
-      <div style={{ display: "flex", alignItems: "center", gap: 3, marginLeft: 8 }}>
-        <span style={{ fontSize: 12, color: SENTINEL.rose }}>&#9888;</span>
-        <span style={{ fontSize: 10, color: SENTINEL.inkMuted, fontFamily: FONTS.sans }}>
-          Judicial Hellhole®
-        </span>
+      <div style={{ display: "flex", borderRadius: 4, overflow: "hidden", marginRight: 4 }}>
+        {tiers.map((tier) => (
+          <div key={tier} style={{ width: 28, height: 10, background: getDarkRiskColor(tier) }} />
+        ))}
+      </div>
+      <div style={{ display: "flex", gap: 0, width: 140 }}>
+        <span style={{ fontSize: 9, color: DARK_MAP.textMuted, fontFamily: FONTS.sans, flex: 1 }}>Low</span>
+        <span style={{ fontSize: 9, color: DARK_MAP.textMuted, fontFamily: FONTS.sans, textAlign: "right" }}>Critical</span>
+      </div>
+      <div style={{ display: "flex", alignItems: "center", gap: 4, marginLeft: 12 }}>
+        <div style={{ width: 8, height: 8, borderRadius: "50%", background: "#EF4444", boxShadow: "0 0 6px rgba(239,68,68,0.5)" }} />
+        <span style={{ fontSize: 10, color: DARK_MAP.textMuted, fontFamily: FONTS.sans }}>Judicial Hellhole®</span>
       </div>
     </div>
   );
@@ -528,7 +583,7 @@ function NotableVerdictsTable() {
         Notable Nuclear Verdicts® — Verified Landmark Cases
       </div>
       <div style={{ fontSize: 10, color: SENTINEL.inkMuted, fontFamily: FONTS.sans, marginBottom: 12 }}>
-        Sources: Marathon Strategies, Morgan &amp; Morgan Verdict Magazine, Tyson &amp; Mendes
+        Sources: Marathon Strategies 2025 Report, Morgan &amp; Morgan 2025, Tyson &amp; Mendes
       </div>
       <div style={{ overflowX: "auto" }}>
         <table
@@ -651,10 +706,10 @@ function IndustryChart() {
           marginBottom: 4,
         }}
       >
-        Industry Breakdown (2024)
+        Industry Breakdown
       </div>
       <div style={{ fontSize: 10, color: SENTINEL.inkMuted, fontFamily: FONTS.sans, marginBottom: 12 }}>
-        Source: Marathon Strategies
+        Marathon Strategies 2025 Report · Total damages by sector
       </div>
       {INDUSTRY_BREAKDOWN.map((b) => (
         <div key={b.industry} style={{ marginBottom: 8 }}>
@@ -951,49 +1006,67 @@ export default function NuclearVerdictsHeatMap({ isPreview = false }: NuclearVer
 
   return (
     <div>
+      <style dangerouslySetInnerHTML={{ __html: pulseKeyframes }} />
+
       {/* ─── Hero Header ─── */}
       <FadeIn delay={100}>
-        <div style={{ textAlign: "center", marginBottom: 32 }}>
+        <div style={{ textAlign: "center", marginBottom: 28 }}>
           <div
             style={{
-              fontSize: 9,
-              fontWeight: 700,
-              letterSpacing: "0.2em",
-              textTransform: "uppercase",
-              color: SENTINEL.sentinelAccent,
-              fontFamily: FONTS.sans,
-              marginBottom: 10,
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 8,
+              padding: "5px 14px",
+              background: "rgba(193,154,62,0.08)",
+              border: "1px solid rgba(193,154,62,0.15)",
+              borderRadius: 100,
+              marginBottom: 14,
             }}
           >
-            Interactive Intelligence
+            <div style={{ width: 6, height: 6, borderRadius: "50%", background: SENTINEL.sentinelAccent }} />
+            <span
+              style={{
+                fontSize: 10,
+                fontWeight: 700,
+                letterSpacing: "0.15em",
+                textTransform: "uppercase",
+                color: SENTINEL.sentinelAccent,
+                fontFamily: FONTS.sans,
+              }}
+            >
+              2025 Report — Interactive Intelligence
+            </span>
           </div>
           <h1
             style={{
-              fontSize: "clamp(28px, 5vw, 42px)",
+              fontSize: "clamp(28px, 5vw, 44px)",
               fontFamily: FONTS.serif,
               fontWeight: 700,
               color: SENTINEL.sentinel,
-              margin: "0 0 10px",
-              lineHeight: 1.15,
+              margin: "0 0 12px",
+              lineHeight: 1.1,
               letterSpacing: "-0.02em",
             }}
           >
-            Nuclear Verdicts<sup style={{ fontSize: "0.5em", verticalAlign: "super" }}>&reg;</sup> Heat Map
+            Nuclear Verdicts<sup style={{ fontSize: "0.45em", verticalAlign: "super" }}>&reg;</sup> Heat Map
           </h1>
           <p
             style={{
               fontSize: 15,
               color: SENTINEL.inkLight,
               lineHeight: 1.65,
-              maxWidth: 540,
-              margin: "0 auto",
+              maxWidth: 580,
+              margin: "0 auto 8px",
               fontFamily: FONTS.sans,
             }}
           >
-            Explore the geography of nuclear verdicts across the United States.
-            Click any state to see verdict frequency, total damages, judicial risk factors,
-            and year-over-year trends.
+            State-by-state intelligence on nuclear verdicts ($10M+), judicial risk factors,
+            and social inflation trends. Based on the Marathon Strategies 2025 Nuclear Verdict Report,
+            Morgan &amp; Morgan 2025 results, and 15+ actuarial sources.
           </p>
+          <div style={{ fontSize: 11, color: SENTINEL.inkMuted, fontFamily: FONTS.sans, fontStyle: "italic" }}>
+            Click any state to explore. Data: 135 verdicts across 34 states, $31.3B total damages.
+          </div>
         </div>
       </FadeIn>
 
@@ -1008,89 +1081,101 @@ export default function NuclearVerdictsHeatMap({ isPreview = false }: NuclearVer
           }}
         >
           <StatCard
-            label="Nuclear Verdicts® (2024)"
+            label="Nuclear Verdicts®"
             value={KEY_STATS.totalVerdicts2024.toString()}
-            subtext={`+${KEY_STATS.yoyVerdictGrowth}% YoY`}
+            subtext={`+${KEY_STATS.yoyVerdictGrowth}% year-over-year`}
             color={SENTINEL.rose}
+            accentBorder="linear-gradient(90deg, #C0392B, #E74C3C)"
           />
           <StatCard
             label="Total Damages"
             value={`$${KEY_STATS.totalDamages2024}B`}
-            subtext={`+${KEY_STATS.yoyDamagesGrowth}% YoY`}
+            subtext={`+${KEY_STATS.yoyDamagesGrowth}% YoY · ${KEY_STATS.statesWithNuclearVerdicts} states`}
             color={SENTINEL.sentinel}
+            accentBorder="linear-gradient(90deg, #1B2B4A, #2C4A7C)"
           />
           <StatCard
             label="Median Verdict"
             value={`$${KEY_STATS.medianVerdict2024}M`}
             subtext="Up from $44M in 2023"
+            accentBorder="linear-gradient(90deg, #C19A3E, #D4A853)"
           />
           <StatCard
             label="$100M+ Verdicts"
             value={KEY_STATS.thermonuclearCount2024.toString()}
             subtext={`Including ${KEY_STATS.billionPlusCount2024} over $1B`}
             color={SENTINEL.rose}
+            accentBorder="linear-gradient(90deg, #922B28, #C0392B)"
           />
         </div>
       </FadeIn>
 
-      {/* ─── Interactive Map ─── */}
+      {/* ─── Interactive Map (Dark Panel) ─── */}
       <FadeIn delay={300}>
         <div
           style={{
             position: "relative",
-            background: SENTINEL.surface,
-            border: `1px solid ${SENTINEL.border}`,
+            background: DARK_MAP.bgGradient,
+            border: "1px solid rgba(255,255,255,0.06)",
             borderRadius: 14,
-            padding: "20px 16px 8px",
-            marginBottom: 12,
+            padding: "24px 16px 12px",
+            marginBottom: 14,
             overflow: "hidden",
           }}
         >
+          {/* Ambient glow effects */}
+          <div style={{ position: "absolute", top: -80, left: "20%", width: 300, height: 300, background: "radial-gradient(circle, rgba(185,28,28,0.06) 0%, transparent 70%)", pointerEvents: "none" }} />
+          <div style={{ position: "absolute", bottom: -60, right: "10%", width: 250, height: 250, background: "radial-gradient(circle, rgba(59,130,246,0.04) 0%, transparent 70%)", pointerEvents: "none" }} />
+
           <div
             style={{
               fontSize: 9,
               fontWeight: 700,
               letterSpacing: "0.15em",
               textTransform: "uppercase",
-              color: SENTINEL.sentinelAccent,
+              color: DARK_MAP.textMuted,
               fontFamily: FONTS.sans,
-              marginBottom: 12,
+              marginBottom: 14,
               textAlign: "center",
+              position: "relative",
+              zIndex: 1,
             }}
           >
-            Click a state to explore
+            Interactive Map · Marathon Strategies 2025 Nuclear Verdict Report
           </div>
 
-          {/* SVG Map container with aspect ratio */}
-          <div style={{ position: "relative", width: "100%", maxWidth: 800, margin: "0 auto" }}>
+          <div style={{ position: "relative", width: "100%", maxWidth: 860, margin: "0 auto", zIndex: 1 }}>
             <svg
-              viewBox="100 90 810 480"
-              style={{
-                width: "100%",
-                height: "auto",
-              }}
+              viewBox="-65 0 1050 620"
+              style={{ width: "100%", height: "auto" }}
               preserveAspectRatio="xMidYMid meet"
             >
-              {/* State paths */}
               {US_STATE_PATHS.map((sp) => {
                 const sd = stateDataMap.get(sp.id);
                 const tier = sd?.riskTier || 1;
-                const fill = getRiskColor(tier);
+                const fill = getDarkRiskColor(tier);
                 const isHovered = hoveredState === sp.id;
                 const blurred = isBlurred(sp.id);
+                const isHellhole = sd?.judicialHellhole;
 
                 return (
                   <path
                     key={sp.id}
                     d={sp.d}
-                    fill={blurred ? "#D5D3CE" : fill}
-                    stroke={isHovered ? SENTINEL.sentinel : "#FFFFFF"}
-                    strokeWidth={isHovered ? 2 : 1}
+                    fill={blurred ? "#1E293B" : fill}
+                    stroke={isHovered ? "#F1F5F9" : getDarkRiskStroke(tier)}
+                    strokeWidth={isHovered ? 2 : 0.5}
                     style={{
                       cursor: "pointer",
-                      transition: "fill 0.2s, stroke-width 0.2s",
-                      opacity: blurred ? 0.4 : isHovered ? 1 : 0.88,
-                      filter: blurred ? "blur(1px)" : "none",
+                      transition: "fill 0.2s, stroke-width 0.2s, stroke 0.2s, filter 0.2s",
+                      opacity: blurred ? 0.3 : isHovered ? 1 : 0.92,
+                      filter: blurred
+                        ? "blur(1.5px)"
+                        : isHovered
+                          ? `drop-shadow(0 0 8px ${fill}80)`
+                          : tier >= 4 && isHellhole
+                            ? `drop-shadow(0 0 4px ${fill}40)`
+                            : "none",
                     }}
                     onMouseEnter={(e) => !blurred && handleMouseEnter(sp.id, e)}
                     onMouseLeave={handleMouseLeave}
@@ -1099,12 +1184,14 @@ export default function NuclearVerdictsHeatMap({ isPreview = false }: NuclearVer
                 );
               })}
 
-              {/* State labels (only for larger states) */}
+              {/* State labels (larger states) */}
               {US_STATE_PATHS.filter(
                 (sp) => !SMALL_STATE_LABELS.some((s) => s.id === sp.id),
               ).map((sp) => {
                 const blurred = isBlurred(sp.id);
                 if (blurred) return null;
+                const sd = stateDataMap.get(sp.id);
+                const tier = sd?.riskTier || 1;
                 return (
                   <text
                     key={`label-${sp.id}`}
@@ -1112,68 +1199,40 @@ export default function NuclearVerdictsHeatMap({ isPreview = false }: NuclearVer
                     y={sp.labelY}
                     textAnchor="middle"
                     dominantBaseline="middle"
-                    fill={getRiskTextColor(stateDataMap.get(sp.id)?.riskTier || 1)}
-                    fontSize={9}
+                    fill={getDarkRiskTextColor(tier)}
+                    fontSize={10}
                     fontWeight={600}
                     fontFamily={FONTS.sans}
-                    style={{ pointerEvents: "none" }}
+                    style={{ pointerEvents: "none", textShadow: "0 1px 2px rgba(0,0,0,0.5)" }}
                   >
                     {sp.id}
                   </text>
                 );
               })}
 
-              {/* Small state external labels with leader lines */}
+              {/* Small state labels with leader lines */}
               {SMALL_STATE_LABELS.map((sl) => {
                 const blurred = isBlurred(sl.id);
                 if (blurred) return null;
                 return (
                   <g key={`small-${sl.id}`}>
-                    <line
-                      x1={sl.lineEndX}
-                      y1={sl.lineEndY}
-                      x2={sl.labelX - 8}
-                      y2={sl.labelY}
-                      stroke={SENTINEL.inkFaint}
-                      strokeWidth={0.5}
-                    />
-                    <text
-                      x={sl.labelX}
-                      y={sl.labelY}
-                      textAnchor="start"
-                      dominantBaseline="middle"
-                      fill={SENTINEL.inkMuted}
-                      fontSize={8}
-                      fontFamily={FONTS.sans}
-                    >
+                    <line x1={sl.lineEndX} y1={sl.lineEndY} x2={sl.labelX - 8} y2={sl.labelY} stroke="rgba(148,163,184,0.3)" strokeWidth={0.5} />
+                    <text x={sl.labelX} y={sl.labelY} textAnchor="start" dominantBaseline="middle" fill={DARK_MAP.textMuted} fontSize={9} fontFamily={FONTS.sans}>
                       {sl.name}
                     </text>
                   </g>
                 );
               })}
 
-              {/* Judicial Hellhole indicators */}
+              {/* Pulsing Judicial Hellhole indicators */}
               {JUDICIAL_HELLHOLES.map((h) => {
                 const sp = US_STATE_PATHS.find((s) => s.id === h.state);
                 if (!sp || isBlurred(h.state)) return null;
                 return (
                   <g key={`hellhole-${h.state}`}>
-                    <circle
-                      cx={sp.labelX}
-                      cy={sp.labelY - 14}
-                      r={5}
-                      fill={SENTINEL.rose}
-                      opacity={0.9}
-                    />
-                    <text
-                      x={sp.labelX}
-                      y={sp.labelY - 11}
-                      textAnchor="middle"
-                      fill="#fff"
-                      fontSize={6}
-                      fontWeight={700}
-                      fontFamily={FONTS.sans}
-                    >
+                    <circle cx={sp.labelX} cy={sp.labelY - 16} r={8} fill="none" stroke="#EF4444" strokeWidth={1} opacity={0.4} style={{ animation: "glowPulse 2s ease-in-out infinite" }} />
+                    <circle cx={sp.labelX} cy={sp.labelY - 16} r={6} fill="#EF4444" opacity={0.9} style={{ animation: "hellholePulse 2s ease-in-out infinite" }} />
+                    <text x={sp.labelX} y={sp.labelY - 13} textAnchor="middle" fill="#fff" fontSize={7} fontWeight={700} fontFamily={FONTS.sans} style={{ pointerEvents: "none" }}>
                       {h.rank}
                     </text>
                   </g>
@@ -1181,13 +1240,8 @@ export default function NuclearVerdictsHeatMap({ isPreview = false }: NuclearVer
               })}
             </svg>
 
-            {/* Tooltip */}
             {hoveredStateData && (
-              <MapTooltip
-                state={hoveredStateData}
-                x={tooltipPos.x}
-                y={tooltipPos.y}
-              />
+              <MapTooltip state={hoveredStateData} x={tooltipPos.x} y={tooltipPos.y} />
             )}
           </div>
 
@@ -1383,7 +1437,7 @@ export default function NuclearVerdictsHeatMap({ isPreview = false }: NuclearVer
                   marginBottom: 12,
                 }}
               >
-                Top 10 States by Nuclear Verdict® Count (2024)
+                Top 10 States by Nuclear Verdict® Count
               </div>
               <div style={{ overflowX: "auto" }}>
                 <table
