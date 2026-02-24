@@ -41,3 +41,26 @@
 - No Math.random() in rendered content (deterministic data only)
 - Before/After toggle in Trial defaults to "After" (the sell)
 - Test in both Fortune 500 and Insurance Company (Win95) modes
+
+## Deployment & Git
+- GitHub repo: `bettercallwesley/litigation-sentinel` (private)
+- GitHub push is pre-configured — Claude can push directly without user intervention
+- Vercel auto-deploys from GitHub pushes (target: litigation-sentinel.vercel.app)
+- Primary domain: LitigationSentinel.com
+- Default branch: `main`
+
+## Nuclear Verdicts® Heat Map — Data Sources
+- Route: `/nuclear-verdicts` — interactive SVG US map with state-level data
+- Data file: `src/data/nuclear-verdicts.ts` — all state entries, notable verdicts, industry breakdown, social inflation stats
+- Component: `src/components/sentinel/NuclearVerdictsHeatMap.tsx` — map + analytics sections
+- State detail: `src/components/sentinel/NuclearVerdictStateDetail.tsx` — click-to-expand panel
+- Nuclear Verdict® is a registered trademark of Tyson & Mendes LLP — always attribute
+- Key data sources (all verified, free to use — verdict facts are public court records):
+  - Marathon Strategies — primary 2024 data (135 verdicts, $31.3B, 52% YoY growth)
+  - Morgan & Morgan — individual FL-centric case details (amounts, jurisdictions)
+  - Tyson & Mendes LLP — aggregate stats, Nuclear Verdict® trademark holder
+  - CAS / Triple-I — $231B excess tort costs (actuarial analysis)
+  - Swiss Re — Social Inflation Index
+  - ATRI, Sedgwick, Doctors Company, TransRe, KCIC, Travelers, Gen Re, Allianz
+  - TopVerdict.com — searchable verdict database (free)
+- "Smoldering settlements" — term NOT found in any public source; do not use
