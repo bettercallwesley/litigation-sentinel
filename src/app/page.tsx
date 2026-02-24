@@ -142,7 +142,7 @@ export default function Home() {
 
         {/* First batch of articles (3) */}
         {ARTICLES.slice(0, 3).map((a, i) => (
-          <a key={i} href={a.slug ? `/article/${a.slug}` : undefined} style={{ textDecoration: "none", display: "block" }}>
+          <a key={i} href={a.linksTo ? `/${a.linksTo}` : a.slug ? `/article/${a.slug}` : undefined} style={{ textDecoration: "none", display: "block" }}>
             <ArticleCard
               article={a}
               delay={180 + i * 60}
