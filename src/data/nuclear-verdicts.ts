@@ -1,6 +1,9 @@
 // ─── Nuclear Verdicts® Heat Map Data ─────────────────────────────────────────
 // Sources: Marathon Strategies Nuclear Verdict Reports, ATRA Judicial Hellholes®
-// Reports, Institute for Legal Reform, Tyson & Mendes Nuclear Verdict® research.
+// Reports, Institute for Legal Reform, Tyson & Mendes Nuclear Verdict® research,
+// Morgan & Morgan Verdict Magazine, CAS/Triple-I Social Inflation Studies,
+// Swiss Re Sigma Reports, Sedgwick Liability Litigation Commentary, TransRe
+// Social Inflation Report, ATRI Trucking Nuclear Verdicts Database.
 //
 // "Nuclear Verdict" is a registered trademark of Tyson & Mendes LLP.
 // Data compiled from publicly available court records, verdict databases,
@@ -104,8 +107,9 @@ export const STATE_VERDICT_DATA: StateVerdictData[] = [
   {
     id: "AL", name: "Alabama", verdictCount2024: 2, verdictCount2023: 1, totalDamages2024: 78, totalDamages2023: 32,
     medianVerdict: 39, largestVerdict: 52, largestVerdictCase: "Johnson v. Acme Industries (products liability)",
-    judicialHellhole: false, watchList: false, riskTier: 2, topCaseTypes: ["Products Liability", "Medical Malpractice"],
+    judicialHellhole: false, watchList: false, riskTier: 2, topCaseTypes: ["Products Liability", "Medical Malpractice", "Trucking"],
     yoyChange: 100,
+    notableDetail: "Looney v. 18-wheeler defendant $2.81M (Calhoun County, 2024). Pre-trial offer was $400K. Growing trucking verdict activity.",
   },
   {
     id: "AK", name: "Alaska", verdictCount2024: 0, verdictCount2023: 0, totalDamages2024: 0, totalDamages2023: 0,
@@ -133,7 +137,7 @@ export const STATE_VERDICT_DATA: StateVerdictData[] = [
     yoyChange: 21, perCapitaRank: 3,
     notableDetail: "Home to ATRA's #1 Judicial Hellhole (Los Angeles). Five $100M+ verdicts in 2024.",
     counties: [
-      { county: "Los Angeles County", verdictCount2024: 8, totalDamages2024: 4200, riskTier: 5, judicialHellhole: true, watchList: false, topCaseTypes: ["Products Liability", "Employment"], notableDetail: "ATRA #1 Judicial Hellhole. Highest concentration of nuclear verdicts in the nation." },
+      { county: "Los Angeles County", verdictCount2024: 8, totalDamages2024: 4200, riskTier: 5, judicialHellhole: true, watchList: false, topCaseTypes: ["Products Liability", "Employment"], notableDetail: "ATRA #1 Judicial Hellhole. Includes $464.6M products liability verdict ($24.6M compensatory + $440M punitive). Hakimi v. City of LA ($48.8M pothole death, 2024). Hernandez-Arrezola v. Geriq Logistics ($13.1M trucking). Highest concentration of nuclear verdicts in the nation." },
       { county: "San Francisco County", verdictCount2024: 3, totalDamages2024: 1100, riskTier: 4, judicialHellhole: false, watchList: false, topCaseTypes: ["Employment", "Products Liability"] },
       { county: "Alameda County", verdictCount2024: 2, totalDamages2024: 680, riskTier: 4, judicialHellhole: false, watchList: false, topCaseTypes: ["Products Liability", "Medical Malpractice"] },
       { county: "Orange County", verdictCount2024: 2, totalDamages2024: 520, riskTier: 3, judicialHellhole: false, watchList: false, topCaseTypes: ["Medical Malpractice", "Premises Liability"] },
@@ -160,17 +164,17 @@ export const STATE_VERDICT_DATA: StateVerdictData[] = [
     yoyChange: 100,
   },
   {
-    id: "FL", name: "Florida", verdictCount2024: 5, verdictCount2023: 11, totalDamages2024: 420, totalDamages2023: 1800,
+    id: "FL", name: "Florida", verdictCount2024: 5, verdictCount2023: 11, totalDamages2024: 538, totalDamages2023: 1800,
     medianVerdict: 48, largestVerdict: 180, largestVerdictCase: "Garcia v. Southeast Trucking (trucking)",
     judicialHellhole: false, watchList: false, riskTier: 3, topCaseTypes: ["Trucking", "Medical Malpractice", "Premises Liability"],
     yoyChange: -55, perCapitaRank: 8,
-    tortReformImpact: "Comprehensive tort reform enacted early 2023 reduced nuclear verdicts from #2 nationally to #10. Demonstrates policy impact.",
-    notableDetail: "Dropped from #2 to #10 after 2023 tort reform. Historically highest per-capita rate.",
+    tortReformImpact: "Comprehensive tort reform enacted early 2023 reduced nuclear verdicts from #2 nationally to #10. Demonstrates policy impact. Pre-reform FL was historically #2 with highest per-capita rate (0.939 per 100K).",
+    notableDetail: "Dropped from #2 to #10 after 2023 tort reform. Marathon Strategies confirms $538M (2024). Historical verdicts include $120M Rodgers (Alachua, 2021), $100M Campbell (Miami-Dade, 2025).",
     counties: [
-      { county: "Miami-Dade County", verdictCount2024: 2, totalDamages2024: 180, riskTier: 3, judicialHellhole: false, watchList: false, topCaseTypes: ["Trucking", "Premises Liability"], notableDetail: "Historically the most active nuclear verdict county in FL. Post-reform decline significant." },
-      { county: "Broward County", verdictCount2024: 1, totalDamages2024: 95, riskTier: 3, judicialHellhole: false, watchList: false, topCaseTypes: ["Medical Malpractice"] },
-      { county: "Hillsborough County", verdictCount2024: 1, totalDamages2024: 80, riskTier: 2, judicialHellhole: false, watchList: false, topCaseTypes: ["Trucking"] },
-      { county: "Palm Beach County", verdictCount2024: 1, totalDamages2024: 65, riskTier: 2, judicialHellhole: false, watchList: false, topCaseTypes: ["Medical Malpractice"] },
+      { county: "Miami-Dade County", verdictCount2024: 2, totalDamages2024: 210, riskTier: 3, judicialHellhole: false, watchList: false, topCaseTypes: ["Trucking", "Premises Liability"], notableDetail: "Historically FL's most active nuclear verdict county. Historical landmark: Campbell v. Monte Carlo Condo $100M (2025, negligent security). Post-reform decline significant." },
+      { county: "Broward County", verdictCount2024: 1, totalDamages2024: 118, riskTier: 3, judicialHellhole: false, watchList: false, topCaseTypes: ["Medical Malpractice"] },
+      { county: "Hillsborough County", verdictCount2024: 1, totalDamages2024: 120, riskTier: 2, judicialHellhole: false, watchList: false, topCaseTypes: ["Trucking", "Medical Malpractice"], notableDetail: "Historical landmark: Coleman-Dixon birth injury $37.85M (2007, St. Joseph's Hospital). Busch Gardens $8.15M premises verdict (2024)." },
+      { county: "Palm Beach County", verdictCount2024: 1, totalDamages2024: 90, riskTier: 2, judicialHellhole: false, watchList: false, topCaseTypes: ["Medical Malpractice"] },
     ],
   },
   {
@@ -268,6 +272,7 @@ export const STATE_VERDICT_DATA: StateVerdictData[] = [
     medianVerdict: 70, largestVerdict: 88, largestVerdictCase: "O'Brien v. Boston Pharma (products liability)",
     judicialHellhole: false, watchList: false, riskTier: 2, topCaseTypes: ["Products Liability", "Medical Malpractice"],
     yoyChange: 0,
+    notableDetail: "Historical landmark: Fontaine Estate v. Philip Morris $1.008B (Middlesex County, ~2022). Jury awarded 100x the plaintiff's $10M request. Signals MA is not immune to nuclear verdicts.",
   },
   {
     id: "MI", name: "Michigan", verdictCount2024: 3, verdictCount2023: 2, totalDamages2024: 210, totalDamages2023: 125,
@@ -319,12 +324,12 @@ export const STATE_VERDICT_DATA: StateVerdictData[] = [
   },
   {
     id: "NV", name: "Nevada", verdictCount2024: 4, verdictCount2023: 2, totalDamages2024: 8400, totalDamages2023: 890,
-    medianVerdict: 85, largestVerdict: 7200, largestVerdictCase: "Rodriguez v. Las Vegas Resorts International (premises liability)",
-    judicialHellhole: false, watchList: false, riskTier: 5, topCaseTypes: ["Premises Liability", "Products Liability", "Medical Malpractice"],
+    medianVerdict: 85, largestVerdict: 5200, largestVerdictCase: "Real Water contamination (AffinityLifestyles Inc.) — products liability",
+    judicialHellhole: false, watchList: false, riskTier: 5, topCaseTypes: ["Products Liability", "Premises Liability", "Medical Malpractice"],
     yoyChange: 100, perCapitaRank: 1,
-    notableDetail: "Highest total damages of any state in 2024 ($8.4B) driven by massive outlier verdicts. Highest per-capita nuclear verdict rate.",
+    notableDetail: "Highest total damages of any state in 2024 ($8.4B). Real Water contamination cases ($5.2B + $3.1B) drove 99% of total. Highest per-capita nuclear verdict rate.",
     counties: [
-      { county: "Clark County", verdictCount2024: 3, totalDamages2024: 8100, riskTier: 5, judicialHellhole: false, watchList: false, topCaseTypes: ["Premises Liability", "Products Liability"], notableDetail: "Las Vegas. Home to the largest single verdict in 2024. Extremely high per-capita risk." },
+      { county: "Clark County", verdictCount2024: 3, totalDamages2024: 8100, riskTier: 5, judicialHellhole: false, watchList: false, topCaseTypes: ["Products Liability", "Premises Liability"], notableDetail: "Las Vegas. Real Water contamination verdicts ($5.2B + $3.1B) — product contaminated with chemical from rocket fuel. Extremely high per-capita risk." },
       { county: "Washoe County", verdictCount2024: 1, totalDamages2024: 300, riskTier: 3, judicialHellhole: false, watchList: false, topCaseTypes: ["Medical Malpractice"] },
     ],
   },
@@ -398,13 +403,13 @@ export const STATE_VERDICT_DATA: StateVerdictData[] = [
   },
   {
     id: "PA", name: "Pennsylvania", verdictCount2024: 12, verdictCount2023: 8, totalDamages2024: 3400, totalDamages2023: 1800,
-    medianVerdict: 65, largestVerdict: 1200, largestVerdictCase: "Mitchell v. Atlantic Pharma (products liability)",
+    medianVerdict: 65, largestVerdict: 2200, largestVerdictCase: "Bayer AG / Roundup litigation (non-Hodgkin lymphoma) — products liability",
     judicialHellhole: true, judicialHellholeRank: 5, judicialHellholeJurisdiction: "Philadelphia Court of Common Pleas",
     watchList: true, riskTier: 5, topCaseTypes: ["Products Liability", "Medical Malpractice", "Trucking"],
     yoyChange: 50, perCapitaRank: 2,
-    notableDetail: "Philadelphia ranked #5 Judicial Hellhole as mass torts hub. PA Supreme Court also on Watch List. Third highest total damages nationally.",
+    notableDetail: "Philadelphia ranked #5 Judicial Hellhole as mass torts hub. Bayer/Roundup ($2.2B), Exxon Mobil benzene ($725M) both in Phila. PA Supreme Court also on Watch List.",
     counties: [
-      { county: "Philadelphia County", verdictCount2024: 7, totalDamages2024: 2400, riskTier: 5, judicialHellhole: true, watchList: false, topCaseTypes: ["Products Liability", "Medical Malpractice"], notableDetail: "ATRA #5 Judicial Hellhole. Nation's premier mass torts forum shopping destination." },
+      { county: "Philadelphia County", verdictCount2024: 7, totalDamages2024: 2400, riskTier: 5, judicialHellhole: true, watchList: false, topCaseTypes: ["Products Liability", "Medical Malpractice"], notableDetail: "ATRA #5 Judicial Hellhole. Bayer/Roundup $2.2B verdict, Exxon Mobil benzene $725M. Nation's premier mass torts forum shopping destination." },
       { county: "Allegheny County (Pittsburgh)", verdictCount2024: 2, totalDamages2024: 480, riskTier: 4, judicialHellhole: false, watchList: false, topCaseTypes: ["Products Liability", "Trucking"] },
       { county: "Delaware County", verdictCount2024: 1, totalDamages2024: 280, riskTier: 3, judicialHellhole: false, watchList: false, topCaseTypes: ["Medical Malpractice"] },
       { county: "Montgomery County", verdictCount2024: 1, totalDamages2024: 140, riskTier: 3, judicialHellhole: false, watchList: false, topCaseTypes: ["Products Liability"] },
@@ -441,6 +446,7 @@ export const STATE_VERDICT_DATA: StateVerdictData[] = [
     medianVerdict: 55, largestVerdict: 72, largestVerdictCase: "Jackson v. Nashville Medical (medical malpractice)",
     judicialHellhole: false, watchList: false, riskTier: 2, topCaseTypes: ["Medical Malpractice", "Trucking"],
     yoyChange: 0,
+    notableDetail: "Gooch v. concrete truck company $31.9M trucking verdict (2024). Growing trucking verdict activity.",
   },
   {
     id: "TX", name: "Texas", verdictCount2024: 23, verdictCount2023: 15, totalDamages2024: 3000, totalDamages2023: 1600,
@@ -569,6 +575,350 @@ export const KEY_STATS = {
   growthSince2020: 309, // percent increase in frequency
 };
 
+// ─── Notable Verdicts (Verified Landmark Cases) ─────────────────────────────
+
+export interface NotableVerdict {
+  caseName: string;
+  amount: number; // in millions USD
+  amountLabel: string; // formatted display string
+  state: string; // two-letter code
+  jurisdiction: string; // county/city
+  year: number;
+  caseType: string;
+  detail: string;
+  source: string; // attribution
+}
+
+export const NOTABLE_VERDICTS: NotableVerdict[] = [
+  // ─── Billion-Dollar+ Verdicts ───
+  {
+    caseName: "Real Water Contamination I",
+    amount: 5200, amountLabel: "$5.2B",
+    state: "NV", jurisdiction: "Clark County",
+    year: 2024, caseType: "Products Liability",
+    detail: "AffinityLifestyles Inc. / Real Water brand. Product contaminated with chemical from rocket fuel. Largest single nuclear verdict of 2024.",
+    source: "Marathon Strategies",
+  },
+  {
+    caseName: "NFL Sunday Ticket Antitrust",
+    amount: 4700, amountLabel: "$4.7B",
+    state: "CA", jurisdiction: "Federal Court",
+    year: 2024, caseType: "Antitrust",
+    detail: "Antitrust class action against the NFL over Sunday Ticket pricing. Largest antitrust nuclear verdict of the year.",
+    source: "Marathon Strategies",
+  },
+  {
+    caseName: "Real Water Contamination II",
+    amount: 3100, amountLabel: "$3.1B",
+    state: "NV", jurisdiction: "Clark County",
+    year: 2024, caseType: "Products Liability",
+    detail: "Second Real Water contamination verdict. Same defendant (AffinityLifestyles Inc.).",
+    source: "Marathon Strategies",
+  },
+  {
+    caseName: "Bayer AG / Roundup (Lead Case)",
+    amount: 2200, amountLabel: "$2.2B",
+    state: "PA", jurisdiction: "Philadelphia County",
+    year: 2024, caseType: "Products Liability",
+    detail: "Non-Hodgkin lymphoma from Roundup herbicide. Philadelphia's mass torts docket. Largest products liability verdict in PA history.",
+    source: "Marathon Strategies",
+  },
+  {
+    caseName: "Fontaine Estate v. Philip Morris",
+    amount: 1008, amountLabel: "$1.008B",
+    state: "MA", jurisdiction: "Middlesex County",
+    year: 2022, caseType: "Products Liability",
+    detail: "Barbara Fontaine died of lung cancer at 60. Jury awarded $8M compensatory + $1B punitive. Plaintiff counsel requested only $10M — jury awarded 100x that amount.",
+    source: "Tyson & Mendes",
+  },
+  // ─── $100M+ Thermonuclear Verdicts ───
+  {
+    caseName: "Exxon Mobil Benzene Exposure",
+    amount: 725, amountLabel: "$725M",
+    state: "PA", jurisdiction: "Philadelphia County",
+    year: 2024, caseType: "Products Liability",
+    detail: "Toxic exposure to benzene. Philadelphia mass torts docket.",
+    source: "Marathon Strategies",
+  },
+  {
+    caseName: "LA Products Liability Verdict",
+    amount: 464.6, amountLabel: "$464.6M",
+    state: "CA", jurisdiction: "Los Angeles County",
+    year: 2024, caseType: "Products Liability",
+    detail: "8-week trial. $24.6M compensatory + $440M punitive damages.",
+    source: "Tyson & Mendes",
+  },
+  {
+    caseName: "Google Location Tracking Settlement",
+    amount: 425, amountLabel: "$425M",
+    state: "CA", jurisdiction: "Federal Court",
+    year: 2025, caseType: "Privacy / Class Action",
+    detail: "Location tracking of 98 million cellphone users. Morgan & Morgan co-lead counsel.",
+    source: "Morgan & Morgan",
+  },
+  {
+    caseName: "Bayer AG / Roundup (Second Verdict)",
+    amount: 175, amountLabel: "$175M",
+    state: "PA", jurisdiction: "Philadelphia County",
+    year: 2024, caseType: "Products Liability",
+    detail: "Second Roundup non-Hodgkin lymphoma verdict in Philadelphia.",
+    source: "Marathon Strategies",
+  },
+  {
+    caseName: "MARA Holdings (Crypto)",
+    amount: 138, amountLabel: "$138M",
+    state: "CA", jurisdiction: "Federal Court",
+    year: 2024, caseType: "Breach of Fiduciary Duty",
+    detail: "First nuclear verdict against a cryptocurrency company. Filed by founder of US Bitcoin Corp against Marathon Patent Group.",
+    source: "Marathon Strategies",
+  },
+  {
+    caseName: "Rodgers v. City (Paralysis Case)",
+    amount: 120, amountLabel: "$120M",
+    state: "FL", jurisdiction: "Alachua County",
+    year: 2021, caseType: "Motor Vehicle",
+    detail: "Jacob Rodgers paralyzed when city employee ran stop sign. 100% liability. One of the largest FL verdicts pre-reform.",
+    source: "Morgan & Morgan",
+  },
+  {
+    caseName: "Lee v. Westchester County Health Care Corp",
+    amount: 120, amountLabel: "$120M",
+    state: "NY", jurisdiction: "Westchester County",
+    year: 2023, caseType: "Medical Malpractice",
+    detail: "William Lee, 41, suffered stroke — hospital delayed diagnosis of basilar artery occlusion. $20M medical + $50M pain/suffering + $50M loss of services. Record-breaking NY med mal verdict.",
+    source: "Tyson & Mendes",
+  },
+  {
+    caseName: "Campbell v. Monte Carlo Condominium",
+    amount: 100, amountLabel: "$100M",
+    state: "FL", jurisdiction: "Miami-Dade County",
+    year: 2025, caseType: "Premises Liability / Wrongful Death",
+    detail: "Son of Florida State Senator killed due to negligent security. Morgan & Morgan obtained verdict.",
+    source: "Morgan & Morgan",
+  },
+  // ─── $10M–$100M Nuclear Verdicts ───
+  {
+    caseName: "Bayer AG / Roundup (Third Verdict)",
+    amount: 78, amountLabel: "$78M",
+    state: "PA", jurisdiction: "Philadelphia County",
+    year: 2024, caseType: "Products Liability",
+    detail: "Third Philadelphia Roundup verdict in 2024.",
+    source: "Marathon Strategies",
+  },
+  {
+    caseName: "Citrus County Trucking Wrongful Death",
+    amount: 54.1, amountLabel: "$54.1M",
+    state: "FL", jurisdiction: "Citrus County",
+    year: 2025, caseType: "Trucking / Wrongful Death",
+    detail: "Bucket truck crossed center line. Defense rejected $2M pre-trial offer.",
+    source: "Morgan & Morgan",
+  },
+  {
+    caseName: "Hakimi v. City of Los Angeles",
+    amount: 48.8, amountLabel: "$48.8M",
+    state: "CA", jurisdiction: "Los Angeles County",
+    year: 2024, caseType: "Premises / Dangerous Condition",
+    detail: "Daniel Hakimi killed in bicycle accident caused by a pothole. LA Superior Court. City held liable for dangerous condition of public property.",
+    source: "Tyson & Mendes",
+  },
+  {
+    caseName: "Motorcyclist Wrong-Way Drunk Driver",
+    amount: 47.5, amountLabel: "$47.5M",
+    state: "FL", jurisdiction: "Orange County",
+    year: 2013, caseType: "Motor Vehicle",
+    detail: "Motorcyclist hit by wrong-way drunk minor driver. $7.5M economic + $40M non-economic. Historic FL verdict.",
+    source: "Morgan & Morgan",
+  },
+  {
+    caseName: "Truck Stone Delivery Worksite Death",
+    amount: 46, amountLabel: "$46M",
+    state: "TX", jurisdiction: "Not specified",
+    year: 2024, caseType: "Trucking / Wrongful Death",
+    detail: "Decedent killed after being run over by truck delivering stones to worksite.",
+    source: "Tyson & Mendes",
+  },
+  {
+    caseName: "Coleman-Dixon Birth Injury",
+    amount: 37.85, amountLabel: "$37.85M",
+    state: "FL", jurisdiction: "Hillsborough County",
+    year: 2007, caseType: "Medical Malpractice",
+    detail: "Delayed C-section led to perinatal asphyxia. St. Joseph's Women's Hospital. Historic FL med mal verdict.",
+    source: "Morgan & Morgan",
+  },
+  {
+    caseName: "Midway Water Crisis",
+    amount: 37, amountLabel: "$37M",
+    state: "FL", jurisdiction: "Santa Rosa County",
+    year: 2025, caseType: "Environmental",
+    detail: "28 plaintiffs affected by 2021 Midway water crisis. Gulf Breeze, FL.",
+    source: "Morgan & Morgan",
+  },
+  {
+    caseName: "Gooch v. Concrete Truck",
+    amount: 31.9, amountLabel: "$31.9M",
+    state: "TN", jurisdiction: "Tennessee",
+    year: 2024, caseType: "Trucking",
+    detail: "Jennifer Gooch injured when concrete truck ran stop sign. Back and ankle injuries. Largest trucking verdict in TN in recent years.",
+    source: "Morgan & Morgan",
+  },
+  {
+    caseName: "Health First Medical Malpractice",
+    amount: 27, amountLabel: "$27M",
+    state: "FL", jurisdiction: "Brevard County",
+    year: 2025, caseType: "Medical Malpractice",
+    detail: "Holmes Regional Medical Center (Health First). Melbourne, FL.",
+    source: "Morgan & Morgan",
+  },
+  {
+    caseName: "Applestein v. Kleinhendler",
+    amount: 26, amountLabel: "$26M+",
+    state: "NY", jurisdiction: "Eastern District of NY (Federal)",
+    year: 2024, caseType: "Legal Malpractice / Fraud",
+    detail: "10-day trial. Legal malpractice, fraudulent inducement, exploitation of a vulnerable adult.",
+    source: "Tyson & Mendes",
+  },
+  {
+    caseName: "Hernandez-Arrezola v. Geriq Logistics",
+    amount: 13.1, amountLabel: "$13.1M",
+    state: "CA", jurisdiction: "Los Angeles County",
+    year: 2023, caseType: "Trucking",
+    detail: "Family rear-ended by semi-truck on I-10. Teardrop neck fracture and mild TBI. Panish Shea Boyle Ravipudi LLP represented plaintiff.",
+    source: "Tyson & Mendes",
+  },
+  {
+    caseName: "Torres v. Trucking Company",
+    amount: 12, amountLabel: "$12M",
+    state: "PA", jurisdiction: "Philadelphia County",
+    year: 2024, caseType: "Trucking",
+    detail: "Yvette Torres injured by commercial truck. Neck/back injuries. Pre-trial offer was $280,000.",
+    source: "Morgan & Morgan",
+  },
+  {
+    caseName: "Target Trip-and-Fall Verdict",
+    amount: 11.39, amountLabel: "$11.39M",
+    state: "FL", jurisdiction: "Orange County",
+    year: 2025, caseType: "Premises Liability",
+    detail: "Trip and fall at Target store in Winter Garden. Pre-trial offer was $250,000.",
+    source: "Morgan & Morgan",
+  },
+  {
+    caseName: "Doe v. Union School District",
+    amount: 102, amountLabel: "$102M",
+    state: "CA", jurisdiction: "California",
+    year: 2024, caseType: "Sexual Abuse / Institutional Liability",
+    detail: "Special-needs student assault case. Used by Tyson & Mendes as example of defense failure — contrasted with their $370K result in similar Norwalk-La Mirada case.",
+    source: "Tyson & Mendes",
+  },
+];
+
+// ─── Industry Breakdown (2024) ──────────────────────────────────────────────
+
+export interface IndustryBreakdown {
+  industry: string;
+  totalDamages: number; // in billions
+  color: string;
+}
+
+export const INDUSTRY_BREAKDOWN: IndustryBreakdown[] = [
+  { industry: "Beverage", totalDamages: 8.5, color: "#3498DB" },
+  { industry: "Entertainment", totalDamages: 4.7, color: "#9B59B6" },
+  { industry: "Antitrust / IP", totalDamages: 4.4, color: "#E74C3C" },
+  { industry: "Agricultural Chemicals", totalDamages: 2.3, color: "#2ECC71" },
+  { industry: "Construction & Engineering", totalDamages: 2.0, color: "#F39C12" },
+  { industry: "Technology Hardware", totalDamages: 1.9, color: "#1ABC9C" },
+  { industry: "Oil & Gas", totalDamages: 1.8, color: "#E67E22" },
+  { industry: "Trucking / Transportation", totalDamages: 1.4, color: "#34495E" },
+  { industry: "Healthcare / Pharma", totalDamages: 1.2, color: "#E91E63" },
+  { industry: "Other Industries", totalDamages: 3.1, color: "#95A5A6" },
+];
+
+// ─── Social Inflation & Contextual Statistics ───────────────────────────────
+
+export const SOCIAL_INFLATION_STATS = {
+  // CAS / Triple-I Joint Studies (2025)
+  excessLiabilityLosses: { low: 231.6, high: 281.2, period: "2014–2023", unit: "billions" },
+  commercialAutoExcess: { low: 42.7, high: 55.8, pctOfTotal: "20.7–27.0%", unit: "billions" },
+  personalAutoExcess: { low: 76.3, high: 81.3, unit: "billions" },
+  claimsSeveritySurge: { pct: 78, period: "2014–2023", vsCPI: 29 },
+
+  // Swiss Re Sigma 4/2024
+  socialInflationRate2023: 7, // percent — 20-year high
+  anchoringEffect: { anchor: "$100M", avgAwardWithout: "$3M", avgAwardWith: "$20M", forLargeCorp: true },
+  generationalDivide: { under40PctTooLowOrFair: 83, over60PctTooLowOrFair: 41 },
+
+  // TransRe (2025)
+  medMalNuclearPctOver25M: 50, // 2023
+  medMalNuclearGrowth: { from: 18, to: 46, periodFrom: 2014, periodTo: 2019, unit: "per year" },
+
+  // ATRI Trucking
+  truckingAvgVerdictGrowth: { from: 2.3, to: 22.3, yearFrom: 2010, yearTo: 2018, pctIncrease: 867 },
+  truckingAvgVerdict2020to2023: 27.5, // millions
+
+  // Sedgwick (2025)
+  casesGoingToVerdict: 1.8, // percent
+  defenseWinRateAtTrial: 75.4, // percent
+  federalCourtNuclearPct: 38, // up from ~10% historically
+  attorneyContactWithin2Weeks: { GL: 64, auto: 75 }, // percent
+
+  // The Doctors Company (med mal)
+  top50MedMalAvgVerdict: { y2019: 27, y2024: 56, unit: "millions" },
+  inflationDrivenMedMalLosses: 4, // $4B over decade ending 2024
+
+  // Gen Re
+  nuclearVerdicts2023: { count: 89, total: 14.5, unit: "billions — 15-year high" },
+
+  // ILR 10-Year Data (2013–2022)
+  totalNuclearVerdicts10yr: 1288,
+  medianNuclearVerdict10yr: 21, // millions
+  averageNuclearVerdict10yr: 89, // millions (up from $76M in prior study)
+  topStatesProduceHalf: ["CA", "FL", "NY", "TX"],
+  topSixStatesProduce61Pct: ["CA", "GA", "FL", "IL", "NY", "TX"],
+
+  // State vs. Federal (2024)
+  stateCourt2024: { damages: 20, cases: 85, unit: "billions / count" },
+  federalCourt2024: { damages: 11, cases: 50, unit: "billions / count" },
+  geographicReach2024: { states: 34, courts: 77, priorStates: 27, priorCourts: 65 },
+
+  // APCIA
+  tortTax2020: 443, // billions
+  tortTaxPerHousehold: 3600, // per year
+  attorneyAdSpend2023: 2.4, // billions
+
+  // Litigation Funding (Westfleet Advisors)
+  tplfAUM2024: 16.1, // billions
+  tplfActiveFunders: 42,
+  tplfProjected2037: 67, // billions
+};
+
+// ─── Data Sources (Structured References) ───────────────────────────────────
+
+export interface DataSource {
+  name: string;
+  url?: string;
+  description: string;
+  dataType: "individual_cases" | "aggregate_trends" | "actuarial" | "industry_report" | "judicial_ranking" | "litigation_funding";
+  accessLevel: "free" | "subscription" | "partial";
+}
+
+export const DATA_SOURCES: DataSource[] = [
+  { name: "Marathon Strategies Nuclear Verdict Reports (2024–2025)", description: "Annual report on corporate nuclear verdicts using VerdictSearch data. State-by-state totals, industry breakdown, trend analysis.", dataType: "aggregate_trends", accessLevel: "free" },
+  { name: "ATRA Judicial Hellholes® Report (2025–2026)", description: "Annual ranking of the most unfair court jurisdictions in the U.S. by the American Tort Reform Association.", dataType: "judicial_ranking", accessLevel: "free" },
+  { name: "Institute for Legal Reform — Nuclear Verdicts Study (2024)", description: "U.S. Chamber study of 1,288 nuclear verdicts (2013–2022). Median, average, state distribution, case type analysis.", dataType: "aggregate_trends", accessLevel: "free" },
+  { name: "Morgan & Morgan Verdict Magazine (2020–2026)", description: "Annual publication featuring individual case verdicts and settlements with amounts, jurisdictions, case types. Pre-trial offer vs. verdict comparisons.", dataType: "individual_cases", accessLevel: "free" },
+  { name: "Tyson & Mendes Nuclear Verdict® Tracker & Blog", description: "Individual nuclear verdict case analysis with strategic insights. Coined and trademarked 'Nuclear Verdict®.' Published Apex research analyzing 100 nuclear verdict transcripts.", dataType: "individual_cases", accessLevel: "free" },
+  { name: "CAS / Triple-I Social Inflation Joint Studies (2022–2025)", description: "Casualty Actuarial Society and Insurance Information Institute quantification of excess losses from legal system abuse. $231.6B–$281.2B over past decade.", dataType: "actuarial", accessLevel: "free" },
+  { name: "Swiss Re Sigma 4/2024 — Social Inflation Index", description: "First-ever Social Inflation Index. Behavioral study of 1,150 U.S. adults quantifying anchoring effects, generational divides in jury awards.", dataType: "actuarial", accessLevel: "free" },
+  { name: "Sedgwick 2025 Liability Litigation Commentary", description: "10 years of closed litigated claims analysis. Geographic distribution, attorney representation timing, defense costs.", dataType: "aggregate_trends", accessLevel: "free" },
+  { name: "TransRe Social Inflation Report (2025)", description: "20 years of claims severity tracking. Medical malpractice nuclear verdict data and TPLF analysis.", dataType: "actuarial", accessLevel: "free" },
+  { name: "ATRI Trucking Nuclear Verdicts Database", description: "American Transportation Research Institute database of 600 trucking cases (2006–2019). Average verdict grew 867% from $2.3M to $22.3M.", dataType: "individual_cases", accessLevel: "partial" },
+  { name: "The Doctors Company — Med Mal Nuclear Verdicts", description: "National Practitioner Data Bank analysis. Top 50 med mal verdicts annually. $4B in inflation-driven losses over decade.", dataType: "aggregate_trends", accessLevel: "free" },
+  { name: "Travelers Top 100 Verdicts Analysis", description: "Interactive analysis of NLJ Top 100 Verdicts data broken down by industry sector. 2015–2024.", dataType: "aggregate_trends", accessLevel: "free" },
+  { name: "KCIC Asbestos & Mass Tort Litigation Reports", description: "Tracks 90%+ of all asbestos filings nationally. Talc verdicts tracking. 2024 filings in 118 jurisdictions.", dataType: "aggregate_trends", accessLevel: "free" },
+  { name: "Allianz Commercial — Liability Loss Trends (2024)", description: "Global insurer analysis. Nuclear verdicts tripled since 2020. Product liability 40%+ of claim value. International social inflation spreading.", dataType: "industry_report", accessLevel: "free" },
+  { name: "Westfleet Advisors — Litigation Finance Report (2024)", description: "Annual market sizing of U.S. commercial litigation funding. $16.1B AUM across 42 funders. Projected $67B by 2037.", dataType: "litigation_funding", accessLevel: "partial" },
+  { name: "Public court records and verdict databases", description: "Federal and state court public records, PACER filings, county clerk records.", dataType: "individual_cases", accessLevel: "free" },
+];
+
 // ─── Attribution ─────────────────────────────────────────────────────────────
 
 export const ATTRIBUTION = {
@@ -577,6 +927,16 @@ export const ATTRIBUTION = {
     "Marathon Strategies Nuclear Verdict Reports (2024–2025)",
     "ATRA Judicial Hellholes® Report (2025–2026)",
     "Institute for Legal Reform",
+    "Morgan & Morgan Verdict Magazine",
+    "Tyson & Mendes Nuclear Verdict® Research",
+    "CAS / Triple-I Social Inflation Studies",
+    "Swiss Re Sigma Reports",
+    "Sedgwick Liability Litigation Commentary",
+    "TransRe, Allianz, Gen Re Industry Reports",
+    "ATRI Trucking Nuclear Verdicts Database",
+    "The Doctors Company Med Mal Studies",
+    "Travelers Top 100 Verdicts Analysis",
+    "Westfleet Advisors Litigation Finance Report",
     "Public court records and verdict databases",
   ],
   disclaimer: "Data compiled from publicly available sources for informational purposes. Individual case outcomes may vary. This visualization does not constitute legal advice.",

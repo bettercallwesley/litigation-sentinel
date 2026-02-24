@@ -14,6 +14,10 @@ import {
   CASE_TYPE_BREAKDOWN,
   JUDICIAL_HELLHOLES,
   JUDICIAL_HELLHOLE_WATCH_LIST,
+  NOTABLE_VERDICTS,
+  INDUSTRY_BREAKDOWN,
+  SOCIAL_INFLATION_STATS,
+  DATA_SOURCES,
   ATTRIBUTION,
 } from "@/data/nuclear-verdicts";
 import { US_STATE_PATHS, SMALL_STATE_LABELS } from "@/data/us-map-paths";
@@ -498,6 +502,400 @@ function MapLegend() {
   );
 }
 
+// ─── Notable Verdicts ────────────────────────────────────────────────────────
+
+function NotableVerdictsTable() {
+  return (
+    <div
+      style={{
+        padding: "16px",
+        background: SENTINEL.surface,
+        border: `1px solid ${SENTINEL.border}`,
+        borderRadius: 12,
+      }}
+    >
+      <div
+        style={{
+          fontSize: 9,
+          fontWeight: 700,
+          letterSpacing: "0.15em",
+          textTransform: "uppercase",
+          color: SENTINEL.sentinelAccent,
+          fontFamily: FONTS.sans,
+          marginBottom: 4,
+        }}
+      >
+        Notable Nuclear Verdicts® — Verified Landmark Cases
+      </div>
+      <div style={{ fontSize: 10, color: SENTINEL.inkMuted, fontFamily: FONTS.sans, marginBottom: 12 }}>
+        Sources: Marathon Strategies, Morgan &amp; Morgan Verdict Magazine, Tyson &amp; Mendes
+      </div>
+      <div style={{ overflowX: "auto" }}>
+        <table
+          style={{
+            width: "100%",
+            borderCollapse: "collapse",
+            fontFamily: FONTS.sans,
+            fontSize: 11,
+          }}
+        >
+          <thead>
+            <tr>
+              {["Amount", "Case", "State", "Year", "Type", "Source"].map((h) => (
+                <th
+                  key={h}
+                  style={{
+                    textAlign: "left",
+                    padding: "6px 8px",
+                    borderBottom: `2px solid ${SENTINEL.border}`,
+                    fontSize: 9,
+                    fontWeight: 700,
+                    letterSpacing: "0.08em",
+                    textTransform: "uppercase",
+                    color: SENTINEL.inkMuted,
+                    whiteSpace: "nowrap",
+                  }}
+                >
+                  {h}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {NOTABLE_VERDICTS.map((v, i) => (
+              <tr
+                key={`${v.caseName}-${i}`}
+                style={{
+                  borderBottom: `1px solid ${SENTINEL.border}`,
+                }}
+                onMouseEnter={(e) => {
+                  (e.currentTarget as HTMLTableRowElement).style.background = SENTINEL.bgWarm;
+                }}
+                onMouseLeave={(e) => {
+                  (e.currentTarget as HTMLTableRowElement).style.background = "transparent";
+                }}
+              >
+                <td
+                  style={{
+                    padding: "8px 8px",
+                    fontWeight: 700,
+                    color: v.amount >= 1000 ? SENTINEL.rose : SENTINEL.ink,
+                    fontFamily: FONTS.serif,
+                    fontSize: 13,
+                    whiteSpace: "nowrap",
+                  }}
+                >
+                  {v.amountLabel}
+                </td>
+                <td style={{ padding: "8px 8px", maxWidth: 220 }}>
+                  <div style={{ fontWeight: 600, color: SENTINEL.ink, fontSize: 11, lineHeight: 1.3 }}>
+                    {v.caseName}
+                  </div>
+                  <div style={{ fontSize: 10, color: SENTINEL.inkMuted, lineHeight: 1.4, marginTop: 2 }}>
+                    {v.detail}
+                  </div>
+                </td>
+                <td style={{ padding: "8px 8px", whiteSpace: "nowrap", color: SENTINEL.ink }}>
+                  {v.state}
+                  <div style={{ fontSize: 9, color: SENTINEL.inkMuted }}>{v.jurisdiction}</div>
+                </td>
+                <td style={{ padding: "8px 8px", color: SENTINEL.inkLight }}>{v.year}</td>
+                <td style={{ padding: "8px 8px" }}>
+                  <span
+                    style={{
+                      fontSize: 9,
+                      fontWeight: 600,
+                      color: SENTINEL.accent,
+                      background: SENTINEL.accentSoft,
+                      padding: "2px 6px",
+                      borderRadius: 100,
+                      whiteSpace: "nowrap",
+                    }}
+                  >
+                    {v.caseType}
+                  </span>
+                </td>
+                <td style={{ padding: "8px 8px", fontSize: 10, color: SENTINEL.inkMuted, whiteSpace: "nowrap" }}>
+                  {v.source}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+}
+
+// ─── Industry Breakdown ─────────────────────────────────────────────────────
+
+function IndustryChart() {
+  const maxDmg = Math.max(...INDUSTRY_BREAKDOWN.map((b) => b.totalDamages));
+  return (
+    <div
+      style={{
+        padding: "16px",
+        background: SENTINEL.surface,
+        border: `1px solid ${SENTINEL.border}`,
+        borderRadius: 12,
+      }}
+    >
+      <div
+        style={{
+          fontSize: 9,
+          fontWeight: 700,
+          letterSpacing: "0.15em",
+          textTransform: "uppercase",
+          color: SENTINEL.sentinelAccent,
+          fontFamily: FONTS.sans,
+          marginBottom: 4,
+        }}
+      >
+        Industry Breakdown (2024)
+      </div>
+      <div style={{ fontSize: 10, color: SENTINEL.inkMuted, fontFamily: FONTS.sans, marginBottom: 12 }}>
+        Source: Marathon Strategies
+      </div>
+      {INDUSTRY_BREAKDOWN.map((b) => (
+        <div key={b.industry} style={{ marginBottom: 8 }}>
+          <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 3 }}>
+            <span style={{ fontSize: 11, color: SENTINEL.ink, fontFamily: FONTS.sans, fontWeight: 500 }}>
+              {b.industry}
+            </span>
+            <span style={{ fontSize: 11, color: SENTINEL.inkMuted, fontFamily: FONTS.sans }}>
+              ${b.totalDamages}B
+            </span>
+          </div>
+          <div
+            style={{
+              height: 6,
+              background: SENTINEL.bgWarm,
+              borderRadius: 3,
+              overflow: "hidden",
+            }}
+          >
+            <div
+              style={{
+                width: `${(b.totalDamages / maxDmg) * 100}%`,
+                height: "100%",
+                background: b.color,
+                borderRadius: 3,
+                transition: "width 0.8s cubic-bezier(0.22, 1, 0.36, 1)",
+              }}
+            />
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+// ─── Key Findings (Social Inflation Stats) ──────────────────────────────────
+
+function KeyFindings() {
+  const stats = SOCIAL_INFLATION_STATS;
+  const findings = [
+    {
+      label: "Excess Liability Losses (10-Year)",
+      value: `$${stats.excessLiabilityLosses.low}B – $${stats.excessLiabilityLosses.high}B`,
+      source: "CAS / Triple-I",
+      color: SENTINEL.rose,
+    },
+    {
+      label: "Social Inflation Rate (2023)",
+      value: `${stats.socialInflationRate2023}% — 20-year high`,
+      source: "Swiss Re",
+      color: SENTINEL.amber,
+    },
+    {
+      label: "Anchoring Effect ($100M ask)",
+      value: `$3M avg → $20M avg award`,
+      source: "Swiss Re",
+      color: SENTINEL.sentinel,
+    },
+    {
+      label: "Trucking Avg Verdict Growth",
+      value: `$2.3M → $22.3M (+867%)`,
+      source: "ATRI",
+      color: "#F39C12",
+    },
+    {
+      label: "Cases Going to Verdict",
+      value: `Only ${stats.casesGoingToVerdict}% (98.2% settle)`,
+      source: "Sedgwick",
+      color: SENTINEL.emerald,
+    },
+    {
+      label: "Federal Court Nuclear %",
+      value: `${stats.federalCourtNuclearPct}% of nuclear verdicts (up from ~10%)`,
+      source: "Sedgwick",
+      color: SENTINEL.accent,
+    },
+    {
+      label: "Med Mal Top 50 Avg Verdict",
+      value: `$27M (2019) → $56M (2024)`,
+      source: "Doctors Company",
+      color: "#3498DB",
+    },
+    {
+      label: "Litigation Funding AUM",
+      value: `$${stats.tplfAUM2024}B across ${stats.tplfActiveFunders} funders`,
+      source: "Westfleet",
+      color: "#9B59B6",
+    },
+  ];
+
+  return (
+    <div
+      style={{
+        padding: "16px",
+        background: SENTINEL.surface,
+        border: `1px solid ${SENTINEL.border}`,
+        borderRadius: 12,
+      }}
+    >
+      <div
+        style={{
+          fontSize: 9,
+          fontWeight: 700,
+          letterSpacing: "0.15em",
+          textTransform: "uppercase",
+          color: SENTINEL.sentinelAccent,
+          fontFamily: FONTS.sans,
+          marginBottom: 4,
+        }}
+      >
+        Key Findings — Social Inflation & Defense Intelligence
+      </div>
+      <div style={{ fontSize: 10, color: SENTINEL.inkMuted, fontFamily: FONTS.sans, marginBottom: 12 }}>
+        Multi-source actuarial and industry data
+      </div>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: 10 }}>
+        {findings.map((f) => (
+          <div
+            key={f.label}
+            style={{
+              padding: "12px",
+              background: SENTINEL.bgWarm,
+              borderRadius: 8,
+              borderLeft: `3px solid ${f.color}`,
+            }}
+          >
+            <div
+              style={{
+                fontSize: 10,
+                fontWeight: 600,
+                color: SENTINEL.inkLight,
+                fontFamily: FONTS.sans,
+                marginBottom: 4,
+              }}
+            >
+              {f.label}
+            </div>
+            <div
+              style={{
+                fontSize: 14,
+                fontFamily: FONTS.serif,
+                fontWeight: 600,
+                color: SENTINEL.ink,
+                lineHeight: 1.3,
+                marginBottom: 4,
+              }}
+            >
+              {f.value}
+            </div>
+            <div style={{ fontSize: 9, color: SENTINEL.inkMuted, fontFamily: FONTS.sans }}>
+              Source: {f.source}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// ─── Data Sources ───────────────────────────────────────────────────────────
+
+function SourcesList() {
+  return (
+    <div
+      style={{
+        padding: "16px",
+        background: SENTINEL.surface,
+        border: `1px solid ${SENTINEL.border}`,
+        borderRadius: 12,
+      }}
+    >
+      <div
+        style={{
+          fontSize: 9,
+          fontWeight: 700,
+          letterSpacing: "0.15em",
+          textTransform: "uppercase",
+          color: SENTINEL.sentinelAccent,
+          fontFamily: FONTS.sans,
+          marginBottom: 12,
+        }}
+      >
+        Data Sources & Methodology
+      </div>
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+          gap: 8,
+        }}
+      >
+        {DATA_SOURCES.map((s) => (
+          <div
+            key={s.name}
+            style={{
+              padding: "10px 12px",
+              background: SENTINEL.bgWarm,
+              borderRadius: 8,
+              border: `1px solid ${SENTINEL.border}`,
+            }}
+          >
+            <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 4 }}>
+              <span
+                style={{
+                  fontSize: 11,
+                  fontWeight: 600,
+                  color: SENTINEL.ink,
+                  fontFamily: FONTS.sans,
+                  flex: 1,
+                  lineHeight: 1.3,
+                }}
+              >
+                {s.name}
+              </span>
+              <span
+                style={{
+                  fontSize: 8,
+                  fontWeight: 700,
+                  letterSpacing: "0.06em",
+                  textTransform: "uppercase",
+                  color: s.accessLevel === "free" ? SENTINEL.emerald : SENTINEL.amber,
+                  background: s.accessLevel === "free" ? "rgba(45,122,95,0.08)" : "rgba(196,140,44,0.08)",
+                  padding: "2px 6px",
+                  borderRadius: 100,
+                  fontFamily: FONTS.sans,
+                  flexShrink: 0,
+                }}
+              >
+                {s.accessLevel}
+              </span>
+            </div>
+            <div style={{ fontSize: 10, color: SENTINEL.inkMuted, fontFamily: FONTS.sans, lineHeight: 1.4 }}>
+              {s.description}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 // ─── Main Component ──────────────────────────────────────────────────────────
 
 interface NuclearVerdictsHeatMapProps {
@@ -943,7 +1341,24 @@ export default function NuclearVerdictsHeatMap({ isPreview = false }: NuclearVer
           </FadeIn>
 
           <FadeIn delay={500}>
-            <HellholesList />
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+                gap: 16,
+                marginBottom: 24,
+              }}
+            >
+              <HellholesList />
+              <IndustryChart />
+            </div>
+          </FadeIn>
+
+          {/* ─── Key Findings ─── */}
+          <FadeIn delay={550}>
+            <div style={{ marginBottom: 24 }}>
+              <KeyFindings />
+            </div>
           </FadeIn>
 
           {/* ─── Top States Table ─── */}
@@ -1066,6 +1481,20 @@ export default function NuclearVerdictsHeatMap({ isPreview = false }: NuclearVer
                   </tbody>
                 </table>
               </div>
+            </div>
+          </FadeIn>
+
+          {/* ─── Notable Verdicts Table ─── */}
+          <FadeIn delay={700}>
+            <div style={{ marginTop: 24 }}>
+              <NotableVerdictsTable />
+            </div>
+          </FadeIn>
+
+          {/* ─── Data Sources ─── */}
+          <FadeIn delay={800}>
+            <div style={{ marginTop: 24 }}>
+              <SourcesList />
             </div>
           </FadeIn>
         </>
