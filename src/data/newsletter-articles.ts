@@ -270,6 +270,172 @@ export const FEATURED_ARTICLE: NewsletterArticle = {
 
 export const ARTICLES: NewsletterArticle[] = [
   {
+    slug: "two-courts-two-answers-ai-privilege",
+    section: "Litigation Tech",
+    tag: "Case Watch",
+    title: "Two Courts, Same Day, Opposite Answers: Your AI Conversations May Already Be Discoverable",
+    subtitle:
+      "On February 10, 2026, a federal judge in Manhattan ruled that AI-generated documents are not privileged. Hours later, a federal judge in Michigan ruled the opposite on work product. The split creates a governance gap most legal departments are not prepared for.",
+    readTime: "9 min read",
+    author: "Wes Todd",
+    date: "February 24, 2026",
+    readers: 1247,
+    trending: true,
+    content: [
+      { type: "heading", text: "A Federal Judge Just Made Your AI Conversations Discoverable" },
+      {
+        type: "paragraph",
+        text: "On February 10, 2026, Judge Jed Rakoff of the Southern District of New York ruled from the bench that 31 documents a criminal defendant generated using Anthropic\u2019s Claude were not protected by attorney-client privilege or the work product doctrine. The defendant, Bradley Heppner, had fed information from his defense counsel into the consumer version of Claude, generated reports outlining his legal strategy, and transmitted those documents to his lawyers.",
+      },
+      {
+        type: "paragraph",
+        text: "The FBI seized the documents during a search of Heppner\u2019s home. His attorneys claimed privilege. Judge Rakoff rejected the claim on every ground they raised.",
+      },
+      {
+        type: "paragraph",
+        text: "This is the first federal ruling to address whether conversations with a publicly accessible AI tool are privileged. Judge Rakoff\u2019s written opinion, issued February 17, characterized it as a nationwide matter of first impression. The answer, at least in the Southern District of New York, is unambiguous: they are not.",
+      },
+      {
+        type: "pullquote",
+        text: "AI is not an attorney. It cannot maintain a confidential relationship. And in the eyes of this court, sharing privileged information with a consumer AI tool is the same as sharing it with any other third party.",
+      },
+      {
+        type: "paragraph",
+        text: "The reasoning was straightforward. Claude is not an attorney. There is no fiduciary relationship between a user and an AI platform. Anthropic\u2019s privacy policy explicitly states that user inputs may be used for model training and disclosed to third parties, including governmental authorities. There was, as Rakoff put it, simply no reasonable expectation of confidentiality.",
+      },
+      {
+        type: "paragraph",
+        text: "On work product, the court was equally direct. Heppner created the documents on his own initiative. His defense team at Quinn Emanuel did not direct him to use AI. Without attorney direction, work product protection does not attach.",
+      },
+
+      { type: "heading", text: "The Same Day, a Different Court Reached the Opposite Conclusion" },
+      {
+        type: "paragraph",
+        text: "On the same day Judge Rakoff ruled from the bench in Manhattan, Magistrate Judge Anthony P. Patti of the Eastern District of Michigan issued a written ruling in Warner v. Gilbarco, Inc. that went the other direction entirely.",
+      },
+      {
+        type: "paragraph",
+        text: "In Warner, the defendants demanded that a pro se plaintiff turn over her ChatGPT conversations, arguing that by using AI she had waived any work product protection. Judge Patti denied the request on two independent grounds.",
+      },
+      {
+        type: "paragraph",
+        text: "First, the materials were prepared in anticipation of litigation, which brings them under the protection of Rule 26(b)(3)(A). Second, and more significantly, Judge Patti drew a distinction that Rakoff did not: attorney-client privilege waiver and work product waiver are not the same thing.",
+      },
+      {
+        type: "callout",
+        text: "Attorney-client privilege can be waived by voluntary disclosure to any third party. Work product waiver requires disclosure to an adversary or in a manner likely to reach an adversary. Judge Patti then held that \u201cChatGPT and other generative AI programs are tools, not persons.\u201d Sharing materials with a tool does not constitute disclosure to an adversary.",
+      },
+      {
+        type: "paragraph",
+        text: "Judge Patti also rejected what he characterized as a fishing expedition \u2014 the defendants were seeking the plaintiff\u2019s internal analysis and mental impressions, which are not discoverable as a matter of law.",
+      },
+      {
+        type: "paragraph",
+        text: "Two federal courts. The same day. Opposite conclusions. One says AI is a third party that destroys confidentiality. The other says AI is a tool that preserves work product protection. Both applied existing legal frameworks. Neither invented new rules. They just read the same doctrines differently.",
+      },
+
+      { type: "heading", text: "The Governance Gap This Creates" },
+      {
+        type: "paragraph",
+        text: "I spend most of my time working with General Counsel and CLOs who manage large litigation portfolios. Here is what this split means in practice: right now, today, your legal team is almost certainly using AI in some form. They are using it to draft briefs, analyze contracts, research case law, prepare for depositions, and generate strategy memos. Some of this is happening on enterprise platforms with confidentiality safeguards. Some of it is happening on consumer tools that train on inputs.",
+      },
+      {
+        type: "paragraph",
+        text: "Most legal departments have no policy that distinguishes between the two. And after Heppner, the distinction is the difference between a protected communication and a discoverable document.",
+      },
+      {
+        type: "pullquote",
+        text: "The question is not whether your team uses AI. The question is whether your governance framework treats a ChatGPT prompt the same as an email to outside counsel. Because after Heppner, opposing counsel will.",
+      },
+      {
+        type: "paragraph",
+        text: "Judge Rakoff did leave a door open. In dicta, he noted that the analysis might differ if AI use had been directed by counsel under a Kovel-type arrangement. If counsel directs the client to use an AI tool, the AI might function as a lawyer\u2019s agent. But that requires documentation, direction, and a governance framework that most legal departments do not have.",
+      },
+      {
+        type: "paragraph",
+        text: "The ABA\u2019s Task Force on Law and Artificial Intelligence released its final report in December 2025, and its central conclusion is relevant here: AI has moved from experiment to infrastructure for the legal profession, and governance is now a central responsibility. Formal Opinion 512, issued in July 2024, requires lawyers to maintain a reasonable understanding of the AI tools they use. Forty-four percent of law firms still have no formal AI governance policy.",
+      },
+      {
+        type: "paragraph",
+        text: "That was a problem before Heppner. Now it is a liability.",
+      },
+
+      { type: "heading", text: "What This Means for Corporate Legal Departments" },
+      {
+        type: "paragraph",
+        text: "The immediate practical implications break down into three areas.",
+      },
+      {
+        type: "paragraph",
+        text: "First, consumer AI tools are a privilege risk. Any AI platform that trains on user inputs or reserves the right to share data with third parties cannot maintain the confidentiality required for attorney-client privilege. After Heppner, feeding case strategy, legal analysis, or client communications into these tools is functionally the same as publishing them. Every legal department needs a clear policy that specifies which AI tools are approved for privileged work and which are not.",
+      },
+      {
+        type: "paragraph",
+        text: "Second, enterprise AI tools with proper confidentiality controls are a different story. Commentators analyzing the Heppner decision have noted that Judge Rakoff\u2019s reasoning hinges on Anthropic\u2019s specific privacy policy. An enterprise deployment that contractually prohibits training on inputs, encrypts data in transit and at rest, and maintains SOC 2 compliance should not trigger the same analysis. But \u201cshould not\u201d is not \u201cwill not.\u201d Until a court rules on this distinction, the safe approach is to have the governance framework in place before the question arises.",
+      },
+      {
+        type: "paragraph",
+        text: "Third, work product may be more durable than privilege in the AI context. Judge Patti\u2019s reasoning in Warner suggests that materials prepared in anticipation of litigation maintain work product protection even when generated through AI \u2014 because an AI tool is not an adversary. But this only helps if the materials were genuinely prepared in anticipation of litigation. Internal analyses, strategy documents, and case evaluations created before litigation is reasonably anticipated do not qualify. Timing and documentation matter.",
+      },
+      {
+        type: "callout",
+        text: "The practical takeaway: privilege is fragile when AI is involved. Work product may be more resilient. But neither protection is automatic. Both require governance \u2014 policies, approved tool lists, documentation of counsel direction, and clear boundaries between consumer and enterprise AI platforms.",
+      },
+
+      { type: "heading", text: "The Pattern I Keep Seeing" },
+      {
+        type: "paragraph",
+        text: "There is a pattern I keep coming back to in conversations with legal leadership. The tools arrive before the governance. The technology gets adopted before the policies catch up. And the risk materializes in exactly the gap between the two.",
+      },
+      {
+        type: "paragraph",
+        text: "AI in legal departments follows the same trajectory as every other technology shift \u2014 from email to cloud storage to collaboration platforms. The tool gets adopted bottom-up. Individual attorneys start using it because it makes them faster. By the time leadership notices, the tool is embedded in workflows across the department. Then something happens \u2014 a ruling like Heppner, a discovery dispute, a breach \u2014 and everyone realizes the governance framework was never built.",
+      },
+      {
+        type: "paragraph",
+        text: "The GCs I work with who have the least exposure to this kind of risk are not the ones who banned AI. That is unrealistic and counterproductive. They are the ones who built the governance layer before it was tested. Approved tool lists. Enterprise-grade platforms with audit trails. Clear policies on what types of information can be processed through which channels. Documentation of counsel direction when AI is used for litigation preparation.",
+      },
+      {
+        type: "paragraph",
+        text: "After Heppner, the cost of not having that layer is no longer theoretical. It is discoverable.",
+      },
+
+      { type: "heading", text: "What to Do This Week" },
+      {
+        type: "paragraph",
+        text: "If you manage a legal department, here are five things you should do in the next seven days.",
+      },
+      {
+        type: "paragraph",
+        text: "One: Audit which AI tools your team is using. Not just the ones you approved \u2014 the ones they are actually using. Consumer tools, enterprise tools, browser extensions, embedded AI features in existing software. You cannot govern what you cannot see.",
+      },
+      {
+        type: "paragraph",
+        text: "Two: Review the privacy policies and terms of service for every AI platform in use. Specifically, check whether the platform trains on user inputs, whether it shares data with third parties, and what its data retention and deletion policies are. If the policy says inputs may be used for training, that tool cannot be used for privileged work after Heppner.",
+      },
+      {
+        type: "paragraph",
+        text: "Three: Establish a clear distinction between approved enterprise AI tools and consumer tools. Enterprise tools with contractual confidentiality protections should be the only platforms used for any work involving privileged information, litigation strategy, or client communications.",
+      },
+      {
+        type: "paragraph",
+        text: "Four: Document counsel direction when AI is used in litigation preparation. If work product protection is your fallback, you need to show that AI use was at the direction of counsel, not a unilateral decision by the client or a staff member. Build this into your workflow.",
+      },
+      {
+        type: "paragraph",
+        text: "Five: Brief your outside counsel. They need to know your AI governance expectations, and you need to know what tools they are using on your matters. If they are running case research through consumer AI tools, that is your exposure too.",
+      },
+      {
+        type: "paragraph",
+        text: "The Heppner ruling is not the end of AI in legal practice. It is the beginning of AI governance as a non-negotiable requirement. The departments that build the framework now will operate from a position of strength. The ones that wait will learn the framework\u2019s value from opposing counsel\u2019s discovery request.",
+      },
+      {
+        type: "paragraph",
+        text: "We built a short diagnostic that maps where your litigation operations have visibility and where the blind spots are \u2014 including governance gaps like this one. It takes about two minutes: /briefing",
+      },
+    ],
+  },
+  {
     slug: "judicial-hellholes-keep-getting-worse",
     section: "Litigation Strategy",
     tag: "Case Watch",
