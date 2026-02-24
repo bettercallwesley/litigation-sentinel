@@ -1614,19 +1614,19 @@ export default function NuclearVerdictsHeatMap({
           <StatCard
             label="Nuclear Verdicts&reg;"
             value={KEY_STATS.totalVerdicts2025.toString()}
-            subtext={`Preliminary · ${KEY_STATS.totalVerdicts2024} in 2024`}
+            subtext={`2025 YTD · ${KEY_STATS.yoyVerdictGrowth2024}% YoY growth`}
             color={SENTINEL.rose}
           />
           <StatCard
             label="Total Damages"
             value={`$${KEY_STATS.totalDamages2025}B`}
-            subtext={`Preliminary · $${KEY_STATS.totalDamages2024}B in 2024`}
+            subtext={`2025 YTD · ${KEY_STATS.yoyDamagesGrowth2024}% YoY growth`}
             color={SENTINEL.sentinel}
           />
           <StatCard
             label="Median Verdict"
             value={`$${KEY_STATS.medianVerdict2025}M`}
-            subtext={`vs. $${KEY_STATS.medianVerdict2024}M in 2024`}
+            subtext="2025 YTD · Down 6% from prior year"
           />
           <StatCard
             label="$100M+ Verdicts"
