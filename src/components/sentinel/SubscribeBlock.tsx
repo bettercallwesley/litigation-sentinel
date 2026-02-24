@@ -3,6 +3,7 @@
 import React from "react";
 import { SENTINEL, FONTS } from "@/components/design-system/tokens";
 import FadeIn from "@/components/design-system/FadeIn";
+import { ENGAGEMENT_STATS } from "@/data/engagement-stats";
 
 interface SubscribeBlockProps {
   delay?: number;
@@ -54,8 +55,8 @@ export default function SubscribeBlock({ delay = 700 }: SubscribeBlockProps) {
             fontFamily: FONTS.sans,
           }}
         >
-          Weekly intelligence for litigation leaders. Strategy, technology, and the data that
-          matters.
+          Join {ENGAGEMENT_STATS.subscriberCount.toLocaleString()} litigation leaders who get weekly intelligence on
+          strategy, technology, and the data that matters.
         </p>
         <div
           style={{

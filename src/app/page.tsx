@@ -80,6 +80,24 @@ export default function Home() {
             >
               {FEATURED_ARTICLE.tag}
             </span>
+            {FEATURED_ARTICLE.trending && (
+              <span
+                style={{
+                  display: "inline-block",
+                  fontSize: 9,
+                  fontWeight: 600,
+                  letterSpacing: "0.1em",
+                  textTransform: "uppercase",
+                  color: SENTINEL.emerald,
+                  fontFamily: FONTS.sans,
+                  background: "rgba(45, 122, 95, 0.08)",
+                  padding: "2px 8px",
+                  borderRadius: 3,
+                }}
+              >
+                Trending
+              </span>
+            )}
             <h2
               style={{
                 fontSize: "clamp(24px, 4vw, 32px)",
@@ -107,6 +125,7 @@ export default function Home() {
             <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
               <span style={{ fontSize: 11, color: SENTINEL.inkMuted }}>
                 {FEATURED_ARTICLE.readTime}
+                {FEATURED_ARTICLE.readers != null && ` · ${FEATURED_ARTICLE.readers.toLocaleString()} readers this week`}
               </span>
               <span
                 style={{

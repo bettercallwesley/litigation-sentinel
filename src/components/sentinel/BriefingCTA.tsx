@@ -3,6 +3,7 @@
 import React from "react";
 import { SENTINEL, FONTS } from "@/components/design-system/tokens";
 import FadeIn from "@/components/design-system/FadeIn";
+import { ENGAGEMENT_STATS } from "@/data/engagement-stats";
 
 interface BriefingCTAProps {
   delay?: number;
@@ -76,6 +77,19 @@ export default function BriefingCTA({ delay = 400 }: BriefingCTAProps) {
             Take the 4-minute Litigation Intelligence Readiness Assessment. Six questions.
             Personalized results. A confidential look at what&apos;s possible.
           </p>
+          <div
+            style={{
+              fontSize: 11,
+              color: SENTINEL.sentinelAccent,
+              fontFamily: FONTS.sans,
+              fontWeight: 600,
+              letterSpacing: "0.08em",
+              textTransform: "uppercase",
+              marginBottom: 14,
+            }}
+          >
+            {ENGAGEMENT_STATS.briefingsCompleted} executives assessed {ENGAGEMENT_STATS.quarterLabel}
+          </div>
           <div
             style={{
               display: "inline-flex",

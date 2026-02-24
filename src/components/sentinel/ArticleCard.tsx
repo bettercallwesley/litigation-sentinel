@@ -102,6 +102,7 @@ export default function ArticleCard({ article, featured = false, onClick, delay 
         <div style={{ marginTop: 8, display: "flex", alignItems: "center", gap: 12 }}>
           <span style={{ fontSize: 11, color: SENTINEL.inkMuted, fontFamily: FONTS.sans }}>
             {article.readTime}
+            {article.readers != null && ` · ${article.readers.toLocaleString()} readers this week`}
           </span>
           {onClick && (
             <span style={{ fontSize: 11, color: SENTINEL.accent, fontFamily: FONTS.sans, fontWeight: 600 }}>

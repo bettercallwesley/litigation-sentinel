@@ -14,6 +14,8 @@ export interface NewsletterArticle {
   author?: string;
   date?: string;
   content?: ArticleContentBlock[];
+  readers?: number;
+  trending?: boolean;
 }
 
 export const ISSUE = {
@@ -32,6 +34,8 @@ export const FEATURED_ARTICLE: NewsletterArticle = {
   author: "Wes Todd",
   date: "February 12, 2026",
   linksTo: "briefing",
+  readers: 2847,
+  trending: true,
   content: [
     // --- Section 1: The Era of Tracking Spend and Hoping for the Best Is Over ---
     { type: "heading", text: "The Era of Tracking Spend and Hoping for the Best Is Over" },
@@ -275,6 +279,7 @@ export const ARTICLES: NewsletterArticle[] = [
     readTime: "6 min",
     author: "Wes Todd",
     date: "February 10, 2026",
+    readers: 1631,
   },
   {
     slug: "quarterly-attorney-report-lying",
@@ -287,6 +292,7 @@ export const ARTICLES: NewsletterArticle[] = [
     author: "Wes Todd",
     date: "February 7, 2026",
     linksTo: "briefing",
+    readers: 1943,
     content: [
       // Section 1 — Opening
       { type: "heading", text: "Not on Purpose. But the Damage Is the Same." },
@@ -465,6 +471,7 @@ export const ARTICLES: NewsletterArticle[] = [
     readTime: "6 min",
     author: "Wes Todd",
     date: "February 5, 2026",
+    readers: 1187,
   },
   {
     slug: "build-litigation-intelligence-stack",
@@ -477,6 +484,7 @@ export const ARTICLES: NewsletterArticle[] = [
     author: "Wes Todd",
     date: "February 3, 2026",
     linksTo: "council",
+    readers: 892,
   },
   {
     slug: "outside-counsel-performance-top-10-percent",
@@ -488,6 +496,7 @@ export const ARTICLES: NewsletterArticle[] = [
     readTime: "5 min",
     author: "Wes Todd",
     date: "January 31, 2026",
+    readers: 743,
   },
   {
     slug: "morgan-and-morgan-eating-your-lunch",
@@ -499,6 +508,7 @@ export const ARTICLES: NewsletterArticle[] = [
     readTime: "5 min",
     author: "Wes Todd",
     date: "January 29, 2026",
+    readers: 1054,
   },
 ];
 
@@ -512,6 +522,7 @@ export const TRIAL_ARTICLE: NewsletterArticle = {
     "They picked their ten hardest cases. Ran real data through real dashboards. Within two weeks, they found three cases that should have settled months ago and two attorneys who were consistently underperforming. The math was hard to argue with.",
   readTime: "6 min",
   linksTo: "trial",
+  readers: 1412,
 };
 
 export const ALL_ARTICLES: NewsletterArticle[] = [
