@@ -49,6 +49,14 @@
 - Primary domain: LitigationSentinel.com
 - Default branch: `main`
 
+### Claude → Production Workflow
+1. **Develop** on `claude/*` feature branches (required by sandbox — direct push to `main` returns 403)
+2. **Push** the branch: `git push -u origin claude/<branch-name>`
+3. **Auto-merge**: `.github/workflows/auto-merge-claude.yml` triggers on every `claude/**` push — creates a PR and squash-merges it into `main` automatically
+4. **Vercel deploys** from `main` → changes go live at LitigationSentinel.com
+- No manual PR creation needed — push to a `claude/` branch and the Action handles the rest
+- If the Action is not yet enabled, the user must merge the workflow file to `main` first (one-time setup)
+
 ## Nuclear Verdicts® Heat Map — Data Sources
 - Route: `/nuclear-verdicts` — interactive SVG US map with state-level data
 - Data file: `src/data/nuclear-verdicts.ts` — all state entries, notable verdicts, industry breakdown, social inflation stats
