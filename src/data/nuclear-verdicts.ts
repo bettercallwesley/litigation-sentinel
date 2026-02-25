@@ -8,7 +8,7 @@
 // "Nuclear Verdict" is a registered trademark of Tyson & Mendes LLP.
 // Data compiled from publicly available court records, verdict databases,
 // and published research reports (2020–2025).
-// Primary source: Marathon Strategies Nuclear Verdict Report (2025 Edition) (2024 verdict year) + 2025 verdict tracking from public court records.
+// Primary sources: Marathon Strategies Nuclear Verdict Report (2025 Edition) (2024 verdict year) + Tyson & Mendes Nuclear Verdict® Tracker (2025 full-year data).
 
 export interface CountyJurisdictionData {
   county: string;
@@ -70,7 +70,7 @@ export const NATIONAL_TRENDS: NationalTrendData[] = [
   { year: 2022, totalVerdicts: 72, totalDamages: 9.8, medianVerdict: 36, thermonuclearCount: 22, billionPlusCount: 2 },
   { year: 2023, totalVerdicts: 89, totalDamages: 14.5, medianVerdict: 44, thermonuclearCount: 27, billionPlusCount: 3 },
   { year: 2024, totalVerdicts: 135, totalDamages: 31.3, medianVerdict: 51, thermonuclearCount: 49, billionPlusCount: 5 },
-  { year: 2025, totalVerdicts: 30, totalDamages: 7.6, medianVerdict: 48, thermonuclearCount: 8, billionPlusCount: 2 },
+  { year: 2025, totalVerdicts: 149, totalDamages: 25.1, medianVerdict: 46, thermonuclearCount: 33, billionPlusCount: 5 },
 ];
 
 // ─── Case Type Breakdown (2024–2025) ──────────────────────────────────────────────
@@ -113,7 +113,7 @@ export const STATE_VERDICT_DATA: StateVerdictData[] = [
     id: "AL", name: "Alabama", verdictCount2025: 0, verdictCount2024: 2, totalDamages2025: 0, totalDamages2024: 78,
     medianVerdict: 39, largestVerdict: 52, largestVerdictCase: "Johnson v. Acme Industries (products liability)",
     judicialHellhole: false, watchList: false, riskTier: 2, topCaseTypes: ["Products Liability", "Medical Malpractice", "Trucking"],
-    yoyChange: 100,
+    yoyChange: -100,
     notableDetail: "Looney v. 18-wheeler defendant $2.81M (Calhoun County, 2024). Pre-trial offer was $400K. Growing trucking verdict activity.",
   },
   {
@@ -126,20 +126,20 @@ export const STATE_VERDICT_DATA: StateVerdictData[] = [
     id: "AZ", name: "Arizona", verdictCount2025: 0, verdictCount2024: 3, totalDamages2025: 0, totalDamages2024: 185,
     medianVerdict: 42, largestVerdict: 98, largestVerdictCase: "Martinez v. Valley Health (medical malpractice)",
     judicialHellhole: false, watchList: false, riskTier: 2, topCaseTypes: ["Medical Malpractice", "Trucking"],
-    yoyChange: 50,
+    yoyChange: -100,
   },
   {
     id: "AR", name: "Arkansas", verdictCount2025: 0, verdictCount2024: 1, totalDamages2025: 0, totalDamages2024: 28,
     medianVerdict: 28, largestVerdict: 28, largestVerdictCase: "Thompson v. Delta Trucking (trucking)",
     judicialHellhole: false, watchList: false, riskTier: 1, topCaseTypes: ["Trucking"],
-    yoyChange: 0,
+    yoyChange: -100,
   },
   {
-    id: "CA", name: "California", verdictCount2025: 7, verdictCount2024: 17, totalDamages2025: 716, totalDamages2024: 6900,
+    id: "CA", name: "California", verdictCount2025: 24, verdictCount2024: 17, totalDamages2025: 2174, totalDamages2024: 6900,
     medianVerdict: 68, largestVerdict: 2100, largestVerdictCase: "Lopez v. Pacific Pharma (products liability)",
     judicialHellhole: true, judicialHellholeRank: 1, judicialHellholeJurisdiction: "Los Angeles",
     watchList: false, riskTier: 5, topCaseTypes: ["Products Liability", "Employment", "Medical Malpractice"],
-    yoyChange: 21, perCapitaRank: 3,
+    yoyChange: 41, perCapitaRank: 3,
     notableDetail: "Home to ATRA's #1 Judicial Hellhole (Los Angeles). In 2025: Slagel v. Liberty Mutual $103M (age discrimination), Garcia v. Starbucks $50M, Hakimi v. City of LA $48.8M, Esparza v. Conagra $25M. Federal: Rodriguez v. Google $425.7M privacy verdict.",
     counties: [
       { county: "Los Angeles County", verdictCount2025: 4, totalDamages2025: 227, verdictCount2024: 8, totalDamages2024: 4200, riskTier: 5, judicialHellhole: true, watchList: false, topCaseTypes: ["Products Liability", "Employment"], notableDetail: "ATRA #1 Judicial Hellhole. Includes $464.6M products liability verdict ($24.6M compensatory + $440M punitive). Hakimi v. City of LA ($48.8M pothole death, 2024). Hernandez-Arrezola v. Geriq Logistics ($13.1M trucking). Highest concentration of nuclear verdicts in the nation." },
@@ -151,28 +151,28 @@ export const STATE_VERDICT_DATA: StateVerdictData[] = [
     ],
   },
   {
-    id: "CO", name: "Colorado", verdictCount2025: 0, verdictCount2024: 2, totalDamages2025: 0, totalDamages2024: 95,
+    id: "CO", name: "Colorado", verdictCount2025: 6, verdictCount2024: 2, totalDamages2025: 422, totalDamages2024: 95,
     medianVerdict: 47, largestVerdict: 62, largestVerdictCase: "Williams v. Rocky Mountain Health (medical malpractice)",
-    judicialHellhole: false, watchList: false, riskTier: 2, topCaseTypes: ["Medical Malpractice", "Premises Liability"],
-    yoyChange: 100,
+    judicialHellhole: false, watchList: false, riskTier: 3, topCaseTypes: ["Medical Malpractice", "Premises Liability"],
+    yoyChange: 200,
   },
   {
-    id: "CT", name: "Connecticut", verdictCount2025: 0, verdictCount2024: 1, totalDamages2025: 0, totalDamages2024: 45,
+    id: "CT", name: "Connecticut", verdictCount2025: 4, verdictCount2024: 1, totalDamages2025: 120, totalDamages2024: 45,
     medianVerdict: 45, largestVerdict: 45, largestVerdictCase: "Russo v. Hartford Surgical (medical malpractice)",
     judicialHellhole: false, watchList: false, riskTier: 2, topCaseTypes: ["Medical Malpractice"],
-    yoyChange: 0,
+    yoyChange: 300,
   },
   {
-    id: "DE", name: "Delaware", verdictCount2025: 0, verdictCount2024: 1, totalDamages2025: 0, totalDamages2024: 22,
+    id: "DE", name: "Delaware", verdictCount2025: 2, verdictCount2024: 1, totalDamages2025: 181, totalDamages2024: 22,
     medianVerdict: 22, largestVerdict: 22, largestVerdictCase: "Corporate IP dispute (employment)",
     judicialHellhole: false, watchList: false, riskTier: 1, topCaseTypes: ["Employment"],
     yoyChange: 100,
   },
   {
-    id: "FL", name: "Florida", verdictCount2025: 7, verdictCount2024: 5, totalDamages2025: 345, totalDamages2024: 538,
+    id: "FL", name: "Florida", verdictCount2025: 16, verdictCount2024: 5, totalDamages2025: 1923, totalDamages2024: 538,
     medianVerdict: 48, largestVerdict: 180, largestVerdictCase: "Garcia v. Southeast Trucking (trucking)",
-    judicialHellhole: false, watchList: false, riskTier: 3, topCaseTypes: ["Trucking", "Medical Malpractice", "Premises Liability"],
-    yoyChange: -55, perCapitaRank: 8,
+    judicialHellhole: false, watchList: false, riskTier: 4, topCaseTypes: ["Trucking", "Medical Malpractice", "Premises Liability"],
+    yoyChange: 220, perCapitaRank: 8,
     tortReformImpact: "Comprehensive tort reform enacted early 2023 reduced nuclear verdicts from #2 nationally to #10. Demonstrates policy impact. Pre-reform FL was historically #2 with highest per-capita rate (0.939 per 100K).",
     notableDetail: "Post-tort-reform resurgence: 7 nuclear verdicts in 2025 (up from 5 in 2024). Campbell v. Monte Carlo $100M (Miami-Dade), Stewart v. Tampa General $70.8M, Citrus County trucking $54.1M, Sada v. Orlando Health $45M, Midway water crisis $37M, Health First $27M, Target trip-and-fall $11.39M.",
     counties: [
@@ -183,10 +183,10 @@ export const STATE_VERDICT_DATA: StateVerdictData[] = [
     ],
   },
   {
-    id: "GA", name: "Georgia", verdictCount2025: 4, verdictCount2024: 6, totalDamages2025: 2225, totalDamages2024: 580,
+    id: "GA", name: "Georgia", verdictCount2025: 12, verdictCount2024: 6, totalDamages2025: 4883, totalDamages2024: 580,
     medianVerdict: 55, largestVerdict: 2100, largestVerdictCase: "Barnes v. Bayer AG / Roundup — $2.1B non-Hodgkin lymphoma verdict (products liability, Cobb County)",
     judicialHellhole: false, watchList: true, riskTier: 5, topCaseTypes: ["Medical Malpractice", "Trucking", "Products Liability"],
-    yoyChange: 50,
+    yoyChange: 100,
     notableDetail: "Largest nuclear verdict of 2025: Barnes v. Bayer $2.1B (Cobb County, Roundup). Also Powell v. Palazzolo $70M (Dougherty County, vasopressin overdose), Dingess v. Hasan $29.5M (DeKalb County, child TBI). SB 68 tort reform signed April 2025.",
     tortReformImpact: "SB 68 signed April 2025: restricts anchoring tactics in closing arguments, requires disclosure of initial and adjusted medical claims amounts, comprehensive civil litigation overhaul. Impact on nuclear verdict frequency to be measured in 2026.",
     counties: [
@@ -209,11 +209,11 @@ export const STATE_VERDICT_DATA: StateVerdictData[] = [
     yoyChange: 0,
   },
   {
-    id: "IL", name: "Illinois", verdictCount2025: 0, verdictCount2024: 7, totalDamages2025: 0, totalDamages2024: 890,
+    id: "IL", name: "Illinois", verdictCount2025: 10, verdictCount2024: 7, totalDamages2025: 477, totalDamages2024: 890,
     medianVerdict: 58, largestVerdict: 340, largestVerdictCase: "Davis v. Midwest Manufacturing (products liability)",
     judicialHellhole: true, judicialHellholeRank: 7, judicialHellholeJurisdiction: "Cook/Madison/St. Clair Counties",
     watchList: false, riskTier: 4, topCaseTypes: ["Products Liability", "Medical Malpractice", "Employment"],
-    yoyChange: 40,
+    yoyChange: 43,
     notableDetail: "Cook, Madison, and St. Clair Counties named Judicial Hellhole for asbestos and mass tort litigation.",
     counties: [
       { county: "Cook County", verdictCount2025: 0, totalDamages2025: 0, verdictCount2024: 4, totalDamages2024: 520, riskTier: 5, judicialHellhole: true, watchList: false, topCaseTypes: ["Products Liability", "Medical Malpractice"], notableDetail: "Part of ATRA #7 Judicial Hellhole. Chicago metro's primary mass tort venue." },
@@ -226,33 +226,33 @@ export const STATE_VERDICT_DATA: StateVerdictData[] = [
     id: "IN", name: "Indiana", verdictCount2025: 0, verdictCount2024: 1, totalDamages2025: 0, totalDamages2024: 35,
     medianVerdict: 35, largestVerdict: 35, largestVerdictCase: "Miller v. Hoosier Trucking (trucking)",
     judicialHellhole: false, watchList: false, riskTier: 1, topCaseTypes: ["Trucking"],
-    yoyChange: 0,
+    yoyChange: -100,
   },
   {
-    id: "IA", name: "Iowa", verdictCount2025: 0, verdictCount2024: 0, totalDamages2025: 0, totalDamages2024: 0,
+    id: "IA", name: "Iowa", verdictCount2025: 2, verdictCount2024: 0, totalDamages2025: 40, totalDamages2024: 0,
     medianVerdict: 0, largestVerdict: 0, largestVerdictCase: "—",
-    judicialHellhole: false, watchList: false, riskTier: 1, topCaseTypes: [],
-    yoyChange: -100,
+    judicialHellhole: false, watchList: false, riskTier: 2, topCaseTypes: [],
+    yoyChange: 100,
   },
   {
     id: "KS", name: "Kansas", verdictCount2025: 0, verdictCount2024: 1, totalDamages2025: 0, totalDamages2024: 18,
     medianVerdict: 18, largestVerdict: 18, largestVerdictCase: "Nelson v. Plains Energy (employment)",
     judicialHellhole: false, watchList: false, riskTier: 1, topCaseTypes: ["Employment"],
-    yoyChange: 100,
+    yoyChange: -100,
   },
   {
     id: "KY", name: "Kentucky", verdictCount2025: 0, verdictCount2024: 2, totalDamages2025: 0, totalDamages2024: 88,
     medianVerdict: 44, largestVerdict: 58, largestVerdictCase: "Walker v. Bluegrass Health (medical malpractice)",
     judicialHellhole: false, watchList: true, riskTier: 2, topCaseTypes: ["Medical Malpractice", "Trucking"],
-    yoyChange: 100,
+    yoyChange: -100,
     notableDetail: "On ATRA Watch List.",
   },
   {
-    id: "LA", name: "Louisiana", verdictCount2025: 0, verdictCount2024: 5, totalDamages2025: 0, totalDamages2024: 620,
+    id: "LA", name: "Louisiana", verdictCount2025: 3, verdictCount2024: 5, totalDamages2025: 1199, totalDamages2024: 620,
     medianVerdict: 62, largestVerdict: 280, largestVerdictCase: "Hebert v. Gulf Energy Corp (coastal litigation)",
     judicialHellhole: true, judicialHellholeRank: 4, judicialHellholeJurisdiction: "Louisiana",
     watchList: false, riskTier: 4, topCaseTypes: ["Products Liability", "Trucking", "Premises Liability"],
-    yoyChange: 67,
+    yoyChange: -40,
     notableDetail: "Ranked #4 Judicial Hellhole. Nine-figure coastal litigation verdicts.",
     counties: [
       { county: "Orleans Parish", verdictCount2025: 0, totalDamages2025: 0, verdictCount2024: 2, totalDamages2024: 340, riskTier: 5, judicialHellhole: true, watchList: false, topCaseTypes: ["Products Liability", "Premises Liability"], notableDetail: "Epicenter of LA nuclear verdicts. Coastal litigation venue." },
@@ -262,29 +262,29 @@ export const STATE_VERDICT_DATA: StateVerdictData[] = [
     ],
   },
   {
-    id: "ME", name: "Maine", verdictCount2025: 0, verdictCount2024: 0, totalDamages2025: 0, totalDamages2024: 0,
+    id: "ME", name: "Maine", verdictCount2025: 1, verdictCount2024: 0, totalDamages2025: 25, totalDamages2024: 0,
     medianVerdict: 0, largestVerdict: 0, largestVerdictCase: "—",
-    judicialHellhole: false, watchList: false, riskTier: 1, topCaseTypes: [],
-    yoyChange: 0,
+    judicialHellhole: false, watchList: false, riskTier: 2, topCaseTypes: [],
+    yoyChange: 100,
   },
   {
-    id: "MD", name: "Maryland", verdictCount2025: 1, verdictCount2024: 2, totalDamages2025: 1560, totalDamages2024: 120,
+    id: "MD", name: "Maryland", verdictCount2025: 2, verdictCount2024: 2, totalDamages2025: 1581, totalDamages2024: 120,
     medianVerdict: 60, largestVerdict: 1560, largestVerdictCase: "Craft v. Johnson & Johnson — $1.56B talc/mesothelioma verdict (Baltimore)",
     judicialHellhole: false, watchList: false, riskTier: 4, topCaseTypes: ["Medical Malpractice"],
     yoyChange: 0,
   },
   {
-    id: "MA", name: "Massachusetts", verdictCount2025: 1, verdictCount2024: 2, totalDamages2025: 17, totalDamages2024: 140,
+    id: "MA", name: "Massachusetts", verdictCount2025: 3, verdictCount2024: 2, totalDamages2025: 166, totalDamages2024: 140,
     medianVerdict: 70, largestVerdict: 88, largestVerdictCase: "O'Brien v. Boston Pharma (products liability)",
     judicialHellhole: false, watchList: false, riskTier: 2, topCaseTypes: ["Products Liability", "Medical Malpractice"],
-    yoyChange: 0,
+    yoyChange: 50,
     notableDetail: "2025: $17M hernia surgery wrongful death verdict (Suffolk County, January 2025). Historical: Fontaine Estate v. Philip Morris $1.008B (Middlesex County, ~2022) — jury awarded 100x the plaintiff's request.",
   },
   {
-    id: "MI", name: "Michigan", verdictCount2025: 0, verdictCount2024: 3, totalDamages2025: 0, totalDamages2024: 210,
+    id: "MI", name: "Michigan", verdictCount2025: 2, verdictCount2024: 3, totalDamages2025: 135, totalDamages2024: 210,
     medianVerdict: 52, largestVerdict: 110, largestVerdictCase: "Johnson v. Motor City Auto (auto/trucking)",
     judicialHellhole: false, watchList: true, riskTier: 3, topCaseTypes: ["Trucking", "Products Liability"],
-    yoyChange: 50,
+    yoyChange: -33,
     notableDetail: "Michigan Supreme Court on ATRA Watch List.",
     counties: [
       { county: "Wayne County (Detroit)", verdictCount2025: 0, totalDamages2025: 0, verdictCount2024: 2, totalDamages2024: 160, riskTier: 3, judicialHellhole: false, watchList: true, topCaseTypes: ["Trucking", "Products Liability"], notableDetail: "Michigan Supreme Court on ATRA Watch List." },
@@ -292,23 +292,23 @@ export const STATE_VERDICT_DATA: StateVerdictData[] = [
     ],
   },
   {
-    id: "MN", name: "Minnesota", verdictCount2025: 0, verdictCount2024: 1, totalDamages2025: 0, totalDamages2024: 55,
+    id: "MN", name: "Minnesota", verdictCount2025: 2, verdictCount2024: 1, totalDamages2025: 73, totalDamages2024: 55,
     medianVerdict: 55, largestVerdict: 55, largestVerdictCase: "Olsen v. North Star Health (medical malpractice)",
     judicialHellhole: false, watchList: false, riskTier: 2, topCaseTypes: ["Medical Malpractice"],
-    yoyChange: 0,
+    yoyChange: 100,
   },
   {
     id: "MS", name: "Mississippi", verdictCount2025: 0, verdictCount2024: 2, totalDamages2025: 0, totalDamages2024: 95,
     medianVerdict: 47, largestVerdict: 65, largestVerdictCase: "Williams v. Delta Refinery (products liability)",
     judicialHellhole: false, watchList: false, riskTier: 2, topCaseTypes: ["Products Liability", "Trucking"],
-    yoyChange: 100,
+    yoyChange: -100,
   },
   {
-    id: "MO", name: "Missouri", verdictCount2025: 1, verdictCount2024: 8, totalDamages2025: 48, totalDamages2024: 3200,
+    id: "MO", name: "Missouri", verdictCount2025: 3, verdictCount2024: 8, totalDamages2025: 92, totalDamages2024: 3200,
     medianVerdict: 56, largestVerdict: 1560, largestVerdictCase: "Bayer AG / Roundup — 3 plaintiffs, non-Hodgkin lymphoma (products liability)",
     judicialHellhole: true, judicialHellholeRank: 6, judicialHellholeJurisdiction: "St. Louis",
     watchList: false, riskTier: 5, topCaseTypes: ["Products Liability", "Medical Malpractice", "Trucking"],
-    yoyChange: 167,
+    yoyChange: -63,
     notableDetail: "St. Louis ranked #6 Judicial Hellhole. 2024: Bayer/Roundup $1.56B, Abbott $495M, Wabash $462M. 2025: Anyan v. Mercy Hospital $48.1M birth injury (St. Louis County).",
     counties: [
       { county: "City of St. Louis", verdictCount2025: 0, totalDamages2025: 0, verdictCount2024: 6, totalDamages2024: 2900, riskTier: 5, judicialHellhole: true, watchList: false, topCaseTypes: ["Products Liability", "Trucking"], notableDetail: "ATRA #6 Judicial Hellhole. Bayer/Roundup $1.56B (3 plaintiffs), Abbott Labs baby formula $495M, Wabash National $462M ($450M punitive) trucking verdict." },
@@ -329,10 +329,10 @@ export const STATE_VERDICT_DATA: StateVerdictData[] = [
     yoyChange: 0,
   },
   {
-    id: "NV", name: "Nevada", verdictCount2025: 0, verdictCount2024: 4, totalDamages2025: 0, totalDamages2024: 8400,
+    id: "NV", name: "Nevada", verdictCount2025: 3, verdictCount2024: 4, totalDamages2025: 3822, totalDamages2024: 8400,
     medianVerdict: 85, largestVerdict: 5200, largestVerdictCase: "Real Water contamination (AffinityLifestyles Inc.) — products liability",
     judicialHellhole: false, watchList: false, riskTier: 5, topCaseTypes: ["Products Liability", "Premises Liability", "Medical Malpractice"],
-    yoyChange: 100, perCapitaRank: 1,
+    yoyChange: -25, perCapitaRank: 1,
     notableDetail: "Highest total damages of any state in 2024 ($8.4B). Real Water contamination cases ($5.2B + $3.1B) drove 99% of total. Highest per-capita nuclear verdict rate.",
     counties: [
       { county: "Clark County", verdictCount2025: 0, totalDamages2025: 0, verdictCount2024: 3, totalDamages2024: 8100, riskTier: 5, judicialHellhole: false, watchList: false, topCaseTypes: ["Products Liability", "Premises Liability"], notableDetail: "Las Vegas. Real Water contamination verdicts ($5.2B + $3.1B) — product contaminated with chemical from rocket fuel. Extremely high per-capita risk." },
@@ -346,10 +346,10 @@ export const STATE_VERDICT_DATA: StateVerdictData[] = [
     yoyChange: 0,
   },
   {
-    id: "NJ", name: "New Jersey", verdictCount2025: 0, verdictCount2024: 4, totalDamages2025: 0, totalDamages2024: 340,
+    id: "NJ", name: "New Jersey", verdictCount2025: 5, verdictCount2024: 4, totalDamages2025: 79, totalDamages2024: 340,
     medianVerdict: 52, largestVerdict: 145, largestVerdictCase: "Patel v. Garden State Pharma (products liability)",
     judicialHellhole: false, watchList: false, riskTier: 3, topCaseTypes: ["Products Liability", "Employment"],
-    yoyChange: 33,
+    yoyChange: 25,
     counties: [
       { county: "Essex County (Newark)", verdictCount2025: 0, totalDamages2025: 0, verdictCount2024: 2, totalDamages2024: 185, riskTier: 3, judicialHellhole: false, watchList: false, topCaseTypes: ["Products Liability", "Employment"] },
       { county: "Bergen County", verdictCount2025: 0, totalDamages2025: 0, verdictCount2024: 1, totalDamages2024: 95, riskTier: 3, judicialHellhole: false, watchList: false, topCaseTypes: ["Products Liability"] },
@@ -357,18 +357,18 @@ export const STATE_VERDICT_DATA: StateVerdictData[] = [
     ],
   },
   {
-    id: "NM", name: "New Mexico", verdictCount2025: 1, verdictCount2024: 1, totalDamages2025: 17, totalDamages2024: 42,
+    id: "NM", name: "New Mexico", verdictCount2025: 1, verdictCount2024: 1, totalDamages2025: 220, totalDamages2024: 42,
     medianVerdict: 42, largestVerdict: 42, largestVerdictCase: "Sanchez v. Rio Grande Trucking (trucking)",
     judicialHellhole: false, watchList: false, riskTier: 2, topCaseTypes: ["Trucking", "Medical Malpractice"],
     yoyChange: 0,
     notableDetail: "Torma v. Presbyterian Healthcare $16.75M (Bernalillo County, January 2025). Hospital left 13-inch retractor in patient for two months. $15M punitive + $1.75M compensatory. Prompted HB 99 to limit punitive damages.",
   },
   {
-    id: "NY", name: "New York", verdictCount2025: 2, verdictCount2024: 8, totalDamages2025: 100, totalDamages2024: 2100,
+    id: "NY", name: "New York", verdictCount2025: 11, verdictCount2024: 8, totalDamages2025: 2171, totalDamages2024: 2100,
     medianVerdict: 72, largestVerdict: 680, largestVerdictCase: "Kim v. Manhattan Health Systems (medical malpractice)",
     judicialHellhole: true, judicialHellholeRank: 2, judicialHellholeJurisdiction: "New York City",
     watchList: false, riskTier: 5, topCaseTypes: ["Medical Malpractice", "Products Liability", "Employment"],
-    yoyChange: 33, perCapitaRank: 5,
+    yoyChange: 38, perCapitaRank: 5,
     notableDetail: "NYC ranked #2 Judicial Hellhole for second consecutive year. 2025: two Nassau County med mal verdicts — $60M+ spinal cord injury, $40.3M delayed stroke treatment.",
     counties: [
       { county: "New York County (Manhattan)", verdictCount2025: 0, totalDamages2025: 0, verdictCount2024: 3, totalDamages2024: 980, riskTier: 5, judicialHellhole: true, watchList: false, topCaseTypes: ["Medical Malpractice", "Products Liability"], notableDetail: "Part of ATRA #2 Judicial Hellhole (NYC). Epicenter of expansive liability theories." },
@@ -382,39 +382,39 @@ export const STATE_VERDICT_DATA: StateVerdictData[] = [
     id: "NC", name: "North Carolina", verdictCount2025: 0, verdictCount2024: 2, totalDamages2025: 0, totalDamages2024: 130,
     medianVerdict: 65, largestVerdict: 82, largestVerdictCase: "Adams v. Carolina Medical (medical malpractice)",
     judicialHellhole: false, watchList: false, riskTier: 2, topCaseTypes: ["Medical Malpractice", "Trucking"],
-    yoyChange: 0,
+    yoyChange: -100,
   },
   {
-    id: "ND", name: "North Dakota", verdictCount2025: 0, verdictCount2024: 0, totalDamages2025: 0, totalDamages2024: 0,
+    id: "ND", name: "North Dakota", verdictCount2025: 1, verdictCount2024: 0, totalDamages2025: 667, totalDamages2024: 0,
     medianVerdict: 0, largestVerdict: 0, largestVerdictCase: "—",
-    judicialHellhole: false, watchList: false, riskTier: 1, topCaseTypes: [],
-    yoyChange: 0,
+    judicialHellhole: false, watchList: false, riskTier: 3, topCaseTypes: [],
+    yoyChange: 100,
   },
   {
     id: "OH", name: "Ohio", verdictCount2025: 0, verdictCount2024: 3, totalDamages2025: 0, totalDamages2024: 190,
     medianVerdict: 48, largestVerdict: 95, largestVerdictCase: "Brown v. Buckeye Manufacturing (products liability)",
     judicialHellhole: false, watchList: false, riskTier: 2, topCaseTypes: ["Products Liability", "Medical Malpractice"],
-    yoyChange: 50,
+    yoyChange: -100,
   },
   {
     id: "OK", name: "Oklahoma", verdictCount2025: 0, verdictCount2024: 1, totalDamages2025: 0, totalDamages2024: 32,
     medianVerdict: 32, largestVerdict: 32, largestVerdictCase: "Foster v. Sooner Energy (products liability)",
     judicialHellhole: false, watchList: false, riskTier: 1, topCaseTypes: ["Products Liability"],
-    yoyChange: 0,
+    yoyChange: -100,
   },
   {
-    id: "OR", name: "Oregon", verdictCount2025: 1, verdictCount2024: 1, totalDamages2025: 21, totalDamages2024: 48,
+    id: "OR", name: "Oregon", verdictCount2025: 4, verdictCount2024: 1, totalDamages2025: 153, totalDamages2024: 48,
     medianVerdict: 48, largestVerdict: 48, largestVerdictCase: "Nguyen v. Portland Health (medical malpractice)",
     judicialHellhole: false, watchList: false, riskTier: 2, topCaseTypes: ["Medical Malpractice"],
-    yoyChange: 0,
+    yoyChange: 300,
     notableDetail: "Gleeson v. Edelson $20.6M medical malpractice verdict (Multnomah County, March 2025). Former Portland Timbers goalkeeper Jake Gleeson awarded damages for career-ending surgical complications.",
   },
   {
-    id: "PA", name: "Pennsylvania", verdictCount2025: 0, verdictCount2024: 12, totalDamages2025: 0, totalDamages2024: 3400,
+    id: "PA", name: "Pennsylvania", verdictCount2025: 2, verdictCount2024: 12, totalDamages2025: 29, totalDamages2024: 3400,
     medianVerdict: 65, largestVerdict: 2200, largestVerdictCase: "Bayer AG / Roundup litigation (non-Hodgkin lymphoma) — products liability",
     judicialHellhole: true, judicialHellholeRank: 5, judicialHellholeJurisdiction: "Philadelphia Court of Common Pleas",
     watchList: true, riskTier: 5, topCaseTypes: ["Products Liability", "Medical Malpractice", "Trucking"],
-    yoyChange: 50, perCapitaRank: 2,
+    yoyChange: -83, perCapitaRank: 2,
     notableDetail: "Philadelphia ranked #5 Judicial Hellhole as mass torts hub. Bayer/Roundup ($2.2B), Exxon Mobil benzene ($725M) both in Phila. PA Supreme Court also on Watch List. McKivison v. Bayer $2.25B verdict upheld on appeal May 2025.",
     counties: [
       { county: "Philadelphia County", verdictCount2025: 0, totalDamages2025: 0, verdictCount2024: 7, totalDamages2024: 2400, riskTier: 5, judicialHellhole: true, watchList: false, topCaseTypes: ["Products Liability", "Medical Malpractice"], notableDetail: "ATRA #5 Judicial Hellhole. Bayer/Roundup $2.2B verdict, Exxon Mobil benzene $725M. Nation's premier mass torts forum shopping destination." },
@@ -431,11 +431,11 @@ export const STATE_VERDICT_DATA: StateVerdictData[] = [
     yoyChange: 0,
   },
   {
-    id: "SC", name: "South Carolina", verdictCount2025: 0, verdictCount2024: 3, totalDamages2025: 0, totalDamages2024: 240,
+    id: "SC", name: "South Carolina", verdictCount2025: 2, verdictCount2024: 3, totalDamages2025: 718, totalDamages2024: 240,
     medianVerdict: 55, largestVerdict: 120, largestVerdictCase: "Robinson v. Palmetto Industries (products liability/asbestos)",
     judicialHellhole: true, judicialHellholeRank: 3, judicialHellholeJurisdiction: "South Carolina",
-    watchList: false, riskTier: 3, topCaseTypes: ["Products Liability", "Trucking"],
-    yoyChange: 50,
+    watchList: false, riskTier: 4, topCaseTypes: ["Products Liability", "Trucking"],
+    yoyChange: -33,
     notableDetail: "Ranked #3 Judicial Hellhole for bias against corporate defendants in asbestos litigation.",
     counties: [
       { county: "Charleston County", verdictCount2025: 0, totalDamages2025: 0, verdictCount2024: 1, totalDamages2024: 120, riskTier: 4, judicialHellhole: true, watchList: false, topCaseTypes: ["Products Liability"], notableDetail: "Primary asbestos litigation venue in SC." },
@@ -453,14 +453,14 @@ export const STATE_VERDICT_DATA: StateVerdictData[] = [
     id: "TN", name: "Tennessee", verdictCount2025: 0, verdictCount2024: 2, totalDamages2025: 0, totalDamages2024: 110,
     medianVerdict: 55, largestVerdict: 72, largestVerdictCase: "Jackson v. Nashville Medical (medical malpractice)",
     judicialHellhole: false, watchList: false, riskTier: 2, topCaseTypes: ["Medical Malpractice", "Trucking"],
-    yoyChange: 0,
+    yoyChange: -100,
     notableDetail: "Gooch v. concrete truck company $31.9M trucking verdict (2024). Growing trucking verdict activity.",
   },
   {
-    id: "TX", name: "Texas", verdictCount2025: 2, verdictCount2024: 23, totalDamages2025: 1471, totalDamages2024: 3000,
+    id: "TX", name: "Texas", verdictCount2025: 14, verdictCount2024: 23, totalDamages2025: 2354, totalDamages2024: 3000,
     medianVerdict: 58, largestVerdict: 850, largestVerdictCase: "Rivera v. Lone Star Trucking (trucking)",
     judicialHellhole: false, watchList: true, riskTier: 5, topCaseTypes: ["Trucking", "Products Liability", "Medical Malpractice", "Employment"],
-    yoyChange: 53, perCapitaRank: 4,
+    yoyChange: -39, perCapitaRank: 4,
     notableDetail: "Two massive 2025 verdicts: Mendez v. Koozies Icehouse $831M (Bexar County, dram shop/DUI) and Loree v. TNT Crane $640M (Harris County, construction fatality). On ATRA Watch List. Senate Bill 30 (nuclear verdict reforms) failed to advance.",
     counties: [
       { county: "Harris County (Houston)", verdictCount2025: 1, totalDamages2025: 640, verdictCount2024: 7, totalDamages2024: 1100, riskTier: 5, judicialHellhole: false, watchList: true, topCaseTypes: ["Trucking", "Products Liability", "Medical Malpractice"], notableDetail: "Highest nuclear verdict volume of any single county in the US in 2024." },
@@ -477,8 +477,8 @@ export const STATE_VERDICT_DATA: StateVerdictData[] = [
   {
     id: "UT", name: "Utah", verdictCount2025: 1, verdictCount2024: 0, totalDamages2025: 951, totalDamages2024: 0,
     medianVerdict: 0, largestVerdict: 951, largestVerdictCase: "Zancanella v. Jordan Valley Medical Center — $951M birth injury (Salt Lake County)",
-    judicialHellhole: false, watchList: false, riskTier: 4, topCaseTypes: ["Medical Malpractice"],
-    yoyChange: 0,
+    judicialHellhole: false, watchList: false, riskTier: 3, topCaseTypes: ["Medical Malpractice"],
+    yoyChange: 100,
     notableDetail: "Zancanella v. Jordan Valley Medical Center $951M birth injury verdict (Salt Lake County, August 2025). Default judgment / bench verdict for newborn brain damage due to hospital negligence.",
   },
   {
@@ -488,17 +488,17 @@ export const STATE_VERDICT_DATA: StateVerdictData[] = [
     yoyChange: 0,
   },
   {
-    id: "VA", name: "Virginia", verdictCount2025: 0, verdictCount2024: 2, totalDamages2025: 0, totalDamages2024: 105,
+    id: "VA", name: "Virginia", verdictCount2025: 1, verdictCount2024: 2, totalDamages2025: 10, totalDamages2024: 105,
     medianVerdict: 52, largestVerdict: 68, largestVerdictCase: "Taylor v. Dominion Health (medical malpractice)",
     judicialHellhole: false, watchList: false, riskTier: 2, topCaseTypes: ["Medical Malpractice"],
-    yoyChange: 100,
+    yoyChange: -50,
   },
   {
-    id: "WA", name: "Washington", verdictCount2025: 0, verdictCount2024: 3, totalDamages2025: 0, totalDamages2024: 210,
+    id: "WA", name: "Washington", verdictCount2025: 9, verdictCount2024: 3, totalDamages2025: 249, totalDamages2024: 210,
     medianVerdict: 52, largestVerdict: 105, largestVerdictCase: "Park v. Puget Sound Systems (employment)",
     judicialHellhole: true, judicialHellholeRank: 8, judicialHellholeJurisdiction: "King County / WA Supreme Court",
-    watchList: false, riskTier: 3, topCaseTypes: ["Employment", "Products Liability"],
-    yoyChange: 50,
+    watchList: false, riskTier: 4, topCaseTypes: ["Employment", "Products Liability"],
+    yoyChange: 200,
     notableDetail: "King County and WA Supreme Court ranked #8 Judicial Hellhole for junk science.",
     counties: [
       { county: "King County (Seattle)", verdictCount2025: 0, totalDamages2025: 0, verdictCount2024: 2, totalDamages2024: 150, riskTier: 4, judicialHellhole: true, watchList: false, topCaseTypes: ["Employment", "Products Liability"], notableDetail: "ATRA #8 Judicial Hellhole. Junk science concerns in courtrooms." },
@@ -509,10 +509,10 @@ export const STATE_VERDICT_DATA: StateVerdictData[] = [
     id: "WV", name: "West Virginia", verdictCount2025: 0, verdictCount2024: 1, totalDamages2025: 0, totalDamages2024: 38,
     medianVerdict: 38, largestVerdict: 38, largestVerdictCase: "Morgan v. Appalachian Energy (products liability)",
     judicialHellhole: false, watchList: false, riskTier: 2, topCaseTypes: ["Products Liability"],
-    yoyChange: 0,
+    yoyChange: -100,
   },
   {
-    id: "WI", name: "Wisconsin", verdictCount2025: 2, verdictCount2024: 1, totalDamages2025: 39, totalDamages2024: 42,
+    id: "WI", name: "Wisconsin", verdictCount2025: 1, verdictCount2024: 1, totalDamages2025: 10, totalDamages2024: 42,
     medianVerdict: 42, largestVerdict: 42, largestVerdictCase: "Anderson v. Badger Medical (medical malpractice)",
     judicialHellhole: false, watchList: false, riskTier: 2, topCaseTypes: ["Medical Malpractice"],
     yoyChange: 0,
@@ -528,7 +528,7 @@ export const STATE_VERDICT_DATA: StateVerdictData[] = [
     id: "DC", name: "District of Columbia", verdictCount2025: 0, verdictCount2024: 1, totalDamages2025: 0, totalDamages2024: 65,
     medianVerdict: 65, largestVerdict: 65, largestVerdictCase: "Taylor v. Federal Contractors Inc (employment)",
     judicialHellhole: false, watchList: false, riskTier: 2, topCaseTypes: ["Employment"],
-    yoyChange: 0,
+    yoyChange: -100,
   },
 ];
 
@@ -574,13 +574,13 @@ export function getRiskTextColor(tier: number): string {
 // ─── Key Statistics ──────────────────────────────────────────────────────────
 
 export const KEY_STATS = {
-  // 2025 Preliminary Data (compiled from public court records, Morgan & Morgan, Tyson & Mendes)
-  totalVerdicts2025: 30, // preliminary — comprehensive Marathon Strategies 2026 report expected May 2026
-  totalDamages2025: 7.6, // billions, preliminary
-  medianVerdict2025: 48, // millions, estimated
-  thermonuclearCount2025: 8, // $100M+ verdicts confirmed
-  billionPlusCount2025: 2, // Barnes $2.1B (GA), Craft $1.56B (MD)
-  statesWithActivity2025: 12, // states with confirmed 2025 nuclear verdicts
+  // 2025 Full-Year Data — Tyson & Mendes Nuclear Verdict® Tracker, full year 2025
+  totalVerdicts2025: 149,
+  totalDamages2025: 25.1, // billions
+  medianVerdict2025: 46, // millions
+  thermonuclearCount2025: 33, // $100M+ verdicts
+  billionPlusCount2025: 5,
+  statesWithActivity2025: 28, // states with 2025 nuclear verdicts
   // 2024 Complete Data (Marathon Strategies 2025 Report)
   totalVerdicts2024: 135,
   totalDamages2024: 31.3, // billions
@@ -590,7 +590,7 @@ export const KEY_STATS = {
   thermonuclearCount2024: 49,
   billionPlusCount2024: 5,
   stateCourtPercentage: 85,
-  growthSince2020: 309, // percent increase in frequency
+  growthSince2020: 239, // percent increase in frequency (44 → 149)
   statesWithNuclearVerdicts2024: 34, // up from 27
   courtsWithNuclearVerdicts2024: 77, // up from 65
   stateCourtDamages: 20.1, // billions
@@ -1128,11 +1128,36 @@ export const DATA_SOURCES: DataSource[] = [
   { name: "Public court records and verdict databases", description: "Federal and state court public records, PACER filings, county clerk records.", dataType: "individual_cases", accessLevel: "free" },
 ];
 
+// ─── 2025 Tort Reform Developments ──────────────────────────────────────────
+
+export interface TortReformEntry {
+  state: string;
+  stateCode: string;
+  year: number;
+  action: string;
+  status: "enacted" | "vetoed" | "pending" | "effective";
+  expectedImpact: "significant_decrease" | "moderate_decrease" | "increase" | "no_change";
+  detail: string;
+}
+
+export const TORT_REFORM_2025: TortReformEntry[] = [
+  { state: "Georgia", stateCode: "GA", year: 2025, action: "SB 68 — Comprehensive Tort Reform", status: "enacted", expectedImpact: "significant_decrease", detail: "Signed April 2025. Restricts anchoring, eliminates phantom damages, allows trial bifurcation, admits seat belt evidence, premises liability reform. Expected to significantly reduce nuclear verdict frequency in Georgia." },
+  { state: "Florida", stateCode: "FL", year: 2023, action: "HB 837 — Comprehensive Tort Reform", status: "effective", expectedImpact: "moderate_decrease", detail: "Enacted 2023, first full year of impact in 2024. Dropped FL from #2 to #10 by damages in 2024. However, FL surged to 16 verdicts ($1.9B) in 2025 — reform effects may be limited to specific case types." },
+  { state: "West Virginia", stateCode: "WV", year: 2025, action: "Tort Reform Package", status: "enacted", expectedImpact: "moderate_decrease", detail: "Enacted 2025. Damage caps and procedural reforms targeting litigation abuse." },
+  { state: "Indiana", stateCode: "IN", year: 2025, action: "Tort Reform Package", status: "enacted", expectedImpact: "moderate_decrease", detail: "Enacted 2025. Includes damage cap adjustments and venue reform provisions." },
+  { state: "Colorado", stateCode: "CO", year: 2025, action: "Increased Damage Caps", status: "enacted", expectedImpact: "increase", detail: "Raised non-economic damage caps. Combined with 6 verdicts in 2025 ($422M), CO moved from Tier 2 to Tier 3 risk." },
+  { state: "New Hampshire", stateCode: "NH", year: 2025, action: "Increased Damage Caps", status: "enacted", expectedImpact: "increase", detail: "Raised damage caps, potentially increasing nuclear verdict exposure in future years." },
+  { state: "Louisiana", stateCode: "LA", year: 2025, action: "Tort Reform Bill", status: "vetoed", expectedImpact: "no_change", detail: "Governor vetoed tort reform legislation. LA remains a Judicial Hellhole with 3 verdicts totaling $1.2B in 2025." },
+  { state: "Wisconsin", stateCode: "WI", year: 2025, action: "Tort Reform Bill", status: "vetoed", expectedImpact: "no_change", detail: "Governor vetoed tort reform legislation. Status quo maintained." },
+];
+
 // ─── Attribution ─────────────────────────────────────────────────────────────
 
 export const ATTRIBUTION = {
   trademark: "Nuclear Verdict® is a registered trademark of Tyson & Mendes LLP.",
+  lastUpdated: "February 2026",
   sources: [
+    "Tyson & Mendes Nuclear Verdict® Tracker (2025 full-year data)",
     "Marathon Strategies Nuclear Verdict Report (2025 Edition)",
     "ATRA Judicial Hellholes® Report (2025–2026)",
     "Institute for Legal Reform",
@@ -1148,5 +1173,5 @@ export const ATTRIBUTION = {
     "Westfleet Advisors Litigation Finance Report",
     "Public court records and verdict databases",
   ],
-  disclaimer: "Data compiled from publicly available sources for informational purposes. Individual case outcomes may vary. This visualization does not constitute legal advice.",
+  disclaimer: "Data compiled from publicly available sources for informational purposes. 2025 data sourced from the Tyson & Mendes Nuclear Verdict® Tracker. Individual case outcomes may vary. This visualization does not constitute legal advice.",
 };
