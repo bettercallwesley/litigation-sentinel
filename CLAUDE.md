@@ -72,3 +72,72 @@
   - ATRI, Sedgwick, Doctors Company, TransRe, KCIC, Travelers, Gen Re, Allianz
   - TopVerdict.com — searchable verdict database (free)
 - "Smoldering settlements" — term NOT found in any public source; do not use
+
+## LinkedIn Content Creation System
+
+### File Architecture
+All LinkedIn campaign knowledge lives in `.claude/` — auto-loaded by Claude Code:
+
+```
+.claude/
+├── rules/                              # Auto-loaded every session
+│   ├── linkedin-2026-algorithm.md      # 360 Brew algorithm, engagement signals, format performance
+│   └── content-voice-guide.md          # Wesley's voice, anti-AI patterns, vocabulary blacklist, content pillars
+└── skills/                             # Loaded on demand
+    ├── linkedin-post/SKILL.md          # Drafts individual LinkedIn posts → /linkedin-post
+    └── weekly-content-plan/SKILL.md    # Plans weekly content calendar → /weekly-content-plan
+```
+
+### How to Use
+- **Draft a single post**: Ask Claude to "draft a LinkedIn post about [topic]" or invoke `/linkedin-post`
+- **Plan the week**: Ask Claude to "plan this week's LinkedIn content" or invoke `/weekly-content-plan`
+- **All drafts require Wes approval** before publishing — Claude presents drafts, never auto-publishes
+
+### Keeping Knowledge Current
+- When new LinkedIn algorithm data emerges, update `.claude/rules/linkedin-2026-algorithm.md`
+- When voice/tone refinements are identified, update `.claude/rules/content-voice-guide.md`
+- When new content pillars are added, update the pillars section in the voice guide
+- Data sources for posts live in `src/data/nuclear-verdicts.ts` and `src/data/newsletter-articles.ts`
+
+### Content Quality Gates
+- Every post runs through the vocabulary blacklist (no AI-sounding words)
+- Every post must map to a defined content pillar
+- Every post must be optimized for saves (the #1 algorithm signal in 2026)
+- Every post must use "How I" personal proof framing over generic "How To"
+
+## Improving Claude's Knowledge — The Enhancement Process
+
+When you want Claude to be better at something (content creation, campaign strategy, anything), follow this process:
+
+### Step 1: Identify the Knowledge Gap
+Ask: "What do you currently know about [topic]? What rules/skills do you have for it?"
+Claude will check `.claude/rules/`, `.claude/skills/`, and `CLAUDE.md` and tell you exactly what exists.
+
+### Step 2: Research Best Practices
+Ask Claude to research what's working for others:
+- "Search for the best Claude Code skills/rules for [topic]"
+- "What are the top community-shared CLAUDE.md patterns for [use case]?"
+- "Find the most effective [LinkedIn/marketing/writing] frameworks from [source]"
+
+Key community resources:
+- [awesome-claude-code](https://github.com/hesreallyhim/awesome-claude-code) — Curated skills, hooks, and orchestration patterns
+- [claude-code-best-practice](https://github.com/shanraisshan/claude-code-best-practice) — Community best practices
+- [Claude Code official docs](https://code.claude.com/docs/en/memory) — Memory management guide
+- [Cranot/claude-code-guide](https://github.com/Cranot/claude-code-guide) — Auto-updated comprehensive guide
+
+### Step 3: Create or Update the Right File
+| What you're adding | Where it goes | Why |
+|---|---|---|
+| Knowledge Claude should ALWAYS have | `.claude/rules/[topic].md` | Auto-loaded every session |
+| A repeatable workflow/task | `.claude/skills/[name]/SKILL.md` | Loaded on demand, invocable |
+| Project-wide rules (shared with team) | `CLAUDE.md` | Checked into git, everyone sees it |
+| Personal preferences (not shared) | `CLAUDE.local.md` | Git-ignored, only your sessions |
+
+### Step 4: Test and Iterate
+- Use the new rules/skills in a real task
+- Note what Claude gets wrong or misses
+- Update the relevant file immediately
+- Commit the change so it persists across sessions
+
+### Key Principle
+**If you tell Claude something important and don't put it in a file, it's gone next session.** Every insight, correction, or preference that should persist must be written to `.claude/rules/`, `.claude/skills/`, or `CLAUDE.md`.
