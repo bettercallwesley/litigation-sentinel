@@ -221,7 +221,7 @@ export default function Home() {
               }}
             >
               Interactive state-by-state analysis of nuclear verdict frequency, total damages,
-              Judicial Hellhole® overlays, and year-over-year trends. 135 verdicts totaling $31.3B in 2024.
+              Judicial Hellhole® overlays, and year-over-year trends. 2026 Edition with 2025 preliminary data.
             </p>
             <span
               style={{

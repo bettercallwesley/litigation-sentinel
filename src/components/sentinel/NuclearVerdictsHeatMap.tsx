@@ -172,7 +172,7 @@ function TrendChart() {
           marginBottom: 4,
         }}
       >
-        5-Year Trend (2020–2024)
+        6-Year Trend (2020–2025)
       </div>
       <div
         style={{
@@ -182,7 +182,7 @@ function TrendChart() {
           marginBottom: 14,
         }}
       >
-        Marathon Strategies 2025 Report
+        Marathon Strategies &middot; Preliminary 2025 Data
       </div>
       <svg
         viewBox={`-8 -4 ${chartW + 16} ${chartH + 24}`}
@@ -372,7 +372,7 @@ function CaseTypeChart() {
           marginBottom: 14,
         }}
       >
-        Marathon Strategies 2025 Report
+        Marathon Strategies
       </div>
       {CASE_TYPE_BREAKDOWN.map((ct) => (
         <div key={ct.type} style={{ marginBottom: 10 }}>
@@ -636,7 +636,7 @@ function MapTooltip({
           {riskLabel}
         </span>
       </div>
-      {state.verdictCount2024 > 0 ? (
+      {state.verdictCount2025 > 0 ? (
         <>
           <div
             style={{
@@ -647,14 +647,14 @@ function MapTooltip({
             }}
           >
             <strong style={{ color: "#F1F5F9" }}>
-              {state.verdictCount2024}
+              {state.verdictCount2025}
             </strong>{" "}
             nuclear verdicts &middot;{" "}
             <strong style={{ color: "#F1F5F9" }}>
               $
-              {state.totalDamages2024 >= 1000
-                ? `${(state.totalDamages2024 / 1000).toFixed(1)}B`
-                : `${state.totalDamages2024}M`}
+              {state.totalDamages2025 >= 1000
+                ? `${(state.totalDamages2025 / 1000).toFixed(1)}B`
+                : `${state.totalDamages2025}M`}
             </strong>{" "}
             total
           </div>
@@ -679,7 +679,7 @@ function MapTooltip({
             fontFamily: FONTS.sans,
           }}
         >
-          No nuclear verdicts recorded in 2024
+          No nuclear verdicts recorded
         </div>
       )}
       <div
@@ -839,8 +839,8 @@ function NotableVerdictsTable() {
           marginBottom: 14,
         }}
       >
-        Sources: Marathon Strategies 2025 Report, Morgan &amp; Morgan Verdict
-        Magazine, Tyson &amp; Mendes
+        Sources: Marathon Strategies, Morgan &amp; Morgan, Tyson &amp; Mendes,
+        Public Court Records
       </div>
       <div style={{ overflowX: "auto" }}>
         <table
@@ -924,7 +924,7 @@ function NotableVerdictsTable() {
                         BILLION
                       </span>
                     )}
-                    {v.year === 2025 && (
+                    {v.year >= 2025 && (
                       <span
                         style={{
                           fontSize: 8,
@@ -987,7 +987,7 @@ function NotableVerdictsTable() {
                   style={{
                     padding: "10px 10px",
                     color: SENTINEL.inkLight,
-                    fontWeight: v.year === 2025 ? 700 : 400,
+                    fontWeight: v.year >= 2025 ? 700 : 400,
                   }}
                 >
                   {v.year}
@@ -1073,7 +1073,7 @@ function IndustryChart() {
           marginBottom: 14,
         }}
       >
-        Marathon Strategies 2025 Report &middot; Total damages by sector
+        Marathon Strategies &middot; Total damages by sector
       </div>
       {INDUSTRY_BREAKDOWN.map((b) => (
         <div key={b.industry} style={{ marginBottom: 10 }}>
@@ -1553,7 +1553,7 @@ export default function NuclearVerdictsHeatMap({
                 fontFamily: FONTS.sans,
               }}
             >
-              2025 Report — Interactive Intelligence
+              2026 Edition — Interactive Intelligence
             </span>
           </div>
           <h1
@@ -1595,8 +1595,8 @@ export default function NuclearVerdictsHeatMap({
               fontFamily: FONTS.sans,
             }}
           >
-            Data: Marathon Strategies 2025 Report &middot; Morgan &amp; Morgan
-            2025 &middot; 15+ actuarial sources
+            Data: Marathon Strategies &middot; Morgan &amp; Morgan
+            &middot; Tyson &amp; Mendes &middot; 15+ actuarial sources
           </div>
         </div>
       </FadeIn>
@@ -1613,25 +1613,25 @@ export default function NuclearVerdictsHeatMap({
         >
           <StatCard
             label="Nuclear Verdicts&reg;"
-            value={KEY_STATS.totalVerdicts2024.toString()}
-            subtext={`+${KEY_STATS.yoyVerdictGrowth}% YoY`}
+            value={KEY_STATS.totalVerdicts2025.toString()}
+            subtext={`2025 YTD · ${KEY_STATS.yoyVerdictGrowth2024}% YoY growth`}
             color={SENTINEL.rose}
           />
           <StatCard
             label="Total Damages"
-            value={`$${KEY_STATS.totalDamages2024}B`}
-            subtext={`+${KEY_STATS.yoyDamagesGrowth}% YoY`}
+            value={`$${KEY_STATS.totalDamages2025}B`}
+            subtext={`2025 YTD · ${KEY_STATS.yoyDamagesGrowth2024}% YoY growth`}
             color={SENTINEL.sentinel}
           />
           <StatCard
             label="Median Verdict"
-            value={`$${KEY_STATS.medianVerdict2024}M`}
-            subtext="Up from $44M in 2023"
+            value={`$${KEY_STATS.medianVerdict2025}M`}
+            subtext="2025 YTD · Down 6% from prior year"
           />
           <StatCard
             label="$100M+ Verdicts"
-            value={KEY_STATS.thermonuclearCount2024.toString()}
-            subtext={`Including ${KEY_STATS.billionPlusCount2024} over $1B`}
+            value={KEY_STATS.thermonuclearCount2025.toString()}
+            subtext={`Including ${KEY_STATS.billionPlusCount2025} over $1B`}
             color={SENTINEL.rose}
           />
         </div>
@@ -1703,7 +1703,7 @@ export default function NuclearVerdictsHeatMap({
               zIndex: 1,
             }}
           >
-            Click a state to explore &middot; {KEY_STATS.statesWithNuclearVerdicts} states with nuclear verdicts
+            Click a state to explore &middot; {KEY_STATS.statesWithActivity2025} states with nuclear verdicts
           </div>
 
           {/* SVG Map */}
@@ -2127,7 +2127,7 @@ export default function NuclearVerdictsHeatMap({
                   marginBottom: 14,
                 }}
               >
-                Marathon Strategies 2025 Report &middot; Click any row to
+                2024–2025 Data &middot; Click any row to
                 explore
               </div>
               <div style={{ overflowX: "auto" }}>
@@ -2171,7 +2171,7 @@ export default function NuclearVerdictsHeatMap({
                     {[...STATE_VERDICT_DATA]
                       .sort(
                         (a, b) =>
-                          b.verdictCount2024 - a.verdictCount2024
+                          (b.verdictCount2025 + b.verdictCount2024) - (a.verdictCount2025 + a.verdictCount2024)
                       )
                       .slice(0, 10)
                       .map((s) => (
@@ -2224,7 +2224,7 @@ export default function NuclearVerdictsHeatMap({
                               fontSize: 14,
                             }}
                           >
-                            {s.verdictCount2024}
+                            {s.verdictCount2025 + s.verdictCount2024}
                           </td>
                           <td
                             style={{
@@ -2234,9 +2234,9 @@ export default function NuclearVerdictsHeatMap({
                             }}
                           >
                             $
-                            {s.totalDamages2024 >= 1000
-                              ? `${(s.totalDamages2024 / 1000).toFixed(1)}B`
-                              : `${s.totalDamages2024}M`}
+                            {s.totalDamages2025 + s.totalDamages2024 >= 1000
+                              ? `${((s.totalDamages2025 + s.totalDamages2024) / 1000).toFixed(1)}B`
+                              : `${s.totalDamages2025 + s.totalDamages2024}M`}
                           </td>
                           <td
                             style={{

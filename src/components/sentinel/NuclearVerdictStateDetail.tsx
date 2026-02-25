@@ -207,8 +207,8 @@ export default function NuclearVerdictStateDetail({ state, onClose, isPreview }:
       {isPreview ? (
         <div style={{ position: "relative" }}>
           <div style={{ filter: "blur(6px)", pointerEvents: "none", userSelect: "none" }}>
-            <StatRow label="Nuclear Verdicts® (2024)" value={state.verdictCount2024} />
-            <StatRow label="Total Damages (2024)" value={`$${state.totalDamages2024}M`} />
+            <StatRow label="Nuclear Verdicts® (2025)" value={state.verdictCount2025} />
+            <StatRow label="Total Damages (2025)" value={`$${state.totalDamages2025}M`} />
             <StatRow label="Median Verdict" value={`$${state.medianVerdict}M`} />
             <StatRow label="YoY Change" value={yoyLabel} />
             <StatRow label="Largest Verdict" value={`$${state.largestVerdict}M`} />
@@ -257,12 +257,12 @@ export default function NuclearVerdictStateDetail({ state, onClose, isPreview }:
                 marginBottom: 8,
               }}
             >
-              Latest Data — Marathon Strategies 2025 Report
+              Latest Data — 2025
             </div>
-            <StatRow label="Nuclear Verdicts®" value={state.verdictCount2024 || "0"} />
+            <StatRow label="Nuclear Verdicts®" value={state.verdictCount2025 || "0"} />
             <StatRow
               label="Total Damages"
-              value={state.totalDamages2024 ? `$${state.totalDamages2024.toLocaleString()}M` : "$0"}
+              value={state.totalDamages2025 ? `$${state.totalDamages2025.toLocaleString()}M` : "$0"}
             />
             <StatRow
               label="Median Verdict"
@@ -317,7 +317,7 @@ export default function NuclearVerdictStateDetail({ state, onClose, isPreview }:
           )}
 
           {/* Comparison */}
-          {state.verdictCount2023 > 0 && (
+          {state.verdictCount2024 > 0 && (
             <div style={{ marginBottom: 16 }}>
               <div
                 style={{
@@ -344,10 +344,10 @@ export default function NuclearVerdictStateDetail({ state, onClose, isPreview }:
                   }}
                 >
                   <div style={{ fontSize: 11, color: SENTINEL.inkMuted, fontFamily: FONTS.sans, marginBottom: 2 }}>
-                    2023
+                    2024
                   </div>
                   <div style={{ fontSize: 16, fontFamily: FONTS.serif, fontWeight: 600, color: SENTINEL.inkLight }}>
-                    {state.verdictCount2023}
+                    {state.verdictCount2024}
                   </div>
                   <div style={{ fontSize: 10, color: SENTINEL.inkMuted, fontFamily: FONTS.sans }}>verdicts</div>
                 </div>
@@ -362,10 +362,10 @@ export default function NuclearVerdictStateDetail({ state, onClose, isPreview }:
                   }}
                 >
                   <div style={{ fontSize: 11, color: SENTINEL.inkMuted, fontFamily: FONTS.sans, marginBottom: 2 }}>
-                    2024
+                    2025
                   </div>
                   <div style={{ fontSize: 16, fontFamily: FONTS.serif, fontWeight: 600, color: yoyColor }}>
-                    {state.verdictCount2024}
+                    {state.verdictCount2025}
                   </div>
                   <div style={{ fontSize: 10, color: SENTINEL.inkMuted, fontFamily: FONTS.sans }}>verdicts</div>
                 </div>
@@ -435,13 +435,13 @@ export default function NuclearVerdictStateDetail({ state, onClose, isPreview }:
                 }}
               >
                 {state.counties
-                  .sort((a, b) => b.verdictCount2024 - a.verdictCount2024)
+                  .sort((a, b) => (b.verdictCount2025 + b.verdictCount2024) - (a.verdictCount2025 + a.verdictCount2024))
                   .map((county, idx) => {
                     const cRiskColor = getRiskColor(county.riskTier);
                     const cRiskLabel = getRiskLabel(county.riskTier);
                     const cRiskTextColor = getRiskTextColor(county.riskTier);
-                    const maxCountyDmg = Math.max(...(state.counties || []).map((c) => c.totalDamages2024));
-                    const barWidth = maxCountyDmg > 0 ? (county.totalDamages2024 / maxCountyDmg) * 100 : 0;
+                    const maxCountyDmg = Math.max(...(state.counties || []).map((c) => c.totalDamages2025 + c.totalDamages2024));
+                    const barWidth = maxCountyDmg > 0 ? ((county.totalDamages2025 + county.totalDamages2024) / maxCountyDmg) * 100 : 0;
 
                     return (
                       <div
@@ -489,8 +489,8 @@ export default function NuclearVerdictStateDetail({ state, onClose, isPreview }:
                           </span>
                         </div>
                         <div style={{ display: "flex", gap: 12, fontSize: 11, color: SENTINEL.inkMuted, fontFamily: FONTS.sans, marginBottom: 4 }}>
-                          <span><strong style={{ color: SENTINEL.ink }}>{county.verdictCount2024}</strong> verdicts</span>
-                          <span><strong style={{ color: SENTINEL.ink }}>${county.totalDamages2024 >= 1000 ? `${(county.totalDamages2024 / 1000).toFixed(1)}B` : `${county.totalDamages2024}M`}</strong> damages</span>
+                          <span><strong style={{ color: SENTINEL.ink }}>{county.verdictCount2025 + county.verdictCount2024}</strong> verdicts</span>
+                          <span><strong style={{ color: SENTINEL.ink }}>${(county.totalDamages2025 + county.totalDamages2024) >= 1000 ? `${((county.totalDamages2025 + county.totalDamages2024) / 1000).toFixed(1)}B` : `${county.totalDamages2025 + county.totalDamages2024}M`}</strong> damages</span>
                         </div>
                         {/* Proportional bar */}
                         <div
