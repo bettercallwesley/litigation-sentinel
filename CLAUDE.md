@@ -82,7 +82,8 @@ All LinkedIn campaign knowledge lives in `.claude/` — auto-loaded by Claude Co
 .claude/
 ├── rules/                              # Auto-loaded every session
 │   ├── linkedin-2026-algorithm.md      # 360 Brew algorithm, engagement signals, format performance
-│   └── content-voice-guide.md          # Wesley's voice, anti-AI patterns, vocabulary blacklist, content pillars
+│   ├── content-voice-guide.md          # Wesley's voice, anti-AI patterns, vocabulary blacklist, content pillars
+│   └── content-topic-priorities.md     # Ranked topics, impression data, topic-specific angles, image strategy
 └── skills/                             # Loaded on demand
     ├── linkedin-post/SKILL.md          # Drafts individual LinkedIn posts → /linkedin-post
     └── weekly-content-plan/SKILL.md    # Plans weekly content calendar → /weekly-content-plan
@@ -97,6 +98,7 @@ All LinkedIn campaign knowledge lives in `.claude/` — auto-loaded by Claude Co
 - When new LinkedIn algorithm data emerges, update `.claude/rules/linkedin-2026-algorithm.md`
 - When voice/tone refinements are identified, update `.claude/rules/content-voice-guide.md`
 - When new content pillars are added, update the pillars section in the voice guide
+- When topic performance data changes, update `.claude/rules/content-topic-priorities.md`
 - Data sources for posts live in `src/data/nuclear-verdicts.ts` and `src/data/newsletter-articles.ts`
 
 ### Content Quality Gates
