@@ -86,12 +86,14 @@ All LinkedIn campaign knowledge lives in `.claude/` — auto-loaded by Claude Co
 │   └── content-topic-priorities.md     # Ranked topics, impression data, topic-specific angles, image strategy
 └── skills/                             # Loaded on demand
     ├── linkedin-post/SKILL.md          # Drafts individual LinkedIn posts → /linkedin-post
-    └── weekly-content-plan/SKILL.md    # Plans weekly content calendar → /weekly-content-plan
+    ├── weekly-content-plan/SKILL.md    # Plans weekly content calendar → /weekly-content-plan
+    └── content-audit/SKILL.md          # Monthly audit of content system → /content-audit
 ```
 
 ### How to Use
 - **Draft a single post**: Ask Claude to "draft a LinkedIn post about [topic]" or invoke `/linkedin-post`
 - **Plan the week**: Ask Claude to "plan this week's LinkedIn content" or invoke `/weekly-content-plan`
+- **Audit the system**: Ask Claude to "audit the content system" or invoke `/content-audit` (monthly)
 - **All drafts require Wes approval** before publishing — Claude presents drafts, never auto-publishes
 
 ### Keeping Knowledge Current

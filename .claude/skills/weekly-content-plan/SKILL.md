@@ -8,35 +8,47 @@
 Before planning, Claude MUST load:
 - `.claude/rules/linkedin-2026-algorithm.md` — Algorithm strategy
 - `.claude/rules/content-voice-guide.md` — Voice guide and content pillars
+- `.claude/rules/content-topic-priorities.md` — Topic rankings, impression data, angles
 - `src/data/nuclear-verdicts.ts` — Fresh data for post topics
 - `src/data/newsletter-articles.ts` — Recent Sentinel articles to amplify
 
 ## Weekly Cadence: 3-4 Posts Per Week
 
-### Recommended Weekly Mix
+### Recommended Weekly Mix (Informed by Topic Performance Data)
 
-| Day | Format | Pillar | Goal |
-|-----|--------|--------|------|
-| **Tuesday** | Text post (Data-Led Insight) | Nuclear Verdicts OR Industry Risk | Establish authority with data |
-| **Wednesday** | Carousel (8-10 slides) | Framework/Educational | Drive saves (highest algorithm signal) |
-| **Thursday** | Text post ("How I/We" Story) | CaseGlide Proof OR Litigation Intelligence | Build trust through proof-of-work |
-| **Optional Monday** | Contrarian Take | F500 Operations OR Legal Tech | Generate comments and debate |
+| Day | Format | Topic Tier | Goal |
+|-----|--------|-----------|------|
+| **Tuesday** | Text post (Bold Claim or Provocative Data) | **Tier 1** — Judicial Hellholes, RICO, or Morgan & Morgan | Maximum reach. These are proven 10K-55K impression topics. |
+| **Wednesday** | Carousel or Framework post | **Tier 2** — Nuclear Verdicts, Bill Review Bashing, or AI in Litigation | Drive saves. Educational/data content bookmarked by GCs. |
+| **Thursday** | Text post ("How I/We" or Contrarian) | **Tier 2/3** — CaseGlide Proof, Defense Attorney Advocacy, or Lit Intelligence | Build trust through proof-of-work and earned opinions. |
+| **Optional Monday** | Short punchy post or humor/meme | **Any tier** — Contrarian take, humor, or conference CTA | Generate comments and shares. Low effort, high potential. |
+
+### Topic Rotation Rules
+- At least 1 Tier 1 topic per week (these drive reach)
+- At least 1 Tier 2 topic per week (these build authority)
+- Never repeat the same specific topic two weeks in a row
+- Rotate Tier 3 topics so each gets covered once per month
+- When a conference is approaching (ITC, CLM, Connections), add a conference CTA post
+- If major litigation news breaks, bump a planned post and cover it immediately
 
 ### Planning Process
 
 #### Step 1: Content Audit
-- What was posted last week? Avoid repetition.
+- What was posted last week? Avoid topic repetition.
 - What Litigation Sentinel articles published recently? (Check newsletter-articles.ts)
-- Any industry news or events this week? (Nuclear verdicts, regulatory changes, notable settlements)
+- Any breaking industry news? (Nuclear verdicts, RICO suits, court rulings, legislative changes)
 - Any CaseGlide milestones or client wins to share?
+- Any upcoming conferences or events?
+- Search web for latest news in Tier 1 topics to find fresh angles
 
 #### Step 2: Topic Selection
 For each post slot, select a topic that:
-1. Maps to one of the 6 content pillars
-2. Has a specific data point or story to anchor it
+1. Follows the tier rotation from the weekly mix above
+2. Has a specific data point, quote, or story to anchor it
 3. Is save-worthy (would a GC bookmark it?)
 4. Hasn't been covered in the last 2 weeks
-5. Aligns with Wesley's profile topic DNA
+5. Uses an angle from content-topic-priorities.md
+6. If insurance-specific, has been translated to corporate language
 
 #### Step 3: Draft Outlines
 For each post, provide:
@@ -44,9 +56,11 @@ For each post, provide:
 - **Hook** (first 2 lines — the "See more" earner)
 - **Core message** (1 sentence)
 - **Key data point or proof**
+- **Post structure** (from the 6 templates in linkedin-post/SKILL.md: Bold Claim, Quote-Led, Provocative Data, How I/We, Contrarian Callout, or Framework)
 - **Format**: Text / Carousel / Video script
-- **CTA destination**: Litigation Sentinel / Executive Briefing / None
+- **CTA style**: Keyword DM / Conference / Newsletter / Challenge / None
 - **Save-worthiness**: Low / Medium / High
+- **Image recommendation**: List image / Podcast thumbnail / Product screenshot / Meme / AI-generated / None
 
 #### Step 4: Engagement Strategy
 For each post, note:
@@ -59,24 +73,26 @@ For each post, note:
 ```
 ## Week of [Date] — LinkedIn Content Plan
 
-### Post 1: [Tuesday]
+### Post 1: [Tuesday] — Tier 1 Reach Play
 - Title: [Working title]
 - Pillar: [Content pillar]
+- Structure: [Which of the 6 templates]
 - Format: [Text/Carousel]
 - Hook: "[First 2 lines]"
 - Core: [1-sentence summary]
 - Data: [Key stat or proof point]
-- CTA: [Destination]
+- CTA: [Style + destination]
+- Image: [Recommendation]
 - Save score: [Low/Medium/High]
 - First comment: [Link or context to add]
 
-### Post 2: [Wednesday]
+### Post 2: [Wednesday] — Tier 2 Authority Builder
 [Same structure]
 
-### Post 3: [Thursday]
+### Post 3: [Thursday] — Proof/Trust Post
 [Same structure]
 
-### Post 4: [Monday — Optional]
+### Post 4: [Monday — Optional] — Wildcard
 [Same structure]
 
 ---
@@ -84,6 +100,7 @@ Notes:
 - [Any timing considerations]
 - [Industry events to reference]
 - [Follow-up actions needed]
+- [Topics to save for next week]
 ```
 
 ## After Approval
