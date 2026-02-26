@@ -1,7 +1,7 @@
 # Skill: Draft LinkedIn Post
 
 > Invocable skill for drafting LinkedIn posts for Wesley Todd / CaseGlide.
-> Usage: `/linkedin-post` or ask Claude to "draft a LinkedIn post"
+> Usage: `/linkedin-post` or ask Claude to "draft a LinkedIn post about [topic]"
 
 ## Prerequisites
 
