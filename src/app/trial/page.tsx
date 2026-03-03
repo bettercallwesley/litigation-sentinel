@@ -10,6 +10,7 @@ import {
   StrategySessionPage,
   PortfolioImpactPage,
 } from "@/components/trial";
+import { ScheduleModal } from "@/components/briefing";
 import ThemeToggle from "@/components/shared/ThemeToggle";
 
 type Page = "overview" | "executive" | "cases" | "session" | "impact";
@@ -25,6 +26,7 @@ const NAV_ITEMS: { id: Page; label: string; icon: string }[] = [
 export default function TrialPage() {
   const [page, setPage] = useState<Page>("overview");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [showSchedule, setShowSchedule] = useState(false);
   const daysRemaining = 18;
 
   const navigateTo = (p: string) => {
@@ -313,13 +315,17 @@ export default function TrialPage() {
             overflow: "auto",
           }}
         >
-          {page === "overview" && <TrialOverviewPage onNav={navigateTo} />}
+          {page === "overview" && <TrialOverviewPage onNav={navigateTo} onSchedule={() => setShowSchedule(true)} />}
           {page === "executive" && <ExecutiveIntelligencePage />}
           {page === "cases" && <ProvingGroundPage />}
           {page === "session" && <StrategySessionPage />}
           {page === "impact" && <PortfolioImpactPage />}
         </div>
       </div>
+
+      {showSchedule && (
+        <ScheduleModal onClose={() => setShowSchedule(false)} source="trial" />
+      )}
 
       <ThemeToggle />
     </div>

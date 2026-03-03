@@ -6,9 +6,10 @@ import { Card, FadeIn } from "@/components/design-system";
 
 interface TrialOverviewPageProps {
   onNav: (page: string) => void;
+  onSchedule?: () => void;
 }
 
-export default function TrialOverviewPage({ onNav }: TrialOverviewPageProps) {
+export default function TrialOverviewPage({ onNav, onSchedule }: TrialOverviewPageProps) {
   return (
     <div>
       <FadeIn>
@@ -177,6 +178,7 @@ export default function TrialOverviewPage({ onNav }: TrialOverviewPageProps) {
                 Message
               </button>
               <button
+                onClick={() => onSchedule?.()}
                 style={{
                   padding: "8px 16px",
                   background: COLORS.accentSoft,

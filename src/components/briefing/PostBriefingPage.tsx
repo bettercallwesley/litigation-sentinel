@@ -7,6 +7,8 @@ import { ASSESSMENT_QUESTIONS } from "@/data/assessment-questions";
 
 interface PostBriefingPageProps {
   answers: Record<string, number>;
+  capturedEmail?: string | null;
+  onSchedule?: () => void;
 }
 
 const programs = [
@@ -46,12 +48,45 @@ const programs = [
   },
 ];
 
-export default function PostBriefingPage({ answers }: PostBriefingPageProps) {
+export default function PostBriefingPage({ answers, capturedEmail, onSchedule }: PostBriefingPageProps) {
   const [selectedProgram, setSelectedProgram] = useState<string | null>(null);
+  const [submitStatus, setSubmitStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
 
   const totalScore = Object.values(answers).reduce((a, b) => a + b, 0);
   const avgScore = totalScore / ASSESSMENT_QUESTIONS.length;
   const recommended = avgScore <= 2.5 ? "council" : "trial";
+
+  const handleProgramSelect = async (programId: string) => {
+    if (selectedProgram === programId) {
+      setSelectedProgram(null);
+      return;
+    }
+
+    setSelectedProgram(programId);
+
+    // If we have a captured email, auto-fire the notification
+    if (capturedEmail) {
+      setSubmitStatus("loading");
+      try {
+        await fetch("/api/briefing-capture", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            email: capturedEmail,
+            source: "post-briefing",
+            program: programId,
+            answers,
+          }),
+        });
+        setSubmitStatus("success");
+      } catch {
+        setSubmitStatus("error");
+      }
+    } else {
+      // No email captured — open the schedule modal
+      onSchedule?.();
+    }
+  };
 
   return (
     <div style={{ minHeight: "100vh", padding: "0 24px" }}>
@@ -133,15 +168,11 @@ export default function PostBriefingPage({ answers }: PostBriefingPageProps) {
             return (
               <FadeIn key={prog.id} delay={200 + i * 150}>
                 <div
-                  onClick={() =>
-                    setSelectedProgram(isSelected ? null : prog.id)
-                  }
                   style={{
                     padding: 0,
                     background: COLORS.surface,
                     border: `1px solid ${isSelected ? prog.color : isRecommended ? `${prog.color}40` : COLORS.border}`,
                     borderRadius: 16,
-                    cursor: "pointer",
                     overflow: "hidden",
                     transition: "all 0.3s ease",
                     position: "relative",
@@ -258,24 +289,28 @@ export default function PostBriefingPage({ answers }: PostBriefingPageProps) {
                     </div>
 
                     <button
+                      onClick={() => handleProgramSelect(prog.id)}
+                      disabled={submitStatus === "loading"}
                       style={{
                         marginTop: 24,
                         width: "100%",
                         padding: "14px",
-                        background: isSelected ? prog.color : "transparent",
+                        background: isSelected && submitStatus === "success" ? prog.color : "transparent",
                         border: `1px solid ${prog.color}`,
                         borderRadius: 10,
-                        color: isSelected ? "#fff" : prog.color,
+                        color: isSelected && submitStatus === "success" ? "#fff" : prog.color,
                         fontSize: 14,
                         fontWeight: 600,
-                        cursor: "pointer",
+                        cursor: submitStatus === "loading" ? "not-allowed" : "pointer",
                         transition: "all 0.2s",
                         fontFamily: FONTS.sans,
                       }}
                     >
-                      {isSelected
-                        ? "✓ Selected — We'll Be In Touch"
-                        : `Select ${prog.name}`}
+                      {isSelected && submitStatus === "success"
+                        ? "&#10003; Selected — We'll Be In Touch"
+                        : isSelected && submitStatus === "loading"
+                          ? "Sending..."
+                          : `Select ${prog.name}`}
                     </button>
                   </div>
                 </div>
@@ -284,12 +319,12 @@ export default function PostBriefingPage({ answers }: PostBriefingPageProps) {
           })}
         </div>
 
-        {/* Summary / share */}
+        {/* Schedule a call CTA — replaces fake shareable URL */}
         <FadeIn delay={600}>
           <div
             style={{
               marginTop: 40,
-              padding: 24,
+              padding: 28,
               background: COLORS.surface,
               border: `1px solid ${COLORS.border}`,
               borderRadius: 14,
@@ -298,51 +333,30 @@ export default function PostBriefingPage({ answers }: PostBriefingPageProps) {
           >
             <p
               style={{
-                fontSize: 14,
+                fontSize: 15,
                 color: COLORS.textSecondary,
                 margin: "0 0 16px",
                 fontFamily: FONTS.sans,
               }}
             >
-              Your complete assessment results and briefing materials are saved at this
-              unique URL. Share with your team to align on next steps.
+              Want to discuss your results with a litigation intelligence specialist?
             </p>
-            <div
+            <button
+              onClick={() => onSchedule?.()}
               style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: 10,
-                padding: "10px 20px",
-                background: COLORS.midnight,
-                borderRadius: 8,
-                border: `1px solid ${COLORS.border}`,
+                padding: "14px 32px",
+                background: `linear-gradient(135deg, ${COLORS.accent}, #2563EB)`,
+                color: "#fff",
+                border: "none",
+                borderRadius: 10,
+                fontSize: 14,
+                fontWeight: 600,
+                cursor: "pointer",
+                fontFamily: FONTS.sans,
               }}
             >
-              <span
-                style={{
-                  fontSize: 13,
-                  color: COLORS.textMuted,
-                  fontFamily: FONTS.mono,
-                }}
-              >
-                briefing.caseglide.com/your-unique-id
-              </span>
-              <button
-                style={{
-                  padding: "4px 12px",
-                  background: COLORS.accent,
-                  border: "none",
-                  borderRadius: 6,
-                  color: "#fff",
-                  fontSize: 12,
-                  fontWeight: 600,
-                  cursor: "pointer",
-                  fontFamily: FONTS.sans,
-                }}
-              >
-                Copy
-              </button>
-            </div>
+              Schedule a Call
+            </button>
           </div>
         </FadeIn>
       </div>

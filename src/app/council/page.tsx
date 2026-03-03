@@ -10,6 +10,7 @@ import {
   EducationPage,
   DashboardPreviewPage,
 } from "@/components/council";
+import { ScheduleModal } from "@/components/briefing";
 import ThemeToggle from "@/components/shared/ThemeToggle";
 
 type Page = "overview" | "data" | "activation" | "education" | "dashboards";
@@ -25,6 +26,7 @@ const NAV_ITEMS: { id: Page; label: string; icon: string }[] = [
 export default function CouncilRoute() {
   const [page, setPage] = useState<Page>("overview");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [showSchedule, setShowSchedule] = useState(false);
   const clientName = "Acme Insurance";
   const currentWeek = 3;
 
@@ -289,7 +291,7 @@ export default function CouncilRoute() {
           }}
         >
           {page === "overview" && (
-            <OverviewPage clientName={clientName} week={currentWeek} onNav={navigateTo} />
+            <OverviewPage clientName={clientName} week={currentWeek} onNav={navigateTo} onSchedule={() => setShowSchedule(true)} />
           )}
           {page === "data" && <DataReadinessPage />}
           {page === "activation" && <ActivationPage />}
@@ -297,6 +299,10 @@ export default function CouncilRoute() {
           {page === "dashboards" && <DashboardPreviewPage />}
         </div>
       </div>
+
+      {showSchedule && (
+        <ScheduleModal onClose={() => setShowSchedule(false)} source="council" />
+      )}
 
       <ThemeToggle />
     </div>

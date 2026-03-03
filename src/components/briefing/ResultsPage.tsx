@@ -8,10 +8,18 @@ import { ASSESSMENT_QUESTIONS } from "@/data/assessment-questions";
 interface ResultsPageProps {
   answers: Record<string, number>;
   onContinue: () => void;
+  onEmailCaptured?: (email: string) => void;
 }
 
-export default function ResultsPage({ answers, onContinue }: ResultsPageProps) {
+export default function ResultsPage({ answers, onContinue, onEmailCaptured }: ResultsPageProps) {
   const [revealed, setRevealed] = useState(false);
+  const [isGated, setIsGated] = useState(true);
+  const [captureEmail, setCaptureEmail] = useState("");
+  const [captureName, setCaptureName] = useState("");
+  const [captureCompany, setCaptureCompany] = useState("");
+  const [captureStatus, setCaptureStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [captureError, setCaptureError] = useState("");
+
   useEffect(() => {
     setTimeout(() => setRevealed(true), 300);
   }, []);
@@ -30,6 +38,53 @@ export default function ResultsPage({ answers, onContinue }: ResultsPageProps) {
   // Identify top gaps (lowest scores)
   const sorted = [...questionResults].sort((a, b) => a.score - b.score);
   const topGaps = sorted.slice(0, 3);
+
+  const handleUnlock = async () => {
+    if (!captureEmail || !captureEmail.includes("@")) {
+      setCaptureError("Please enter a valid email address.");
+      setCaptureStatus("error");
+      return;
+    }
+
+    setCaptureStatus("loading");
+    setCaptureError("");
+
+    try {
+      const res = await fetch("/api/briefing-capture", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: captureEmail,
+          name: captureName || undefined,
+          company: captureCompany || undefined,
+          source: "assessment-results",
+          answers,
+        }),
+      });
+
+      if (!res.ok) throw new Error("Failed");
+
+      setIsGated(false);
+      setCaptureStatus("success");
+      onEmailCaptured?.(captureEmail);
+    } catch {
+      setCaptureError("Something went wrong. Please try again.");
+      setCaptureStatus("error");
+    }
+  };
+
+  const inputStyle = {
+    width: "100%",
+    padding: "12px 16px",
+    background: COLORS.surface,
+    border: `1px solid ${COLORS.border}`,
+    borderRadius: 10,
+    color: COLORS.textPrimary,
+    fontSize: 14,
+    outline: "none",
+    boxSizing: "border-box" as const,
+    fontFamily: FONTS.sans,
+  };
 
   return (
     <div style={{ minHeight: "100vh", padding: "0 24px" }}>
@@ -62,7 +117,7 @@ export default function ResultsPage({ answers, onContinue }: ResultsPageProps) {
       </div>
 
       <div style={{ maxWidth: 900, margin: "0 auto", padding: "48px 0 80px" }}>
-        {/* Overall Score */}
+        {/* Overall Score — always visible (the hook) */}
         <FadeIn delay={100}>
           <div style={{ textAlign: "center", marginBottom: 56 }}>
             <Badge color={maturity.color} glow={maturity.glow}>
@@ -150,94 +205,105 @@ export default function ResultsPage({ answers, onContinue }: ResultsPageProps) {
           </div>
         </FadeIn>
 
-        {/* Dimension Breakdown */}
-        <FadeIn delay={400}>
-          <h3
-            style={{
-              fontSize: 13,
-              fontWeight: 600,
-              letterSpacing: "0.08em",
-              textTransform: "uppercase",
-              color: COLORS.textMuted,
-              marginBottom: 20,
-              fontFamily: FONTS.sans,
-            }}
-          >
-            Dimension Breakdown
-          </h3>
-          <div style={{ display: "grid", gap: 12 }}>
-            {questionResults.map((q, i) => (
-              <div
-                key={q.id}
+        {/* Email Gate — shown between score and detailed results */}
+        {isGated && (
+          <FadeIn delay={400}>
+            <div
+              style={{
+                padding: 32,
+                background: COLORS.surface,
+                border: `1px solid ${COLORS.border}`,
+                borderRadius: 16,
+                marginBottom: 40,
+                textAlign: "center",
+              }}
+            >
+              <h3
                 style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: 16,
-                  padding: "18px 20px",
-                  background: COLORS.surface,
-                  border: `1px solid ${COLORS.border}`,
-                  borderRadius: 12,
-                  opacity: revealed ? 1 : 0,
-                  transform: revealed ? "translateX(0)" : "translateX(-12px)",
-                  transition: "all 0.5s ease",
-                  transitionDelay: `${500 + i * 80}ms`,
-                  flexWrap: "wrap",
+                  fontSize: 20,
+                  fontWeight: 400,
+                  color: COLORS.textPrimary,
+                  margin: "0 0 8px",
+                  fontFamily: FONTS.serif,
                 }}
               >
-                <div style={{ width: 40, textAlign: "center" }}>
-                  <span
+                Unlock Your Full Results
+              </h3>
+              <p
+                style={{
+                  fontSize: 14,
+                  color: COLORS.textSecondary,
+                  margin: "0 0 24px",
+                  lineHeight: 1.6,
+                  fontFamily: FONTS.sans,
+                }}
+              >
+                See your dimension-by-dimension breakdown, top opportunities,
+                and how CaseGlide maps to your specific gaps.
+              </p>
+              <div style={{ maxWidth: 380, margin: "0 auto" }}>
+                <input
+                  placeholder="Work email *"
+                  value={captureEmail}
+                  onChange={(e) => setCaptureEmail(e.target.value)}
+                  style={{ ...inputStyle, marginBottom: 10 }}
+                />
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, marginBottom: 10 }}>
+                  <input
+                    placeholder="Name"
+                    value={captureName}
+                    onChange={(e) => setCaptureName(e.target.value)}
+                    style={inputStyle}
+                  />
+                  <input
+                    placeholder="Company"
+                    value={captureCompany}
+                    onChange={(e) => setCaptureCompany(e.target.value)}
+                    style={inputStyle}
+                  />
+                </div>
+                {captureStatus === "error" && captureError && (
+                  <p
                     style={{
-                      fontSize: 22,
-                      fontWeight: 600,
-                      color: q.maturity.color,
+                      fontSize: 13,
+                      color: COLORS.rose,
+                      margin: "0 0 10px",
+                      fontFamily: FONTS.sans,
                     }}
                   >
-                    {q.score}
-                  </span>
-                </div>
-                <div style={{ flex: 1, minWidth: 160 }}>
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: 8,
-                      marginBottom: 4,
-                      flexWrap: "wrap",
-                    }}
-                  >
-                    <span
-                      style={{
-                        fontSize: 14,
-                        fontWeight: 500,
-                        color: COLORS.textPrimary,
-                        fontFamily: FONTS.sans,
-                      }}
-                    >
-                      {q.painPoint}
-                    </span>
-                    <span
-                      style={{
-                        fontSize: 11,
-                        color: COLORS.textMuted,
-                        fontFamily: FONTS.sans,
-                      }}
-                    >
-                      → {q.feature}
-                    </span>
-                  </div>
-                  <ProgressBar value={q.score} max={5} color={q.maturity.color} />
-                </div>
-                <Badge color={q.maturity.color} glow={q.maturity.glow}>
-                  {q.maturity.label}
-                </Badge>
+                    {captureError}
+                  </p>
+                )}
+                <button
+                  onClick={handleUnlock}
+                  disabled={captureStatus === "loading"}
+                  style={{
+                    width: "100%",
+                    padding: "14px",
+                    background:
+                      captureStatus === "loading"
+                        ? COLORS.textMuted
+                        : `linear-gradient(135deg, ${COLORS.accent}, #2563EB)`,
+                    color: "#fff",
+                    border: "none",
+                    borderRadius: 10,
+                    fontSize: 14,
+                    fontWeight: 600,
+                    cursor: captureStatus === "loading" ? "not-allowed" : "pointer",
+                    fontFamily: FONTS.sans,
+                    opacity: captureStatus === "loading" ? 0.7 : 1,
+                  }}
+                >
+                  {captureStatus === "loading" ? "Unlocking..." : "View Full Results"}
+                </button>
               </div>
-            ))}
-          </div>
-        </FadeIn>
+            </div>
+          </FadeIn>
+        )}
 
-        {/* Top Opportunities */}
-        <FadeIn delay={900}>
-          <div style={{ marginTop: 48 }}>
+        {/* Dimension Breakdown — gated */}
+        {!isGated && (
+          <FadeIn delay={400}>
             <h3
               style={{
                 fontSize: 13,
@@ -249,111 +315,202 @@ export default function ResultsPage({ answers, onContinue }: ResultsPageProps) {
                 fontFamily: FONTS.sans,
               }}
             >
-              Highest-Impact Opportunities
+              Dimension Breakdown
             </h3>
-            <div
-              style={{
-                display: "grid",
-                gap: 12,
-                gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
-              }}
-            >
-              {topGaps.map((gap, i) => (
+            <div style={{ display: "grid", gap: 12 }}>
+              {questionResults.map((q, i) => (
                 <div
-                  key={gap.id}
+                  key={q.id}
                   style={{
-                    padding: 24,
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 16,
+                    padding: "18px 20px",
                     background: COLORS.surface,
                     border: `1px solid ${COLORS.border}`,
-                    borderRadius: 14,
-                    position: "relative",
-                    overflow: "hidden",
+                    borderRadius: 12,
+                    opacity: revealed ? 1 : 0,
+                    transform: revealed ? "translateX(0)" : "translateX(-12px)",
+                    transition: "all 0.5s ease",
+                    transitionDelay: `${500 + i * 80}ms`,
+                    flexWrap: "wrap",
                   }}
                 >
-                  <div
-                    style={{
-                      position: "absolute",
-                      top: 0,
-                      left: 0,
-                      right: 0,
-                      height: 3,
-                      background: `linear-gradient(90deg, ${gap.maturity.color}, transparent)`,
-                    }}
-                  />
-                  <div
-                    style={{
-                      fontSize: 11,
-                      fontWeight: 600,
-                      color: gap.maturity.color,
-                      textTransform: "uppercase",
-                      letterSpacing: "0.06em",
-                      marginBottom: 8,
-                      fontFamily: FONTS.sans,
-                    }}
-                  >
-                    Opportunity #{i + 1}
+                  <div style={{ width: 40, textAlign: "center" }}>
+                    <span
+                      style={{
+                        fontSize: 22,
+                        fontWeight: 600,
+                        color: q.maturity.color,
+                      }}
+                    >
+                      {q.score}
+                    </span>
                   </div>
-                  <div
-                    style={{
-                      fontSize: 16,
-                      fontWeight: 500,
-                      color: COLORS.textPrimary,
-                      marginBottom: 8,
-                      fontFamily: FONTS.sans,
-                    }}
-                  >
-                    {gap.painPoint}
+                  <div style={{ flex: 1, minWidth: 160 }}>
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: 8,
+                        marginBottom: 4,
+                        flexWrap: "wrap",
+                      }}
+                    >
+                      <span
+                        style={{
+                          fontSize: 14,
+                          fontWeight: 500,
+                          color: COLORS.textPrimary,
+                          fontFamily: FONTS.sans,
+                        }}
+                      >
+                        {q.painPoint}
+                      </span>
+                      <span
+                        style={{
+                          fontSize: 11,
+                          color: COLORS.textMuted,
+                          fontFamily: FONTS.sans,
+                        }}
+                      >
+                        → {q.feature}
+                      </span>
+                    </div>
+                    <ProgressBar value={q.score} max={5} color={q.maturity.color} />
                   </div>
-                  <div
-                    style={{
-                      fontSize: 13,
-                      color: COLORS.textSecondary,
-                      lineHeight: 1.6,
-                      fontFamily: FONTS.sans,
-                    }}
-                  >
-                    CaseGlide&apos;s{" "}
-                    <strong style={{ color: COLORS.accent }}>{gap.feature}</strong> module
-                    addresses this gap directly.
-                  </div>
+                  <Badge color={q.maturity.color} glow={q.maturity.glow}>
+                    {q.maturity.label}
+                  </Badge>
                 </div>
               ))}
             </div>
-          </div>
-        </FadeIn>
+          </FadeIn>
+        )}
+
+        {/* Top Opportunities — gated */}
+        {!isGated && (
+          <FadeIn delay={900}>
+            <div style={{ marginTop: 48 }}>
+              <h3
+                style={{
+                  fontSize: 13,
+                  fontWeight: 600,
+                  letterSpacing: "0.08em",
+                  textTransform: "uppercase",
+                  color: COLORS.textMuted,
+                  marginBottom: 20,
+                  fontFamily: FONTS.sans,
+                }}
+              >
+                Highest-Impact Opportunities
+              </h3>
+              <div
+                style={{
+                  display: "grid",
+                  gap: 12,
+                  gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
+                }}
+              >
+                {topGaps.map((gap, i) => (
+                  <div
+                    key={gap.id}
+                    style={{
+                      padding: 24,
+                      background: COLORS.surface,
+                      border: `1px solid ${COLORS.border}`,
+                      borderRadius: 14,
+                      position: "relative",
+                      overflow: "hidden",
+                    }}
+                  >
+                    <div
+                      style={{
+                        position: "absolute",
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        height: 3,
+                        background: `linear-gradient(90deg, ${gap.maturity.color}, transparent)`,
+                      }}
+                    />
+                    <div
+                      style={{
+                        fontSize: 11,
+                        fontWeight: 600,
+                        color: gap.maturity.color,
+                        textTransform: "uppercase",
+                        letterSpacing: "0.06em",
+                        marginBottom: 8,
+                        fontFamily: FONTS.sans,
+                      }}
+                    >
+                      Opportunity #{i + 1}
+                    </div>
+                    <div
+                      style={{
+                        fontSize: 16,
+                        fontWeight: 500,
+                        color: COLORS.textPrimary,
+                        marginBottom: 8,
+                        fontFamily: FONTS.sans,
+                      }}
+                    >
+                      {gap.painPoint}
+                    </div>
+                    <div
+                      style={{
+                        fontSize: 13,
+                        color: COLORS.textSecondary,
+                        lineHeight: 1.6,
+                        fontFamily: FONTS.sans,
+                      }}
+                    >
+                      CaseGlide&apos;s{" "}
+                      <strong style={{ color: COLORS.accent }}>{gap.feature}</strong> module
+                      addresses this gap directly.
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </FadeIn>
+        )}
 
         {/* CTA */}
-        <FadeIn delay={1200}>
-          <div style={{ textAlign: "center", marginTop: 56 }}>
-            <button
-              onClick={onContinue}
-              style={{
-                padding: "16px 40px",
-                background: `linear-gradient(135deg, ${COLORS.accent}, #2563EB)`,
-                color: "#fff",
-                border: "none",
-                borderRadius: 12,
-                fontSize: 15,
-                fontWeight: 600,
-                cursor: "pointer",
-                boxShadow: `0 4px 24px ${COLORS.accent}40`,
-                fontFamily: FONTS.sans,
-              }}
-            >
-              View Your Personalized Briefing →
-            </button>
-            <p
-              style={{
-                fontSize: 13,
-                color: COLORS.textMuted,
-                marginTop: 12,
-                fontFamily: FONTS.sans,
-              }}
-            >
-              See how CaseGlide maps to your specific gaps
-            </p>
-          </div>
-        </FadeIn>
+        {!isGated && (
+          <FadeIn delay={1200}>
+            <div style={{ textAlign: "center", marginTop: 56 }}>
+              <button
+                onClick={onContinue}
+                style={{
+                  padding: "16px 40px",
+                  background: `linear-gradient(135deg, ${COLORS.accent}, #2563EB)`,
+                  color: "#fff",
+                  border: "none",
+                  borderRadius: 12,
+                  fontSize: 15,
+                  fontWeight: 600,
+                  cursor: "pointer",
+                  boxShadow: `0 4px 24px ${COLORS.accent}40`,
+                  fontFamily: FONTS.sans,
+                }}
+              >
+                View Your Personalized Briefing →
+              </button>
+              <p
+                style={{
+                  fontSize: 13,
+                  color: COLORS.textMuted,
+                  marginTop: 12,
+                  fontFamily: FONTS.sans,
+                }}
+              >
+                See how CaseGlide maps to your specific gaps
+              </p>
+            </div>
+          </FadeIn>
+        )}
       </div>
     </div>
   );

@@ -18,6 +18,7 @@ export default function BriefingRoute() {
   const [phase, setPhase] = useState<Phase>("landing");
   const [answers, setAnswers] = useState<Record<string, number>>({});
   const [showSchedule, setShowSchedule] = useState(false);
+  const [capturedEmail, setCapturedEmail] = useState<string | null>(null);
 
   return (
     <div
@@ -46,6 +47,7 @@ export default function BriefingRoute() {
         <ResultsPage
           answers={answers}
           onContinue={() => setPhase("briefing")}
+          onEmailCaptured={(email) => setCapturedEmail(email)}
         />
       )}
       {phase === "briefing" && (
@@ -54,10 +56,20 @@ export default function BriefingRoute() {
           onContinue={() => setPhase("post")}
         />
       )}
-      {phase === "post" && <PostBriefingPage answers={answers} />}
+      {phase === "post" && (
+        <PostBriefingPage
+          answers={answers}
+          capturedEmail={capturedEmail}
+          onSchedule={() => setShowSchedule(true)}
+        />
+      )}
 
       {showSchedule && (
-        <ScheduleModal onClose={() => setShowSchedule(false)} />
+        <ScheduleModal
+          onClose={() => setShowSchedule(false)}
+          answers={answers}
+          source={phase}
+        />
       )}
 
       <ThemeToggle />

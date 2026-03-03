@@ -9,9 +9,10 @@ interface OverviewPageProps {
   clientName: string;
   week: number;
   onNav: (page: string) => void;
+  onSchedule?: () => void;
 }
 
-export default function OverviewPage({ clientName, week, onNav }: OverviewPageProps) {
+export default function OverviewPage({ clientName, week, onNav, onSchedule }: OverviewPageProps) {
   const activeMilestone = MILESTONES.find((m) => m.status === "active") || MILESTONES[0];
   const completedCount = MILESTONES.filter((m) => m.status === "completed").length;
   const dataProgress = 35;
@@ -277,6 +278,7 @@ export default function OverviewPage({ clientName, week, onNav }: OverviewPagePr
                 Message
               </button>
               <button
+                onClick={() => onSchedule?.()}
                 style={{
                   padding: "8px 16px",
                   background: COLORS.accentSoft,

@@ -116,7 +116,24 @@ export default function SentinelFooter({ delay = 750 }: SentinelFooterProps) {
           Litigation Sentinel
         </div>
         <div style={{ fontSize: 10, color: SENTINEL.inkFaint, fontFamily: FONTS.sans }}>
-          Published by CaseGlide · www.LitigationSentinel.com
+          Published by{" "}
+          <a
+            href="https://caseglide.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ color: SENTINEL.inkMuted, textDecoration: "underline" }}
+          >
+            CaseGlide
+          </a>
+          {" "}·{" "}
+          <a
+            href="https://caseglide.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ color: SENTINEL.inkMuted, textDecoration: "underline" }}
+          >
+            Request a Demo
+          </a>
         </div>
         <div
           style={{
