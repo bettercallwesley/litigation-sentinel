@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Source_Serif_4, DM_Sans, JetBrains_Mono } from "next/font/google";
+import { Analytics } from "@vercel/analytics/react";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import "@/styles/globals.css";
 import "@/styles/win95.css";
@@ -64,6 +65,7 @@ export default function RootLayout({
         <ThemeProvider>
           {children}
         </ThemeProvider>
+        <Analytics />
       </body>
     </html>
   );
