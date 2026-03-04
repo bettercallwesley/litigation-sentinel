@@ -16,7 +16,7 @@ export async function POST(req: NextRequest) {
     if (resendKey) {
       const resend = new Resend(resendKey);
       await resend.emails.send({
-        from: "Litigation Sentinel <notifications@litigationsentinel.com>",
+        from: "Litigation Sentinel <onboarding@resend.dev>",
         to: [notifyTo],
         subject: "[Litigation Sentinel] New Newsletter Subscriber",
         html: `

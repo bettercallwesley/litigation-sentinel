@@ -97,7 +97,7 @@ export async function POST(req: NextRequest) {
       const subject = `[Briefing Request] ${name || "Unknown"} at ${company || "Unknown Company"}${program ? ` — selected ${program}` : ""}`;
 
       await resend.emails.send({
-        from: "Litigation Sentinel <notifications@litigationsentinel.com>",
+        from: "Litigation Sentinel <onboarding@resend.dev>",
         to: [notifyTo],
         cc: [notifyCc],
         subject,

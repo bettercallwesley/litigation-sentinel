@@ -64,7 +64,7 @@ export async function POST(req: NextRequest) {
     const dataStr = data ? JSON.stringify(data, null, 2) : "No additional data";
 
     await resend.emails.send({
-      from: "Litigation Sentinel <notifications@litigationsentinel.com>",
+      from: "Litigation Sentinel <onboarding@resend.dev>",
       to: [notifyTo],
       subject: `[Litigation Sentinel] Engagement: ${eventLabel}`,
       html: `
