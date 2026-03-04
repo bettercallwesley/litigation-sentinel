@@ -40,6 +40,13 @@ export default function NuclearVerdictsPage() {
 
       setStatus("success");
       setIsSubscribed(true);
+
+      // Fire-and-forget: notify via track-event
+      fetch("/api/track-event", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ event: "heatmap-subscribe", data: { email } }),
+      }).catch(() => {});
     } catch {
       setStatus("error");
       setErrorMsg("Something went wrong. Please try again.");

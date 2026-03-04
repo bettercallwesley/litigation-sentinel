@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { Resend } from "resend";
 
 export async function POST(req: NextRequest) {
   try {
@@ -8,6 +9,33 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Valid email required" }, { status: 400 });
     }
 
+    // 1. Send notification email via Resend
+    const resendKey = process.env.RESEND_API_KEY;
+    const notifyTo = process.env.NOTIFICATION_EMAIL || "wesley@caseglide.com";
+
+    if (resendKey) {
+      const resend = new Resend(resendKey);
+      await resend.emails.send({
+        from: "Litigation Sentinel <notifications@litigationsentinel.com>",
+        to: [notifyTo],
+        subject: "[Litigation Sentinel] New Newsletter Subscriber",
+        html: `
+          <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; max-width: 600px; margin: 0 auto;">
+            <div style="background: #0A0E1A; color: #fff; padding: 24px 32px; border-radius: 12px 12px 0 0;">
+              <h1 style="margin: 0; font-size: 20px; font-weight: 500;">New Newsletter Subscriber</h1>
+              <p style="margin: 4px 0 0; color: #8B95A5; font-size: 14px;">from LitigationSentinel.com</p>
+            </div>
+            <div style="background: #f8f8f6; padding: 28px 32px; border: 1px solid #e5e5e0; border-top: none; border-radius: 0 0 12px 12px;">
+              <p style="font-size: 14px; color: #444; margin: 0;"><strong>Email:</strong> <a href="mailto:${email}">${email}</a></p>
+            </div>
+          </div>
+        `,
+      });
+    } else {
+      console.warn("RESEND_API_KEY not configured — skipping notification email");
+    }
+
+    // 2. Subscribe to Beehiiv newsletter
     const apiKey = process.env.BEEHIIV_API_KEY;
     const pubId = process.env.BEEHIIV_PUBLICATION_ID;
 
