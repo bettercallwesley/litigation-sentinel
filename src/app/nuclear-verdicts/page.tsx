@@ -11,9 +11,19 @@ import { ISSUE } from "@/data/newsletter-articles";
 import { ENGAGEMENT_STATS } from "@/data/engagement-stats";
 
 export default function NuclearVerdictsPage() {
-  const [isSubscribed, setIsSubscribed] = useState(false);
+  const [isSubscribed, setIsSubscribed] = useState(() => {
+    if (typeof window !== "undefined") {
+      return localStorage.getItem("ls_subscribed") === "1";
+    }
+    return false;
+  });
   const [email, setEmail] = useState("");
-  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">(() => {
+    if (typeof window !== "undefined" && localStorage.getItem("ls_subscribed") === "1") {
+      return "success";
+    }
+    return "idle";
+  });
   const [errorMsg, setErrorMsg] = useState("");
 
   // ─── Scroll & CTA Visibility Tracking ───
@@ -98,6 +108,7 @@ export default function NuclearVerdictsPage() {
 
       setStatus("success");
       setIsSubscribed(true);
+      localStorage.setItem("ls_subscribed", "1");
 
       // Fire-and-forget: notify via track-event
       fetch("/api/track-event", {
@@ -332,6 +343,7 @@ export default function NuclearVerdictsPage() {
               }
               setStatus("success");
               setIsSubscribed(true);
+              localStorage.setItem("ls_subscribed", "1");
               fetch("/api/track-event", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },

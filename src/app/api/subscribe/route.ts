@@ -1,6 +1,24 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
 
+// ─── Deduplication: prevent duplicate Resend emails for the same address ───
+const recentEmails = new Map<string, number>();
+const DEDUP_TTL_MS = 60 * 60 * 1000; // 1 hour
+
+function isDuplicate(email: string): boolean {
+  const now = Date.now();
+  const normalized = email.toLowerCase().trim();
+
+  // Cleanup expired entries every call (cheap for small maps)
+  recentEmails.forEach((ts, key) => {
+    if (now - ts > DEDUP_TTL_MS) recentEmails.delete(key);
+  });
+
+  if (recentEmails.has(normalized)) return true;
+  recentEmails.set(normalized, now);
+  return false;
+}
+
 export async function POST(req: NextRequest) {
   try {
     const { email } = await req.json();
@@ -9,11 +27,12 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Valid email required" }, { status: 400 });
     }
 
-    // 1. Send notification email via Resend
+    // 1. Send notification email via Resend (skip if duplicate within 1 hour)
     const resendKey = process.env.RESEND_API_KEY;
     const notifyTo = process.env.NOTIFICATION_EMAIL || "wesley@caseglide.com";
+    const duplicate = isDuplicate(email);
 
-    if (resendKey) {
+    if (resendKey && !duplicate) {
       const resend = new Resend(resendKey);
       await resend.emails.send({
         from: "Litigation Sentinel <onboarding@resend.dev>",
@@ -31,6 +50,8 @@ export async function POST(req: NextRequest) {
           </div>
         `,
       });
+    } else if (duplicate) {
+      console.log(`[subscribe] Skipping duplicate Resend notification for ${email}`);
     } else {
       console.warn("RESEND_API_KEY not configured — skipping notification email");
     }

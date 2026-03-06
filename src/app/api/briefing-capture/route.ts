@@ -1,6 +1,23 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
 
+// ─── Deduplication: prevent duplicate Resend emails for the same address ───
+const recentEmails = new Map<string, number>();
+const DEDUP_TTL_MS = 60 * 60 * 1000; // 1 hour
+
+function isDuplicate(email: string): boolean {
+  const now = Date.now();
+  const normalized = email.toLowerCase().trim();
+
+  recentEmails.forEach((ts, key) => {
+    if (now - ts > DEDUP_TTL_MS) recentEmails.delete(key);
+  });
+
+  if (recentEmails.has(normalized)) return true;
+  recentEmails.set(normalized, now);
+  return false;
+}
+
 const MATURITY_LABELS: Record<number, string> = {
   1: "Foundational",
   2: "Developing",
@@ -87,12 +104,13 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Valid email required" }, { status: 400 });
     }
 
-    // 1. Send notification email via Resend
+    // 1. Send notification email via Resend (skip if duplicate within 1 hour)
     const resendKey = process.env.RESEND_API_KEY;
     const notifyTo = process.env.NOTIFICATION_EMAIL || "wesley@caseglide.com";
     const notifyCc = process.env.NOTIFICATION_CC || "lrodriguez@caseglide.com";
+    const duplicate = isDuplicate(email);
 
-    if (resendKey) {
+    if (resendKey && !duplicate) {
       const resend = new Resend(resendKey);
       const subject = `[Briefing Request] ${name || "Unknown"} at ${company || "Unknown Company"}${program ? ` — selected ${program}` : ""}`;
 
@@ -103,6 +121,8 @@ export async function POST(req: NextRequest) {
         subject,
         html: buildNotificationHtml({ name, title, company, email, source, program, answers }),
       });
+    } else if (duplicate) {
+      console.log(`[briefing-capture] Skipping duplicate Resend notification for ${email}`);
     } else {
       console.warn("RESEND_API_KEY not configured — skipping notification email");
     }
