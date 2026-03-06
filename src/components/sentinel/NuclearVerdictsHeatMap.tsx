@@ -1409,9 +1409,14 @@ function SourcesList() {
 
 export default function NuclearVerdictsHeatMap({
   isPreview = false,
+  onSubscribe,
+  subscribeStatus,
 }: {
   isPreview?: boolean;
+  onSubscribe?: (email: string) => void;
+  subscribeStatus?: string;
 }) {
+  const [gateEmail, setGateEmail] = useState("");
   const [hoveredState, setHoveredState] = useState<string | null>(null);
   const [selectedState, setSelectedState] = useState<StateVerdictData | null>(
     null
@@ -2013,28 +2018,94 @@ export default function NuclearVerdictsHeatMap({
                   </span>
                 ))}
               </div>
-              <a
-                href="#subscribe"
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: 8,
-                  padding: "14px 32px",
-                  background:
-                    "linear-gradient(135deg, #B85450, #922B28)",
-                  borderRadius: 12,
-                  color: "#fff",
-                  fontSize: 14,
-                  fontWeight: 600,
-                  fontFamily: FONTS.sans,
-                  textDecoration: "none",
-                  border: "none",
-                  cursor: "pointer",
-                  boxShadow: "0 4px 20px rgba(184,84,80,0.3)",
-                }}
-              >
-                Subscribe for Full Access
-              </a>
+              {subscribeStatus === "success" ? (
+                <div
+                  style={{
+                    fontSize: 14,
+                    color: "#34D399",
+                    fontFamily: FONTS.sans,
+                    fontWeight: 600,
+                  }}
+                >
+                  Unlocked — refreshing...
+                </div>
+              ) : onSubscribe ? (
+                <form
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    if (gateEmail && gateEmail.includes("@")) {
+                      onSubscribe(gateEmail);
+                    }
+                  }}
+                  style={{
+                    display: "flex",
+                    gap: 8,
+                    justifyContent: "center",
+                    flexWrap: "wrap",
+                  }}
+                >
+                  <input
+                    type="email"
+                    placeholder="your@email.com"
+                    value={gateEmail}
+                    onChange={(e) => setGateEmail(e.target.value)}
+                    disabled={subscribeStatus === "loading"}
+                    style={{
+                      padding: "10px 14px",
+                      border: "1px solid rgba(255,255,255,0.15)",
+                      borderRadius: 8,
+                      fontSize: 13,
+                      fontFamily: FONTS.sans,
+                      background: "rgba(255,255,255,0.08)",
+                      color: "#F1F3F7",
+                      outline: "none",
+                      width: 200,
+                      opacity: subscribeStatus === "loading" ? 0.6 : 1,
+                    }}
+                  />
+                  <button
+                    type="submit"
+                    disabled={subscribeStatus === "loading"}
+                    style={{
+                      padding: "10px 24px",
+                      background: "linear-gradient(135deg, #B85450, #922B28)",
+                      borderRadius: 8,
+                      color: "#fff",
+                      fontSize: 14,
+                      fontWeight: 600,
+                      fontFamily: FONTS.sans,
+                      border: "none",
+                      cursor: subscribeStatus === "loading" ? "default" : "pointer",
+                      boxShadow: "0 4px 20px rgba(184,84,80,0.3)",
+                      opacity: subscribeStatus === "loading" ? 0.6 : 1,
+                    }}
+                  >
+                    {subscribeStatus === "loading" ? "Unlocking..." : "Unlock"}
+                  </button>
+                </form>
+              ) : (
+                <a
+                  href="#subscribe"
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: 8,
+                    padding: "14px 32px",
+                    background: "linear-gradient(135deg, #B85450, #922B28)",
+                    borderRadius: 12,
+                    color: "#fff",
+                    fontSize: 14,
+                    fontWeight: 600,
+                    fontFamily: FONTS.sans,
+                    textDecoration: "none",
+                    border: "none",
+                    cursor: "pointer",
+                    boxShadow: "0 4px 20px rgba(184,84,80,0.3)",
+                  }}
+                >
+                  Subscribe for Full Access
+                </a>
+              )}
             </div>
           </div>
         </FadeIn>

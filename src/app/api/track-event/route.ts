@@ -17,10 +17,23 @@ function cleanupSessions() {
 }
 
 // Events that trigger a notification email
-const NOTIFY_EVENTS = new Set(["heatmap-subscribe", "heatmap-state-click"]);
+const NOTIFY_EVENTS = new Set([
+  "heatmap-subscribe",
+  "heatmap-state-click",
+  "above-fold-subscribe-visible",
+  "gate-cta-visible",
+  "briefing-cta-visible",
+  "scroll-depth",
+]);
 
 // Events that should be debounced (only first per session)
-const DEBOUNCE_EVENTS = new Set(["heatmap-state-click"]);
+const DEBOUNCE_EVENTS = new Set([
+  "heatmap-state-click",
+  "above-fold-subscribe-visible",
+  "gate-cta-visible",
+  "briefing-cta-visible",
+  "scroll-depth",
+]);
 
 export async function POST(req: NextRequest) {
   try {
