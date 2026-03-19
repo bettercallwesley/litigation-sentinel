@@ -43,7 +43,7 @@ export async function POST(req: NextRequest) {
     const beehiivPub = process.env.BEEHIIV_PUBLICATION_ID;
 
     if (beehiivKey && beehiivPub) {
-      await fetch(
+      const beehiivRes = await fetch(
         `https://api.beehiiv.com/v2/publications/${beehiivPub}/subscriptions`,
         {
           method: "POST",
@@ -59,6 +59,12 @@ export async function POST(req: NextRequest) {
           }),
         }
       );
+      if (!beehiivRes.ok) {
+        const errBody = await beehiivRes.json().catch(() => ({}));
+        console.error(`[BRIEFING_BEEHIIV_ERROR] status=${beehiivRes.status} email=${email}`, errBody);
+      } else {
+        console.log(`[BRIEFING_BEEHIIV_OK] email=${email}`);
+      }
     }
 
     return NextResponse.json({ success: true });
