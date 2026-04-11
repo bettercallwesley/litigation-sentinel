@@ -279,7 +279,7 @@ export const ARTICLES: NewsletterArticle[] = [
     readTime: "10 min read",
     author: "Wes Todd",
     date: "April 3, 2026",
-    readers: 0,
+    readers: 783,
     trending: false,
     content: [
       // --- Section 1: The Three Questions Boards Cannot Answer ---
