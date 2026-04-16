@@ -1256,7 +1256,142 @@ export const TRIAL_ARTICLE: NewsletterArticle = {
   readers: 1412,
 };
 
+export const CARRIER_RICO_ARTICLE: NewsletterArticle = {
+  slug: "carrier-rico-offense",
+  section: "RICO & Fraud",
+  tag: "Breaking",
+  title: "Two Federal RICO Suits in Four Days: The Carrier Side Just Learned to Punch Back",
+  subtitle:
+    "On April 10, Allstate filed RICO in the Southern District of Texas. On April 14, Uber and Liberty Mutual filed RICO in the Eastern District of New York. Two separate organizations, the same strategic decision. Here is what changed — and what it means for your portfolio.",
+  readTime: "7 min read",
+  author: "Wes Todd",
+  date: "April 16, 2026",
+  readers: 0,
+  trending: true,
+  content: [
+    // --- Section 1: What Happened ---
+    { type: "heading", text: "What Happened: Two Complaints, Four Days Apart" },
+    {
+      type: "paragraph",
+      text: "On April 10, 2026, Allstate Insurance Company filed a federal civil RICO complaint in the Southern District of Texas, Case No. 4:26-cv-02842. The defendants: four members of the Roopani family and sixteen related entities, including medical practices, imaging centers, and management companies operating across the Houston area. The complaint alleges the defendants billed Allstate for medical services that were either unnecessary, never actually rendered, or performed by unlicensed individuals concealed behind a nominal physician figurehead.",
+    },
+    {
+      type: "paragraph",
+      text: "The alleged exposure is $7.9 million in fraudulent billing. The relief sought goes further: treble damages under 18 U.S.C. Section 1964(c), injunctive relief, and a judicial declaration that the defendants are not entitled to collect on any pending or future claims under Allstate policies. That last piece is significant. Allstate is not just seeking to recover what was already paid. It is seeking to cut off the network from any future recovery.",
+    },
+    {
+      type: "paragraph",
+      text: "Four days later, on April 14, Uber Technologies, Rasier-NY LLC, and Liberty Mutual Fire Insurance Company filed a federal civil RICO complaint in the Eastern District of New York, Case No. 2:26-cv-02195. The defendants: Georgette Powell and a network of co-defendants alleged to have operated a staged-collision enterprise built specifically around the Uber platform. The complaint documents eight staged collisions between August 2023 and March 2025. Named participants. Documented patterns. Perkins Coie handled Uber's position. Marshall-Dennehy handled Liberty Mutual's.",
+    },
+    {
+      type: "pullquote",
+      text: "Two federal RICO complaints, two different courts, two different fraud theories — filed within four days of each other. That is not a coincidence. That is a strategic shift.",
+    },
+    {
+      type: "paragraph",
+      text: "These are not related cases. The Allstate complaint is about medical billing fraud in Texas. The Uber complaint is about staged collisions in New York. The companies involved do not share counsel, do not share defendants, and are not coordinating litigation strategy. What they share is a decision: take documented fraud patterns out of the claims cost column and put them into federal court under RICO.",
+    },
+
+    // --- Section 2: Why RICO ---
+    { type: "heading", text: "Why RICO? The Math Behind Treble Damages" },
+    {
+      type: "paragraph",
+      text: "The Racketeer Influenced and Corrupt Organizations Act was originally designed to target organized crime. Its civil provisions, codified at 18 U.S.C. Section 1964(c), allow any person injured by a pattern of racketeering activity to sue for treble damages and attorney fees. The key word is treble. Every dollar of documented fraud becomes three dollars in a successful RICO judgment.",
+    },
+    {
+      type: "paragraph",
+      text: "The threshold for a civil RICO claim requires a pattern of racketeering activity, meaning at least two predicate acts within a ten-year period, connected by a common scheme. In both the Allstate and Uber complaints, the predicate acts are mail fraud and wire fraud tied to false billing records and staged claim submissions. The pattern requirement is what makes documentation so important. A single fraudulent claim is a fraud claim. Eight staged collisions across eighteen months, connected by the same participants and the same platform, is a RICO enterprise.",
+    },
+    {
+      type: "callout",
+      text: "The distinction matters because it changes the economics of litigation. A successful fraud recovery returns what was taken. A successful RICO recovery returns three times what was taken, plus attorney fees. For a network that has been running for years, the damages exposure is not the current billing amount. It is every provable act going back to when the pattern began.",
+    },
+    {
+      type: "paragraph",
+      text: "Fee-shifting is the other piece that makes RICO attractive to plaintiffs. In standard American litigation, each side bears its own attorney fees. RICO provides a statutory exception: the prevailing plaintiff recovers attorney fees from the defendant. That shifts the calculus for every carrier that has been reluctant to pursue fraud litigation because of cost. Under RICO, the cost of winning is recoverable.",
+    },
+    {
+      type: "paragraph",
+      text: "The risk is real. RICO plaintiffs face a high pleading standard. Courts require that the pattern of racketeering be pled with specificity — specific acts, specific dates, specific participants. Cases that survive a motion to dismiss are typically cases where the plaintiff has already done the document-level work to connect the defendants to specific fraudulent acts. That is why the data work precedes the litigation strategy.",
+    },
+
+    // --- Section 3: The Pattern Was in the Data First ---
+    { type: "heading", text: "The Pattern Was in the Data Before the Case Was Filed" },
+    {
+      type: "paragraph",
+      text: "Both complaints reveal something important about how these cases are built. The fraudulent patterns existed in the data long before they became RICO cases. Neither Allstate nor Uber filed because they suddenly discovered fraud. They filed because they had documented enough specific predicate acts — dates, amounts, participants, conduct — to meet the pleading standard. That documentation work happened first.",
+    },
+    {
+      type: "paragraph",
+      text: "In the Allstate complaint, the key evidence is a referral network built around pre-printed forms. Cooperating chiropractors allegedly used standardized referral documents to route patients into Roopani facilities for a predetermined course of treatment, regardless of individual medical need. The forms are described in the complaint. The pattern they created — predictable referral to predictable treatment to predictable billing — was visible in the claims data as a structural anomaly before it became an exhibit in a federal case.",
+    },
+    {
+      type: "paragraph",
+      text: "In the Uber complaint, the evidence is eight staged events across eighteen months tied to the same claimant networks. The complaint does not allege that Uber stumbled onto a fraud operation. It alleges that Uber and Liberty Mutual identified a pattern — same participants, same collision dynamics, same claiming behavior, same platform — and built a case around that pattern. The enterprise existed before anyone named it.",
+    },
+    {
+      type: "pullquote",
+      text: "The pattern was there. It was in the data. The question was whether anyone was looking at the data the right way.",
+    },
+    {
+      type: "paragraph",
+      text: "This has a direct implication for any claims or legal team managing a portfolio at scale. The fraud that will become a RICO case in 2027 is already generating signals in your current data. The same claimants, the same treating providers, the same plaintiff firms, the same venue concentrations. The enterprise described in the Uber complaint ran for at least eighteen months before it became a federal case. The Roopani network in the Allstate complaint operated long enough to accumulate $7.9 million in alleged fraudulent billing before anyone sued.",
+    },
+    {
+      type: "paragraph",
+      text: "The question for your litigation portfolio is not whether this kind of fraud exists in your book. It does. The question is whether your team can see it before the exposure compounds to the point where litigation is the only option left.",
+    },
+
+    // --- Section 4: What This Means for Your Program ---
+    { type: "heading", text: "What This Means for Your Program" },
+    {
+      type: "paragraph",
+      text: "Most legal and claims teams are not set up to detect these patterns. They are set up to process individual claims, respond to filed suits, and manage spend against reserves. These are reactive functions. The fraud detection that precedes a RICO complaint is an analytical function — one that requires looking across the portfolio for structural anomalies, not inside individual cases for merit.",
+    },
+    {
+      type: "paragraph",
+      text: "What Allstate found is a referral network. What Uber found is a collision enterprise. In both cases, the signal is cross-case correlation: the same actors appearing repeatedly across different claims, in patterns that exceed what random chance would produce. A single claim with a Roopani-affiliated provider is noise. Forty claims from the same referral pathway over two years is a pattern. The difference is whether you are looking at individual claims or looking at the portfolio.",
+    },
+    {
+      type: "callout",
+      text: "If your team reviews claims individually and your data lives in separate systems — claims platform, billing records, outside counsel notes — you cannot see the cross-case patterns that produce a RICO complaint. You will see the individual transactions. You will not see the enterprise.",
+    },
+    {
+      type: "paragraph",
+      text: "Building this capability does not require building a new technology platform. It requires consolidating the data that already exists in your claims system, your billing records, and your litigation history — and running it against the cross-case patterns that indicate organized activity. The raw material is already there. The question is whether it has been organized in a way that surfaces the signal.",
+    },
+    {
+      type: "paragraph",
+      text: "The carriers and corporations that are ahead of this problem are not the ones with the most sophisticated technology. They are the ones that started looking at their portfolios as portfolios — as interconnected collections of cases where patterns across cases matter as much as the facts inside any single one. That shift in perspective is the prerequisite for everything that follows.",
+    },
+
+    // --- Section 5: The Broader Pattern This Week ---
+    { type: "heading", text: "One More Thing Worth Noting" },
+    {
+      type: "paragraph",
+      text: "Two RICO filings in four days is not standard. The timing is almost certainly coincidental — these cases were built independently, over months, by separate legal teams. But the coincidence surfaces something real: the number of organizations willing to use RICO as an offensive tool against organized fraud is growing. The legal theory has been available for decades. What changed is the willingness to invest in the documentation work that makes a RICO case viable.",
+    },
+    {
+      type: "paragraph",
+      text: "The New Yorker published its investigation into staged-crash fraud in New Orleans the same week — Patrick Radden Keefe reporting on a network of attorneys and organizers who staged tractor-trailer accidents along a fourteen-mile stretch of Interstate 10. The federal informant in that case was murdered. Several attorneys were convicted by a jury this month. When that investigation runs in The New Yorker, the conversation about fraud moves out of trade publications and into boardrooms.",
+    },
+    {
+      type: "paragraph",
+      text: "These are signals. The fraud that has existed in your claims data for years is becoming visible — in federal complaints, in long-form journalism, in legislative hearings. The legal departments and claims teams that have already built the analytical capability to see these patterns will be ahead of that conversation. The ones that have not will be catching up.",
+    },
+    {
+      type: "paragraph",
+      text: "If you want to know where your own portfolio has blind spots — not in the abstract, but mapped specifically against what these kinds of patterns look like in practice — the Executive Briefing is a six-question diagnostic built for exactly that. It takes about four minutes and produces a specific readout of where your program has visibility and where it does not.",
+    },
+    {
+      type: "paragraph",
+      text: "litigationsentinel.com/briefing",
+    },
+  ],
+};
+
 export const ALL_ARTICLES: NewsletterArticle[] = [
+  CARRIER_RICO_ARTICLE,
   FEATURED_ARTICLE,
   ...ARTICLES,
   TRIAL_ARTICLE,
