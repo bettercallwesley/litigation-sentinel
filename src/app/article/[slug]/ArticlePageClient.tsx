@@ -90,7 +90,7 @@ function ArticleHeader({ title, subtitle, tag, section, readTime, author, date, 
           )}
           <span style={{ fontSize: 12, color: SENTINEL.inkMuted, fontFamily: FONTS.sans }}>
             {readTime}
-            {readers != null && ` · ${readers.toLocaleString()} readers this week`}
+            {readers != null && readers > 0 && ` · ${readers.toLocaleString()} readers this week`}
           </span>
         </div>
       </div>
