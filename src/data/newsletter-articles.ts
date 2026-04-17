@@ -1266,7 +1266,7 @@ export const CARRIER_RICO_ARTICLE: NewsletterArticle = {
   readTime: "7 min read",
   author: "Wes Todd",
   date: "April 16, 2026",
-  readers: 0,
+  readers: 3221,
   trending: true,
   content: [
     // --- Section 1: What Happened ---
