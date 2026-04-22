@@ -1,0 +1,13 @@
+Vercel CLI 50.22.1
+Retrieving project…
+> Environment Variables found for case-glide/litigation-sentinel [158ms]
+
+ name                       value               environments                        created    
+ APOLLO_API_KEY             Encrypted           Development, Preview, Production    56d ago    
+ BEEHIIV_API_KEY            Encrypted           Production, Preview, Development    57d ago    
+ BEEHIIV_PUBLICATION_ID     Encrypted           Development, Preview, Production    57d ago    
+
+Common next commands:
+- `vercel env add`
+- `vercel env rm`
+- `vercel env pull`

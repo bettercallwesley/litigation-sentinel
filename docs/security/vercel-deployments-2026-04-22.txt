@@ -1,0 +1,40 @@
+Vercel CLI 50.22.1
+Retrieving project…
+Fetching deployments in case-glide
+> Deployments for case-glide/litigation-sentinel [162ms]
+
+  Age     Project                            Deployment                                                      Status      Environment     Duration     Username             
+  5d      case-glide/litigation-sentinel     https://litigation-sentinel-760ibjhme-case-glide.vercel.app     ● Ready     Production      24s          bettercallwesley     
+  5d      case-glide/litigation-sentinel     https://litigation-sentinel-pfz0y9wo5-case-glide.vercel.app     ● Ready     Preview         22s          bettercallwesley     
+  6d      case-glide/litigation-sentinel     https://litigation-sentinel-8ne69rvh6-case-glide.vercel.app     ● Ready     Production      23s          bettercallwesley     
+  11d     case-glide/litigation-sentinel     https://litigation-sentinel-fci8ymou3-case-glide.vercel.app     ● Ready     Production      22s          bettercallwesley     
+  19d     case-glide/litigation-sentinel     https://litigation-sentinel-236qzflhs-case-glide.vercel.app     ● Ready     Production      22s          bettercallwesley     
+  19d     case-glide/litigation-sentinel     https://litigation-sentinel-12m06kdfa-case-glide.vercel.app     ● Ready     Preview         24s          bettercallwesley     
+  33d     case-glide/litigation-sentinel     https://litigation-sentinel-i8bq5hr26-case-glide.vercel.app     ● Ready     Production      24s          bettercallwesley     
+  33d     case-glide/litigation-sentinel     https://litigation-sentinel-e5az6lcpu-case-glide.vercel.app     ● Ready     Preview         22s          bettercallwesley     
+  34d     case-glide/litigation-sentinel     https://litigation-sentinel-jfimgxqao-case-glide.vercel.app     ● Ready     Production      25s          bettercallwesley     
+  47d     case-glide/litigation-sentinel     https://litigation-sentinel-8fyz91ucx-case-glide.vercel.app     ● Ready     Production      24s          bettercallwesley     
+  47d     case-glide/litigation-sentinel     https://litigation-sentinel-7jizrau8x-case-glide.vercel.app     ● Ready     Production      23s          bettercallwesley     
+  47d     case-glide/litigation-sentinel     https://litigation-sentinel-pd379qm24-case-glide.vercel.app     ● Ready     Production      24s          bettercallwesley     
+  47d     case-glide/litigation-sentinel     https://litigation-sentinel-b1ndwezk5-case-glide.vercel.app     ● Ready     Production      23s          bettercallwesley     
+  47d     case-glide/litigation-sentinel     https://litigation-sentinel-haxxskbvm-case-glide.vercel.app     ● Ready     Production      23s          bettercallwesley     
+  49d     case-glide/litigation-sentinel     https://litigation-sentinel-4r74v45kh-case-glide.vercel.app     ● Ready     Production      22s          bettercallwesley     
+  49d     case-glide/litigation-sentinel     https://litigation-sentinel-6wvn37lgr-case-glide.vercel.app     ● Ready     Production      24s          bettercallwesley     
+  49d     case-glide/litigation-sentinel     https://litigation-sentinel-7z186zpd2-case-glide.vercel.app     ● Ready     Production      35s          bettercallwesley     
+  49d     case-glide/litigation-sentinel     https://litigation-sentinel-2n8wr2wpw-case-glide.vercel.app     ● Ready     Production      25s          bettercallwesley     
+  50d     case-glide/litigation-sentinel     https://litigation-sentinel-ouiotywxz-case-glide.vercel.app     ● Ready     Production      22s          bettercallwesley     
+  50d     case-glide/litigation-sentinel     https://litigation-sentinel-i8kif3bvi-case-glide.vercel.app     ● Ready     Production      33s          bettercallwesley     
+
+https://litigation-sentinel-760ibjhme-case-glide.vercel.app
+https://litigation-sentinel-pfz0y9wo5-case-glide.vercel.app
+https://litigation-sentinel-8ne69rvh6-case-glide.vercel.app
+https://litigation-sentinel-fci8ymou3-case-glide.vercel.app
+https://litigation-sentinel-236qzflhs-case-glide.vercel.app
+https://litigation-sentinel-12m06kdfa-case-glide.vercel.app
+https://litigation-sentinel-i8bq5hr26-case-glide.vercel.app
+https://litigation-sentinel-e5az6lcpu-case-glide.vercel.app
+https://litigation-sentinel-jfimgxqao-case-glide.vercel.app
+https://litigation-sentinel-8fyz91ucx-case-glide.vercel.app
+https://litigation-sentinel-7jizrau8x-case-glide.vercel.app
+https://litigation-sentinel-pd379qm24-case-glide.vercel.app
+https://litigation-sentinel-b1ndwezk5-case-glide.vercel.app
