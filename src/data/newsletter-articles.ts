@@ -268,7 +268,144 @@ export const FEATURED_ARTICLE: NewsletterArticle = {
   ],
 };
 
+export const SC_AI_HALLUCINATION_ARTICLE: NewsletterArticle = {
+  slug: "sullivan-cromwell-ai-hallucination",
+  section: "AI in Court",
+  tag: "Breaking",
+  title:
+    "Sullivan & Cromwell Just Apologized for AI Hallucinations. Your Panel Firms Are Probably Next.",
+  subtitle:
+    "On April 18, one of the most prestigious law firms in the country sent a letter to a federal bankruptcy judge admitting roughly 40 AI-generated errors across multiple court filings. The firm has internal AI policies. The errors still landed in the record. Here is what carriers and corporate legal teams should take from this incident — and the trend behind it.",
+  readTime: "7 min read",
+  author: "Wes Todd",
+  date: "April 25, 2026",
+  readers: 0,
+  trending: true,
+  content: [
+    { type: "heading", text: "What Happened: A Letter From a Top-Five Firm to a Federal Judge" },
+    {
+      type: "paragraph",
+      text: "On Saturday April 18, 2026, Andrew Dietderich, co-head of Sullivan & Cromwell's global restructuring practice, sent a letter to Chief Bankruptcy Judge Martin Glenn of the United States Bankruptcy Court for the Southern District of New York. The subject of the letter was that AI tools had generated roughly 40 errors across multiple S&C filings in the Chapter 15 proceeding for Prince Global Holdings, a BVI-incorporated entity tied to a Cambodian conglomerate whose founder was indicted in Brooklyn federal court for forced-labor compounds and a multibillion-dollar investment fraud.",
+    },
+    {
+      type: "paragraph",
+      text: "The errors were not minor. Fabricated case citations. Wrong volume numbers. Pin cites pointing to nothing. Quoted parentheticals that did not appear anywhere in the actual cited cases. The errors were spread across the firm's emergency motion, verified petition, joint administration motion, scheduling motion, and supporting declarations — five separate documents.",
+    },
+    {
+      type: "paragraph",
+      text: "The firm's internal review process did not catch any of them. Boies Schiller Flexner did, on the other side of the case. Matthew Schwartz, the BSF chair representing Cambodian conglomerate founder Chen Zhi, raised the citations in correspondence with S&C. Within days the firm filed the apology letter and a redline correction.",
+    },
+    {
+      type: "pullquote",
+      text: "The inaccuracies and errors in the Motion include artificial intelligence ('AI') 'hallucinations.' We deeply regret that this has occurred.",
+    },
+    {
+      type: "paragraph",
+      text: "That apology, signed by Dietderich, also notes that the firm 'maintains comprehensive policies and training requirements governing the use of AI tools in legal work.' That last clause is the part to absorb. Sullivan & Cromwell is not a firm with a casual approach to AI. It has internal policies, training requirements, and review processes. Those controls failed to catch ungrounded AI output before it landed in federal court filings tied to billions of dollars in claims against an indicted defendant.",
+    },
+
+    { type: "heading", text: "Why This Is Not Isolated: The Trend Behind the Headline" },
+    {
+      type: "paragraph",
+      text: "If S&C's controls were not enough, every legal department whose outside counsel uses AI in any drafting workflow has the same exposure on their books right now. The exposure does not show up on any conventional risk register because no one has yet built one for it.",
+    },
+    {
+      type: "paragraph",
+      text: "The S&C incident is also not an outlier. Researcher Damien Charlotin's public tracker now identifies more than 1,300 court filings worldwide that contain AI-generated hallucinations. The pace has steepened sharply: roughly two cases per week before spring 2025, two or three per day by fall 2025. 2026 is on the same curve.",
+    },
+    {
+      type: "callout",
+      text: "The cases that get press coverage are the ones with embarrassed Big Law firms attached. Most are happening at smaller firms and going through routine sanctions hearings without national attention.",
+    },
+    {
+      type: "paragraph",
+      text: "A representative sample from the past twelve months: the 6th Circuit at Cincinnati sanctioned two attorneys $30,000 in a single ruling for two dozen fabricated citations. The 5th Circuit sanctioned an attorney $2,500 for using vLex and Thomson Reuters CoCounsel without verifying the output. Two attorneys representing MyPillow CEO Mike Lindell in a Colorado defamation case were each fined $3,000 for a filing containing more than two dozen mistakes and citations of cases that did not exist. The Utah Court of Appeals sanctioned attorney Richard Bednar for a brief citing the non-existent case Royer v. Nelson, after his unlicensed law clerk drafted it from ChatGPT and Bednar filed it without verification.",
+    },
+    {
+      type: "paragraph",
+      text: "None of these firms had S&C's brand. All of them had the same root cause: an attorney trusted the model, did not verify the cited cases, filed the brief, opposing counsel ran the citations, the citations did not exist. The AI tool was almost always a general-purpose chatbot operating without grounding to a verified case-law database.",
+    },
+    {
+      type: "paragraph",
+      text: "The American Bar Association issued its first formal ethics opinion on the responsibilities of lawyers using generative AI in July 2024. The opinion did not slow the trend. Sanctions did not slow the trend. Internal firm policies, in S&C's case, did not slow the trend.",
+    },
+
+    { type: "heading", text: "The Carrier-Side Question Is Specific and Narrow" },
+    {
+      type: "paragraph",
+      text: "Most carriers and corporate legal teams have not asked their panel firms a direct question about AI use in drafting workflows. The question is not philosophical. It is operational, and it has two parts:",
+    },
+    {
+      type: "paragraph",
+      text: "First: which of our panel firms are using AI in their drafting workflows? Most have not been asked the question directly. Many will not know exactly which workflows the answer covers — discovery summaries, motion drafting, deposition prep, settlement memos, status reports — because AI use has crept in by individual lawyer and individual practice group, not by firm-level rollout.",
+    },
+    {
+      type: "paragraph",
+      text: "Second: is the AI those firms use grounded? This is the technical question, and the answer determines the risk profile. Grounded AI works against a verified database — published case law from a reputable source, your own matter file, your own claim record — and refuses to generate text without a citation back to that source. Ungrounded AI is a general-purpose chatbot that produces fluent prose by predicting plausible next words. The two are not equivalent. One leaves audit trails. The other writes Mata v. Avianca all over again.",
+    },
+    {
+      type: "callout",
+      text: "If your panel firms are using AI in any drafting workflow without enforced per-citation verification, your filings carry the same risk profile as the S&C motion. The exposure is judges who lose patience with the carrier-counsel relationship, motions that get tossed for procedural defects, and adverse inferences in matters where opposing counsel finds fabricated citations first.",
+    },
+    {
+      type: "paragraph",
+      text: "The exposure is not just sanctions on the firm. It is the carrier-counsel relationship and the venue's perception of the carrier's program — both of which compound across cases far beyond the matter where the citation got caught.",
+    },
+
+    { type: "heading", text: "What Grounded AI Looks Like in Practice" },
+    {
+      type: "paragraph",
+      text: "Grounded AI is not a marketing term. It refers to a specific architectural choice: the AI system retrieves source documents from a verified store, reasons over those retrieved documents, and refuses to produce text that cannot be cited back to a retrieved source. The design constraint is that hallucination becomes architecturally hard rather than aspirationally discouraged.",
+    },
+    {
+      type: "paragraph",
+      text: "In a litigation context, the verified source is your matter file. Pleadings, discovery responses, deposition transcripts, expert reports, claim records, and the cited body of governing case law — all retrieved at query time, all referenced inside the generated answer. A grounded litigation AI cannot tell you what the case stands for if no document in the matter file or the case-law database supports the claim. It returns 'no source found' instead of inventing a parenthetical.",
+    },
+    {
+      type: "paragraph",
+      text: "The contrast with general-purpose chatbots is straightforward. A chatbot trained on a snapshot of the public internet has read enough legal writing to produce plausible-looking citations. It has no enforced connection between the citation it produces and any actual case. The citation looks right because it follows the format. There is no system in place to verify the case exists, the volume number is correct, or the parenthetical accurately reflects the holding.",
+    },
+    {
+      type: "paragraph",
+      text: "The S&C incident is a clean illustration of the difference. The firm's internal policies likely required attorney verification of AI output. The verification did not happen at the per-citation level it needed to. A grounded system with retrieval citations would have made the verification mechanical — every claim in the brief either points to a real source in the matter file or a real case in the case-law database, and the system flags any text that does not.",
+    },
+
+    { type: "heading", text: "What to Do This Quarter" },
+    {
+      type: "paragraph",
+      text: "Three concrete moves for any carrier or corporate legal department reading this:",
+    },
+    {
+      type: "paragraph",
+      text: "1. Survey your panel. Send a one-page question to every active outside firm asking which of their drafting workflows use AI, what tool, and what verification process is in place. Track the responses. The firms that cannot answer the second question have the highest exposure on your book.",
+    },
+    {
+      type: "paragraph",
+      text: "2. Update your billing guidelines to require per-citation verification for any filing produced with AI assistance. The language can be one paragraph. The point is not punitive enforcement. The point is that asking the question on the record changes the firm-side workflow.",
+    },
+    {
+      type: "paragraph",
+      text: "3. Audit your own internal AI usage on the same standard you are about to apply to your panel. Internal teams running AI for case strategy, settlement analysis, and brief review have the same hallucination exposure. Apply the grounded-vs-ungrounded test inside the company too.",
+    },
+    {
+      type: "paragraph",
+      text: "These three moves take a quarter to implement and produce a defensible risk posture by the time the next high-profile sanction lands. Given the trend line, that next sanction will arrive before the end of Q3.",
+    },
+
+    { type: "heading", text: "The Brief" },
+    {
+      type: "paragraph",
+      text: "If you want to know specifically where your portfolio has visibility and where it does not — measured against the patterns these AI failures expose and the panel-firm question raised here — the Litigation Sentinel Executive Briefing is a six-question diagnostic built for exactly that. About four minutes. Produces a specific readout, not a generic one.",
+    },
+    {
+      type: "paragraph",
+      text: "litigationsentinel.com/briefing",
+    },
+  ],
+};
+
 export const ARTICLES: NewsletterArticle[] = [
+  SC_AI_HALLUCINATION_ARTICLE,
   {
     slug: "how-top-insurers-solve-litigation-with-less-tech",
     section: "Litigation Intelligence",
@@ -1389,145 +1526,7 @@ export const CARRIER_RICO_ARTICLE: NewsletterArticle = {
     },
   ],
 };
-
-export const SC_AI_HALLUCINATION_ARTICLE: NewsletterArticle = {
-  slug: "sullivan-cromwell-ai-hallucination",
-  section: "AI in Court",
-  tag: "Breaking",
-  title:
-    "Sullivan & Cromwell Just Apologized for AI Hallucinations. Your Panel Firms Are Probably Next.",
-  subtitle:
-    "On April 18, one of the most prestigious law firms in the country sent a letter to a federal bankruptcy judge admitting roughly 40 AI-generated errors across multiple court filings. The firm has internal AI policies. The errors still landed in the record. Here is what carriers and corporate legal teams should take from this incident — and the trend behind it.",
-  readTime: "7 min read",
-  author: "Wes Todd",
-  date: "April 25, 2026",
-  readers: 0,
-  trending: true,
-  content: [
-    { type: "heading", text: "What Happened: A Letter From a Top-Five Firm to a Federal Judge" },
-    {
-      type: "paragraph",
-      text: "On Saturday April 18, 2026, Andrew Dietderich, co-head of Sullivan & Cromwell's global restructuring practice, sent a letter to Chief Bankruptcy Judge Martin Glenn of the United States Bankruptcy Court for the Southern District of New York. The subject of the letter was that AI tools had generated roughly 40 errors across multiple S&C filings in the Chapter 15 proceeding for Prince Global Holdings, a BVI-incorporated entity tied to a Cambodian conglomerate whose founder was indicted in Brooklyn federal court for forced-labor compounds and a multibillion-dollar investment fraud.",
-    },
-    {
-      type: "paragraph",
-      text: "The errors were not minor. Fabricated case citations. Wrong volume numbers. Pin cites pointing to nothing. Quoted parentheticals that did not appear anywhere in the actual cited cases. The errors were spread across the firm's emergency motion, verified petition, joint administration motion, scheduling motion, and supporting declarations — five separate documents.",
-    },
-    {
-      type: "paragraph",
-      text: "The firm's internal review process did not catch any of them. Boies Schiller Flexner did, on the other side of the case. Matthew Schwartz, the BSF chair representing Cambodian conglomerate founder Chen Zhi, raised the citations in correspondence with S&C. Within days the firm filed the apology letter and a redline correction.",
-    },
-    {
-      type: "pullquote",
-      text: "The inaccuracies and errors in the Motion include artificial intelligence ('AI') 'hallucinations.' We deeply regret that this has occurred.",
-    },
-    {
-      type: "paragraph",
-      text: "That apology, signed by Dietderich, also notes that the firm 'maintains comprehensive policies and training requirements governing the use of AI tools in legal work.' That last clause is the part to absorb. Sullivan & Cromwell is not a firm with a casual approach to AI. It has internal policies, training requirements, and review processes. Those controls failed to catch ungrounded AI output before it landed in federal court filings tied to billions of dollars in claims against an indicted defendant.",
-    },
-
-    { type: "heading", text: "Why This Is Not Isolated: The Trend Behind the Headline" },
-    {
-      type: "paragraph",
-      text: "If S&C's controls were not enough, every legal department whose outside counsel uses AI in any drafting workflow has the same exposure on their books right now. The exposure does not show up on any conventional risk register because no one has yet built one for it.",
-    },
-    {
-      type: "paragraph",
-      text: "The S&C incident is also not an outlier. Researcher Damien Charlotin's public tracker now identifies more than 1,300 court filings worldwide that contain AI-generated hallucinations. The pace has steepened sharply: roughly two cases per week before spring 2025, two or three per day by fall 2025. 2026 is on the same curve.",
-    },
-    {
-      type: "callout",
-      text: "The cases that get press coverage are the ones with embarrassed Big Law firms attached. Most are happening at smaller firms and going through routine sanctions hearings without national attention.",
-    },
-    {
-      type: "paragraph",
-      text: "A representative sample from the past twelve months: the 6th Circuit at Cincinnati sanctioned two attorneys $30,000 in a single ruling for two dozen fabricated citations. The 5th Circuit sanctioned an attorney $2,500 for using vLex and Thomson Reuters CoCounsel without verifying the output. Two attorneys representing MyPillow CEO Mike Lindell in a Colorado defamation case were each fined $3,000 for a filing containing more than two dozen mistakes and citations of cases that did not exist. The Utah Court of Appeals sanctioned attorney Richard Bednar for a brief citing the non-existent case Royer v. Nelson, after his unlicensed law clerk drafted it from ChatGPT and Bednar filed it without verification.",
-    },
-    {
-      type: "paragraph",
-      text: "None of these firms had S&C's brand. All of them had the same root cause: an attorney trusted the model, did not verify the cited cases, filed the brief, opposing counsel ran the citations, the citations did not exist. The AI tool was almost always a general-purpose chatbot operating without grounding to a verified case-law database.",
-    },
-    {
-      type: "paragraph",
-      text: "The American Bar Association issued its first formal ethics opinion on the responsibilities of lawyers using generative AI in July 2024. The opinion did not slow the trend. Sanctions did not slow the trend. Internal firm policies, in S&C's case, did not slow the trend.",
-    },
-
-    { type: "heading", text: "The Carrier-Side Question Is Specific and Narrow" },
-    {
-      type: "paragraph",
-      text: "Most carriers and corporate legal teams have not asked their panel firms a direct question about AI use in drafting workflows. The question is not philosophical. It is operational, and it has two parts:",
-    },
-    {
-      type: "paragraph",
-      text: "First: which of our panel firms are using AI in their drafting workflows? Most have not been asked the question directly. Many will not know exactly which workflows the answer covers — discovery summaries, motion drafting, deposition prep, settlement memos, status reports — because AI use has crept in by individual lawyer and individual practice group, not by firm-level rollout.",
-    },
-    {
-      type: "paragraph",
-      text: "Second: is the AI those firms use grounded? This is the technical question, and the answer determines the risk profile. Grounded AI works against a verified database — published case law from a reputable source, your own matter file, your own claim record — and refuses to generate text without a citation back to that source. Ungrounded AI is a general-purpose chatbot that produces fluent prose by predicting plausible next words. The two are not equivalent. One leaves audit trails. The other writes Mata v. Avianca all over again.",
-    },
-    {
-      type: "callout",
-      text: "If your panel firms are using AI in any drafting workflow without enforced per-citation verification, your filings carry the same risk profile as the S&C motion. The exposure is judges who lose patience with the carrier-counsel relationship, motions that get tossed for procedural defects, and adverse inferences in matters where opposing counsel finds fabricated citations first.",
-    },
-    {
-      type: "paragraph",
-      text: "The exposure is not just sanctions on the firm. It is the carrier-counsel relationship and the venue's perception of the carrier's program — both of which compound across cases far beyond the matter where the citation got caught.",
-    },
-
-    { type: "heading", text: "What Grounded AI Looks Like in Practice" },
-    {
-      type: "paragraph",
-      text: "Grounded AI is not a marketing term. It refers to a specific architectural choice: the AI system retrieves source documents from a verified store, reasons over those retrieved documents, and refuses to produce text that cannot be cited back to a retrieved source. The design constraint is that hallucination becomes architecturally hard rather than aspirationally discouraged.",
-    },
-    {
-      type: "paragraph",
-      text: "In a litigation context, the verified source is your matter file. Pleadings, discovery responses, deposition transcripts, expert reports, claim records, and the cited body of governing case law — all retrieved at query time, all referenced inside the generated answer. A grounded litigation AI cannot tell you what the case stands for if no document in the matter file or the case-law database supports the claim. It returns 'no source found' instead of inventing a parenthetical.",
-    },
-    {
-      type: "paragraph",
-      text: "The contrast with general-purpose chatbots is straightforward. A chatbot trained on a snapshot of the public internet has read enough legal writing to produce plausible-looking citations. It has no enforced connection between the citation it produces and any actual case. The citation looks right because it follows the format. There is no system in place to verify the case exists, the volume number is correct, or the parenthetical accurately reflects the holding.",
-    },
-    {
-      type: "paragraph",
-      text: "The S&C incident is a clean illustration of the difference. The firm's internal policies likely required attorney verification of AI output. The verification did not happen at the per-citation level it needed to. A grounded system with retrieval citations would have made the verification mechanical — every claim in the brief either points to a real source in the matter file or a real case in the case-law database, and the system flags any text that does not.",
-    },
-
-    { type: "heading", text: "What to Do This Quarter" },
-    {
-      type: "paragraph",
-      text: "Three concrete moves for any carrier or corporate legal department reading this:",
-    },
-    {
-      type: "paragraph",
-      text: "1. Survey your panel. Send a one-page question to every active outside firm asking which of their drafting workflows use AI, what tool, and what verification process is in place. Track the responses. The firms that cannot answer the second question have the highest exposure on your book.",
-    },
-    {
-      type: "paragraph",
-      text: "2. Update your billing guidelines to require per-citation verification for any filing produced with AI assistance. The language can be one paragraph. The point is not punitive enforcement. The point is that asking the question on the record changes the firm-side workflow.",
-    },
-    {
-      type: "paragraph",
-      text: "3. Audit your own internal AI usage on the same standard you are about to apply to your panel. Internal teams running AI for case strategy, settlement analysis, and brief review have the same hallucination exposure. Apply the grounded-vs-ungrounded test inside the company too.",
-    },
-    {
-      type: "paragraph",
-      text: "These three moves take a quarter to implement and produce a defensible risk posture by the time the next high-profile sanction lands. Given the trend line, that next sanction will arrive before the end of Q3.",
-    },
-
-    { type: "heading", text: "The Brief" },
-    {
-      type: "paragraph",
-      text: "If you want to know specifically where your portfolio has visibility and where it does not — measured against the patterns these AI failures expose and the panel-firm question raised here — the Litigation Sentinel Executive Briefing is a six-question diagnostic built for exactly that. About four minutes. Produces a specific readout, not a generic one.",
-    },
-    {
-      type: "paragraph",
-      text: "litigationsentinel.com/briefing",
-    },
-  ],
-};
-
 export const ALL_ARTICLES: NewsletterArticle[] = [
-  SC_AI_HALLUCINATION_ARTICLE,
   CARRIER_RICO_ARTICLE,
   FEATURED_ARTICLE,
   ...ARTICLES,

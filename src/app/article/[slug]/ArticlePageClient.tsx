@@ -367,11 +367,23 @@ export default function ArticlePageClient() {
           readers={article.readers}
         />
 
-        {/* Article body */}
+        {/* Article body — inline SubscribeBlock injected at midpoint for subscriber capture */}
         <div style={{ padding: "32px 0" }}>
-          {article.content.map((block, i) => (
-            <ContentBlock key={i} block={block} index={i} />
-          ))}
+          {(() => {
+            const blocks = article.content;
+            const mid = Math.floor(blocks.length / 2);
+            return (
+              <>
+                {blocks.slice(0, mid).map((block, i) => (
+                  <ContentBlock key={`pre-${i}`} block={block} index={i} />
+                ))}
+                <SubscribeBlock delay={300} />
+                {blocks.slice(mid).map((block, i) => (
+                  <ContentBlock key={`post-${i}`} block={block} index={mid + i} />
+                ))}
+              </>
+            );
+          })()}
         </div>
 
         {/* Briefing CTA */}
