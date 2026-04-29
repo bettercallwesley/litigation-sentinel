@@ -405,6 +405,167 @@ export const SC_AI_HALLUCINATION_ARTICLE: NewsletterArticle = {
 };
 
 export const ARTICLES: NewsletterArticle[] = [
+  {
+    slug: "musk-v-altman-took-the-stand",
+    section: "Litigation Strategy",
+    tag: "Special Report",
+    title: "Musk Took the Stand: The Charitable-Trust Theory Every F500 Board Should Brief This Week",
+    subtitle:
+      "Day 1 of Musk v. Altman put Elon Musk on the witness stand for nearly three hours, with verbatim testimony on charitable trust, AI safety, and the friendship that broke. The trial sets the precedent for whether nonprofit-to-for-profit conversions can be unwound by historical donors. Here is what every F500 board should be asking its General Counsel this week.",
+    readTime: "9 min read",
+    author: "Wes Todd",
+    date: "April 29, 2026",
+    trending: true,
+    content: [
+      { type: "heading", text: "The Founders Sat Thirty Feet Apart" },
+      {
+        type: "paragraph",
+        text: "Elon Musk and Sam Altman built OpenAI together over a series of dinners in 2015. On Tuesday morning, in a federal courtroom in Oakland, they sat about thirty feet from each other while a jury watched Musk recount under oath the moment their friendship broke.",
+      },
+      {
+        type: "paragraph",
+        text: "Musk was on the stand for nearly three hours on Day 1 of Musk v. Altman, docket 4:24-cv-04722 before Judge Yvonne Gonzalez Rogers. The case turns on $38 million Musk donated when OpenAI was a 501(c)(3) nonprofit, two surviving claims (breach of charitable trust and unjust enrichment), and a remedy demand that includes the ouster of Altman and the unwinding of OpenAI's for-profit conversion. Musk has publicly disclaimed any personal recovery. His framing is bigger than the dollar figure.",
+      },
+      {
+        type: "pullquote",
+        text: "If we make it OK to loot a charity, the entire foundation of charitable giving in America will be destroyed.",
+      },
+      {
+        type: "paragraph",
+        text: "That sentence, delivered under oath in front of a jury that will issue an advisory verdict, is the through-line of the trial. Set aside the celebrity arithmetic and the $130B implied valuation, and what remains is a charitable-trust theory that, if Judge Gonzalez Rogers adopts it, reaches every research lab, hospital system, university spinout, and charitable-asset-backed entity in the United States. The defense will frame the case as a sore-loser lawsuit by a founder who lost a board fight in 2018. The plaintiff will frame it as a charitable-asset recovery action by a donor who never received what he gave under. The court will decide which frame the law recognizes.",
+      },
+
+      { type: "heading", text: "The Legal Theory in Plain English" },
+      {
+        type: "paragraph",
+        text: "Twenty-four claims were dropped pre-trial. Two stayed. Breach of charitable trust. Unjust enrichment.",
+      },
+      {
+        type: "paragraph",
+        text: "In plain English, the question is whether a 501(c)(3) can pivot, take a $10B+ investment from a strategic partner, restructure toward a conventional for-profit, and mint its founders into the wealthiest people on earth using assets that came in under a charitable mission. Musk's argument is that a charity is a one-way ratchet. Money flows in under the mission. It does not flow back out as founder equity. If Judge Gonzalez Rogers buys that theory, the remedy could include forced reversion to nonprofit governance and disgorgement of Microsoft's stake.",
+      },
+      {
+        type: "paragraph",
+        text: "The plaintiff's metaphor, delivered by Musk's counsel Marc Toberoff in opening: \"The museum store can't loot the museum and sell the Picassos.\" The point is that a nonprofit's commercial subsidiary exists to serve the mission. It cannot become the mission's heir. Once the assets came in tax-deductible, they stayed in.",
+      },
+      {
+        type: "paragraph",
+        text: "The remedy demand is the part that should keep an F500 General Counsel up at night. Plaintiff is asking the court to unwind a corporate conversion that took years and required investment-grade tax opinions, a corporate restructuring, billions of dollars in third-party capital, and a global commercial enterprise built on top. The remedy asks Judge Gonzalez Rogers to reach back through all of it and put the assets back where they started. If she does, the precedent is created. If she doesn't, every nonprofit-to-for-profit conversion in the country gets a green light to keep moving.",
+      },
+
+      { type: "heading", text: "The Larry Page Arc" },
+      {
+        type: "paragraph",
+        text: "The single most-quotable moment of Day 1 was not about money. It was about Larry Page.",
+      },
+      {
+        type: "pullquote",
+        text: "The reason OpenAI exists is because Larry Page called me a 'specieist.'",
+      },
+      {
+        type: "paragraph",
+        text: "He continued in his AI-safety origin story: \"We don't want to have a 'Terminator' outcome. We want to be in a Gene Roddenberry outcome, like 'Star Trek.'\"",
+      },
+      {
+        type: "paragraph",
+        text: "The story Musk told the jury was that OpenAI exists because of an argument with Larry Page over whether human survival mattered. Page, in Musk's telling, accused him of caring more about humans than about machine intelligence. Musk, on the stand, said that argument was the moment he realized Google was not the right home for AI safety work and that someone had to build a counterweight. His exact framing: \"I was very close friends with Larry Page at Google. We would talk for many hours about AI safety. At a certain point, it was clear to me Larry Page was not sufficiently caring about AI. We had to have a counterpoint against Google.\"",
+      },
+      {
+        type: "paragraph",
+        text: "That testimony does two things at once. It positions Musk's $38M donation as the founding act of an AI-safety institution rather than the seed capital for a commercial enterprise. It also gives the jury a story they will remember in deliberations: a founder who walked away from a friendship and from Google because he believed the species was at stake. That is a hard frame to dislodge with cross-examination.",
+      },
+      {
+        type: "paragraph",
+        text: "The defense knows it. That is why the defense opening did not try to dismiss the friendship arc. It tried to redirect the jury to a different question.",
+      },
+
+      { type: "heading", text: "The Opposing Frames" },
+      {
+        type: "pullquote",
+        text: "We are here because Mr. Musk didn't get his way at OpenAI.",
+      },
+      {
+        type: "paragraph",
+        text: "OpenAI's lead counsel William Savitt opened with that frame. Savitt's case is built around three pieces of evidence. Musk wanted control of OpenAI in 2018 and was rejected. Musk left the board after the rejection. Musk subsequently founded xAI, a direct commercial competitor that has reportedly raised over $10B at a multi-tens-of-billions valuation. The defense's theory is that this lawsuit is litigation in service of competition. The \"loot a charity\" framing, Savitt will argue, is a pretext for a remedy that would hand a strategic advantage to xAI by disabling its largest competitor.",
+      },
+      {
+        type: "paragraph",
+        text: "The cross-examination strategy reportedly includes Musk's own communications about OpenAI's safety researchers, some of which include the word \"Jackasses.\" If those exhibits land, the jury will hear Musk's public AI-safety stance and his private dismissals of OpenAI's safety culture in the same week. That tension is the core of the defense theory.",
+      },
+      {
+        type: "paragraph",
+        text: "The plaintiff's counter is structural. Standing under California charitable-trust law does not require pure motives. It requires donor status and a documented mission. Musk has both. Whether he founded a competitor afterward is, on this theory, irrelevant.",
+      },
+
+      { type: "heading", text: "Why This Reaches Every F500" },
+      {
+        type: "paragraph",
+        text: "Consider the entities sitting on charitable-mission assets in the United States right now. Hospital systems holding donor-restricted endowments. University research arms spinning out commercial labs. Private foundations funding for-profit subsidiaries. Charitable-asset-backed entities that were converted, reorganized, or merged into commercial structures over the last two decades. Every one of those structures depends on a doctrine that says a once-charitable asset, once converted, stays converted.",
+      },
+      {
+        type: "paragraph",
+        text: "If Musk's theory wins, that doctrine cracks. A donor twelve years removed from the original gift gets standing to sue to claw the conversion back. The relevant question is not whether the conversion was legally papered. The relevant question is whether the assets sitting in the for-profit form today can be traced back to charitable-mission inflows. If they can, the remedy theory says they belong back inside the mission.",
+      },
+      {
+        type: "paragraph",
+        text: "The board question is uncomfortable. How much of our balance sheet is exposed to a charitable-trust challenge from a historical donor we have never thought about? For most F500s with any nonprofit-adjacent activity, the answer is: nobody has run that analysis recently. The inputs are scattered across general counsel files, foundation board minutes, M&A diligence binders from prior decades, and tax-opinion letters that nobody has revisited since the deal closed.",
+      },
+      {
+        type: "callout",
+        text: "That analysis becomes urgent on the day a court rules in favor of a charitable-trust theory. Running it now, before the verdict, is the cheapest version of the work.",
+      },
+
+      { type: "heading", text: "Procedural Posture and What to Watch" },
+      {
+        type: "paragraph",
+        text: "The jury in this case is advisory. Judge Gonzalez Rogers, sitting in the Northern District of California, will decide liability and remedy as a matter of equity. She has stated on the record she will likely follow the jury's liability finding. The trial is expected to run through mid-May. The witness list includes Sam Altman, OpenAI co-founder Ilya Sutskever, Greg Brockman, Microsoft CEO Satya Nadella by deposition, and Musk's chief of staff Jared Birchall.",
+      },
+      {
+        type: "paragraph",
+        text: "Three things to watch over the next two weeks. First: whether the judge issues any pretrial ruling that signals her view on charitable-trust standing under California law. Second: whether OpenAI's counsel succeeds in getting the \"Jackasses\" exhibits in front of the jury, and whether Musk has a clean answer when confronted with them. Third: whether Altman's testimony, when it comes, produces a single quotable line that supplants Musk's \"loot a charity\" framing as the trial's defining moment.",
+      },
+      {
+        type: "paragraph",
+        text: "A verdict in mid-May lands in the middle of Q2 board cycles. The opinion's reasoning, more than its disposition, is what will travel.",
+      },
+
+      { type: "heading", text: "The Social-Media Admonishment" },
+      {
+        type: "paragraph",
+        text: "Before the jury was seated, Judge Gonzalez Rogers lectured both Musk and Altman over their public social-media posts about each other. Musk has called Altman \"Scam Altman\" repeatedly on X. The judge declined to issue a gag order but warned both men against further public commentary on the case. The episode is being covered as a celebrity-trial color piece. It is more than that.",
+      },
+      {
+        type: "paragraph",
+        text: "Every executive in active litigation should read the admonishment as a benchmark. X posts, LinkedIn comments, podcast appearances, and earnings-call asides are deposition exhibits in 2026. The bar for executive social discipline keeps moving up. The question for an F500 board is not whether your CEO has a written social-media policy. The question is whether that policy was last updated when Twitter was still called Twitter.",
+      },
+      {
+        type: "paragraph",
+        text: "Two specific exposures sit underneath this. First, public commentary on threatened or active litigation becomes admissible as evidence of state of mind, intent, or admission. Second, the same commentary becomes available to opposing counsel for impeachment of the executive's later testimony. The cleanest approach is a written executive-communications protocol that treats every public statement as a deposition rehearsal.",
+      },
+
+      { type: "heading", text: "Three Questions Every F500 Board Should Put to Its GC This Week" },
+      {
+        type: "paragraph",
+        text: "1. Walk us through every entity in our corporate structure that holds, or has ever held, charitable-mission assets. What is our exposure if a historical donor sued tomorrow under a charitable-trust theory?",
+      },
+      {
+        type: "paragraph",
+        text: "2. What is our current written protocol for executive social-media commentary on active or threatened litigation, and when was it last reviewed against post-2024 case law on admission and impeachment?",
+      },
+      {
+        type: "paragraph",
+        text: "3. If we received a charitable-trust challenge on a prior nonprofit-to-for-profit conversion, who is our outside counsel, what is the standing analysis they would run on day one, and what is the disgorgement exposure on the underlying assets at today's valuation?",
+      },
+      {
+        type: "paragraph",
+        text: "Litigation Sentinel will publish a daily tracker for the duration of the trial.",
+      },
+      {
+        type: "paragraph",
+        text: "Wes",
+      },
+    ],
+  },
   SC_AI_HALLUCINATION_ARTICLE,
   {
     slug: "how-top-insurers-solve-litigation-with-less-tech",
