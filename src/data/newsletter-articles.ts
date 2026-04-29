@@ -417,7 +417,7 @@ export const ARTICLES: NewsletterArticle[] = [
     date: "April 29, 2026",
     trending: true,
     content: [
-      { type: "heading", text: "The Founders Sat Thirty Feet Apart" },
+      { type: "heading", text: "The Founder Who Showed Up" },
       {
         type: "paragraph",
         text: "Elon Musk and Sam Altman built OpenAI together over a series of dinners in 2015. On Tuesday morning, in a federal courtroom in Oakland, Musk took the witness stand for nearly three hours and recounted under oath the moment that friendship broke. Altman, the named defendant, did not appear at trial Day 1. He sent a prerecorded video to an Amazon Web Services event across the bay, citing a schedule conflict.",
