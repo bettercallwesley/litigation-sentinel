@@ -420,11 +420,11 @@ export const ARTICLES: NewsletterArticle[] = [
       { type: "heading", text: "The Founders Sat Thirty Feet Apart" },
       {
         type: "paragraph",
-        text: "Elon Musk and Sam Altman built OpenAI together over a series of dinners in 2015. On Tuesday morning, in a federal courtroom in Oakland, they sat about thirty feet from each other while a jury watched Musk recount under oath the moment their friendship broke.",
+        text: "Elon Musk and Sam Altman built OpenAI together over a series of dinners in 2015. On Tuesday morning, in a federal courtroom in Oakland, Musk took the witness stand for nearly three hours and recounted under oath the moment that friendship broke. Altman, the named defendant, did not appear at trial Day 1. He sent a prerecorded video to an Amazon Web Services event across the bay, citing a schedule conflict.",
       },
       {
         type: "paragraph",
-        text: "Musk was on the stand for nearly three hours on Day 1 of Musk v. Altman, docket 4:24-cv-04722 before Judge Yvonne Gonzalez Rogers. The case turns on $38 million Musk donated when OpenAI was a 501(c)(3) nonprofit, two surviving claims (breach of charitable trust and unjust enrichment), and a remedy demand that includes the ouster of Altman and the unwinding of OpenAI's for-profit conversion. Musk has publicly disclaimed any personal recovery. His framing is bigger than the dollar figure.",
+        text: "Day 1 of Musk v. Altman, docket 4:24-cv-04722 before Judge Yvonne Gonzalez Rogers, opened with $38 million Musk donated when OpenAI was a 501(c)(3) nonprofit, two surviving claims (breach of charitable trust and unjust enrichment), and a remedy demand that includes the ouster of Altman and the unwinding of OpenAI's for-profit conversion. Musk has publicly disclaimed any personal recovery. His framing is bigger than the dollar figure.",
       },
       {
         type: "pullquote",
