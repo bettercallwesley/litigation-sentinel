@@ -412,7 +412,7 @@ export const ARTICLES: NewsletterArticle[] = [
     title: "Musk Took the Stand: The Charitable-Trust Theory Every F500 Board Should Brief This Week",
     subtitle:
       "Day 1 of Musk v. Altman put Elon Musk on the witness stand for nearly three hours, with verbatim testimony on charitable trust, AI safety, and the friendship that broke. The trial sets the precedent for whether nonprofit-to-for-profit conversions can be unwound by historical donors. Here is what every F500 board should be asking its General Counsel this week.",
-    readTime: "9 min read",
+    readTime: "10 min read",
     author: "Wes Todd",
     date: "April 29, 2026",
     trending: true,
@@ -432,7 +432,11 @@ export const ARTICLES: NewsletterArticle[] = [
       },
       {
         type: "paragraph",
-        text: "That sentence, delivered under oath in front of a jury that will issue an advisory verdict, is the through-line of the trial. Set aside the celebrity arithmetic and the $130B implied valuation, and what remains is a charitable-trust theory that, if Judge Gonzalez Rogers adopts it, reaches every research lab, hospital system, university spinout, and charitable-asset-backed entity in the United States. The defense will frame the case as a sore-loser lawsuit by a founder who lost a board fight in 2018. The plaintiff will frame it as a charitable-asset recovery action by a donor who never received what he gave under. The court will decide which frame the law recognizes.",
+        text: "Musk returned to the same point later in his direct: \"Fundamentally, I think they're going to try to make this lawsuit very complicated, but it's actually very simple. Which is that it's not OK to steal a charity.\"",
+      },
+      {
+        type: "paragraph",
+        text: "Those sentences, delivered under oath in front of a jury that will issue an advisory verdict, are the through-line of the trial. Set aside the celebrity arithmetic and the $150B+ damages headline, and what remains is a charitable-trust theory that, if Judge Gonzalez Rogers adopts it, reaches every research lab, hospital system, university spinout, and charitable-asset-backed entity in the United States. The defense will frame the case as a sore-loser lawsuit by a founder who lost a board fight in 2018. The plaintiff will frame it as a charitable-asset recovery action by a donor who never received what he gave under. The court will decide which frame the law recognizes.",
       },
 
       { type: "heading", text: "The Legal Theory in Plain English" },
@@ -446,7 +450,7 @@ export const ARTICLES: NewsletterArticle[] = [
       },
       {
         type: "paragraph",
-        text: "The plaintiff's metaphor, delivered by Musk's counsel Marc Toberoff in opening: \"The museum store can't loot the museum and sell the Picassos.\" The point is that a nonprofit's commercial subsidiary exists to serve the mission. It cannot become the mission's heir. Once the assets came in tax-deductible, they stayed in.",
+        text: "The plaintiff's metaphor, delivered by Musk's lead trial counsel Steven Molo in opening: \"The museum store can't loot the museum and sell the Picassos.\" The point is that a nonprofit's commercial subsidiary exists to serve the mission. It cannot become the mission's heir. Once the assets came in tax-deductible, they stayed in.",
       },
       {
         type: "paragraph",
@@ -464,7 +468,7 @@ export const ARTICLES: NewsletterArticle[] = [
       },
       {
         type: "paragraph",
-        text: "He continued in his AI-safety origin story: \"We don't want to have a 'Terminator' outcome. We want to be in a Gene Roddenberry outcome, like 'Star Trek.'\"",
+        text: "He continued in his AI-safety origin story: \"We don't want to have a 'Terminator' outcome. We want to be in a Gene Roddenberry outcome, like 'Star Trek.' Not so much a James Cameron movie like 'Terminator.'\"",
       },
       {
         type: "paragraph",
@@ -490,11 +494,25 @@ export const ARTICLES: NewsletterArticle[] = [
       },
       {
         type: "paragraph",
-        text: "The cross-examination strategy reportedly includes Musk's own communications about OpenAI's safety researchers, some of which include the word \"Jackasses.\" If those exhibits land, the jury will hear Musk's public AI-safety stance and his private dismissals of OpenAI's safety culture in the same week. That tension is the core of the defense theory.",
+        text: "Savitt put the personal frame on Musk directly in opening: \"What he cares about is Elon Musk being on top.\" The cross-examination strategy reportedly includes Musk's own communications about OpenAI's safety researchers, some of which include the word \"Jackasses.\" If those exhibits land, the jury will hear Musk's public AI-safety stance and his private dismissals of OpenAI's safety culture in the same week. That tension is the core of the defense theory.",
       },
       {
         type: "paragraph",
         text: "The plaintiff's counter is structural. Standing under California charitable-trust law does not require pure motives. It requires donor status and a documented mission. Musk has both. Whether he founded a competitor afterward is, on this theory, irrelevant.",
+      },
+
+      { type: "heading", text: "Day 2 Cross-Examination" },
+      {
+        type: "paragraph",
+        text: "Wednesday morning, Musk returned to the stand for cross-examination by OpenAI's counsel and continued portions of his direct. The themes shifted from charitable-trust framing to AI capability and timing. On AGI, Musk testified: \"My guess is AI will probably be smarter than any human next year.\" On the present moment, he added: \"Here we are in 2026, AI is very smart.\" Asked whether he stood to gain financially from a remedy, Musk answered: \"No vacation homes, no yachts or anything.\"",
+      },
+      {
+        type: "paragraph",
+        text: "The defense surfaced Musk's own X posts as exhibits. The most pointed read directly to the jury: \"Scam Altman and Greg Brockman stole a charity. Full stop.\" Plaintiff's read is that the post is consistent with the same charitable-asset framing Musk has carried under oath. Defense's read is that it is evidence of a litigation campaign disguised as a fiduciary one. The jury will be asked, in effect, whether public X posts about a defendant are admissible context or impeachment material.",
+      },
+      {
+        type: "paragraph",
+        text: "Musk's chief of staff Jared Birchall is on the witness list and was scheduled to testify Wednesday. OpenAI's counsel placed Greg Brockman on 48-hour notice, signaling Brockman could be called as soon as the day after Birchall. Sam Altman has not yet personally taken the witness stand at trial as of close of Day 2.",
       },
 
       { type: "heading", text: "Why This Reaches Every F500" },
@@ -518,7 +536,7 @@ export const ARTICLES: NewsletterArticle[] = [
       { type: "heading", text: "Procedural Posture and What to Watch" },
       {
         type: "paragraph",
-        text: "The jury in this case is advisory. Judge Gonzalez Rogers, sitting in the Northern District of California, will decide liability and remedy as a matter of equity. She has stated on the record she will likely follow the jury's liability finding. The trial is expected to run through mid-May. The witness list includes Sam Altman, OpenAI co-founder Ilya Sutskever, Greg Brockman, Microsoft CEO Satya Nadella by deposition, and Musk's chief of staff Jared Birchall.",
+        text: "The jury in this case is advisory. Judge Gonzalez Rogers, sitting in the Northern District of California, will decide liability and remedy as a matter of equity. From the bench on Day 1, she framed the trial in plain terms: \"It's a good jury, and they're going to hear the facts, and we're going to get a verdict.\" She has indicated she will weigh the jury's liability findings. The trial is expected to run through mid-May. The witness list includes Sam Altman, OpenAI co-founder Ilya Sutskever, Greg Brockman, Microsoft CEO Satya Nadella by deposition, Musk's chief of staff Jared Birchall, former OpenAI CTO Mira Murati by videotaped deposition, and expert testimony from UC Berkeley's Stuart Russell and Columbia Law's David Schizer.",
       },
       {
         type: "paragraph",
@@ -532,7 +550,7 @@ export const ARTICLES: NewsletterArticle[] = [
       { type: "heading", text: "The Social-Media Admonishment" },
       {
         type: "paragraph",
-        text: "Before the jury was seated, Judge Gonzalez Rogers lectured both Musk and Altman over their public social-media posts about each other. Musk has called Altman \"Scam Altman\" repeatedly on X. The judge declined to issue a gag order but warned both men against further public commentary on the case. The episode is being covered as a celebrity-trial color piece. It is more than that.",
+        text: "Before the jury was seated, Judge Gonzalez Rogers lectured both Musk and Altman over their public social-media posts about each other. Musk has called Altman \"Scam Altman\" repeatedly on X. The judge's instruction from the bench: \"Try to control your propensity to use social media to make things worse outside this courtroom.\" She declined to issue a gag order. The episode is being covered as a celebrity-trial color piece. It is more than that.",
       },
       {
         type: "paragraph",
@@ -563,6 +581,10 @@ export const ARTICLES: NewsletterArticle[] = [
       {
         type: "paragraph",
         text: "Wes",
+      },
+      {
+        type: "callout",
+        text: "Sources. All quoted testimony and bench statements verified against Tier-1 coverage as of April 29, 2026. Primary references: Al Jazeera (April 28), Fortune (April 28), Boston Globe (April 28), TheNextWeb (April 28), TechCrunch (April 28), Reuters via Investing.com (April 28), ABC7 News week-1 live blog, CNBC Day 1 and Day 3 live blogs, Local News Matters Day 2 (April 28), Bloomberg (social-media admonishment, April 28), and CourtListener docket 4:24-cv-04722.",
       },
     ],
   },
