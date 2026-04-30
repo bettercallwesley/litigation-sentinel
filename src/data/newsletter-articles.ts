@@ -415,6 +415,7 @@ export const ARTICLES: NewsletterArticle[] = [
     readTime: "8 min read",
     author: "Wes Todd",
     date: "April 30, 2026",
+    readers: 1847,
     trending: true,
     content: [
       { type: "heading", text: "The Cross That Will Travel" },
@@ -528,6 +529,7 @@ export const ARTICLES: NewsletterArticle[] = [
     readTime: "10 min read",
     author: "Wes Todd",
     date: "April 29, 2026",
+    readers: 3478,
     trending: true,
     content: [
       { type: "heading", text: "The Founder Who Showed Up" },
