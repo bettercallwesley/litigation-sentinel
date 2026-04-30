@@ -406,6 +406,119 @@ export const SC_AI_HALLUCINATION_ARTICLE: NewsletterArticle = {
 
 export const ARTICLES: NewsletterArticle[] = [
   {
+    slug: "musk-v-altman-day-2-the-fool-cross",
+    section: "Litigation Strategy",
+    tag: "Special Report",
+    title: "\"I Was a Fool\": Day 2 of Musk v. Altman Put the Charitable-Trust Theory Through a Five-Hour Cross",
+    subtitle:
+      "Elon Musk spent roughly five hours under cross-examination on Day 2 of the OpenAI trial. William Savitt drew out the line that will define the case either way: $38 million of donor funding, an $800 billion company, and a witness who called himself a fool on the record. Here is what the cross actually established, and why every F500 General Counsel should keep reading the trial coverage this week.",
+    readTime: "8 min read",
+    author: "Wes Todd",
+    date: "April 30, 2026",
+    trending: true,
+    content: [
+      { type: "heading", text: "The Cross That Will Travel" },
+      {
+        type: "paragraph",
+        text: "OpenAI lead counsel William Savitt asked Elon Musk yes-or-no questions for most of Wednesday afternoon in Judge Yvonne Gonzalez Rogers's Oakland courtroom. Musk did not give him yes-or-no answers. By the second hour, the witness was openly arguing with the form of the questions.",
+      },
+      {
+        type: "pullquote",
+        text: "Your questions are not simple. They are designed to trick me essentially.",
+      },
+      {
+        type: "paragraph",
+        text: "Musk's response to the cross-examination style became its own line of testimony. He told Savitt the questions were definitionally complex, accused him of being misleading, and at one point compared the form of the questioning to the classic loaded-question example: \"Have you stopped beating your wife?\" Judge Gonzalez Rogers cut him off from the bench: \"We are not going to go there.\" The courtroom laughed. The exchange will be in every recap of the trial, and it should be. It is the closest a celebrity-trial moment has come to capturing what charitable-trust litigation actually feels like under contested cross.",
+      },
+      {
+        type: "paragraph",
+        text: "Savitt was not trying to win the cross-examination on personality. He was trying to install a single number in the jury's working memory. He largely succeeded.",
+      },
+
+      { type: "heading", text: "The Number That Defines the Case" },
+      {
+        type: "paragraph",
+        text: "Musk pledged a billion dollars when OpenAI was a 501(c)(3). He gave $38 million of it before he left the board in 2018. OpenAI's lead counsel walked the jury through that gap on Wednesday morning. He pulled emails. He pulled meeting notes. He read internal Musk communications back to the witness, including ones in which Musk himself argued OpenAI needed a for-profit aspect to compete against Google. Then he asked Musk to explain the friction between his deposition record, his X posts, and his testimony in court.",
+      },
+      {
+        type: "paragraph",
+        text: "Musk's response handed the plaintiff side its line of the trial.",
+      },
+      {
+        type: "pullquote",
+        text: "I was a fool who provided them free funding to create a startup.",
+      },
+      {
+        type: "paragraph",
+        text: "He clarified for the jury what he meant: \"I gave them $38 million of essentially free funding to create what would become an $800 billion company.\" He repeated a version of the same sentence three different ways during direct and cross. The phrasing matters. \"Free funding\" anchors the charitable-asset framing. \"$800 billion\" anchors the disgorgement remedy. \"Fool\" anchors the equitable-relief argument that a sympathetic donor was taken advantage of by sophisticated counterparties who knew what they were doing.",
+      },
+      {
+        type: "paragraph",
+        text: "The defense will argue that $38 million was no charity at all. Savitt pressed Musk on the gap between the pledge and the contribution, the rejected for-profit-control proposals from 2018, and the timeline of xAI, which Musk founded after losing the OpenAI board fight and which has reportedly raised over $10 billion at a multi-tens-of-billions valuation. Asked whether xAI now competes with OpenAI, Musk conceded: \"It is, at this point, technically competitive but much smaller than OpenAI.\"",
+      },
+      {
+        type: "paragraph",
+        text: "Musk also kept reaching for the framing that has run through the trial since opening day. \"Without me, OpenAI would not exist. I came up with the name. I came up with the idea.\" And on the structural argument behind the case: \"What you can't do is have your cake and eat it too, reaping the good association with being a non-profit and then switching to a for-profit model.\"",
+      },
+
+      { type: "heading", text: "What the Cross Actually Established" },
+      {
+        type: "paragraph",
+        text: "Three things, none of them what the headline coverage will lead with.",
+      },
+      {
+        type: "paragraph",
+        text: "First, Musk's prior statements are now in evidence. The X posts calling Altman \"Scam Altman.\" The 2018 emails contemplating a for-profit subsidiary. The deposition silences on the term sheet Musk testified Wednesday he had read. Savitt got each of those exhibits in front of the jury without Musk landing a clean denial. That is the impeachment record the defense will cite in closing.",
+      },
+      {
+        type: "paragraph",
+        text: "Second, the charitable-trust theory survived contact. Musk did not back off the framing under five hours of cross. He restated it under pressure, kept the disgorgement remedy in the room, and refused to characterize the lawsuit as a competitive maneuver. When Savitt pressed him on personal financial gain from a remedy, Musk answered: \"No vacation homes, no yachts or anything.\"",
+      },
+      {
+        type: "paragraph",
+        text: "Third, the bench tone shifted. Judge Gonzalez Rogers stayed measured but visibly active. When Savitt complained from the lectern that he was struggling to get answers out of the witness, the judge replied: \"That is the challenge of all litigants.\" That bench register matters. The jury is advisory in this case. The judge will decide liability and remedy as a matter of equity. Bench language about how a witness handles cross is a leading indicator of how that judge weighs the witness's credibility on the equitable claims.",
+      },
+
+      { type: "heading", text: "Day 3 and the Witnesses Behind Musk" },
+      {
+        type: "paragraph",
+        text: "Cross-examination resumed Thursday morning, today, and Savitt has indicated he expects to wrap in roughly an hour. After Musk steps down, plaintiff's counsel will call Jared Birchall, who runs Musk's family office Excession LLC and sits on the executive teams at xAI and Neuralink. OpenAI's counsel has placed Greg Brockman on 48-hour notice. Sam Altman has not yet personally taken the witness stand and is widely expected to testify next week.",
+      },
+      {
+        type: "paragraph",
+        text: "The thing to track today is whether OpenAI's counsel pulls Musk's xAI-side AI-safety record into the cross. Reporting earlier this morning suggests Savitt is preparing to ask about Grok's published safety incidents as evidence that Musk's AI-safety framing in the lawsuit does not match his commercial conduct outside the courtroom. That is the bridge from the charitable-trust theory to the AI-vendor governance question, and the cross-examination over the next 24 hours is where that bridge gets built or burned.",
+      },
+
+      { type: "heading", text: "Why F500 Boards Should Still Be Reading" },
+      {
+        type: "paragraph",
+        text: "The Apr 29 Special Report on this trial flagged the F500 exposure. Hospital systems holding donor-restricted endowments. University research arms spinning out commercial labs. Private foundations funding for-profit subsidiaries. Each of those structures depends on a doctrine that says a once-charitable asset, once converted, stays converted. Day 2 narrowed that exposure rather than diluting it. Savitt's cross was the strongest version of the standing-and-motive defense the defense will run, and it did not move Musk off the charitable-trust framing. If the equitable claims survive a directed verdict and reach Judge Gonzalez Rogers's findings of fact, the opinion's reasoning will travel to every state with a charitable-trust statute and a donor with standing to invoke it.",
+      },
+      {
+        type: "callout",
+        text: "The F500 board question this week is not whether the jury delivers an advisory verdict for Musk. It is whether the firm's outside counsel can produce a one-page exposure analysis on every entity in the corporate structure that holds, has held, or is downstream of charitable-mission assets. Most cannot, today. The trial is the forcing function for asking.",
+      },
+
+      { type: "heading", text: "What the Next 48 Hours Decide" },
+      {
+        type: "paragraph",
+        text: "Two specific things to watch through Friday close. First: whether Savitt lands a clean impeachment moment on the term-sheet inconsistency, which would be the defense's cleanest jury soundbite. Second: whether Birchall's testimony reinforces the donor-narrative or hands the defense a competing motive narrative tied to Musk's family-office structure. Either outcome shapes the directed-verdict posture going into the second week.",
+      },
+      {
+        type: "paragraph",
+        text: "Litigation Sentinel will continue to publish trial coverage at the article level for the duration of the case. The next regularly scheduled biweekly newsletter ships Wednesday, May 6.",
+      },
+      {
+        type: "paragraph",
+        text: "Wes",
+      },
+      {
+        type: "callout",
+        text: "Sources. All quoted testimony and bench statements verified against multiple Tier-1 sources as of the morning of April 30, 2026. Primary references: NPR (April 29), CNN Business (April 29), CBS News (April 29), Gizmodo (April 29), NBC News (April 29), SF Standard (April 29), PBS NewsHour (April 29), Al Jazeera (April 29), CNBC Day 3 live blog (April 29), CNBC Day 4 live blog (April 30), Axios (April 30), and CourtListener docket 4:24-cv-04722. This is a Special Report follow-up to the Litigation Sentinel Special Report of April 29. Litigation Sentinel's regular Issue #3 newsletter ships Wednesday, May 6.",
+      },
+    ],
+  },
+  {
     slug: "musk-v-altman-took-the-stand",
     section: "Litigation Strategy",
     tag: "Special Report",
