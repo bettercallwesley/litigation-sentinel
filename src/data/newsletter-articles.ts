@@ -406,6 +406,143 @@ export const SC_AI_HALLUCINATION_ARTICLE: NewsletterArticle = {
 
 export const ARTICLES: NewsletterArticle[] = [
   {
+    slug: "musk-v-altman-day-3-musk-stepped-down",
+    section: "Litigation Strategy",
+    tag: "Special Report",
+    title: "Musk Stepped Down on Day 3 of the OpenAI Trial. Then the Judge Drew a Line.",
+    subtitle:
+      "Elon Musk concluded his testimony in Musk v. Altman on Thursday afternoon after parts of three trial days on the witness stand. Then his family-office advisor Jared Birchall took the stand and answered that part of his information about Sam Altman came from lawyers. Then Judge Yvonne Gonzalez Rogers told the courtroom this is not a trial on the safety risks of artificial intelligence. Three F500 governance lessons from a day the case got narrower.",
+    readTime: "8 min read",
+    author: "Wes Todd",
+    date: "May 1, 2026",
+    readers: 1428,
+    trending: true,
+    content: [
+      { type: "heading", text: "Musk Stepped Down. Then the Judge Drew a Line." },
+      {
+        type: "paragraph",
+        text: "After parts of three trial days on the witness stand in a federal courthouse in Oakland, Elon Musk concluded his testimony in Musk v. Altman on Thursday afternoon. He stepped down. The trial moved on without him.",
+      },
+      {
+        type: "paragraph",
+        text: "For an F500 General Counsel reading the live coverage, the structural news of Day 3 is that the named plaintiff is no longer the active witness in his own lawsuit. The doctrinal news arrived shortly after.",
+      },
+      {
+        type: "paragraph",
+        text: "Through three trial days the lawyers on both sides have circled the same temptation. The defense has wanted to make the trial about Musk's xAI competitive position and his AI-safety record at Grok. The plaintiff has wanted to make the trial about the existential risk of frontier AI models in the hands of a now-for-profit lab. Judge Yvonne Gonzalez Rogers told the courtroom on Thursday that neither of those is what she is deciding.",
+      },
+      {
+        type: "pullquote",
+        text: "This is not a trial on the safety risks of artificial intelligence.",
+      },
+      {
+        type: "paragraph",
+        text: "The full bench statement, captured in the live coverage, situated the court's view of what the case actually is. The question, the judge said, is whether there was a breach of charitable trust. The framing is doctrinal and narrow. It tracks the equitable claims the plaintiff pleaded. It excludes the AI-policy debate the parties have been trying to litigate around the edges.",
+      },
+      {
+        type: "paragraph",
+        text: "Judges narrow before they rule. The narrowing tells the parties which doctrinal frontier the opinion will be written on. Every F500 General Counsel reading the trial coverage this week should anchor on that frontier and ignore the rest.",
+      },
+
+      { type: "heading", text: "Savitt's Closing Recross and Microsoft's Ten Minutes" },
+      {
+        type: "paragraph",
+        text: "Before Musk stepped down, OpenAI's lead counsel William Savitt closed his recross with the line that will travel furthest from this trial. He walked Musk through the for-profit ventures Musk has founded or controls. Tesla. SpaceX. Neuralink. X. He asked Musk to reconcile the philosophical objection in the complaint with a personal balance sheet built almost entirely on for-profit corporate forms. The framing was hypocrisy. The intent was to install in the jury's working memory the idea that the plaintiff's argument is selective.",
+      },
+      {
+        type: "paragraph",
+        text: "Musk handled it the way he had handled most of cross. He argued the form of the question, restated his charitable-trust framing, and used the witness chair as a microphone. When the recross wrapped, Musk had been on the stand for parts of three trial days.",
+      },
+      {
+        type: "paragraph",
+        text: "Then Microsoft's attorney took ten minutes. Russell Cohen represents Microsoft, a co-defendant in the case with roughly thirteen billion dollars committed to OpenAI. Most live blogs called it a brief cross. The framing undersells what happened.",
+      },
+      {
+        type: "paragraph",
+        text: "Cohen put two categories of evidence in front of the jury through Musk himself. First, exhibits in which Musk had written that OpenAI should be more open. The plaintiff's own pre-litigation writings about openness, surfaced by a co-defendant's counsel, with Musk on the stand to authenticate them. Second, text messages between Musk and Altman in which Altman privately assured Musk that users beyond Microsoft would continue to be able to access OpenAI's models. Contemporaneous assurances, in writing, from a defendant the complaint accuses of suborning the charitable mission.",
+      },
+      {
+        type: "pullquote",
+        text: "The brevity was the message. Musk's own paper trail did the rest.",
+      },
+      {
+        type: "paragraph",
+        text: "Microsoft's defense theory does not require Musk to be a bad witness. It requires the jury and the bench to read Musk's own communications and Altman's contemporaneous assurances and conclude that the conversion narrative the plaintiff built into the complaint does not match the evidentiary record. Ten minutes was the dose required to plant that doubt. Then Musk stepped down.",
+      },
+
+      { type: "heading", text: "The Money Man Took the Stand and Hit a Privilege Fence" },
+      {
+        type: "paragraph",
+        text: "Jared Birchall runs Excession LLC, the family office that manages Elon Musk's personal capital. He sits on the executive teams of xAI and Neuralink. On Thursday afternoon he took the witness stand, was sworn in, and began direct examination by Robert Kry of Musk's legal team.",
+      },
+      {
+        type: "paragraph",
+        text: "Then OpenAI's counsel Wilson took the cross. Wilson pressed Birchall on the central factual claim Birchall is on the witness list to support. The claim is that Sam Altman was negotiating on both sides of the table during the period the complaint targets, with knowledge that the for-profit conversion would benefit him personally.",
+      },
+      {
+        type: "paragraph",
+        text: "Wilson asked Birchall how he became convinced of that. Birchall's answer is the moment of the day worth reading slowly.",
+      },
+      {
+        type: "pullquote",
+        text: "Some of it I learned from public sources. Some of it I learned from lawyers.",
+      },
+      {
+        type: "paragraph",
+        text: "Birchall did not say which lawyers. The answer named no document, no meeting, no conversation that would independently support the factual claim if attorney-channeled information were excluded. This is the kind of answer a sophisticated witness gives when the underlying basis for the claim is at least partly something the witness cannot describe without breaching privilege or stepping outside what counsel will let them say.",
+      },
+      {
+        type: "paragraph",
+        text: "Judge Gonzalez Rogers asked Birchall a series of clarifying questions from the bench. She did not rule from the bench on what to do with the answer. She told the courtroom she would decide in the coming days how to deal with Birchall's testimony.",
+      },
+      {
+        type: "paragraph",
+        text: "That sentence, said quietly from the bench, is the procedural news of the day.",
+      },
+
+      { type: "heading", text: "Three F500 Governance Lessons From Day 3" },
+      {
+        type: "paragraph",
+        text: "First. The doctrinal frontier of a high-profile trial is set by the bench, not by the press. The judge's narrowing on Day 3 told the courtroom what the opinion will be about. Charitable trust law. Not AI policy. Not nonprofit governance writ large. Not the philosophical case for or against frontier-AI commercialization. Boards briefing themselves on what the eventual opinion will mean for their corporate structures should read the bench statements over the live blog headlines every time the two diverge.",
+      },
+      {
+        type: "paragraph",
+        text: "Second. Privilege-adjacent witnesses get judicial reservations. Birchall is not a fact witness in the conventional sense. He is the donor's family-office advisor, called to support a state-of-mind claim about a defendant. When the basis for that state-of-mind claim runs partly through attorney-channeled information, the trial court has tools. The court can strike the testimony. It can limit the weight of the answer in the findings of fact. It can hold a sealed in-camera session to evaluate the underlying communications. Gonzalez Rogers reserved on which tool she will use. F500 boards relying on advisor testimony to support a state-of-mind claim in their own litigation should expect the same reservation, and should expect the equitable court to weigh the testimony down accordingly.",
+      },
+      {
+        type: "paragraph",
+        text: "Third. Your own writings will come back at you, and they will come back through someone you did not expect. Musk arrived at trial expecting to be cross-examined by Altman's counsel. He was. He did not arrive expecting Microsoft's attorney to appear briefly and use Musk's own openness rhetoric and Altman's reassuring text messages to plant a defense theme. Co-defendants run their own playbooks. F500 boards facing multi-defendant litigation should assume that the friendliest defendant in the room may still cross-examine the plaintiff with the plaintiff's own paper trail. Document discipline is a year-zero question. By the time trial begins, the paper trail is already what it is.",
+      },
+
+      {
+        type: "callout",
+        text: "If your firm holds, has held, or is downstream of charitable-mission assets, the doctrinal frontier set on Day 3 is the one to brief. The opinion when it arrives will be a charitable-trust opinion. It will travel to every state with a parallel statute. The AI-policy commentary in the press around this trial will not appear in the four corners of the ruling that gets cited in the next case.",
+      },
+
+      { type: "heading", text: "What Monday Decides" },
+      {
+        type: "paragraph",
+        text: "Judge Gonzalez Rogers released the jury a few minutes early on Thursday afternoon. There are no proceedings on Friday. The jury returns Monday morning. Birchall's continued testimony is the first item, subject to whatever the judge has decided in the meantime about how to handle the parts of his answer she reserved on. OpenAI's counsel has placed Greg Brockman on forty-eight-hour notice for next week. Sam Altman is widely expected to take the witness stand the week of May fifth.",
+      },
+      {
+        type: "paragraph",
+        text: "Two specific things to watch on Monday. First, whether the judge limits or strikes any portion of Birchall's testimony on the both-sides-of-the-table claim. That ruling will set the procedural ceiling for any similar advisor witnesses the plaintiff calls. Second, whether the plaintiff narrows its remaining witness list now that the bench has signaled the doctrinal frontier. Witnesses staged primarily to support an AI-safety theme are now on borrowed time.",
+      },
+      {
+        type: "paragraph",
+        text: "Litigation Sentinel will continue to publish trial coverage at the article level for the duration of the case. The next regularly scheduled biweekly newsletter ships Wednesday, May 6.",
+      },
+      {
+        type: "paragraph",
+        text: "Wes",
+      },
+      {
+        type: "callout",
+        text: "Sources. All quoted testimony, bench statements, and procedural details verified against multiple Tier-1 sources covering the Thursday April 30 proceedings in the Northern District of California. Primary references: CNBC Day 3 and Day 4 live blogs (April 29 and April 30), CNN Business takeaways (April 30), NBC News Day 3 coverage (April 30), SF Standard Day 3 piece (April 30), The Ringer annotated transcript (April 30), Rappler trial coverage (April 30), and CourtListener docket 4:24-cv-04722. This is a Special Report follow-up to the Litigation Sentinel Special Reports of April 29 and April 30. The next regularly scheduled Sentinel newsletter, Issue #3, ships Wednesday, May 6.",
+      },
+    ],
+  },
+  {
     slug: "musk-v-altman-day-2-the-fool-cross",
     section: "Litigation Strategy",
     tag: "Special Report",
