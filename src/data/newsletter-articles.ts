@@ -406,6 +406,140 @@ export const SC_AI_HALLUCINATION_ARTICLE: NewsletterArticle = {
 
 export const ARTICLES: NewsletterArticle[] = [
   {
+    slug: "musk-v-altman-day-7-brockmans-journal",
+    section: "Litigation Strategy",
+    tag: "Special Report",
+    title: "Brockman's Journal: The Day OpenAI's Mission Met Its Author",
+    subtitle:
+      "On November 6, 2017, OpenAI's president wrote in his private journal that he could not say the company was committed to the non-profit. Fifteen months later, OpenAI LP was announced. The journal is now in evidence in a federal courthouse in Oakland, and a California charitable-trust case is being tried on the strength of its author's own handwriting.",
+    readTime: "9 min read",
+    author: "Wes Todd",
+    date: "May 6, 2026",
+    readers: 3247,
+    trending: true,
+    content: [
+      { type: "heading", text: "Greg Brockman's journal is now the case" },
+      {
+        type: "paragraph",
+        text: "Greg Brockman kept a journal. Roughly one hundred typed pages, written between August and November 2017, while he served as president of OpenAI Inc., the California 501(c)(3) public-benefit corporation. Steven Molo, working alongside lead trial counsel Marc Toberoff for Musk, walked the jury through it page by page on Monday and Tuesday. Brockman concluded his testimony Tuesday afternoon. The journal stayed on the screen.",
+      },
+      {
+        type: "paragraph",
+        text: "One entry carried a date stamp the jury was asked to remember.",
+      },
+      {
+        type: "pullquote",
+        text: "Cannot say that we are committed to the non-profit. Don't wanna say that we're committed. If three months later we're doing b-corp then it was a lie. (November 6, 2017)",
+      },
+      {
+        type: "paragraph",
+        text: "The date matters for reasons a federal jury can be asked to weigh. November 6, 2017 sits roughly fifteen months before OpenAI LP was publicly announced in March 2019. It sits weeks before some of Elon Musk's last large charitable contributions to OpenAI Inc. were recorded. And under California law, it sits squarely inside the period during which Brockman owed the assets of OpenAI Inc. a duty of loyalty as a director of a charitable trust, a duty Cal. Corp. Code §5231 imports from the general law of trusts and Cal. Probate Code §16002 defines as the duty to administer the trust solely in the interest of the beneficiaries.",
+      },
+      {
+        type: "paragraph",
+        text: "A second entry, also dated November 2017, was read into the record without paraphrase.",
+      },
+      {
+        type: "pullquote",
+        text: "The true answer is that we want him out. And his story will correctly be that we weren't honest with him in the end about still wanting to do the for profit just without him.",
+      },
+      {
+        type: "paragraph",
+        text: "Judge Yvonne Gonzalez Rogers had already cited a third entry, the two-word reflective line \"Were we honest?\", in her January 2026 order denying the motion to dismiss, writing that the entries \"suggest Brockman intended to deceive.\" The motion-to-dismiss language is now back in front of the jury through the document itself. The author of the document was on the stand for two days defending it.",
+      },
+
+      { type: "heading", text: "Toberoff's St. Jude's frame and the morally bankrupt entry" },
+      {
+        type: "paragraph",
+        text: "Toberoff put the question to the jury in a single sentence on Tuesday.",
+      },
+      {
+        type: "pullquote",
+        text: "Just imagine if the president of Saint Jude's Hospital for the children did something like that. Mr. Brockman referred to, quote, the mission over 50 times in his testimony over two days. But the question now is, whose mission is it?",
+      },
+      {
+        type: "paragraph",
+        text: "OpenAI counsel Sarah Eddy answered with a different page from the same journal. On redirect, Eddy walked Brockman through an entry he had written in the same November 2017 stretch.",
+      },
+      {
+        type: "pullquote",
+        text: "It'd be wrong to steal the non-profit from him. That'd be pretty morally bankrupt.",
+      },
+      {
+        type: "paragraph",
+        text: "Eddy's framing was that Brockman was a conflicted but conscientious officer wrestling in private with a hard problem, not an insider plotting a diversion of charitable assets. Toberoff's reframing on re-cross was that a fiduciary who recognizes the act would be morally bankrupt and then participates in something close to it has not been exonerated by his own conscience. The jury now has both readings of the same notebook in the same hand. The advisory verdict form will ask them to pick one.",
+      },
+
+      { type: "heading", text: "The Cerebras thread is the part F500 General Counsel should read twice" },
+      {
+        type: "paragraph",
+        text: "The headline coverage so far has centered on Musk's reactions and Brockman's wording. The piece of Tuesday's testimony most relevant to corporate-foundation governance is the Cerebras thread, and it is being undercovered.",
+      },
+      {
+        type: "paragraph",
+        text: "Brockman conceded under oath that in 2017, while serving as a director and officer of OpenAI Inc., he held a personal investment interest in Cerebras, an AI chipmaker that OpenAI Inc. was simultaneously evaluating as a counterparty. Sam Altman held a parallel personal interest. Brockman further conceded, under questioning about a specific document Toberoff produced, that no written disclosure of his Cerebras position was ever made to Musk while Musk was a director and the largest funder of the charity.",
+      },
+      {
+        type: "pullquote",
+        text: "I do not believe an email that says that exists.",
+      },
+      {
+        type: "paragraph",
+        text: "Pressed further, Brockman expanded the answer to encompass the absence of any contemporaneous written disclosure of the Cerebras interest to the OpenAI Inc. board. No email, no chat, no text. The relevance of the omission is not theoretical. In December 2025 OpenAI committed approximately $10 billion in compute spend to Cerebras and extended an additional $1 billion loan facility. In February 2026 Cerebras's private valuation tripled, from roughly $8 billion to roughly $23 billion. A separate piece of testimony surfaced an interest in Altman's personal investment fund that was granted to Brockman, language Toberoff translated for the jury as \"compensated Greg on the side.\"",
+      },
+      {
+        type: "paragraph",
+        text: "Under IRC §501(c)(3), a tax-exempt entity organized for charitable purposes may not be operated for the private benefit of insiders. Treas. Reg. §1.501(c)(3)-1(d)(1)(ii) makes the test explicit: the organization must serve a public rather than a private interest, and even where charitable purposes are also advanced, private benefit to designated individuals is grounds for revocation. Rev. Rul. 76-91 reinforces that a single qualifying private-benefit transaction can defeat exempt status. The fact pattern Toberoff put on the screen, undisclosed insider stakes in a counterparty followed years later by a ten-figure commercial commitment from the charity's controlled affiliate to that counterparty, is precisely the fact pattern those authorities were drafted to reach.",
+      },
+
+      { type: "heading", text: "The prediction" },
+      {
+        type: "paragraph",
+        text: "The advisory jury will return a liability finding for Musk on Count XVIII, the breach-of-charitable-trust count, and on at least one of the fraud or unjust-enrichment counts. The journal in Brockman's hand, the Cerebras concessions, and the absence of any written disclosure to the board are sufficient to carry that burden under Cal. Corp. Code §5142, which authorizes claims for breach of charitable trust against directors of California public-benefit corporations.",
+      },
+      {
+        type: "paragraph",
+        text: "Judge Gonzalez Rogers, sitting as the equitable trier in the bifurcated remedies phase, will not order divestiture, will not order rescission of the OpenAI LP conversion, and will not unwind the Microsoft transactions under Rule 19. She will impose a constructive trust under Cal. Civ. Code §2224 over a defined slice of OpenAI Inc.'s equity in the for-profit, with the 501(c)(3) entity as beneficiary. That slice will be sized to capture the value the court finds was acquired in violation of fiduciary obligation, and it will be administered going forward under California Attorney General oversight.",
+      },
+      {
+        type: "paragraph",
+        text: "Two California precedents drive that result. In Queen of Angels Hospital v. Younger, 66 Cal. App. 3d 359 (1977), the California Court of Appeal upheld Attorney-General-led equitable relief against nonprofit-hospital insiders who had attempted to redirect charitable assets to affiliated commercial entities. In Stern v. Lucy Webb Hayes National Training School (Sibley Hospital), 381 F. Supp. 1003 (D.D.C. 1974), the federal district court held nonprofit directors personally liable for self-dealing transactions involving entities in which they held undisclosed interests, and articulated disclosure-and-abstention as the curative standard. Both opinions sit comfortably alongside Cal. Probate Code §16002's duty of loyalty. Judge Gonzalez Rogers's own pattern in the Roundup Products Liability MDL favored targeted equitable remedies over wholesale rescission where commercial third parties had relied in good faith. Microsoft is that third party here.",
+      },
+      {
+        type: "paragraph",
+        text: "Settlement before closing argument is now unlikely. Musk's pre-trial settlement texts to Brockman and Altman were already aired in open court in the first week and did not produce a deal. With the journal and the Cerebras concessions in evidence, OpenAI's settlement leverage on the liability finding is weaker than it was a week ago, and Musk has no incentive to accept terms he refused before the trier of fact saw the documents.",
+      },
+
+      {
+        type: "callout",
+        text: "F500 GC takeaway. Officers and directors of an affiliated corporate foundation owe fiduciary duties to the charity that are independent of their duties to the parent enterprise. Personal investments in counterparties of the foundation must be disclosed in writing to the foundation's board, with the disclosure memorialized in a contemporaneous record the General Counsel controls. \"No email, no chat, no text\" is the answer that lost Brockman the day under cross. Treat the foundation's board minutes, conflict-of-interest registry, and recusal log as primary corporate records. They are the only documents that defend the fiduciary later.",
+      },
+
+      { type: "heading", text: "What today decides: Shivon Zilis takes the stand" },
+      {
+        type: "paragraph",
+        text: "Shivon Zilis is scheduled to testify Wednesday morning. She is the bridge witness in this case, and her testimony is what makes Day 7 the inflection point. Zilis served on the OpenAI Inc. nonprofit board from 2019 through 2023, the exact window in which the for-profit conversion was executed and the governance changes Musk now challenges were ratified. She is also a senior executive at Neuralink and the mother of four of Musk's children.",
+      },
+      {
+        type: "paragraph",
+        text: "Two narratives meet in her testimony. If she corroborates the journal, the inference that the nonprofit board was on notice and chose not to act tightens, and the constructive-trust theory gains a contemporaneous board-level witness. If she defends the conversion as a board member who voted for it with full information, OpenAI gets a rebuttal to Toberoff's St. Jude's frame from inside the room. Watch how Toberoff handles the personal relationship on cross, watch whether Eddy elicits any contemporaneous written disclosure of the Cerebras interests at the board level, and watch what Zilis says she did with what she knew.",
+      },
+      {
+        type: "paragraph",
+        text: "Sam Altman is expected later this week or next. Ilya Sutskever and Mira Murati remain possible. The journal is now in the record. The witnesses who follow it will be asked, in effect, whether they read it the way Brockman wrote it.",
+      },
+      {
+        type: "paragraph",
+        text: "Wes",
+      },
+
+      {
+        type: "callout",
+        text: "Sources. Trial coverage drawn from CNBC, Bloomberg, ABC7, NBC News, MLex, TechCrunch, CNN Business, Local News Matters, Washington Post, and MIT Technology Review reporting from the Oakland courthouse this week. Procedural posture and the January 2026 motion-to-dismiss order verified against the FindLaw case page and the CourtListener docket for Musk v. Altman, 4:24-cv-04722, N.D. Cal., Hon. Yvonne Gonzalez Rogers presiding. This is the fourth installment of the Litigation Sentinel Special Report series on this trial. The regularly scheduled Issue #3 of the biweekly briefing ships separately.",
+      },
+    ],
+  },
+  {
     slug: "musk-v-altman-day-3-musk-stepped-down",
     section: "Litigation Strategy",
     tag: "Special Report",
