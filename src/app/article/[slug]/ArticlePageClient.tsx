@@ -98,6 +98,43 @@ function ArticleHeader({ title, subtitle, tag, section, readTime, author, date, 
   );
 }
 
+// Render text that may contain inline markdown links [text](url) as React nodes.
+// Used by paragraph and pullquote blocks so primary-source anchors render as <a>.
+function renderInlineLinks(text: string): React.ReactNode {
+  const pattern = /\[([^\]]+)\]\(([^)]+)\)/g;
+  const out: React.ReactNode[] = [];
+  let lastIndex = 0;
+  let match: RegExpExecArray | null = pattern.exec(text);
+  let key = 0;
+  while (match !== null) {
+    if (match.index > lastIndex) {
+      out.push(text.slice(lastIndex, match.index));
+    }
+    const [, label, url] = match;
+    out.push(
+      <a
+        key={`lnk-${key++}`}
+        href={url}
+        target="_blank"
+        rel="noopener noreferrer"
+        style={{
+          color: SENTINEL.sentinelAccent,
+          textDecoration: "underline",
+          textUnderlineOffset: 2,
+        }}
+      >
+        {label}
+      </a>
+    );
+    lastIndex = match.index + match[0].length;
+    match = pattern.exec(text);
+  }
+  if (lastIndex < text.length) {
+    out.push(text.slice(lastIndex));
+  }
+  return out.length === 0 ? text : out;
+}
+
 function ContentBlock({ block, index }: { block: ArticleContentBlock; index: number }) {
   if (block.type === "heading") {
     return (
@@ -142,7 +179,7 @@ function ContentBlock({ block, index }: { block: ArticleContentBlock; index: num
               fontStyle: "italic",
             }}
           >
-            {block.text}
+            {renderInlineLinks(block.text)}
           </p>
         </blockquote>
       </FadeIn>
@@ -170,7 +207,7 @@ function ContentBlock({ block, index }: { block: ArticleContentBlock; index: num
               margin: 0,
             }}
           >
-            {block.text}
+            {renderInlineLinks(block.text)}
           </p>
         </div>
       </FadeIn>
@@ -189,7 +226,7 @@ function ContentBlock({ block, index }: { block: ArticleContentBlock; index: num
           margin: "0 0 20px",
         }}
       >
-        {block.text}
+        {renderInlineLinks(block.text)}
       </p>
     </FadeIn>
   );
