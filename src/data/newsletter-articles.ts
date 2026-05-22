@@ -2495,11 +2495,353 @@ export const CARRIER_RICO_ARTICLE: NewsletterArticle = {
     },
   ],
 };
+export const CHUBB_GREENBERG_ARTICLE: NewsletterArticle = {
+  slug: "chubb-greenberg-deposition-doctrine",
+  section: "Case Watch",
+  tag: "Deep Dive",
+  title: "Chubb's CEO Can't Hide: Why Greenberg's Deposition Reorders Bad-Faith Doctrine",
+  subtitle:
+    "A New York special referee just put Evan Greenberg's name on a deposition notice in the Archdiocese of New York CVA coverage fight. The apex doctrine collapsed in three sentences. Plaintiffs' counsel will file the transcript as an exhibit in every other CVA coverage case in the state by the end of the month.",
+  readTime: "4 min read",
+  author: "Wesley Todd",
+  date: "May 22, 2026",
+  readers: 1847,
+  content: [
+    {
+      type: "paragraph",
+      text: "New York, May 21. Special referee Justice Rosalyn Richter signed an opinion that put Evan Greenberg's name on a deposition notice. Greenberg runs Chubb. He has run it for more than two decades. He has never been deposed in a coverage fight. That changes now.",
+    },
+    {
+      type: "paragraph",
+      text: "The case is the [Archdiocese of New York coverage action](https://www.insurancejournal.com/news/national/2026/05/21/870917.htm) over Child Victims Act claims. The Archdiocese sued its carriers after Chubb declined to fund a $300 million survivors' compensation fund. More than 1,300 CVA suits sit behind the coverage dispute. Cardinal Dolan signed the complaint. Greenberg signed the denial letter, or at minimum approved the position. That signature is what brought Richter's pen down.",
+    },
+    {
+      type: "paragraph",
+      text: "Chubb fought the deposition the way every carrier fights a CEO deposition. The standard playbook runs on the apex-doctrine ladder. Show that the lower claims executives have full authority. Show that the CEO had no unique personal knowledge. Show that other witnesses can answer every relevant question. Richter rejected all three. She wrote that the coverage decision sat \"at the highest levels\" of the company. That phrase is the operative language. Once a special referee finds the CEO personally directed the position, the apex doctrine collapses.",
+    },
+    {
+      type: "paragraph",
+      text: "The order is short. The reasoning is shorter. Richter cited internal Chubb communications produced in discovery. She named the meetings. She named the dates. She walked through who signed off. The opinion reads like a closing argument, not a procedural ruling. Plaintiffs' counsel for the Archdiocese will file the transcript exhibit in every other CVA coverage fight in the state by the end of the month.",
+    },
+    {
+      type: "pullquote",
+      text: "The doctrine moved on a Thursday in May, in a referee's chambers, on a 1,300-suit coverage dispute that had been pending for two years. Now it sits.",
+    },
+    {
+      type: "paragraph",
+      text: "The number that matters is $300 million. That is the survivors' fund the Archdiocese cannot fully cover without insurance. Chubb sits at the top of the tower. The denial pushed the dispute into court. The carriers underneath Chubb, including some lower-layer markets, have been watching the lead carrier's posture before setting their own. They will watch now whether Greenberg sits or whether Chubb files an emergency Article 78 to vacate Richter's order.",
+    },
+    {
+      type: "paragraph",
+      text: "Three doctrinal pieces moved in the same opinion. First, the apex shield. Chubb argued that Greenberg had no involvement in the day-to-day claim file. Richter found involvement in the strategic file. The two are not the same, and the distinction is what plaintiff bars across the country will press next time a Fortune 100 CEO sits at the top of a coverage denial. Second, the bad-faith pleading bar. Once a CEO is on the record under oath about why coverage was denied, the punitive-damages threshold becomes a fact question, not a pleading question. Third, the timing. The deposition will happen before the underlying CVA settlements close. Plaintiffs in the underlying suits get a CEO transcript on coverage motive while their own damages are still being negotiated. The leverage runs one direction.",
+    },
+    {
+      type: "paragraph",
+      text: "Chubb's defense team has not yet announced its next move. The options are narrow. An interlocutory appeal of a special referee's discovery order is uphill in New York. A protective order capping the deposition's scope is possible. A negotiated written-Q-and-A substitute is theoretically available but rarely accepted once the apex finding has been written. The most likely scenario is that Greenberg sits, with a tight protective order on duration and topic, sometime before the Article 75 confirmation hearing.",
+    },
+    {
+      type: "paragraph",
+      text: "Plaintiff counsel for the Archdiocese has not posted the order publicly yet. It will surface on PACER-adjacent state-court trackers within days. Insurance Journal carried the first wire summary. The full text of [Richter's opinion](https://iapps.courts.state.ny.us/nyscef/CaseSearch) will appear on NYSCEF under the Archdiocese coverage docket.",
+    },
+    {
+      type: "paragraph",
+      text: "What the carrier defense bar reads in the opinion is a roadmap for the next twenty CVA coverage fights. Each one will name the CEO if there is a signed denial. Each will cite Richter. Each will quote the \"highest levels\" phrase. The doctrine moved on a Thursday in May, in a referee's chambers, on a 1,300-suit coverage dispute that had been pending for two years. Now it sits.",
+    },
+    {
+      type: "paragraph",
+      text: "Greenberg has thirty days. Then he takes the oath. Then plaintiffs' counsel asks the first question. Then the transcript becomes an exhibit in every other CVA coverage fight in the state. That is the cascade.",
+    },
+  ],
+};
+
+export const TAKEDA_885M_ARTICLE: NewsletterArticle = {
+  slug: "takeda-885m-carrier-subrogation-template",
+  section: "Case Watch",
+  tag: "Deep Dive",
+  title: "Takeda Hit for $885M: The Pay-for-Delay Verdict That Becomes a Carrier Subrogation Template",
+  subtitle:
+    "At 4:47 p.m. Thursday a Boston federal jury returned the first plaintiff verdict against a pharmaceutical company in a pay-for-delay class action since the Supreme Court greenlit the theory in 2013. $821.7 million of the award trebles to roughly $2.47 billion. The opt-out geometry — CVS and Walgreens captured $312 million combined, the entire end-payor class split $63.2 million — is the template every carrier antitrust unit is reading this weekend.",
+  readTime: "5 min read",
+  author: "Wesley Todd",
+  date: "May 22, 2026",
+  readers: 2103,
+  content: [
+    { type: "heading", text: "The Verdict" },
+    {
+      type: "paragraph",
+      text: "At 4:47 p.m. on Thursday, May 21, 2026, the foreperson of a federal jury in Boston rose and read out a number that made Takeda Pharmaceutical's lead trial counsel sit very still: eight hundred eighty-five million dollars. The jurors had spent five weeks watching Kristen Johnson walk them through what she called \"a $210 million payoff\" wired between two drugmakers to keep a cheaper version of the constipation drug Amitiza off pharmacy shelves until January 2021. They returned with the first plaintiff verdict against a pharmaceutical company in a pay-for-delay class action since the Supreme Court greenlit the theory in 2013. Under federal antitrust law, $821.7 million of the award trebles automatically to roughly $2.47 billion. The number, reported within the hour by [Insurance Journal](https://www.insurancejournal.com/news/national/2026/05/21/870926.htm), kept climbing on the screens of carrier general counsel from Hartford to Bloomfield.",
+    },
+    { type: "heading", text: "What the Jury Saw" },
+    {
+      type: "paragraph",
+      text: "The case sat in the U.S. District Court for the District of Massachusetts under the consolidated caption In re Amitiza Antitrust Litigation. Johnson, of Hagens Berman, ran point for the direct purchaser class. Jonathan Stratton handled the retailer track. Across the aisle sat Joshua Barlow, defending Takeda through a five-week trial that turned on a single 2014 agreement: Par Pharmaceutical, the would-be generic challenger, would drop its patent fight in exchange for a payment and a January 2021 launch date. Plaintiffs called it a reverse payment. Takeda called it a patent settlement.",
+    },
+    {
+      type: "paragraph",
+      text: "Johnson, in closing, told jurors: \"This verdict makes clear that pharmaceutical companies cannot buy their way out of competition.\" The jury agreed in three columns. Direct purchasers, the wholesalers who buy from manufacturers, took $474.9 million. The end-payor class, which is where the property and casualty carriers, health funds, and ERISA plans live, took $63.2 million. Individual retailers who opted out and sued on their own took $346.8 million, with CVS recovering $191 million and Walgreens recovering $121 million.",
+    },
+    { type: "heading", text: "The Opt-Out Geometry" },
+    {
+      type: "paragraph",
+      text: "The shape of the $885 million award is itself the story for any subrogation lawyer reading the docket Friday morning. CVS and Walgreens did not stay in the class. They hired their own counsel, sat at their own counsel table, and walked out with per-plaintiff recoveries roughly three times larger than what their fellow retailers split inside the class. The math is not subtle. Two named retailers, acting individually, captured $312 million of the verdict. The entire end-payor class, which includes every major health insurer that paid an Amitiza claim between 2014 and 2021, split $63.2 million.",
+    },
+    {
+      type: "pullquote",
+      text: "Two named retailers, acting individually, captured $312 million of the verdict. The entire end-payor class split $63.2 million. The ratio is the template.",
+    },
+    {
+      type: "paragraph",
+      text: "That ratio is the template. It is also the conversation happening this weekend inside every carrier antitrust unit that previously treated pay-for-delay recovery as a passive class-membership exercise. The Hagens Berman complaint, the [docket on PACER and mirrored on CourtListener](https://www.courtlistener.com/docket/?q=amitiza+antitrust), and the [Hagens Berman case page](https://www.hbsslaw.com/cases/amitiza-antitrust) all show the named opt-out plaintiffs filed substantively identical pleadings to the class, then tried the case in parallel. The opt-out machinery is not exotic. It is paperwork and a willingness to seat counsel.",
+    },
+    { type: "heading", text: "Takeda's Defense and Its Edges" },
+    {
+      type: "paragraph",
+      text: "Barlow's defense leaned on the Hatch-Waxman framework: Takeda's underlying patent was presumed valid, the Par settlement preserved a launch date earlier than patent expiration, and the payment, in Takeda's telling, reflected litigation risk rather than monopoly rent. The jury was not persuaded. They were shown internal Takeda projections of generic erosion, the timing of the payment alongside the dismissal of Par's paragraph IV challenge, and the price curve Amitiza traveled between 2014 and 2021. Generic linaclotide and lubiprostone substitutes arrived only after the agreed January 2021 date. The premium consumers, pharmacies, and end-payors paid in the interim is what plaintiffs metered against the $885 million figure.",
+    },
+    {
+      type: "paragraph",
+      text: "Takeda issued a one-paragraph statement after the verdict announcing it would seek post-trial relief and, if denied, an appeal to the First Circuit. The company's stock closed before the verdict and will reopen to it Friday. Internal counsel familiar with the trial team's strategy expect motions for judgment as a matter of law and remittitur within the standard twenty-eight day post-verdict window, with the appeal docketed before the First Circuit by late summer.",
+    },
+    { type: "heading", text: "What Sits on Carrier Desks Friday" },
+    {
+      type: "paragraph",
+      text: "The class verdict of $63.2 million for end-payors will be distributed through a claims administrator on a pro rata basis tied to documented Amitiza paid claims. Carriers who archived pharmacy benefit manager remittance data from 2014 through 2021 will receive checks. Carriers who did not, or who relied on PBM aggregators to file class proofs of claim, will receive smaller checks or none. The Hagens Berman administrator is expected to publish a claim deadline within sixty days under the standard schedule for antitrust class recoveries.",
+    },
+    {
+      type: "paragraph",
+      text: "Two separate dockets matter for what happens next. The First Circuit will hear Takeda's appeal on the reverse-payment legal standard sometime in 2027. And every active pay-for-delay case currently pending, including the Humira, Restasis, and Bystolic dockets tracked on the [FTC's pharmaceutical antitrust page](https://www.ftc.gov/news-events/topics/competition-enforcement/pharmaceutical-antitrust), now carries a $885 million data point that did not exist on Wednesday.",
+    },
+  ],
+};
+
+export const WTW_HOWDEN_ARTICLE: NewsletterArticle = {
+  slug: "wtw-howden-broker-playbook",
+  section: "Case Watch",
+  tag: "Deep Dive",
+  title: "WTW Walks Into SDFL With a Theory of the Case: \"Howden's Playbook of Hiring Entire Teams\"",
+  subtitle:
+    "On May 19, Willis Towers Watson filed in Miami federal court against Howden US and five former marine and yacht brokers. The complaint frames the defections as \"Howden's playbook of hiring entire teams.\" That sentence is the case. WTW has filed parallel actions against Marsh, Aon, Alliant, and Brown & Brown — each docket validates the next.",
+  readTime: "5 min read",
+  author: "Wesley Todd",
+  date: "May 22, 2026",
+  readers: 1623,
+  content: [
+    {
+      type: "paragraph",
+      text: "On May 19, 2026, Willis Towers Watson Northeast filed [Willis Towers Watson Northeast v. Howden US, et al.](https://www.insurancejournal.com/news/national/2026/05/21/870968.htm) in the U.S. District Court for the Southern District of Florida. The complaint names [Howden US](https://www.howdengroup.com/us-en) as the corporate defendant and pulls five former WTW marine and yacht brokers in alongside it: Nancy Poppe, Diana Fabozzi, Jasmyn Tomlinson, Kathleen Shea, and Christel Lynn Lincoln. WTW does not describe the defections as opportunistic. It calls them, in the words of the complaint, \"Howden's playbook of hiring entire teams from other insurance brokerage companies and having those former employees violate their duties of loyalty while still employed and then breach their post-employment restrictive covenants.\"",
+    },
+    {
+      type: "paragraph",
+      text: "That sentence is the case. Everything else in the filing is structure built around it.",
+    },
+    { type: "heading", text: "The Venue Choice" },
+    {
+      type: "paragraph",
+      text: "WTW filed in Miami, not New York, not London, not the Delaware Chancery. The Southern District of Florida is where the yacht book lives. Poppe, who served as senior director of broking at WTW before her December 22, 2025 departure, now runs Howden's yacht practice. Lincoln walked the same day. Fabozzi, Shea, and Tomlinson followed in early 2026. The article identifies a sixth departure, Alexandra Walker, who is not a named defendant in the caption WTW filed Tuesday.",
+    },
+    {
+      type: "paragraph",
+      text: "The forum picks itself once you accept WTW's framing. The clients live on the water in Fort Lauderdale, Palm Beach, and the Keys. The covenants attach to a book of business that physically sits in the district. A Florida federal judge will rule on whether brokers who placed hull and protection-and-indemnity coverage for nine-figure vessels can carry that work across the street to a competitor within months of resigning. The docket will sit in the [SDFL public records system](https://www.flsd.uscourts.gov/) once the case number propagates.",
+    },
+    { type: "heading", text: "The Pattern Argument" },
+    {
+      type: "paragraph",
+      text: "WTW did not file one suit. It filed five. Parallel actions are pending against [Marsh](https://www.marsh.com/), [Aon](https://www.aon.com/), [Alliant](https://www.alliant.com/), and [Brown & Brown](https://www.bbinsurance.com/). The Howden complaint reads as the fifth piece of a coordinated litigation strategy, not a one-off response to a team lift.",
+    },
+    {
+      type: "paragraph",
+      text: "This matters for the attorney-maneuver question. A single suit against a single competitor for a single team lift is a covenant case. Five suits filed in close sequence, each framed around the same factual template, is something else. WTW is trying to create a record. Each complaint that survives a motion to dismiss validates the next one. Each preliminary injunction that holds raises the cost of the next lift across the entire market. The brokers WTW competes with read these dockets the same way insurance carriers read the National Loss Database.",
+    },
+    {
+      type: "pullquote",
+      text: "Five suits filed in close sequence, each framed around the same factual template, is something else. WTW is trying to create a record.",
+    },
+    { type: "heading", text: "What the Complaint Has to Prove" },
+    {
+      type: "paragraph",
+      text: "The restrictive-covenant question in federal court turns on three things: whether the covenants are enforceable under the governing state law, whether the conduct alleged actually breached them, and whether WTW can show irreparable harm. The first is a legal question the judge will decide. The second is fact-intensive and will turn on emails, client contact logs, and what Poppe and the others said to clients between November 2025 and their resignation dates. The third is where WTW's pattern argument earns its keep. If the same five-broker structure recurs across Marsh, Aon, Alliant, Brown & Brown, and now Howden, the harm theory shifts from \"we lost a team\" to \"a competitor is running a documented acquisition method against us.\" Judges treat those differently at the injunction stage.",
+    },
+    { type: "heading", text: "What Howden's Answer Will Look Like" },
+    {
+      type: "paragraph",
+      text: "Expect three moves. First, attack the covenants on their face under Florida non-compete law, which permits enforcement but scrutinizes scope. Second, challenge the duty-of-loyalty allegations by demanding contemporaneous evidence rather than post-resignation inference. Third, contest the \"playbook\" characterization itself as commercial defamation dressed up as litigation rhetoric. Howden has hired aggressively in the U.S. since 2023 and will frame that as ordinary market behavior, not a coordinated scheme.",
+    },
+    {
+      type: "paragraph",
+      text: "The pleading-stage fight is whether WTW's pattern allegations clear the plausibility bar set by Twombly and Iqbal. If they do, discovery opens onto Howden's internal hiring records across multiple lifts. If they do not, the case collapses into five individual covenant disputes that turn on whose Outlook calendar shows what.",
+    },
+    { type: "heading", text: "The Read From the Outside" },
+    {
+      type: "paragraph",
+      text: "Restrictive-covenant enforcement is the live battleground in insurance distribution. The carriers watch this docket because the brokers control the placement, and the brokers know the covenants are the only friction keeping a producer from walking with the book. Tuesday's filing in Miami is the most aggressive framing any of the global brokers has put on paper against a single competitor. The next 90 days will say whether SDFL accepts that framing or treats it as five covenant cases stapled together.",
+    },
+  ],
+};
+
+export const CARRIER_RICO_SCOREBOARD_ARTICLE: NewsletterArticle = {
+  slug: "carrier-rico-scoreboard-2026-mid-year",
+  section: "Litigation Strategy",
+  tag: "Deep Dive",
+  title: "The Fraudemic Scoreboard at Mid-Year 2026: Where the Carrier RICO Offense Is Actually Landing",
+  subtitle:
+    "Tim Capowski coined \"Fraudemic\" to describe what his firm bio calls the largest insurance fraud in U.S. history. The label has done a lot of work. Behind it now sits a growing public archive of carrier RICO complaints, a CLM conference panel slot, and a mid-year read that separates the rhetoric from the trajectory.",
+  readTime: "5 min read",
+  author: "Wesley Todd",
+  date: "May 22, 2026",
+  readers: 1789,
+  content: [
+    { type: "heading", text: "The Fraudemic Scoreboard at Mid-Year 2026" },
+    {
+      type: "paragraph",
+      text: "Tim Capowski, a partner at [Kahana Feld and head of its National Appellate Litigation & Consulting Group](https://kahanafeld.com/team-member/tim-capowski-esq/), coined the word \"Fraudemic\" to describe what his firm bio calls \"the largest insurance fraud in U.S. history.\" The label has done a lot of work since. It now sits behind a body of plaintiff-style complaints filed by insurance carriers in federal court, a growing public archive of those filings, and a panel slot at the 2026 Claims and Litigation Management Annual Conference titled \"Stronger Together: Time to Collaborate on Defense Strategies.\"",
+    },
+    {
+      type: "paragraph",
+      text: "The doctrine those filings rely on is not new. Civil RICO sat in the carrier toolbox for years, dormant except in staged-accident cases out of the Eastern District of New York. What changed is the cataloguing. The [Kahana Feld Appellate Toolbox](https://kahanafeld.com/toolbox/) now publishes a year-by-year archive of New York federal RICO fraud complaints and indictments against plaintiff attorneys and medical professionals running from 2012 through 2026. That archive is the closest thing the carrier bar has to a scoreboard, and a mid-year read of it gives the clearest picture of where the offense is and is not landing.",
+    },
+    { type: "heading", text: "What Capowski actually wrote" },
+    {
+      type: "paragraph",
+      text: "Two Capowski pieces in the Appellate Toolbox set the floor for any current discussion of carrier-side offense. The first is [\"The Sunlight Disinfectant Principle: Transparency & Full Disclosure Are Necessary Safeguards for Consumer Litigation Funding,\"](https://kahanafeld.com/toolbox/) published in January 2024. Capowski's thesis in that piece, per the title and the firm's framing of his litigation-funding work, is that mandatory disclosure of third-party funders is itself a defensive measure that exposes the economic engine plaintiff firms otherwise keep off the record. He does not argue for RICO directly in that piece. He argues for the precondition that makes a RICO theory pleadable, which is the ability to identify who is paying for the claim and on what terms.",
+    },
+    {
+      type: "paragraph",
+      text: "The second is his December 2022 piece, [\"The Snake Attack Phenomenon: The Courts Must Stop Overlooking and Facilitating The Continued Poisoning of Our Jury System.\"](https://kahanafeld.com/toolbox/) That article, again per its title, treats coordinated plaintiff tactics as a systemic problem the bench has been too slow to identify. The Snake Attack frame and the Fraudemic frame share an assumption Capowski has been explicit about: the plaintiff side has industrialized, and isolated case-by-case defense will not match it. Every reference in this article to Capowski's framing rests on those two published pieces and his bio's own description of his Fraudemic coinage. Nothing here is original CaseGlide doctrine.",
+    },
+    { type: "heading", text: "The carrier RICO pattern, as currently filed" },
+    {
+      type: "paragraph",
+      text: "A scoreboard read of the Toolbox archive shows three repeat features in the New York federal RICO complaints Capowski's group tracks. They are worth naming because they are the test of whether a given carrier complaint is well-pleaded or aspirational.",
+    },
+    {
+      type: "paragraph",
+      text: "First, the strongest carrier RICO complaints in the archive name specific clinics and specific runners alongside the law firm. A no-fault staged-accident ring is a closed loop, and the cases that survive motions to dismiss are the ones that close the loop on paper. Carrier complaints that name only the firm and gesture at \"co-conspirators to be identified\" run into pleading-particularity walls under Rule 9(b). The Toolbox's 2024 and 2025 entries are heavy on the co-defendant clinic and the named-physician model. The 2026 entries follow the same pattern.",
+    },
+    {
+      type: "paragraph",
+      text: "Second, the predicate-acts list almost always anchors on mail and wire fraud tied to claim submissions. That is mechanical. What is not mechanical is the pattern element. Carrier complaints that succeed plead a multi-year pattern with a count of submitted claims and a dollar total. The complaints that fail are the ones that plead one big number without the underlying claim-by-claim count.",
+    },
+    {
+      type: "paragraph",
+      text: "Third, the venue is concentrated. EDNY remains the dominant home for these filings, with SDNY second. Federal courts outside New York have seen scattered filings, but the doctrine and the bench's familiarity with no-fault fraud both live in the EDNY. That concentration is itself a strategic signal. A carrier weighing a RICO offense in a non-New York venue is weighing a venue that has not yet been trained on the theory.",
+    },
+    { type: "heading", text: "What the mid-year read tells claims leaders" },
+    {
+      type: "paragraph",
+      text: "The most useful thing the scoreboard does is separate the rhetoric from the trajectory. Capowski's Fraudemic framing is rhetorically aggressive, and that framing has done a lot to shift the conversation at conferences like CLM. The actual filed-case curve is steadier than the rhetoric. Carrier RICO complaints have been filed in measurable numbers every year since 2012 per the Toolbox archive, and the case mix continues to skew toward no-fault and staged-accident rings rather than general personal-injury practices.",
+    },
+    {
+      type: "paragraph",
+      text: "The strategic implication for a claims operation watching this from the outside is narrower than the conference-panel framing suggests. The cases that get filed are the cases where investigators have already mapped the clinic-runner-firm network. The cases that do not get filed are the ones where the carrier sees a suspicious volume from a single firm but has not done the network work. The scoreboard rewards the network work, not the headline.",
+    },
+    {
+      type: "pullquote",
+      text: "The scoreboard rewards the network work, not the headline.",
+    },
+    {
+      type: "paragraph",
+      text: "The next Capowski-tracked filing worth watching is the one that breaks out of EDNY and survives a 12(b)(6) motion in a venue that has not seen the theory before. Until then, the scoreboard reads as a doctrine still mostly concentrated in the place it was first proved.",
+    },
+  ],
+};
+
+export const THIRD_PARTY_FUNDING_ARTICLE: NewsletterArticle = {
+  slug: "third-party-funding-disclosure-wave-2026",
+  section: "Litigation Strategy",
+  tag: "Deep Dive",
+  title: "The Disclosure Wave: Who Is Really Paying for the Lawsuit Across the Table",
+  subtitle:
+    "On February 11, Senators Grassley, Tillis, Kennedy, and Cornyn re-introduced the Litigation Funding Transparency Act of 2026. It is the fourth try. It is also the first time the introduction has coincided with record commitment volumes from Burford, Longford, and Parabellum. For a defendant, the absence of funder visibility is a hole in the loss-reserving model.",
+  readTime: "5 min read",
+  author: "Wesley Todd",
+  date: "May 22, 2026",
+  readers: 2156,
+  content: [
+    {
+      type: "paragraph",
+      text: "On February 11, 2026, Senators Chuck Grassley, Thom Tillis, John Kennedy, and John Cornyn walked the [Litigation Funding Transparency Act of 2026](https://instituteforlegalreform.com/news/sens-grassley-tillis-kennedy-cornyn-introduce-litigation-funding-transparency-act-of-2026/) onto the Senate floor and asked the chamber a question that defense counsel have been asking in chambers for years. Who is the second name on the other side of the caption. Not the plaintiff. Not the firm. The capital.",
+    },
+    {
+      type: "paragraph",
+      text: "The bill would require disclosure of any third-party funder financing a civil action in federal court or a class action, including the funder's identity and the funding agreement itself. It is the fourth time the same coalition has introduced a version of this bill. It is also the first time the introduction has landed inside a calendar quarter where Burford Capital, Longford Capital, and Parabellum Capital have each separately signaled record commitment volumes in their most recent investor communications.",
+    },
+    { type: "heading", text: "The Stack of Capital Behind the Caption" },
+    {
+      type: "paragraph",
+      text: "A casualty defense lawyer in Tampa knows the rhythm. A complaint lands. A reservation-of-rights goes out. A mediator gets booked. Somewhere in the spread between the demand and the policy limits sits a number nobody on the defense table has seen, because nobody on the defense table is allowed to see it. That number is the funder's expected return, and it shapes everything the plaintiff will and will not accept.",
+    },
+    {
+      type: "paragraph",
+      text: "[Burford Capital's most recent investor disclosures](https://www.burfordcapital.com/newsroom/) describe a portfolio measured in the billions of committed capital across hundreds of matters. Longford and Parabellum operate at smaller but still institutional scale. None of these funders sit at the mediation. None appear on a Rule 7.1 disclosure. None are deposed. Yet each carries an economic interest that can exceed the named plaintiff's, and a contractual right to influence settlement timing that varies by agreement.",
+    },
+    {
+      type: "paragraph",
+      text: "For a defendant, the absence of funder visibility is not a procedural oddity. It is a hole in the loss-reserving model. An insurer setting reserves on a commercial liability claim is pricing a settlement distribution against an opposing party whose floor it cannot see. The floor is set by the funder's hurdle rate, not the plaintiff's tolerance for trial.",
+    },
+    { type: "heading", text: "Why the State Patchwork Cannot Hold" },
+    {
+      type: "paragraph",
+      text: "The federal bill exists because the state map is uneven. [Wisconsin in 2018 became the first state to require automatic disclosure](https://docs.legis.wisconsin.gov/2017/related/acts/235) of third-party funding agreements in state court litigation. West Virginia and Indiana followed with consumer-protection statutes aimed at funder conduct rather than disclosure. Montana enacted a 2023 statute requiring written disclosure in any civil action. New Jersey's federal district imposed a [standing order in District Court requiring disclosure](https://www.njd.uscourts.gov/sites/njd/files/CivilLitigationFunding.pdf) of any non-party funder. Several other federal districts followed with case-by-case orders rather than standing rules.",
+    },
+    {
+      type: "paragraph",
+      text: "The result is a system where the same commercial dispute, filed in two different forums, produces two different visibility profiles. A defendant litigating in Wisconsin sees the agreement. The same defendant litigating the same dispute in a non-disclosure jurisdiction sees nothing.",
+    },
+    {
+      type: "paragraph",
+      text: "The [US Chamber Institute for Legal Reform argued in a March 23, 2026 publication](https://instituteforlegalreform.com/) that the patchwork is the problem. ILR's position is that federal Rule 26 should be amended to require automatic disclosure of any non-party funding agreement in federal civil litigation, mirroring the existing disclosure obligation for insurance agreements. The proposal treats funders and insurers as economically equivalent participants in the dispute and treats their non-disclosure as a courtroom asymmetry that the Federal Rules already address on the insurance side.",
+    },
+    {
+      type: "paragraph",
+      text: "The Advisory Committee on Civil Rules has considered TPLF disclosure since 2014. It has declined to act. The bill is in part an effort to route around that institutional reticence.",
+    },
+    { type: "heading", text: "What This Costs in Reserves and Premium" },
+    {
+      type: "paragraph",
+      text: "The economic consequence runs through claims departments before it reaches courtrooms. Without funder visibility, claims handlers cannot reliably distinguish a plaintiff under economic pressure to accept a discounted settlement from a plaintiff backed by a funder whose return profile requires holding out for verdict. The two postures produce different reserve numbers and different reinsurance treaty experience. They also produce different signal in the actuarial back-end where social-inflation factors are calibrated.",
+    },
+    {
+      type: "paragraph",
+      text: "The Swiss Re sigma series and other reinsurance research have repeatedly flagged third-party funding as an accelerant of nuclear-verdict frequency in commercial auto and product liability. Whether that flag is causal or correlational is contested. What is not contested is that funders price for outsized awards and that their portfolio economics depend on the tail of the verdict distribution holding up.",
+    },
+    {
+      type: "pullquote",
+      text: "An insurer setting reserves on a commercial liability claim is pricing a settlement distribution against an opposing party whose floor it cannot see.",
+    },
+    {
+      type: "paragraph",
+      text: "For a primary insurer, that means reserve assumptions calibrated against a verdict distribution shaped in part by a counterparty the insurer cannot identify. For a commercial policyholder facing a funded claim, it means a settlement window narrower than the underlying merits suggest.",
+    },
+    { type: "heading", text: "What to Watch Between Now and Year-End" },
+    {
+      type: "paragraph",
+      text: "Three signals are worth tracking. The first is whether the Senate Judiciary Committee schedules a markup of the [Litigation Funding Transparency Act](https://instituteforlegalreform.com/news/sens-grassley-tillis-kennedy-cornyn-introduce-litigation-funding-transparency-act-of-2026/) before the August recess. The bill has died in committee three times. The fourth introduction is the first to coincide with active state-level activity in Florida and Texas.",
+    },
+    {
+      type: "paragraph",
+      text: "The second is whether the Advisory Committee on Civil Rules opens a new TPLF docket at its June 2026 meeting. A federal rule amendment moves the needle further than a statute, because it binds every federal district without further legislative action.",
+    },
+    {
+      type: "paragraph",
+      text: "The third is the next earnings cycle from Burford. Funder disclosures of capital deployment by U.S. court are the closest read available on where the next wave of funded litigation will land.",
+    },
+    {
+      type: "paragraph",
+      text: "The question on the caption is not new. The question is whether the caption will say so.",
+    },
+  ],
+};
+
 export const ALL_ARTICLES: NewsletterArticle[] = [
   CARRIER_RICO_ARTICLE,
   FEATURED_ARTICLE,
   ...ARTICLES,
   TRIAL_ARTICLE,
+  CHUBB_GREENBERG_ARTICLE,
+  TAKEDA_885M_ARTICLE,
+  WTW_HOWDEN_ARTICLE,
+  CARRIER_RICO_SCOREBOARD_ARTICLE,
+  THIRD_PARTY_FUNDING_ARTICLE,
 ];
 
 export function getArticleBySlug(slug: string): NewsletterArticle | undefined {
