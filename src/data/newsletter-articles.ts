@@ -2832,6 +2832,156 @@ export const THIRD_PARTY_FUNDING_ARTICLE: NewsletterArticle = {
   ],
 };
 
+export const MORGAN_MORGAN_ARTICLE: NewsletterArticle = {
+  slug: "morgan-morgan-mx2-harvard-pro-hac-denied",
+  section: "Litigation Strategy",
+  tag: "Deep Dive",
+  title: "Morgan & Morgan's Own AI Just Got Its Name Partner Bounced From the Harvard Morgue Case",
+  subtitle:
+    "Justice Kenneth Salinger denied T. Michael Morgan's pro hac vice motion in the Harvard Medical School morgue mass tort because eight cases Morgan & Morgan's own AI platform invented in a Wyoming hoverboard brief now travel with him. The sanction is portable. The morgue case proceeds without lead counsel.",
+  readTime: "4 min read",
+  author: "Wesley Todd",
+  date: "May 23, 2026",
+  readers: 2204,
+  content: [
+    {
+      type: "paragraph",
+      text: "Boston, May 18. Justice Kenneth Salinger of Suffolk County Superior Court told T. Michael Morgan that he could not set foot in the [Harvard Medical School morgue case](https://www.abajournal.com/news/article/lawyer-cant-represent-plaintiffs-in-morgue-scandal-because-of-past-ai-errors-judge-says), because eight cases his own firm's AI platform invented in a Wyoming hoverboard brief now traveled with him. Salinger called the omission of any corrective showing \"surprising. And troubling.\"",
+    },
+    {
+      type: "paragraph",
+      text: "Morgan is the name partner of America's 42nd-largest law firm. He is also one of the most recognizable plaintiffs' lawyers in the country. He had moved to appear pro hac vice in Wilder v. President & Fellows of Harvard College. Wilder is the consolidated mass tort over the theft and sale of body parts from the Harvard Medical School morgue. It is the largest plaintiffs' docket in Massachusetts this year. Salinger said no.",
+    },
+    {
+      type: "paragraph",
+      text: "The order is two pages. The reasoning is older than the order. In February 2025, U.S. District Judge Kelly H. Rankin of the District of Wyoming sanctioned Morgan, his associate Rudwin Ayala, and co-counsel Taly Goody of the Goody Law Group in [Wadsworth v. Walmart](https://news.bloomberglaw.com/litigation/morgan-morgan-lawyers-fined-for-hallucinated-ai-citations), a defective-hoverboard products case. Ayala had filed a brief citing eight federal cases that did not exist. The cases came back as Westlaw-format citations from MX2.law, Morgan & Morgan's proprietary in-house artificial-intelligence platform. Rankin wrote one line that has now traveled to every state where Morgan files. \"The problem with these cases is that none exist.\"",
+    },
+    {
+      type: "paragraph",
+      text: "Rankin's sanctions came in dollars and in status. Ayala drew $3,000 and lost his pro hac vice admission in the Wyoming court. Morgan drew $1,000. Goody drew $1,000. The total was $5,000. The dollars were small. The pro hac vice revocation was not. The fabricated citations included Wyoming v. U.S. Department of Energy, 2006 WL 3801910 (D. Wyo. 2006), Holland v. Keller, 2018 WL 2446162 (D. Wyo. 2018), Meyer v. City of Cheyenne, 2017 WL 3461055 (D. Wyo. 2017), and Woods v. BNSF Railway Co., 2016 WL 165971 (D. Wyo. 2016). None of those cases exist. MX2.law had written them and Morgan & Morgan had filed them.",
+    },
+    {
+      type: "paragraph",
+      text: "Sixteen months later, Salinger read that Wyoming order before he ruled on the Boston motion. Morgan had disclosed the sanction in his Massachusetts papers. Disclosure is required. Disclosure is not enough. Salinger wanted to see remedial measures. He wanted a record of what the firm had done. He found a sentence from a Morgan & Morgan spokesperson saying the firm had \"instituted additional safeguards within the firm regarding use of AI.\" He found nothing else. He wrote the operative paragraph in one breath. \"Since attorney Morgan's failure to comply with basic ethical requirements in the Wyoming litigation is so recent, and Morgan has made no showing that he has learned from his mistakes in that case, the court is not convinced that Morgan should be granted the privilege of appearing pro hac vice in the Massachusetts Superior Court.\"",
+    },
+    {
+      type: "paragraph",
+      text: "That paragraph is now a portable disqualifier. Every pro hac vice motion Morgan files in any state court for the next several years will arrive on a judge's desk with the Wadsworth sanction attached. Defense counsel does not need to brief it. The Wyoming order is on PACER. The Boston denial is on the [Hoodline write-up](https://hoodline.com/2026/05/boston-judge-boots-morgan-morgan-lawyer-from-harvard-body-parts-case-over-phony-ai-cites/) and the ABA Journal report. Any opposing party with a research desk will paste both into the opposition.",
+    },
+    {
+      type: "paragraph",
+      text: "The Harvard morgue case is the part Wilder counsel cares about. The mass tort runs against the Harvard Corporation, its medical school, the morgue manager Cedric Lodge, and a network of buyers. The plaintiffs are families whose deceased relatives' organs and limbs were sold for cash. The case is the kind of case Morgan & Morgan was built to lead. Morgan was the firm's lead-counsel choice. He is now not in the case. Co-counsel will reorganize the lead position. The substantive damages theory does not change. The face on the press release does.",
+    },
+    {
+      type: "paragraph",
+      text: "What the order does to the rest of the plaintiffs' bar is the second question. Morgan & Morgan is one of the few law firms that has publicly named its proprietary artificial-intelligence platform. MX2.law is a firm-branded tool. No other major plaintiffs' firm has publicly disclosed a branded proprietary large-language-model platform of comparable scope. Some firms use Lexis+ AI, some use Westlaw Precision, some use Harvey or CoCounsel. Those are vendor products. MX2.law is a Morgan & Morgan product. The name appears in the Wyoming sanction order, in the Bloomberg Law coverage, in the Boston denial. A firm that builds and brands its own AI now owns the output of that AI in every filing.",
+    },
+    {
+      type: "paragraph",
+      text: "That is the part that travels beyond Wilder. The named-adversary plaintiffs' shops the carrier bar tracks most closely, the firms that show up across the [carrier RICO scoreboard](/article/carrier-rico-scoreboard-2026-mid-year) and the venue-concentration data, will read the Boston denial. They will compare it to their own AI workflows. The firms running vendor tools can point to the vendor. The firms running proprietary tools cannot. Morgan & Morgan cannot.",
+    },
+    {
+      type: "paragraph",
+      text: "Rankin wrote the original sentence. Salinger applied it across the country. Morgan sits out. The morgue case goes on. The AI that wrote the cases is still on the firm's website.",
+    },
+    {
+      type: "paragraph",
+      text: "Wes Todd · Founder · CaseGlide",
+    },
+  ],
+};
+
+export const SAFETY_NATIONAL_ARTICLE: NewsletterArticle = {
+  slug: "safety-national-tpa-voidable-transactions-piercing",
+  section: "Litigation Strategy",
+  tag: "Deep Dive",
+  title: "Safety National Skips the Arbitration. It Goes Straight at the TPA Owners for $2.48 Million.",
+  subtitle:
+    "Safety National sued S.A.F.E., LLC's two principals personally in N.D.N.Y. for $2.48 million in 2025 distributions, pleading voidable transactions under New York Debtor and Creditor Law while a separate AAA arbitration claws back unearned fees from the entity. The asset-recovery vehicle is running in parallel with the liability fight.",
+  readTime: "4 min read",
+  author: "Wesley Todd",
+  date: "May 23, 2026",
+  readers: 1683,
+  content: [
+    {
+      type: "paragraph",
+      text: "On May 7, 2026, [Safety National Casualty Corporation](https://www.safetynational.com/) walked into the U.S. District Court for the Northern District of New York and named two people personally. Gina Emerson. Ed Alberts. The carrier's complaint alleges they \"drained\" their TPA \"without retaining sufficient funds to satisfy SAFE's pre-existing obligations,\" and that the $2.48 million they pulled out in 2025 should come back. [Insurance Business America first reported the filing on May 11](https://www.insurancebusinessmag.com/us/news/risk-compliance-legal/insurer-sues-tpa-owners-alleging-2-48-million-payout-as-900-claims-sat-open-574624.aspx).",
+    },
+    {
+      type: "paragraph",
+      text: "The case is a textbook attorney maneuver. Safety National already has its breach-of-contract fight running on a separate track. That fight sits in [American Arbitration Association](https://www.adr.org/) arbitration in St. Louis. The federal complaint is something different. It is the asset-recovery vehicle running in parallel.",
+    },
+    {
+      type: "heading",
+      text: "The Money",
+    },
+    {
+      type: "paragraph",
+      text: "Safety National paid S.A.F.E., LLC roughly $9 million in claims-handling fees between 2013 and 2023. In 2025 the relationship collapsed. S.A.F.E. mailed a termination letter on November 13, 2025. The effective date was January 14, 2026. The carrier alleges S.A.F.E. then walked off more than 900 open workers'-compensation files.",
+    },
+    {
+      type: "paragraph",
+      text: "The carrier wants $5 million-plus back in unearned fees. That demand sits in the St. Louis arbitration. The number that drives the federal complaint is smaller and more interesting. Safety National alleges that during 2025, while the unearned-fee clawback was crystallizing, S.A.F.E. distributed $2,481,298 to its two principals. $1,240,649 to Emerson. $1,240,649 to Alberts. Identical checks. Same year.",
+    },
+    {
+      type: "heading",
+      text: "The Maneuver",
+    },
+    {
+      type: "paragraph",
+      text: "The four counts in the federal complaint plead voidable transactions under New York Debtor and Creditor Law sections 273(a)(1), 273(a)(2), 274(a), and 274(b). The statutory language tracks the carrier's pleading directly. The complaint alleges S.A.F.E. \"did not receive reasonably equivalent value in exchange for the transfer.\" It alleges insolvency or imminent insolvency at the time of the distributions. It alleges intent to hinder, delay, or defraud creditors.",
+    },
+    {
+      type: "paragraph",
+      text: "A breach-of-contract arbitration award against S.A.F.E. itself would reach the corporate balance sheet of an LLC the carrier suspects is hollow. A voidable-transactions judgment reaches Emerson and Alberts. It claws the money back from the bank accounts of the two people who allegedly took it out. The arbitration is the liability theory. The federal suit is how the carrier collects.",
+    },
+    {
+      type: "paragraph",
+      text: "This is the same structural move that drives the carrier-as-plaintiff cases this publication has been tracking all year. See the [carrier RICO scoreboard](https://litigationsentinel.com/article/carrier-rico-scoreboard-2026-mid-year) for the broader pattern. The named adversary changes. The logic does not. A sophisticated plaintiff who suspects the corporate defendant is judgment-proof does not wait for the award. It files in parallel against the people who emptied the company.",
+    },
+    {
+      type: "heading",
+      text: "The 900 Claims",
+    },
+    {
+      type: "paragraph",
+      text: "The 900-plus open files are the part of this case that matters outside the docket. Workers'-comp claims do not pause when a TPA walks. Injured workers wait for indemnity checks. Medical providers wait for reimbursement. Self-insured employers face statutory exposure if claims-handling lapses cause regulatory action. Excess carriers above Safety National's layer get drawn in when reserves move.",
+    },
+    {
+      type: "paragraph",
+      text: "The complaint frames the conduct in one phrase. A TPA that \"walked away from its contracts and made large payouts to its principals.\" That is the plaintiff's frame. The defendants have not yet answered. The filing is twelve days old as of this writing, and no responsive pleading has surfaced in the trade press.",
+    },
+    {
+      type: "heading",
+      text: "What This Does to Every Other TPA Contract",
+    },
+    {
+      type: "paragraph",
+      text: "The novel piece is the personal-piercing track. Voidable-transactions clawback against the named owners of a closely held insurance-services company is not new law. The Uniform Voidable Transactions Act has been on the books in New York since 2019. What is new is the carrier appetite to run that track in parallel with arbitration the moment a TPA relationship collapses. The cost of filing is small. The pressure is large. A defendant principal facing personal liability negotiates differently than a defendant LLC.",
+    },
+    {
+      type: "paragraph",
+      text: "Every carrier with an unbundled-claims program watches this docket now. So does every self-insured F500 employer with a TPA arrangement that runs through a closely held vendor. The contract clause that matters is no longer just the termination notice or the fee-reconciliation formula. It is whether the carrier can pierce to the principals if the entity hollows out before the award lands.",
+    },
+    {
+      type: "heading",
+      text: "What Comes Next",
+    },
+    {
+      type: "paragraph",
+      text: "S.A.F.E.'s answer is the next document. The defenses are predictable in shape. The 2025 distributions were ordinary compensation, not stripping. The transfers happened before insolvency. Reasonably equivalent value moved both ways. Whether those defenses survive a Rule 12 motion depends on facts the trade press has not yet captured.",
+    },
+    {
+      type: "paragraph",
+      text: "The arbitration in St. Louis runs on its own clock. The federal docket in Albany will move faster on the voidable-transactions question than the AAA panel will on the underlying contract. That asymmetry is the point.",
+    },
+    {
+      type: "paragraph",
+      text: "Safety National did not file two suits by accident.",
+    },
+  ],
+};
+
 export const ALL_ARTICLES: NewsletterArticle[] = [
   CARRIER_RICO_ARTICLE,
   FEATURED_ARTICLE,
@@ -2842,6 +2992,8 @@ export const ALL_ARTICLES: NewsletterArticle[] = [
   WTW_HOWDEN_ARTICLE,
   CARRIER_RICO_SCOREBOARD_ARTICLE,
   THIRD_PARTY_FUNDING_ARTICLE,
+  MORGAN_MORGAN_ARTICLE,
+  SAFETY_NATIONAL_ARTICLE,
 ];
 
 export function getArticleBySlug(slug: string): NewsletterArticle | undefined {
