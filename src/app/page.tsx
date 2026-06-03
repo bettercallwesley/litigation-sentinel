@@ -13,6 +13,7 @@ import {
   ARTICLES,
   TRIAL_ARTICLE,
   NAV_CATEGORIES,
+  getArticleHref,
 } from "@/data/newsletter-articles";
 import ThemeToggle from "@/components/shared/ThemeToggle";
 
@@ -55,7 +56,7 @@ export default function Home() {
         {/* Featured Article */}
         <FadeIn delay={100}>
           <a
-            href={`/article/${FEATURED_ARTICLE.slug}`}
+            href={getArticleHref(FEATURED_ARTICLE)}
             style={{
               display: "block",
               padding: "32px 0 24px",
@@ -142,7 +143,7 @@ export default function Home() {
 
         {/* First batch of articles (3) */}
         {ARTICLES.slice(0, 3).map((a, i) => (
-          <a key={i} href={a.linksTo ? `/${a.linksTo}` : a.slug ? `/article/${a.slug}` : undefined} style={{ textDecoration: "none", display: "block" }}>
+          <a key={i} href={getArticleHref(a)} style={{ textDecoration: "none", display: "block" }}>
             <ArticleCard
               article={a}
               delay={180 + i * 60}
@@ -237,7 +238,7 @@ export default function Home() {
         </FadeIn>
 
         {/* How-To article */}
-        <a href={ARTICLES[3].slug ? `/article/${ARTICLES[3].slug}` : "/council"} style={{ textDecoration: "none", display: "block" }}>
+        <a href={getArticleHref(ARTICLES[3])} style={{ textDecoration: "none", display: "block" }}>
           <ArticleCard
             article={ARTICLES[3]}
             delay={460}
@@ -245,7 +246,7 @@ export default function Home() {
         </a>
 
         {/* Trial article */}
-        <a href={TRIAL_ARTICLE.slug ? `/article/${TRIAL_ARTICLE.slug}` : "/trial"} style={{ textDecoration: "none", display: "block" }}>
+        <a href={getArticleHref(TRIAL_ARTICLE)} style={{ textDecoration: "none", display: "block" }}>
           <ArticleCard
             article={TRIAL_ARTICLE}
             delay={500}
@@ -254,7 +255,7 @@ export default function Home() {
 
         {/* Remaining articles */}
         {ARTICLES.slice(4).map((a, i) => (
-          <a key={i + 4} href={a.slug ? `/article/${a.slug}` : undefined} style={{ textDecoration: "none", display: "block" }}>
+          <a key={i + 4} href={getArticleHref(a)} style={{ textDecoration: "none", display: "block" }}>
             <ArticleCard
               article={a}
               delay={560 + i * 60}
