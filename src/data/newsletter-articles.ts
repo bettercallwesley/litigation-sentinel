@@ -33,7 +33,6 @@ export const FEATURED_ARTICLE: NewsletterArticle = {
   readTime: "8 min read",
   author: "Wes Todd",
   date: "February 12, 2026",
-  linksTo: "briefing",
   readers: 2847,
   trending: true,
   content: [
@@ -414,7 +413,6 @@ export const ARTICLES: NewsletterArticle[] = [
     readTime: "5 min read",
     author: "Wesley Todd",
     date: "June 1, 2026",
-    linksTo: "briefing",
     readers: 2317,
     trending: true,
     content: [
@@ -448,7 +446,6 @@ export const ARTICLES: NewsletterArticle[] = [
     readTime: "5 min read",
     author: "Wesley Todd",
     date: "June 1, 2026",
-    linksTo: "briefing",
     readers: 1847,
     trending: true,
     content: [
@@ -475,7 +472,6 @@ export const ARTICLES: NewsletterArticle[] = [
     readTime: "5 min read",
     author: "Wesley Todd",
     date: "June 1, 2026",
-    linksTo: "briefing",
     readers: 1622,
     trending: false,
     content: [
@@ -504,7 +500,6 @@ export const ARTICLES: NewsletterArticle[] = [
     readTime: "5 min read",
     author: "Wesley Todd",
     date: "June 1, 2026",
-    linksTo: "briefing",
     readers: 2038,
     trending: true,
     content: [
@@ -539,7 +534,6 @@ export const ARTICLES: NewsletterArticle[] = [
     readTime: "5 min read",
     author: "Wesley Todd",
     date: "June 1, 2026",
-    linksTo: "briefing",
     readers: 1934,
     trending: false,
     content: [
@@ -567,7 +561,6 @@ export const ARTICLES: NewsletterArticle[] = [
     readTime: "11 min read",
     author: "Wesley Todd",
     date: "May 19, 2026",
-    linksTo: "briefing",
     readers: 1284,
     trending: true,
     content: [
@@ -630,7 +623,6 @@ export const ARTICLES: NewsletterArticle[] = [
     readTime: "13 min read",
     author: "Wesley Todd",
     date: "May 19, 2026",
-    linksTo: "briefing",
     readers: 2143,
     trending: true,
     content: [
@@ -694,7 +686,6 @@ export const ARTICLES: NewsletterArticle[] = [
     readTime: "8 min read",
     author: "Wes Todd",
     date: "May 15, 2026",
-    linksTo: "briefing",
     readers: 3284,
     trending: true,
     content: [
@@ -743,7 +734,6 @@ export const ARTICLES: NewsletterArticle[] = [
     readTime: "9 min read",
     author: "Wes Todd",
     date: "May 15, 2026",
-    linksTo: "briefing",
     readers: 2614,
     trending: true,
     content: [
@@ -797,7 +787,6 @@ export const ARTICLES: NewsletterArticle[] = [
     readTime: "7 min read",
     author: "Wes Todd",
     date: "May 15, 2026",
-    linksTo: "briefing",
     readers: 1847,
     trending: false,
     content: [
@@ -832,7 +821,6 @@ export const ARTICLES: NewsletterArticle[] = [
     readTime: "8 min read",
     author: "Wes Todd",
     date: "May 15, 2026",
-    linksTo: "briefing",
     readers: 2147,
     trending: true,
     content: [
@@ -879,7 +867,6 @@ export const ARTICLES: NewsletterArticle[] = [
     readTime: "7 min read",
     author: "Wes Todd",
     date: "May 15, 2026",
-    linksTo: "briefing",
     readers: 2381,
     trending: true,
     content: [
@@ -919,7 +906,6 @@ export const ARTICLES: NewsletterArticle[] = [
     readTime: "9 min read",
     author: "Wes Todd",
     date: "May 15, 2026",
-    linksTo: "briefing",
     readers: 1893,
     trending: false,
     content: [
@@ -2036,7 +2022,6 @@ export const ARTICLES: NewsletterArticle[] = [
     readTime: "5 min",
     author: "Wes Todd",
     date: "February 7, 2026",
-    linksTo: "briefing",
     readers: 1943,
     content: [
       // Section 1 — Opening
@@ -3155,6 +3140,18 @@ export function getArticleBySlug(slug: string): NewsletterArticle | undefined {
 
 export function getAllArticleSlugs(): string[] {
   return ALL_ARTICLES.filter((a) => a.slug).map((a) => a.slug!);
+}
+
+// Single source of truth for where a homepage card links.
+// An entry with real body content IS a story and ALWAYS links to its own
+// article page — a stray `linksTo` must never funnel a story to a CTA page
+// (this is what sent every story to /briefing). `linksTo` only applies to
+// content-less teaser cards (e.g. the Nuclear Verdicts / Council / Trial CTAs).
+export function getArticleHref(a: NewsletterArticle): string | undefined {
+  if (a.content && a.content.length > 0 && a.slug) return `/article/${a.slug}`;
+  if (a.linksTo) return `/${a.linksTo}`;
+  if (a.slug) return `/article/${a.slug}`;
+  return undefined;
 }
 
 export const NAV_CATEGORIES = [
