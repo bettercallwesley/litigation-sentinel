@@ -4,6 +4,8 @@ import React, { useState } from "react";
 import { SENTINEL, FONTS } from "@/components/design-system/tokens";
 import FadeIn from "@/components/design-system/FadeIn";
 import { ENGAGEMENT_STATS } from "@/data/engagement-stats";
+import { getAttribution } from "@/lib/attribution";
+import { trackEvent } from "@/lib/track";
 
 interface SubscribeBlockProps {
   delay?: number;
@@ -21,11 +23,18 @@ export default function SubscribeBlock({ delay = 700 }: SubscribeBlockProps) {
     setStatus("loading");
     setErrorMsg("");
 
+    const page = typeof window !== "undefined" ? window.location.pathname : "/";
+
     try {
       const res = await fetch("/api/subscribe", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({
+          email,
+          source: "subscribe-block",
+          slug: page,
+          attribution: getAttribution(),
+        }),
       });
 
       const data = await res.json();
@@ -37,6 +46,7 @@ export default function SubscribeBlock({ delay = 700 }: SubscribeBlockProps) {
       }
 
       setStatus("success");
+      trackEvent("subscribe_submit", { page, gate_type: "subscribe-block" }, { email });
     } catch {
       setStatus("error");
       setErrorMsg("Something went wrong. Please try again.");

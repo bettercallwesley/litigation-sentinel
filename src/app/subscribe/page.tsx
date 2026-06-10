@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { SENTINEL, FONTS } from "@/components/design-system/tokens";
+import { getAttribution } from "@/lib/attribution";
 
 export default function SubscribePage() {
   const [email, setEmail] = useState("");
@@ -19,7 +20,12 @@ export default function SubscribePage() {
       const res = await fetch("/api/subscribe", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({
+          email,
+          source: "subscribe-page",
+          slug: "/subscribe",
+          attribution: getAttribution(),
+        }),
       });
 
       const data = await res.json();

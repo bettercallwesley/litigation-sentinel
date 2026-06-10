@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { COLORS, FONTS, MATURITY_LEVELS } from "@/components/design-system/tokens";
 import { CaseGlideLogo, Badge, FadeIn, ProgressBar } from "@/components/design-system";
 import { ASSESSMENT_QUESTIONS } from "@/data/assessment-questions";
+import { getAttribution } from "@/lib/attribution";
 
 interface ResultsPageProps {
   answers: Record<string, number>;
@@ -59,6 +60,7 @@ export default function ResultsPage({ answers, onContinue, onEmailCaptured }: Re
           company: captureCompany || undefined,
           source: "assessment-results",
           answers,
+          attribution: getAttribution(),
         }),
       });
 

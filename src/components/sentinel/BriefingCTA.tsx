@@ -4,6 +4,7 @@ import React from "react";
 import { SENTINEL, FONTS } from "@/components/design-system/tokens";
 import FadeIn from "@/components/design-system/FadeIn";
 import { ENGAGEMENT_STATS } from "@/data/engagement-stats";
+import { trackEvent } from "@/lib/track";
 
 interface BriefingCTAProps {
   delay?: number;
@@ -14,6 +15,12 @@ export default function BriefingCTA({ delay = 400 }: BriefingCTAProps) {
     <FadeIn delay={delay}>
       <a
         href="/briefing"
+        onClick={() =>
+          trackEvent("upgrade_click", {
+            slug: typeof window !== "undefined" ? window.location.pathname : "/",
+            position: "briefing-cta",
+          })
+        }
         style={{
           display: "block",
           margin: "32px 0",

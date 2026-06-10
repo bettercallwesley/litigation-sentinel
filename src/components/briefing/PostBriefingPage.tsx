@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { COLORS, FONTS } from "@/components/design-system/tokens";
 import { CaseGlideLogo, Badge, FadeIn } from "@/components/design-system";
 import { ASSESSMENT_QUESTIONS } from "@/data/assessment-questions";
+import { getAttribution } from "@/lib/attribution";
 
 interface PostBriefingPageProps {
   answers: Record<string, number>;
@@ -76,6 +77,7 @@ export default function PostBriefingPage({ answers, capturedEmail, onSchedule }:
             source: "post-briefing",
             program: programId,
             answers,
+            attribution: getAttribution(),
           }),
         });
         setSubmitStatus("success");
