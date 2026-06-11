@@ -309,9 +309,11 @@ export default function NuclearVerdictStateDetail({ state, onClose, isPreview }:
                     ? `${(state.largestVerdict / 1000).toFixed(1)}B`
                     : `${state.largestVerdict}M`}
                 </div>
-                <div style={{ fontSize: 11, color: SENTINEL.inkLight, fontFamily: FONTS.sans, lineHeight: 1.4 }}>
-                  {state.largestVerdictCase}
-                </div>
+                {state.largestVerdictCase && (
+                  <div style={{ fontSize: 11, color: SENTINEL.inkLight, fontFamily: FONTS.sans, lineHeight: 1.4 }}>
+                    {state.largestVerdictCase}
+                  </div>
+                )}
               </div>
             </div>
           )}
