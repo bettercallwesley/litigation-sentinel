@@ -26,7 +26,7 @@ const QUERIES: PresetQuery[] = [
   {
     query: "Why could this case result in a nuclear verdict? Any relevant verdict data?",
     answer:
-      "Three factors in the record align with nuclear outcomes: a sympathetic injured plaintiff, evidence of prior notice at scale, and a defense witness expected to present as dismissive. In 2025, juries returned 149 verdicts of $10 million or more, with a median of $46 million. The exposure here is not the demand. It is the trial.",
+      "Three factors in the record align with nuclear outcomes: a sympathetic injured plaintiff, evidence of prior notice at scale, and a defense witness expected to present as dismissive. In 2025, 149 verdicts of $10 million or more were returned, with a median of $46 million. The exposure here is not the demand. It is the trial.",
   },
 ];
 
@@ -262,7 +262,7 @@ export default function SectionChambers() {
               margin: "22px auto 0",
             }}
           >
-            {"In the actual 1994 Albuquerque trial, the jury returned $2.7 million, later reduced to $640,000."}
+            {"In the actual 1994 Albuquerque trial, the jury returned $2.7 million in punitive damages. The final judgment was $640,000."}
           </p>
         </FadeIn>
       </div>

@@ -86,13 +86,26 @@ export default function SectionEnvironment() {
         </FadeIn>
         <p
           style={{
-            fontFamily: FONTS.sans,
-            fontSize: 14,
-            lineHeight: 1.6,
-            color: COLORS.textSecondary,
+            fontFamily: FONTS.serif,
+            fontSize: "clamp(20px, 2.6vw, 26px)",
+            lineHeight: 1.45,
+            color: COLORS.textPrimary,
             textAlign: "center",
             maxWidth: 720,
-            margin: "28px auto 0",
+            margin: "44px auto 0",
+          }}
+        >
+          {"One hundred forty-nine verdicts. Here is where they landed."}
+        </p>
+        <p
+          style={{
+            fontFamily: FONTS.sans,
+            fontSize: 13,
+            lineHeight: 1.6,
+            color: COLORS.textMuted,
+            textAlign: "center",
+            maxWidth: 720,
+            margin: "32px auto 0",
           }}
         >
           {"Compiled by Litigation Sentinel from the Tyson & Mendes Nuclear Verdict Tracker and the Marathon Strategies Nuclear Verdict Report. Updated February 2026."}

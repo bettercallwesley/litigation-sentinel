@@ -45,7 +45,7 @@ export default function SectionClose() {
             }}
           >
             <p style={{ fontFamily: FONTS.sans, fontSize: 15, lineHeight: 1.7, color: SENTINEL.inkLight, margin: 0 }}>
-              {"Thousands of defense attorneys and hundreds of firms use CaseGlide daily. Attorneys prefer it because it replaces lengthy email reports with structured updates that take less time. We've never had a firm refuse to use it."}
+              {"Defense attorneys at hundreds of firms work in CaseGlide daily. Attorneys prefer it because it replaces lengthy email reports with structured updates that take less time."}
             </p>
             <p style={{ fontFamily: FONTS.sans, fontSize: 15, lineHeight: 1.7, color: SENTINEL.inkLight, margin: "14px 0 0" }}>
               {"CaseGlide was founded by Wesley Todd, a practicing insurance defense attorney, because the tools connecting carriers and their outside counsel didn't exist."}

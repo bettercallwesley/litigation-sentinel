@@ -43,6 +43,11 @@ export default function ConversionPage() {
           .cvp-inbox-list { width: 100% !important; border-right: none !important; max-height: 280px !important; }
           .cvp-clerk-split { flex-direction: column; }
         }
+        @media (max-width: 430px) {
+          /* Five labels + separators exceed narrow viewports; scroll, never clip. */
+          .cvp-rail-mobile { justify-content: flex-start !important; overflow-x: auto; gap: 5px !important; padding: 0 12px; }
+          .cvp-rail-mobile button { font-size: 10px !important; white-space: nowrap; }
+        }
         @media (prefers-reduced-motion: reduce) {
           .cvp-main * { animation: none !important; transition: none !important; }
         }

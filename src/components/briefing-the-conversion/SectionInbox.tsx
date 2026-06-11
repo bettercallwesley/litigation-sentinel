@@ -229,7 +229,7 @@ export default function SectionInbox() {
               margin: "48px 0 0",
             }}
           >
-            {"Without structured updates, the adjuster waits on a 20 page depo summary 10 days later, packed with so much information that you can't see the forest through the trees."}
+            {"Without structured updates, the adjuster waits on a 20-page depo summary 10 days later, packed with so much information that the one number that matters is buried on page 14."}
           </blockquote>
           <p
             style={{

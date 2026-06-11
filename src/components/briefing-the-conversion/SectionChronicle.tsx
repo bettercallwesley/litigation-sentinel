@@ -94,6 +94,12 @@ const NODES: TimelineNode[] = [
 
 export default function SectionChronicle() {
   const [active, setActive] = useState(0);
+  // The 700-complaints pull line stays once the reader has reached node 4,
+  // even if they step back through earlier milestones.
+  const [reachedTurn, setReachedTurn] = useState(false);
+  useEffect(() => {
+    if (active >= 3) setReachedTurn(true);
+  }, [active]);
 
   // Chambers AI citation chips dispatch this event to jump back to a node.
   useEffect(() => {
@@ -109,12 +115,13 @@ export default function SectionChronicle() {
   }, []);
 
   const onKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === "ArrowRight") {
+    let next: number | null = null;
+    if (e.key === "ArrowRight") next = Math.min(active + 1, NODES.length - 1);
+    else if (e.key === "ArrowLeft") next = Math.max(active - 1, 0);
+    if (next !== null) {
       e.preventDefault();
-      setActive((a) => Math.min(a + 1, NODES.length - 1));
-    } else if (e.key === "ArrowLeft") {
-      e.preventDefault();
-      setActive((a) => Math.max(a - 1, 0));
+      setActive(next);
+      document.getElementById("chronicle-node-" + (next + 1))?.focus();
     }
   };
 
@@ -124,7 +131,6 @@ export default function SectionChronicle() {
     <section
       id="phase-timeline"
       style={{ background: COLORS.midnight, padding: "96px 24px" }}
-      onKeyDown={onKeyDown}
     >
       <div style={{ maxWidth: 1040, margin: "0 auto" }}>
         <FadeIn>
@@ -153,7 +159,7 @@ export default function SectionChronicle() {
             className="cvp-timeline"
             role="tablist"
             aria-label="Case milestones"
-            tabIndex={0}
+            onKeyDown={onKeyDown}
             style={{
               display: "flex",
               gap: 8,
@@ -170,6 +176,8 @@ export default function SectionChronicle() {
                   id={"chronicle-node-" + (i + 1)}
                   role="tab"
                   aria-selected={isActive}
+                  aria-controls="chronicle-panel"
+                  tabIndex={isActive ? 0 : -1}
                   onClick={() => setActive(i)}
                   style={{
                     flex: 1,
@@ -214,6 +222,9 @@ export default function SectionChronicle() {
 
         {/* Active card */}
         <div
+          id="chronicle-panel"
+          role="tabpanel"
+          aria-labelledby={"chronicle-node-" + (active + 1)}
           style={{
             background: COLORS.surface,
             border: `1px solid ${COLORS.border}`,
@@ -283,8 +294,8 @@ export default function SectionChronicle() {
           </button>
         </div>
 
-        {/* Pull line, revealed at the turning point */}
-        {active >= 3 && (
+        {/* Pull line, revealed at the turning point, persistent once seen */}
+        {reachedTurn && (
           <FadeIn>
             <p
               style={{
@@ -320,7 +331,8 @@ export default function SectionChronicle() {
                       borderRadius: 2,
                       background: COLORS.rose,
                       marginTop: 4,
-                      width: Math.min(100, 16 + gap) + "%",
+                      // The gap draws itself as the reader steps through the milestones.
+                      width: i > active ? "0%" : Math.min(100, 16 + gap) + "%",
                       opacity: 0.85,
                       transition: "width 0.6s ease",
                     }}

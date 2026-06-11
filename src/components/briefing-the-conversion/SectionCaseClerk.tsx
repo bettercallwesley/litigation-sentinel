@@ -58,9 +58,18 @@ export default function SectionCaseClerk() {
     runningRef.current = false;
   };
 
+  const pulseTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const hoverChip = (para: number) => {
     memoRef.current?.scrollToPara(para);
     setPulsePara(para);
+    // Decay back to the standard highlight so the pulse reads as a pulse,
+    // not a stuck state (also covers touch, where mouseleave never fires).
+    if (pulseTimer.current) clearTimeout(pulseTimer.current);
+    pulseTimer.current = setTimeout(() => setPulsePara(null), 900);
+  };
+  const releaseChip = () => {
+    if (pulseTimer.current) clearTimeout(pulseTimer.current);
+    setPulsePara(null);
   };
 
   return (
@@ -189,7 +198,9 @@ export default function SectionCaseClerk() {
                         {chars[i] > 0 && (
                           <button
                             onMouseEnter={() => hoverChip(f.para)}
+                            onMouseLeave={releaseChip}
                             onFocus={() => hoverChip(f.para)}
+                            onBlur={releaseChip}
                             onClick={() => hoverChip(f.para)}
                             style={{
                               fontFamily: FONTS.mono,
@@ -266,13 +277,18 @@ export default function SectionCaseClerk() {
         <FadeIn delay={250}>
           <div style={{ maxWidth: 860, margin: "44px auto 0", textAlign: "center" }}>
             <p style={{ fontFamily: FONTS.sans, fontSize: 16, lineHeight: 1.65, color: COLORS.textSecondary, margin: 0 }}>
-              {"Digital case forms replace email-based reporting. Every milestone, captured and searchable."}
+              {"The same capture happens at deposition, mediation, and trial. That stream of structured updates from adjusters and defense counsel comes first; everything else on this page is downstream of it."}
             </p>
-            <p style={{ fontFamily: FONTS.sans, fontSize: 16, lineHeight: 1.65, color: COLORS.textSecondary, margin: "12px 0 0" }}>
-              {"Best-practice forms exist for every milestone: initial analysis, deposition, mediation, trial."}
-            </p>
-            <p style={{ fontFamily: FONTS.sans, fontSize: 16, lineHeight: 1.65, color: COLORS.textSecondary, margin: "12px 0 0" }}>
-              {"Dashboards and AI features simply don't work unless there is a near-perfect process for collecting information from adjusters and defense counsel. That process comes first. Everything on this page is downstream of it."}
+            <p
+              style={{
+                fontFamily: FONTS.serif,
+                fontSize: "clamp(19px, 2.4vw, 24px)",
+                lineHeight: 1.5,
+                color: COLORS.textPrimary,
+                margin: "24px 0 0",
+              }}
+            >
+              {"One update is a record. Six updates are a story. Here is the whole case, in order."}
             </p>
           </div>
         </FadeIn>

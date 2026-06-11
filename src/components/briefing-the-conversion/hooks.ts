@@ -16,6 +16,20 @@ export function useReducedMotion(): boolean {
   return reduced;
 }
 
+// True when the primary input can hover (mouse/trackpad). Touch devices
+// report false so tap-driven UI is not poisoned by synthetic mouseenter.
+export function useCanHover(): boolean {
+  const [canHover, setCanHover] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia("(hover: hover)");
+    setCanHover(mq.matches);
+    const onChange = (e: MediaQueryListEvent) => setCanHover(e.matches);
+    mq.addEventListener("change", onChange);
+    return () => mq.removeEventListener("change", onChange);
+  }, []);
+  return canHover;
+}
+
 // Fires once when the element enters the viewport.
 export function useInViewOnce<T extends HTMLElement>(
   threshold = 0.3

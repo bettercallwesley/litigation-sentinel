@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { COLORS, FONTS } from "@/components/design-system/tokens";
 import FadeIn from "@/components/design-system/FadeIn";
-import { useReducedMotion } from "./hooks";
+import { useCanHover, useReducedMotion } from "./hooks";
 
 // S7. THE PORTFOLIO (phase: DECISION)
 // S7a Docket Dashboard: the two-firm filter. S7b Precedent Dashboard:
@@ -58,19 +58,21 @@ const PANEL_FIRMS: PanelFirm[] = [
   { id: "PANEL FIRM 07", cycle: "31 mo", vsEval: "+26%", trialRate: "25%+", back: "REVIEW: every flag in the book", allRank: 6, premisesRank: 5 },
 ];
 
-function FlipCard({ firm, reduced }: { firm: PanelFirm; reduced: boolean }) {
+function FlipCard({ firm, reduced, canHover }: { firm: PanelFirm; reduced: boolean; canHover: boolean }) {
   const [flipped, setFlipped] = useState(false);
   const isReview = firm.back.startsWith("REVIEW");
   const isWatch = firm.back.startsWith("WATCH");
   const backColor = isReview ? COLORS.rose : isWatch ? COLORS.amber : COLORS.emerald;
 
+  // Hover-capable input flips on hover; touch input flips on tap. Never both:
+  // a tap on mobile fires mouseenter then click, which would set-then-untoggle.
   return (
     <motion.div
       layout={!reduced}
       transition={{ type: "spring", stiffness: 300, damping: 30 }}
-      onMouseEnter={() => setFlipped(true)}
-      onMouseLeave={() => setFlipped(false)}
-      onClick={() => setFlipped((f) => !f)}
+      onMouseEnter={canHover ? () => setFlipped(true) : undefined}
+      onMouseLeave={canHover ? () => setFlipped(false) : undefined}
+      onClick={canHover ? undefined : () => setFlipped((f) => !f)}
       style={{ perspective: 900, cursor: "pointer", minHeight: 150 }}
     >
       <div
@@ -137,6 +139,7 @@ function FlipCard({ firm, reduced }: { firm: PanelFirm; reduced: boolean }) {
 
 export default function SectionPortfolio() {
   const reduced = useReducedMotion();
+  const canHover = useCanHover();
   const [firmTab, setFirmTab] = useState<"07" | "12">("07");
   const [caseFilter, setCaseFilter] = useState<"all" | "premises">("all");
 
@@ -159,7 +162,7 @@ export default function SectionPortfolio() {
               margin: "0 0 72px",
             }}
           >
-            {"Now imagine it is not one case. You are running hundreds. Three questions decide the year: Are we exposed right now? Is it getting better or worse? Where does intervention change the outcome?"}
+            {"It is not one case. You are running hundreds. Three questions decide the year: Are we exposed right now? Is it getting better or worse? Where does intervention change the outcome?"}
           </p>
         </FadeIn>
 
@@ -312,7 +315,7 @@ export default function SectionPortfolio() {
             style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))", gap: 14 }}
           >
             {sortedFirms.map((f) => (
-              <FlipCard key={f.id} firm={f} reduced={reduced} />
+              <FlipCard key={f.id} firm={f} reduced={reduced} canHover={canHover} />
             ))}
           </div>
 

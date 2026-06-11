@@ -1,7 +1,7 @@
 "use client";
 
 import React, { forwardRef, useImperativeHandle, useRef } from "react";
-import { COLORS, FONTS } from "@/components/design-system/tokens";
+import { COLORS, FONTS, SENTINEL } from "@/components/design-system/tokens";
 import { MEMO_PARAGRAPHS, MEMO_TITLE, MEMO_SUBTITLE } from "./memoData";
 
 // The 20-page ICA memo rendered as a Word-style document inside a dark
@@ -54,7 +54,7 @@ const MemoDocument = forwardRef<MemoDocumentHandle, Props>(function MemoDocument
         ref={containerRef}
         onScroll={onScroll}
         style={{
-          background: "#F4F2EC",
+          background: SENTINEL.bgWarm,
           borderRadius: 8,
           border: `1px solid ${COLORS.border}`,
           maxHeight,
@@ -70,7 +70,7 @@ const MemoDocument = forwardRef<MemoDocumentHandle, Props>(function MemoDocument
             fontSize: 15,
             fontWeight: 700,
             letterSpacing: "0.06em",
-            color: "#1A1A1A",
+            color: SENTINEL.ink,
             textAlign: "center",
           }}
         >
@@ -80,7 +80,7 @@ const MemoDocument = forwardRef<MemoDocumentHandle, Props>(function MemoDocument
           style={{
             fontFamily: FONTS.serif,
             fontSize: 11,
-            color: "#6A6A6A",
+            color: SENTINEL.inkMuted,
             textAlign: "center",
             margin: "8px 0 24px",
           }}
@@ -100,7 +100,7 @@ const MemoDocument = forwardRef<MemoDocumentHandle, Props>(function MemoDocument
                 fontFamily: FONTS.serif,
                 fontSize: 13.5,
                 lineHeight: 1.75,
-                color: "#2A2A2A",
+                color: SENTINEL.ink,
                 textAlign: "justify",
                 margin: "0 0 14px",
                 padding: "2px 6px",
@@ -113,7 +113,7 @@ const MemoDocument = forwardRef<MemoDocumentHandle, Props>(function MemoDocument
                 transition: "background 0.4s ease",
               }}
             >
-              <span style={{ fontFamily: FONTS.mono, fontSize: 10, color: "#8A8A8A", marginRight: 8 }}>
+              <span style={{ fontFamily: FONTS.mono, fontSize: 10, color: SENTINEL.inkMuted, marginRight: 8 }}>
                 {"¶ " + p.num}
               </span>
               {p.text}
@@ -124,7 +124,7 @@ const MemoDocument = forwardRef<MemoDocumentHandle, Props>(function MemoDocument
           style={{
             fontFamily: FONTS.serif,
             fontSize: 10,
-            color: "#8A8A8A",
+            color: SENTINEL.inkMuted,
             textAlign: "center",
             marginTop: 20,
           }}
