@@ -19,6 +19,7 @@ export type SentinelEvent =
   | "briefing_start"
   | "briefing_complete"
   | "demo_click"
+  | "demo_request"
   | "upgrade_click"
   | "exit_view"
   | "exit_submit";

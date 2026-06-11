@@ -135,7 +135,7 @@ export default function SentinelFooter({ delay = 750 }: SentinelFooterProps) {
           </a>
           {" "}·{" "}
           <a
-            href="/briefing"
+            href="/demo"
             onClick={() =>
               trackEvent("demo_click", {
                 page: typeof window !== "undefined" ? window.location.pathname : "/",
@@ -143,7 +143,7 @@ export default function SentinelFooter({ delay = 750 }: SentinelFooterProps) {
             }
             style={{ color: SENTINEL.inkMuted, textDecoration: "underline" }}
           >
-            Request a Demo
+            Request an executive briefing
           </a>
         </div>
         <div
