@@ -3,15 +3,16 @@
 import React, { useState } from "react";
 import { SENTINEL, FONTS } from "@/components/design-system/tokens";
 import FadeIn from "@/components/design-system/FadeIn";
-import { ENGAGEMENT_STATS } from "@/data/engagement-stats";
 import { getAttribution } from "@/lib/attribution";
 import { trackEvent } from "@/lib/track";
 
 interface SubscribeBlockProps {
   delay?: number;
+  /** Per-surface attribution value forwarded to /api/subscribe (B4). */
+  source?: string;
 }
 
-export default function SubscribeBlock({ delay = 700 }: SubscribeBlockProps) {
+export default function SubscribeBlock({ delay = 700, source = "subscribe-block" }: SubscribeBlockProps) {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [errorMsg, setErrorMsg] = useState("");
@@ -31,7 +32,7 @@ export default function SubscribeBlock({ delay = 700 }: SubscribeBlockProps) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           email,
-          source: "subscribe-block",
+          source,
           slug: page,
           attribution: getAttribution(),
         }),
@@ -46,7 +47,11 @@ export default function SubscribeBlock({ delay = 700 }: SubscribeBlockProps) {
       }
 
       setStatus("success");
-      trackEvent("subscribe_submit", { page, gate_type: "subscribe-block" }, { email });
+      // Unlock only on a confirmed 2xx that reflects a real Beehiiv accept (CONTRARIAN-4, WES-PROXY-8).
+      try {
+        localStorage.setItem("ls_subscribed", "1");
+      } catch {}
+      trackEvent("subscribe_submit", { page, gate_type: source }, { email });
     } catch {
       setStatus("error");
       setErrorMsg("Something went wrong. Please try again.");
@@ -138,8 +143,9 @@ export default function SubscribeBlock({ delay = 700 }: SubscribeBlockProps) {
             fontFamily: FONTS.sans,
           }}
         >
-          Join {ENGAGEMENT_STATS.subscriberCount.toLocaleString()} litigation leaders who get weekly intelligence on
-          strategy, technology, and the data that matters.
+          Trial drama, nuclear verdicts, and the plaintiff-firm tactics behind them. Court-reporter
+          prose, no consultant filler. Read by litigation leaders at F500 legal departments and
+          national carriers. Free.
         </p>
         <form
           onSubmit={handleSubmit}

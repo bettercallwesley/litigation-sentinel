@@ -128,9 +128,14 @@ export default function SentinelFooter({ delay = 750 }: SentinelFooterProps) {
           </a>
           {" "}·{" "}
           <a
-            href="https://caseglide.com"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="/subscribe"
+            style={{ color: SENTINEL.inkMuted, textDecoration: "underline" }}
+          >
+            Subscribe
+          </a>
+          {" "}·{" "}
+          <a
+            href="/briefing"
             onClick={() =>
               trackEvent("demo_click", {
                 page: typeof window !== "undefined" ? window.location.pathname : "/",

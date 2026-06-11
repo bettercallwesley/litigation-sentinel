@@ -8,7 +8,7 @@ import { SentinelFooter } from "@/components/sentinel";
 import NuclearVerdictsHeatMap from "@/components/sentinel/NuclearVerdictsHeatMap";
 import ThemeToggle from "@/components/shared/ThemeToggle";
 import { ISSUE } from "@/data/newsletter-articles";
-import { ENGAGEMENT_STATS } from "@/data/engagement-stats";
+import ExitIntentPopup from "@/components/sentinel/ExitIntentPopup";
 import { getAttribution } from "@/lib/attribution";
 import { trackEvent } from "@/lib/track";
 
@@ -464,7 +464,7 @@ export default function NuclearVerdictsPage() {
                     }}
                   >
                     Get the full interactive Nuclear Verdicts® Heat Map with detailed state analytics,
-                    trend data, and Judicial Hellhole® overlays — plus weekly litigation intelligence.
+                    trend data, and Judicial Hellhole® overlays, plus litigation intelligence in your inbox.
                   </p>
                   <p
                     style={{
@@ -474,7 +474,7 @@ export default function NuclearVerdictsPage() {
                       margin: "0 0 16px",
                     }}
                   >
-                    Join {ENGAGEMENT_STATS.subscriberCount.toLocaleString()} litigation leaders.
+                    Read by litigation leaders at F500 legal departments and national carriers.
                   </p>
                   <form
                     onSubmit={handleSubscribe}
@@ -578,8 +578,8 @@ export default function NuclearVerdictsPage() {
                 margin: "0 0 20px",
               }}
             >
-              Take the 5-minute Executive Briefing — free maturity assessment
-              for litigation leaders
+              Take the Executive Briefing. 4 minutes. Six questions. A free
+              maturity assessment for litigation leaders.
             </p>
             <a
               href="/briefing"
@@ -607,6 +607,7 @@ export default function NuclearVerdictsPage() {
         <SentinelFooter delay={850} />
       </div>
 
+      <ExitIntentPopup />
       <ThemeToggle />
     </div>
   );

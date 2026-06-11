@@ -19,7 +19,9 @@ export type SentinelEvent =
   | "briefing_start"
   | "briefing_complete"
   | "demo_click"
-  | "upgrade_click";
+  | "upgrade_click"
+  | "exit_view"
+  | "exit_submit";
 
 type EventProps = Record<string, string | number | boolean>;
 

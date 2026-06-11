@@ -1983,8 +1983,8 @@ export default function NuclearVerdictsHeatMap({
                 }}
               >
                 Get detailed state-by-state analytics, case type breakdowns,
-                judicial risk assessments, trend data, and downloadable
-                reports. Updated monthly with the latest verdict intelligence.
+                judicial risk assessments, and trend data, plus every update
+                in the newsletter.
               </p>
               <div
                 style={{
@@ -2000,7 +2000,6 @@ export default function NuclearVerdictsHeatMap({
                   "Case type breakdown",
                   "Judicial Hellhole\u00AE overlay",
                   "Trend charts",
-                  "Monthly updates",
                 ].map((feat) => (
                   <span
                     key={feat}

@@ -79,9 +79,17 @@ export async function POST(req: NextRequest) {
     const apiKey = process.env.BEEHIIV_API_KEY;
     const pubId = process.env.BEEHIIV_PUBLICATION_ID;
 
+    // CONTRARIAN-4: missing env is a loud 500 in EVERY environment, production
+    // included. A silent success here drops the subscriber while the client
+    // unlocks the gate, which is a fake gate with extra steps.
     if (!apiKey || !pubId) {
-      console.warn("Beehiiv not configured, BEEHIIV_API_KEY or BEEHIIV_PUBLICATION_ID missing");
-      return NextResponse.json({ success: true, message: "Subscribed (pending Beehiiv setup)" });
+      console.error(
+        "BEEHIIV_API_KEY or BEEHIIV_PUBLICATION_ID missing. Refusing silent subscriber drop."
+      );
+      return NextResponse.json(
+        { error: "Subscription service is not configured. Please try again later." },
+        { status: 500 }
+      );
     }
 
     const capturePage =
@@ -115,6 +123,15 @@ export async function POST(req: NextRequest) {
       for (const key of UTM_KEYS) {
         const value = attribution[key];
         if (typeof value === "string" && value) payload[key] = value;
+      }
+      // B4 per-surface attribution: when no external campaign utm exists, the
+      // capture surface itself is the honest source. Beehiiv accepts utm_source,
+      // utm_medium, utm_campaign on POST subscriptions per
+      // https://developers.beehiiv.com/api-reference/subscriptions/create (fetched 2026-06-10).
+      if (!payload.utm_source && typeof source === "string" && source) {
+        payload.utm_source = source;
+        payload.utm_medium = "site";
+        if (typeof slug === "string" && slug) payload.utm_campaign = slug;
       }
     }
 
