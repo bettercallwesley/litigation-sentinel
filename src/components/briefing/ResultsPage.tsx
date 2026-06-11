@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { COLORS, FONTS, MATURITY_LEVELS } from "@/components/design-system/tokens";
 import { CaseGlideLogo, Badge, FadeIn, ProgressBar } from "@/components/design-system";
 import { ASSESSMENT_QUESTIONS } from "@/data/assessment-questions";
+import { getAttribution } from "@/lib/attribution";
 
 interface ResultsPageProps {
   answers: Record<string, number>;
@@ -59,6 +60,7 @@ export default function ResultsPage({ answers, onContinue, onEmailCaptured }: Re
           company: captureCompany || undefined,
           source: "assessment-results",
           answers,
+          attribution: getAttribution(),
         }),
       });
 
@@ -153,13 +155,14 @@ export default function ResultsPage({ answers, onContinue, onEmailCaptured }: Re
                 justifyContent: "center",
                 gap: 8,
                 marginTop: 32,
+                flexWrap: "wrap",
               }}
             >
               {[1, 2, 3, 4, 5].map((level) => (
                 <div
                   key={level}
                   style={{
-                    width: 64,
+                    width: 84,
                     height: 64,
                     borderRadius: 12,
                     background:
@@ -191,13 +194,14 @@ export default function ResultsPage({ answers, onContinue, onEmailCaptured }: Re
                   </span>
                   <span
                     style={{
-                      fontSize: 8,
+                      fontSize: 7,
                       color: COLORS.textMuted,
                       textTransform: "uppercase",
-                      letterSpacing: "0.05em",
+                      letterSpacing: "0.04em",
+                      whiteSpace: "nowrap",
                     }}
                   >
-                    {MATURITY_LEVELS[level].label.slice(0, 5)}
+                    {MATURITY_LEVELS[level].label}
                   </span>
                 </div>
               ))}
@@ -296,6 +300,19 @@ export default function ResultsPage({ answers, onContinue, onEmailCaptured }: Re
                 >
                   {captureStatus === "loading" ? "Unlocking..." : "View Full Results"}
                 </button>
+                <p
+                  style={{
+                    fontSize: 12,
+                    color: COLORS.textMuted,
+                    margin: "14px 0 0",
+                    lineHeight: 1.6,
+                    fontFamily: FONTS.sans,
+                  }}
+                >
+                  Your answers stay confidential. The full report is free.
+                  <br />
+                  Read by litigation leaders at F500 legal departments and national carriers.
+                </p>
               </div>
             </div>
           </FadeIn>

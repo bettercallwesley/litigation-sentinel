@@ -2,6 +2,8 @@
 
 import React, { useState } from "react";
 import { SENTINEL, FONTS } from "@/components/design-system/tokens";
+import { getAttribution } from "@/lib/attribution";
+import { trackEvent } from "@/lib/track";
 
 export default function SubscribePage() {
   const [email, setEmail] = useState("");
@@ -19,7 +21,12 @@ export default function SubscribePage() {
       const res = await fetch("/api/subscribe", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({
+          email,
+          source: "subscribe-page",
+          slug: "/subscribe",
+          attribution: getAttribution(),
+        }),
       });
 
       const data = await res.json();
@@ -31,6 +38,12 @@ export default function SubscribePage() {
       }
 
       setStatus("success");
+      // Unlock only on the confirmed 2xx (CONTRARIAN-4); a subscriber from
+      // /subscribe is never re-gated on the heat map (WES-PROXY-8).
+      try {
+        localStorage.setItem("ls_subscribed", "1");
+      } catch {}
+      trackEvent("subscribe_submit", { page: "/subscribe", gate_type: "subscribe-page" }, { email });
     } catch {
       setStatus("error");
       setErrorMsg("Something went wrong. Please try again.");
@@ -122,7 +135,7 @@ export default function SubscribePage() {
                   fontFamily: FONTS.sans,
                 }}
               >
-                First issue coming soon. Check your inbox for a welcome from Litigation Sentinel.
+                Check your inbox for a welcome from Litigation Sentinel.
               </p>
             </div>
           ) : (
@@ -139,7 +152,7 @@ export default function SubscribePage() {
                   letterSpacing: "-0.01em",
                 }}
               >
-                Weekly litigation intelligence. Free.
+                Litigation intelligence with names in it.
               </h2>
 
               {/* Subhead */}
@@ -152,7 +165,9 @@ export default function SubscribePage() {
                   fontFamily: FONTS.sans,
                 }}
               >
-                Nuclear verdicts, AI legal developments, and portfolio risk data — for in-house legal and claims executives.
+                Nuclear verdicts, carrier RICO filings, and the courtroom maneuvers behind them.
+                Named firms, named judges, real dollar figures. Written for in-house legal and
+                claims executives. Free.
               </p>
 
               {/* Value props */}
@@ -167,9 +182,9 @@ export default function SubscribePage() {
                 }}
               >
                 {[
-                  "Nuclear verdict trends across 28 states",
-                  "AI legal developments affecting your exposure",
-                  "Portfolio risk intelligence for in-house legal + claims",
+                  "Every issue names the firms, the lawyers, and the dollars",
+                  "The Nuclear Verdicts heat map with all-50-state drill-downs",
+                  "Our average open rate is above 50 percent",
                 ].map((item, i) => (
                   <li
                     key={i}
@@ -274,7 +289,8 @@ export default function SubscribePage() {
                   fontFamily: FONTS.sans,
                 }}
               >
-                No spam. Unsubscribe anytime. Read by GC, CLO, and VP Claims at leading insurers.
+                No spam. Unsubscribe anytime. Read by litigation leaders at F500 legal departments
+                and national carriers.
               </p>
             </>
           )}

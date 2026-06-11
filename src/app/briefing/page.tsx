@@ -11,8 +11,17 @@ import {
   ScheduleModal,
 } from "@/components/briefing";
 import ThemeToggle from "@/components/shared/ThemeToggle";
+import { trackEvent } from "@/lib/track";
+import { ASSESSMENT_QUESTIONS } from "@/data/assessment-questions";
 
 type Phase = "landing" | "assessment" | "results" | "briefing" | "post";
+
+function maturityFromAnswers(answers: Record<string, number>): number {
+  const scores = Object.values(answers);
+  if (scores.length === 0) return 1;
+  const avg = scores.reduce((a, b) => a + b, 0) / ASSESSMENT_QUESTIONS.length;
+  return Math.min(5, Math.max(1, Math.round(avg)));
+}
 
 export default function BriefingRoute() {
   const [phase, setPhase] = useState<Phase>("landing");
@@ -31,7 +40,10 @@ export default function BriefingRoute() {
     >
       {phase === "landing" && (
         <LandingPage
-          onStart={() => setPhase("assessment")}
+          onStart={() => {
+            trackEvent("briefing_start");
+            setPhase("assessment");
+          }}
           onSchedule={() => setShowSchedule(true)}
         />
       )}
@@ -39,6 +51,7 @@ export default function BriefingRoute() {
         <AssessmentPage
           onComplete={(ans) => {
             setAnswers(ans);
+            trackEvent("briefing_complete", { maturity: maturityFromAnswers(ans) });
             setPhase("results");
           }}
         />

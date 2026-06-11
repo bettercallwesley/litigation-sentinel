@@ -5,10 +5,11 @@ import { useParams } from "next/navigation";
 import { SENTINEL, FONTS } from "@/components/design-system/tokens";
 import FadeIn from "@/components/design-system/FadeIn";
 import { SentinelFooter, SubscribeBlock } from "@/components/sentinel";
+import ExitIntentPopup from "@/components/sentinel/ExitIntentPopup";
 import { getArticleBySlug, ALL_ARTICLES, ArticleContentBlock } from "@/data/newsletter-articles";
 import ThemeToggle from "@/components/shared/ThemeToggle";
 
-function ArticleHeader({ title, subtitle, tag, section, readTime, author, date, readers }: {
+function ArticleHeader({ title, subtitle, tag, section, readTime, author, date }: {
   title: string;
   subtitle: string;
   tag: string;
@@ -16,7 +17,6 @@ function ArticleHeader({ title, subtitle, tag, section, readTime, author, date, 
   readTime: string;
   author?: string;
   date?: string;
-  readers?: number;
 }) {
   return (
     <FadeIn delay={100}>
@@ -90,7 +90,6 @@ function ArticleHeader({ title, subtitle, tag, section, readTime, author, date, 
           )}
           <span style={{ fontSize: 12, color: SENTINEL.inkMuted, fontFamily: FONTS.sans }}>
             {readTime}
-            {readers != null && readers > 0 && ` · ${readers.toLocaleString()} readers this week`}
           </span>
         </div>
       </div>
@@ -339,7 +338,6 @@ function ComingSoon({ article }: { article: ReturnType<typeof getArticleBySlug> 
           readTime={article.readTime}
           author={article.author}
           date={article.date}
-          readers={article.readers}
         />
 
         <FadeIn delay={300}>
@@ -401,7 +399,6 @@ export default function ArticlePageClient() {
           readTime={article.readTime}
           author={article.author}
           date={article.date}
-          readers={article.readers}
         />
 
         {/* Article body — inline SubscribeBlock injected at midpoint for subscriber capture */}
@@ -414,7 +411,7 @@ export default function ArticlePageClient() {
                 {blocks.slice(0, mid).map((block, i) => (
                   <ContentBlock key={`pre-${i}`} block={block} index={i} />
                 ))}
-                <SubscribeBlock delay={300} />
+                <SubscribeBlock delay={300} source="article-mid" />
                 {blocks.slice(mid).map((block, i) => (
                   <ContentBlock key={`post-${i}`} block={block} index={mid + i} />
                 ))}
@@ -438,7 +435,7 @@ export default function ArticlePageClient() {
               Want to see where your team stands?
             </h3>
             <p style={{ fontSize: 14, color: "rgba(255,255,255,0.7)", margin: "0 0 16px", fontFamily: FONTS.sans }}>
-              The Executive Briefing takes 2 minutes and shows you exactly where the gaps are.
+              The Executive Briefing takes 4 minutes. Six questions. It shows you exactly where the gaps are.
             </p>
             <a
               href="/briefing"
@@ -461,9 +458,10 @@ export default function ArticlePageClient() {
         </FadeIn>
 
         <RelatedArticles currentSlug={slug} />
-        <SubscribeBlock delay={500} />
+        <SubscribeBlock delay={500} source="article-end" />
         <SentinelFooter delay={550} />
       </div>
+      <ExitIntentPopup />
       <ThemeToggle />
     </div>
   );

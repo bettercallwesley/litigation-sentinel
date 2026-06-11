@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { COLORS, FONTS } from "@/components/design-system/tokens";
+import { getAttribution } from "@/lib/attribution";
 
 interface ScheduleModalProps {
   onClose: () => void;
@@ -39,7 +40,9 @@ export default function ScheduleModal({ onClose, answers, source }: ScheduleModa
           company: company || undefined,
           email,
           source: source || "schedule-modal",
+          gate_type: "schedule-modal",
           answers: answers || undefined,
+          attribution: getAttribution(),
         }),
       });
 

@@ -5,3 +5,5 @@ export { default as SubscribeBlock } from "./SubscribeBlock";
 export { default as SentinelFooter } from "./SentinelFooter";
 export { default as NuclearVerdictsHeatMap } from "./NuclearVerdictsHeatMap";
 export { default as NuclearVerdictStateDetail } from "./NuclearVerdictStateDetail";
+export { default as DemoRequest } from "./DemoRequest";
+export { default as DemoBridge } from "./DemoBridge";

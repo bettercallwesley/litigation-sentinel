@@ -3,6 +3,7 @@
 import React from "react";
 import { SENTINEL, FONTS } from "@/components/design-system/tokens";
 import FadeIn from "@/components/design-system/FadeIn";
+import { trackEvent } from "@/lib/track";
 
 interface SentinelFooterProps {
   delay?: number;
@@ -127,12 +128,22 @@ export default function SentinelFooter({ delay = 750 }: SentinelFooterProps) {
           </a>
           {" "}·{" "}
           <a
-            href="https://caseglide.com"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="/subscribe"
             style={{ color: SENTINEL.inkMuted, textDecoration: "underline" }}
           >
-            Request a Demo
+            Subscribe
+          </a>
+          {" "}·{" "}
+          <a
+            href="/demo"
+            onClick={() =>
+              trackEvent("demo_click", {
+                page: typeof window !== "undefined" ? window.location.pathname : "/",
+              })
+            }
+            style={{ color: SENTINEL.inkMuted, textDecoration: "underline" }}
+          >
+            Request an executive briefing
           </a>
         </div>
         <div
