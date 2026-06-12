@@ -578,7 +578,7 @@ export default function NuclearVerdictsPage() {
                 margin: "0 0 20px",
               }}
             >
-              Take the Executive Briefing. 4 minutes. Six questions. A free
+              Take the Executive Briefing. Six questions. A free
               maturity assessment for litigation leaders.
             </p>
             <a

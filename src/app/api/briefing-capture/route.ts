@@ -35,6 +35,118 @@ interface BeehiivCustomField {
 }
 
 /**
+ * Three-layer law-firm suppression, cloned from /api/demo-request (reconciled
+ * spec E1: suppression travels with every notify wire). Rule: ALL law firms,
+ * defense AND plaintiff AND BigLaw. Suppressed schedule requests get the same
+ * courteous success, never notify.
+ */
+const LAW_FIRM_TOKENS = ["law", "legal", "llp", "attorney", "attorneys", "injury", "firm"];
+
+const LAW_FIRM_DOMAINS = new Set([
+  // The 11 live-found Sentinel subscriber law-firm domains (2026-06-10 pull)
+  "fmglaw.com",
+  "roiglawyers.com",
+  "johndaylegal.com",
+  "jolissaintlaw.com",
+  "florinroebig.com",
+  "blackstonetrial.com",
+  "krcl.com",
+  "smithfreed.com",
+  "willkie.com",
+  "egenberg.com",
+  "richardsonthomas.com",
+  // Engaged-send filter lineage
+  "lbbslaw.com",
+  "hinshawlaw.com",
+  "mgmlaw.com",
+  // Derived from the defense-firm blocklist
+  "tysonmendes.com",
+  "lewisbrisbois.com",
+  "wilsonelser.com",
+  "grsm.com",
+  "marshalldennehey.com",
+  "mclane.com",
+  "wfbm.com",
+]);
+
+function domainOf(email: string): string {
+  return email.split("@")[1]?.toLowerCase().trim() || "";
+}
+
+function tokensMatch(value: string): boolean {
+  const lowered = value.toLowerCase();
+  return LAW_FIRM_TOKENS.some((t) => lowered.includes(t));
+}
+
+function classifySuppression(
+  email: string,
+  company: string
+): { suppressed: boolean; layer?: string; review: boolean } {
+  const domain = domainOf(email);
+  if (domain && tokensMatch(domain)) {
+    return { suppressed: true, layer: "token-heuristic", review: false };
+  }
+  if (LAW_FIRM_DOMAINS.has(domain)) {
+    return { suppressed: true, layer: "confirmed-overlay", review: false };
+  }
+  if (company && tokensMatch(company)) {
+    return { suppressed: false, review: true };
+  }
+  return { suppressed: false, review: false };
+}
+
+/** Best-effort Resend notify to Wes for schedule-a-briefing requests
+ * (gate_type=schedule-modal). Cloned from /api/demo-request. Never fails the
+ * submission; failures are loud-logged. Sender is the Resend sandbox. */
+async function notifyWes(payload: {
+  name?: string;
+  email: string;
+  company?: string;
+  title?: string;
+  maturityLevel: number | null;
+  topGaps?: string;
+}): Promise<void> {
+  const resendKey = process.env.RESEND_API_KEY;
+  if (!resendKey) {
+    console.error(
+      "[BRIEFING_NOTIFY_SKIPPED] RESEND_API_KEY not configured; schedule request rests in the log only"
+    );
+    return;
+  }
+  try {
+    const who = [payload.name, payload.title, payload.company].filter(Boolean).join(", ");
+    const lines = [
+      `Briefing schedule request from ${who || "an unnamed visitor"} (${payload.email}).`,
+      payload.maturityLevel !== null
+        ? `Assessment maturity level: ${payload.maturityLevel}/5.`
+        : "",
+      payload.topGaps ? `Top gaps: ${payload.topGaps}.` : "",
+    ].filter(Boolean);
+    const res = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${resendKey}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        from: "onboarding@resend.dev",
+        to: "wesley@caseglide.com",
+        subject: `Sentinel briefing request: ${payload.name || payload.email}${payload.company ? `, ${payload.company}` : ""}`,
+        text: lines.join("\n\n"),
+      }),
+    });
+    if (!res.ok) {
+      const errBody = await res.text().catch(() => "");
+      console.error(`[BRIEFING_NOTIFY_ERROR] status=${res.status} ${errBody}`);
+    } else {
+      console.log(`[BRIEFING_NOTIFY_OK] ${payload.email}`);
+    }
+  } catch (err) {
+    console.error("[BRIEFING_NOTIFY_ERROR]", err);
+  }
+}
+
+/**
  * Read-before-write: returns true when the subscriber already exists with
  * non-empty source fields, in which case source fields are omitted from the
  * POST (write-once first-touch). Returns false on 404 (new subscriber) or any
@@ -108,14 +220,29 @@ export async function POST(req: NextRequest) {
     const beehiivKey = process.env.BEEHIIV_API_KEY;
     const beehiivPub = process.env.BEEHIIV_PUBLICATION_ID;
 
-    if (beehiivKey && beehiivPub) {
+    // Loud-500 parity with /api/subscribe: missing env is a loud 500 in EVERY
+    // environment, production included. A silent success here drops the
+    // subscriber while the client unseals the gate, which is a fake gate with
+    // extra steps.
+    if (!beehiivKey || !beehiivPub) {
+      console.error(
+        "BEEHIIV_API_KEY or BEEHIIV_PUBLICATION_ID missing. Refusing silent subscriber drop."
+      );
+      return NextResponse.json(
+        { error: "Subscription service is not configured. Please try again later." },
+        { status: 500 }
+      );
+    }
+
+    const gateType =
+      typeof gate_type === "string" && gate_type
+        ? gate_type
+        : typeof source === "string" && source
+          ? source
+          : "briefing";
+
+    {
       const capturePage = "/briefing";
-      const gateType =
-        typeof gate_type === "string" && gate_type
-          ? gate_type
-          : typeof source === "string" && source
-            ? source
-            : "briefing";
 
       const skipSourceFields = await existingSourceFieldsPresent(beehiivKey, beehiivPub, email);
 
@@ -177,6 +304,30 @@ export async function POST(req: NextRequest) {
         console.error(`[BRIEFING_BEEHIIV_ERROR] status=${beehiivRes.status} email=${email}`, errBody);
       } else {
         console.log(`[BRIEFING_BEEHIIV_OK] email=${email}`);
+      }
+    }
+
+    // Schedule-a-briefing terminates on the Resend notify path (reconciled
+    // spec E1: ScheduleModal as sole terminal is forbidden). Suppression
+    // travels with the notify wire: law firms never reach Wes's inbox.
+    if (gateType === "schedule-modal") {
+      const suppression = classifySuppression(email, typeof company === "string" ? company : "");
+      if (suppression.suppressed) {
+        console.log(
+          `[BRIEFING_NOTIFY_SUPPRESSED] email=${email} layer=${suppression.layer}`
+        );
+      } else {
+        if (suppression.review) {
+          console.log(`[BRIEFING_NOTIFY_REVIEW] suppression_review=true email=${email}`);
+        }
+        await notifyWes({
+          name: typeof name === "string" ? name : undefined,
+          email,
+          company: typeof company === "string" ? company : undefined,
+          title: typeof title === "string" ? title : undefined,
+          maturityLevel,
+          topGaps: typeof logData.topGaps === "string" ? logData.topGaps : undefined,
+        });
       }
     }
 

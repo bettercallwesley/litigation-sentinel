@@ -435,7 +435,7 @@ export default function ArticlePageClient() {
               Want to see where your team stands?
             </h3>
             <p style={{ fontSize: 14, color: "rgba(255,255,255,0.7)", margin: "0 0 16px", fontFamily: FONTS.sans }}>
-              The Executive Briefing takes 4 minutes. Six questions. It shows you exactly where the gaps are.
+              The Executive Briefing is six questions. It shows you exactly where the gaps are.
             </p>
             <a
               href="/briefing"
