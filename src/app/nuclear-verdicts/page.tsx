@@ -1,10 +1,11 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, Suspense } from "react";
 import { SENTINEL, FONTS } from "@/components/design-system/tokens";
 import FadeIn from "@/components/design-system/FadeIn";
 import { SubscribeBlock } from "@/components/sentinel";
 import { SentinelFooter } from "@/components/sentinel";
+import { NuclearVerdictVignettes } from "@/components/sentinel";
 import NuclearVerdictsHeatMap from "@/components/sentinel/NuclearVerdictsHeatMap";
 import ThemeToggle from "@/components/shared/ThemeToggle";
 import { ISSUE } from "@/data/newsletter-articles";
@@ -386,6 +387,13 @@ export default function NuclearVerdictsPage() {
           }}
           subscribeStatus={status}
         />
+
+        {/* ─── E3 Atlas vignettes: sourced 2025 verdict panels + ?state= deep-link arrival ─── */}
+        <FadeIn delay={520}>
+          <Suspense fallback={null}>
+            <NuclearVerdictVignettes />
+          </Suspense>
+        </FadeIn>
 
         {/* ─── Subscribe Block (for non-subscribers) ─── */}
         {!isSubscribed && (
