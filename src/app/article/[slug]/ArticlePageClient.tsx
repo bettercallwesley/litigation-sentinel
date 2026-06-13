@@ -4,9 +4,10 @@ import React from "react";
 import { useParams } from "next/navigation";
 import { SENTINEL, FONTS } from "@/components/design-system/tokens";
 import FadeIn from "@/components/design-system/FadeIn";
-import { SentinelFooter, SubscribeBlock, BriefingBridge } from "@/components/sentinel";
+import { SentinelFooter, SubscribeBlock, BriefingBridge, VerdictTimeline } from "@/components/sentinel";
 import ExitIntentPopup from "@/components/sentinel/ExitIntentPopup";
 import { getArticleBySlug, ALL_ARTICLES, ArticleContentBlock } from "@/data/newsletter-articles";
+import { getVerdictTimeline } from "@/data/verdict-timelines";
 import ThemeToggle from "@/components/shared/ThemeToggle";
 
 // E1b/E2 pilot franchise articles: the only 3 surfaces that carry the
@@ -415,11 +416,15 @@ export default function ArticlePageClient() {
           {(() => {
             const blocks = article.content;
             const mid = Math.floor(blocks.length / 2);
+            const timeline = getVerdictTimeline(slug);
             return (
               <>
                 {blocks.slice(0, mid).map((block, i) => (
                   <ContentBlock key={`pre-${i}`} block={block} index={i} />
                 ))}
+                {/* E2 Living Case Files: verdict timeline mid-story on the 3
+                    pilot franchise articles, ahead of the mid SubscribeBlock. */}
+                {timeline && <VerdictTimeline data={timeline} />}
                 <SubscribeBlock delay={300} source="article-mid" />
                 {blocks.slice(mid).map((block, i) => (
                   <ContentBlock key={`post-${i}`} block={block} index={mid + i} />
