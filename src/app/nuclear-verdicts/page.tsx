@@ -427,6 +427,27 @@ export default function NuclearVerdictsPage() {
                     The full Nuclear Verdicts® Intelligence Map is now unlocked.
                     Check your inbox for a welcome email.
                   </p>
+                  {/* E1b post-unlock bridge: the reader just engaged the map;
+                      hand them their own file. ?src attributes briefing_start. */}
+                  <a
+                    href="/briefing?src=nuclear-verdicts"
+                    style={{
+                      display: "inline-block",
+                      marginTop: 18,
+                      paddingTop: 16,
+                      borderTop: `1px solid ${SENTINEL.border}`,
+                      fontSize: 13,
+                      fontFamily: FONTS.sans,
+                      color: SENTINEL.inkLight,
+                      textDecoration: "none",
+                      lineHeight: 1.6,
+                    }}
+                  >
+                    Now see where your own desk sits on this curve.{" "}
+                    <span style={{ fontWeight: 700, color: SENTINEL.sentinelAccent }}>
+                      Take the Executive Briefing →
+                    </span>
+                  </a>
                 </>
               ) : (
                 <>

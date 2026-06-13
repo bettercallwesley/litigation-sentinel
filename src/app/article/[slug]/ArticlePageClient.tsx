@@ -4,10 +4,19 @@ import React from "react";
 import { useParams } from "next/navigation";
 import { SENTINEL, FONTS } from "@/components/design-system/tokens";
 import FadeIn from "@/components/design-system/FadeIn";
-import { SentinelFooter, SubscribeBlock } from "@/components/sentinel";
+import { SentinelFooter, SubscribeBlock, BriefingBridge } from "@/components/sentinel";
 import ExitIntentPopup from "@/components/sentinel/ExitIntentPopup";
 import { getArticleBySlug, ALL_ARTICLES, ArticleContentBlock } from "@/data/newsletter-articles";
 import ThemeToggle from "@/components/shared/ThemeToggle";
+
+// E1b/E2 pilot franchise articles: the only 3 surfaces that carry the
+// per-article BriefingBridge (?src= attribution) and, later, the verdict
+// timeline. Scoped deliberately to preserve the per-lever counterfactual.
+const PILOT_SLUGS = new Set([
+  "morgan-morgan-mx2-harvard-pro-hac-denied",
+  "musk-verdict-savitt-calendar-gambit",
+  "carrier-rico-playbook-scoreboard",
+]);
 
 function ArticleHeader({ title, subtitle, tag, section, readTime, author, date }: {
   title: string;
@@ -420,41 +429,47 @@ export default function ArticlePageClient() {
           })()}
         </div>
 
-        {/* Briefing CTA */}
+        {/* Briefing CTA. Pilot franchise articles get the per-article
+            BriefingBridge (?src= attribution + case-file framing); every other
+            article keeps the generic card. */}
         <FadeIn delay={350}>
-          <div
-            style={{
-              margin: "32px 0",
-              padding: "28px 32px",
-              background: SENTINEL.sentinel,
-              borderRadius: 10,
-              textAlign: "center",
-            }}
-          >
-            <h3 style={{ fontSize: 18, fontFamily: FONTS.serif, color: "#FFFFFF", margin: "0 0 8px", fontWeight: 600 }}>
-              Want to see where your team stands?
-            </h3>
-            <p style={{ fontSize: 14, color: "rgba(255,255,255,0.7)", margin: "0 0 16px", fontFamily: FONTS.sans }}>
-              The Executive Briefing is six questions. It shows you exactly where the gaps are.
-            </p>
-            <a
-              href="/briefing"
+          {PILOT_SLUGS.has(slug) ? (
+            <BriefingBridge slug={slug} />
+          ) : (
+            <div
               style={{
-                display: "inline-block",
-                padding: "10px 28px",
-                background: SENTINEL.sentinelAccent,
-                color: "#FFFFFF",
-                fontSize: 13,
-                fontWeight: 600,
-                fontFamily: FONTS.sans,
-                borderRadius: 6,
-                textDecoration: "none",
-                letterSpacing: "0.02em",
+                margin: "32px 0",
+                padding: "28px 32px",
+                background: SENTINEL.sentinel,
+                borderRadius: 10,
+                textAlign: "center",
               }}
             >
-              Take the Executive Briefing →
-            </a>
-          </div>
+              <h3 style={{ fontSize: 18, fontFamily: FONTS.serif, color: "#FFFFFF", margin: "0 0 8px", fontWeight: 600 }}>
+                Want to see where your team stands?
+              </h3>
+              <p style={{ fontSize: 14, color: "rgba(255,255,255,0.7)", margin: "0 0 16px", fontFamily: FONTS.sans }}>
+                The Executive Briefing is six questions. It shows you exactly where the gaps are.
+              </p>
+              <a
+                href="/briefing"
+                style={{
+                  display: "inline-block",
+                  padding: "10px 28px",
+                  background: SENTINEL.sentinelAccent,
+                  color: "#FFFFFF",
+                  fontSize: 13,
+                  fontWeight: 600,
+                  fontFamily: FONTS.sans,
+                  borderRadius: 6,
+                  textDecoration: "none",
+                  letterSpacing: "0.02em",
+                }}
+              >
+                Take the Executive Briefing →
+              </a>
+            </div>
+          )}
         </FadeIn>
 
         <RelatedArticles currentSlug={slug} />
