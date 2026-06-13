@@ -1,10 +1,5 @@
-"use client";
-
 import React from "react";
-import { useSearchParams } from "next/navigation";
 import { SENTINEL, FONTS } from "@/components/design-system/tokens";
-
-const UTM_KEYS = ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term"];
 
 interface BriefingBridgeProps {
   slug: string;
@@ -17,16 +12,13 @@ interface BriefingBridgeProps {
  * nothing, by design, to avoid a double-fire at the article). Light editorial
  * theme: it lives inside the publication. Mounted only on the 3 pilot franchise
  * articles, preserving the per-lever counterfactual.
+ *
+ * Intentionally hook-free (no useSearchParams) so it renders into the article's
+ * static HTML: the conversion CTA is present on first paint and survives the
+ * prerender, and ?src=<slug> is the only attribution that matters here.
  */
 export default function BriefingBridge({ slug }: BriefingBridgeProps) {
-  const searchParams = useSearchParams();
-
-  const params = new URLSearchParams({ src: slug });
-  for (const key of UTM_KEYS) {
-    const value = searchParams?.get(key);
-    if (value) params.set(key, value);
-  }
-  const href = `/briefing?${params.toString()}`;
+  const href = `/briefing?src=${encodeURIComponent(slug)}`;
 
   return (
     <div
