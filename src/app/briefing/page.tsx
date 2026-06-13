@@ -1,20 +1,19 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { Suspense, useRef, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { COLORS, FONTS } from "@/components/design-system/tokens";
 import {
   LandingPage,
   AssessmentPage,
   ResultsPage,
-  BriefingDetailPage,
-  PostBriefingPage,
   ScheduleModal,
 } from "@/components/briefing";
 import ThemeToggle from "@/components/shared/ThemeToggle";
 import { trackEvent } from "@/lib/track";
 import { ASSESSMENT_QUESTIONS } from "@/data/assessment-questions";
 
-type Phase = "landing" | "assessment" | "results" | "briefing" | "post";
+type Phase = "landing" | "assessment" | "results";
 
 function maturityFromAnswers(answers: Record<string, number>): number {
   const scores = Object.values(answers);
@@ -23,11 +22,16 @@ function maturityFromAnswers(answers: Record<string, number>): number {
   return Math.min(5, Math.max(1, Math.round(avg)));
 }
 
-export default function BriefingRoute() {
+function BriefingFlow() {
+  // E1 wiring: ?src= names the surface that sent the reader here
+  // (article end-card, homepage hero, nuclear-verdicts panel, LinkedIn).
+  const searchParams = useSearchParams();
+  const src = searchParams.get("src") || "direct";
+
   const [phase, setPhase] = useState<Phase>("landing");
   const [answers, setAnswers] = useState<Record<string, number>>({});
   const [showSchedule, setShowSchedule] = useState(false);
-  const [capturedEmail, setCapturedEmail] = useState<string | null>(null);
+  const startedRef = useRef(false);
 
   return (
     <div
@@ -36,12 +40,18 @@ export default function BriefingRoute() {
         background: COLORS.midnight,
         color: COLORS.textPrimary,
         fontFamily: FONTS.sans,
+        position: "relative",
       }}
     >
       {phase === "landing" && (
         <LandingPage
           onStart={() => {
-            trackEvent("briefing_start");
+            // Fires once at assessment entry, with the surface prop
+            // (2-prop cap honored: src only).
+            if (!startedRef.current) {
+              startedRef.current = true;
+              trackEvent("briefing_start", { src });
+            }
             setPhase("assessment");
           }}
           onSchedule={() => setShowSchedule(true)}
@@ -51,7 +61,10 @@ export default function BriefingRoute() {
         <AssessmentPage
           onComplete={(ans) => {
             setAnswers(ans);
-            trackEvent("briefing_complete", { maturity: maturityFromAnswers(ans) });
+            trackEvent("briefing_complete", {
+              maturity: maturityFromAnswers(ans),
+              src,
+            });
             setPhase("results");
           }}
         />
@@ -59,20 +72,7 @@ export default function BriefingRoute() {
       {phase === "results" && (
         <ResultsPage
           answers={answers}
-          onContinue={() => setPhase("briefing")}
-          onEmailCaptured={(email) => setCapturedEmail(email)}
-        />
-      )}
-      {phase === "briefing" && (
-        <BriefingDetailPage
-          answers={answers}
-          onContinue={() => setPhase("post")}
-        />
-      )}
-      {phase === "post" && (
-        <PostBriefingPage
-          answers={answers}
-          capturedEmail={capturedEmail}
+          src={src}
           onSchedule={() => setShowSchedule(true)}
         />
       )}
@@ -87,5 +87,14 @@ export default function BriefingRoute() {
 
       <ThemeToggle />
     </div>
+  );
+}
+
+export default function BriefingRoute() {
+  // useSearchParams requires a Suspense boundary in Next 14.
+  return (
+    <Suspense fallback={null}>
+      <BriefingFlow />
+    </Suspense>
   );
 }

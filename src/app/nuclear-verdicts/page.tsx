@@ -1,10 +1,11 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, Suspense } from "react";
 import { SENTINEL, FONTS } from "@/components/design-system/tokens";
 import FadeIn from "@/components/design-system/FadeIn";
 import { SubscribeBlock } from "@/components/sentinel";
 import { SentinelFooter } from "@/components/sentinel";
+import { NuclearVerdictVignettes } from "@/components/sentinel";
 import NuclearVerdictsHeatMap from "@/components/sentinel/NuclearVerdictsHeatMap";
 import ThemeToggle from "@/components/shared/ThemeToggle";
 import { ISSUE } from "@/data/newsletter-articles";
@@ -387,6 +388,13 @@ export default function NuclearVerdictsPage() {
           subscribeStatus={status}
         />
 
+        {/* ─── E3 Atlas vignettes: sourced 2025 verdict panels + ?state= deep-link arrival ─── */}
+        <FadeIn delay={520}>
+          <Suspense fallback={null}>
+            <NuclearVerdictVignettes />
+          </Suspense>
+        </FadeIn>
+
         {/* ─── Subscribe Block (for non-subscribers) ─── */}
         {!isSubscribed && (
           <FadeIn delay={600}>
@@ -427,6 +435,27 @@ export default function NuclearVerdictsPage() {
                     The full Nuclear Verdicts® Intelligence Map is now unlocked.
                     Check your inbox for a welcome email.
                   </p>
+                  {/* E1b post-unlock bridge: the reader just engaged the map;
+                      hand them their own file. ?src attributes briefing_start. */}
+                  <a
+                    href="/briefing?src=nuclear-verdicts"
+                    style={{
+                      display: "inline-block",
+                      marginTop: 18,
+                      paddingTop: 16,
+                      borderTop: `1px solid ${SENTINEL.border}`,
+                      fontSize: 13,
+                      fontFamily: FONTS.sans,
+                      color: SENTINEL.inkLight,
+                      textDecoration: "none",
+                      lineHeight: 1.6,
+                    }}
+                  >
+                    Now see where your own desk sits on this curve.{" "}
+                    <span style={{ fontWeight: 700, color: SENTINEL.sentinelAccent }}>
+                      Take the Executive Briefing →
+                    </span>
+                  </a>
                 </>
               ) : (
                 <>
@@ -578,7 +607,7 @@ export default function NuclearVerdictsPage() {
                 margin: "0 0 20px",
               }}
             >
-              Take the Executive Briefing. 4 minutes. Six questions. A free
+              Take the Executive Briefing. Six questions. A free
               maturity assessment for litigation leaders.
             </p>
             <a
