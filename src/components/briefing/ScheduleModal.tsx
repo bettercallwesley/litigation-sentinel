@@ -126,7 +126,7 @@ export default function ScheduleModal({ onClose, answers, source }: ScheduleModa
                 fontFamily: FONTS.sans,
               }}
             >
-              We&apos;ll reach out within 24 hours to schedule your briefing.
+              Your request is on Wes&apos;s desk. He replies personally to set the time.
             </p>
             <button
               onClick={onClose}

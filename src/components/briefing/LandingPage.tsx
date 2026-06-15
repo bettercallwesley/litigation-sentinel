@@ -101,8 +101,7 @@ export default function LandingPage({ onStart, onSchedule }: LandingPageProps) {
             }}
           >
             A confidential, 6-question assessment of how your legal department gathers, views,
-            and acts on litigation data — followed by a personalized briefing on what&apos;s
-            possible.
+            and acts on litigation data, scored against the national nuclear-verdict curve.
           </p>
 
           <div
@@ -131,7 +130,7 @@ export default function LandingPage({ onStart, onSchedule }: LandingPageProps) {
               flexWrap: "wrap",
             }}
           >
-            {["6 questions · 4 min", "Personalized insights", "Confidential"].map((t, i) => (
+            {["6 questions", "Personalized insights", "Confidential"].map((t, i) => (
               <div
                 key={i}
                 style={{

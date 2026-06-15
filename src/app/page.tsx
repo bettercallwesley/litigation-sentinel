@@ -53,6 +53,44 @@ export default function Home() {
           ))}
         </div>
 
+        {/* Hero secondary CTA — above the fold, secondary to the featured
+            story. Carries ?src=homepage-hero so briefing_start attributes it. */}
+        <FadeIn delay={80}>
+          <a
+            href="/briefing?src=homepage-hero"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              flexWrap: "wrap",
+              gap: 10,
+              padding: "12px 20px",
+              margin: "14px 0 0",
+              textDecoration: "none",
+              borderBottom: `1px solid ${SENTINEL.border}`,
+            }}
+          >
+            <span
+              style={{
+                fontSize: 10,
+                fontWeight: 700,
+                letterSpacing: "0.14em",
+                textTransform: "uppercase",
+                color: SENTINEL.sentinelAccent,
+                fontFamily: FONTS.mono,
+              }}
+            >
+              Executive Briefing
+            </span>
+            <span style={{ fontSize: 13, color: SENTINEL.inkLight, fontFamily: FONTS.sans }}>
+              Six questions, scored against the national nuclear-verdict curve.
+            </span>
+            <span style={{ fontSize: 13, fontWeight: 600, color: SENTINEL.sentinel, fontFamily: FONTS.sans }}>
+              Take the briefing →
+            </span>
+          </a>
+        </FadeIn>
+
         {/* Featured Article */}
         <FadeIn delay={100}>
           <a

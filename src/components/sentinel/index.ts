@@ -7,3 +7,6 @@ export { default as NuclearVerdictsHeatMap } from "./NuclearVerdictsHeatMap";
 export { default as NuclearVerdictStateDetail } from "./NuclearVerdictStateDetail";
 export { default as DemoRequest } from "./DemoRequest";
 export { default as DemoBridge } from "./DemoBridge";
+export { default as BriefingBridge } from "./BriefingBridge";
+export { default as VerdictTimeline } from "./VerdictTimeline";
+export { default as NuclearVerdictVignettes } from "./NuclearVerdictVignettes";

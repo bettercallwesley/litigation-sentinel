@@ -80,7 +80,7 @@ export default function BriefingCTA({ delay = 400 }: BriefingCTAProps) {
               maxWidth: 480,
             }}
           >
-            Take the 4-minute Litigation Intelligence Readiness Assessment. Six questions.
+            Take the Litigation Intelligence Readiness Assessment. Six questions.
             Personalized results. A confidential look at what&apos;s possible.
           </p>
           <div

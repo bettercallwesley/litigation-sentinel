@@ -420,7 +420,7 @@ export const SC_AI_HALLUCINATION_ARTICLE: NewsletterArticle = {
     { type: "heading", text: "The Brief" },
     {
       type: "paragraph",
-      text: "If you want to know specifically where your portfolio has visibility and where it does not — measured against the patterns these AI failures expose and the panel-firm question raised here — the Litigation Sentinel Executive Briefing is a six-question diagnostic built for exactly that. About four minutes. Produces a specific readout, not a generic one.",
+      text: "If you want to know specifically where your portfolio has visibility and where it does not — measured against the patterns these AI failures expose and the panel-firm question raised here — the Litigation Sentinel Executive Briefing is a six-question diagnostic built for exactly that. Produces a specific readout, not a generic one.",
     },
     {
       type: "paragraph",
@@ -1075,7 +1075,7 @@ export const ARTICLES: NewsletterArticle[] = [
       { type: "paragraph", text: "Third, issue an outside counsel guideline amendment that requires Enterprise-tier or panel-firm-issued ZDR attestation for any AI used on your matters. The language can be one paragraph. The attestation requirement, not the punitive enforcement, is the operative move. Asking the question on the record changes what the firm-side workflow has to look like." },
       { type: "paragraph", text: "The Rakoff opinion will be the cited authority in the first wave of privilege motions on AI-generated work product, and the cite will be in a discovery dispute on a matter the GC is already managing. The three moves above take a quarter to run. The discovery motion that forces them does not give the GC a quarter to respond." },
       { type: "heading", text: "The Brief" },
-      { type: "paragraph", text: "If you want a specific readout on where your portfolio sits against the AI-privilege exposure this ruling opens up, the Litigation Sentinel Executive Briefing is a six-question diagnostic built for that purpose. About four minutes. Produces a specific readout, not a generic one." },
+      { type: "paragraph", text: "If you want a specific readout on where your portfolio sits against the AI-privilege exposure this ruling opens up, the Litigation Sentinel Executive Briefing is a six-question diagnostic built for that purpose. Produces a specific readout, not a generic one." },
       { type: "paragraph", text: "litigationsentinel.com/briefing" },
     ],
   },
@@ -2873,7 +2873,7 @@ export const CARRIER_RICO_ARTICLE: NewsletterArticle = {
     },
     {
       type: "paragraph",
-      text: "If you want to know where your own portfolio has blind spots — not in the abstract, but mapped specifically against what these kinds of patterns look like in practice — the Executive Briefing is a six-question diagnostic built for exactly that. It takes about four minutes and produces a specific readout of where your program has visibility and where it does not.",
+      text: "If you want to know where your own portfolio has blind spots — not in the abstract, but mapped specifically against what these kinds of patterns look like in practice — the Executive Briefing is a six-question diagnostic built for exactly that. It produces a specific readout of where your program has visibility and where it does not.",
     },
     {
       type: "paragraph",
