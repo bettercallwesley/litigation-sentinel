@@ -8,7 +8,11 @@ import { SentinelFooter } from "@/components/sentinel";
 import NuclearVerdictsHeatMap from "@/components/sentinel/NuclearVerdictsHeatMap";
 import ThemeToggle from "@/components/shared/ThemeToggle";
 import { ISSUE } from "@/data/newsletter-articles";
-import { ENGAGEMENT_STATS } from "@/data/engagement-stats";
+import ExitIntentPopup from "@/components/sentinel/ExitIntentPopup";
+import { getAttribution } from "@/lib/attribution";
+import { trackEvent } from "@/lib/track";
+
+const PAGE_PATH = "/nuclear-verdicts";
 
 export default function NuclearVerdictsPage() {
   const [isSubscribed, setIsSubscribed] = useState(() => {
@@ -34,15 +38,30 @@ export default function NuclearVerdictsPage() {
   const briefingCtaRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    function fireEvent(event: string, data?: Record<string, unknown>) {
-      const key = data ? `${event}:${JSON.stringify(data)}` : event;
+    function fireOnce(key: string, send: () => void) {
       if (firedEvents.current.has(key)) return;
       firedEvents.current.add(key);
-      fetch("/api/track-event", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ event, sessionId, data: { sessionId, ...data } }),
-      }).catch(() => {});
+      send();
+    }
+
+    // Sink-only events outside the Vercel taxonomy keep the raw POST.
+    function fireEvent(event: string, data?: Record<string, unknown>) {
+      const key = data ? `${event}:${JSON.stringify(data)}` : event;
+      fireOnce(key, () => {
+        fetch("/api/track-event", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ event, sessionId, data: { sessionId, ...data } }),
+        }).catch(() => {});
+      });
+    }
+
+    // Taxonomy events dual-write via the shared helper (max 2 props to Vercel;
+    // sessionId rides in the sink payload only).
+    function fireGateView(gateType: string) {
+      fireOnce(`gate_view:${gateType}`, () =>
+        trackEvent("gate_view", { page: PAGE_PATH, gate_type: gateType }, { sessionId })
+      );
     }
 
     // IntersectionObserver for CTA visibility
@@ -51,9 +70,9 @@ export default function NuclearVerdictsPage() {
         entries.forEach((entry) => {
           if (!entry.isIntersecting) return;
           const el = entry.target;
-          if (el === subscribeBarRef.current) fireEvent("above-fold-subscribe-visible");
-          if (el === gateCtaRef.current) fireEvent("gate-cta-visible");
-          if (el === briefingCtaRef.current) fireEvent("briefing-cta-visible");
+          if (el === subscribeBarRef.current) fireGateView("above-fold-bar");
+          if (el === gateCtaRef.current) fireGateView("heatmap-gate");
+          if (el === briefingCtaRef.current) fireGateView("briefing-cta");
         });
       },
       { threshold: 0.5 }
@@ -95,7 +114,12 @@ export default function NuclearVerdictsPage() {
       const res = await fetch("/api/subscribe", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({
+          email,
+          source: "nuclear-verdicts-gate",
+          slug: PAGE_PATH,
+          attribution: getAttribution(),
+        }),
       });
 
       const data = await res.json();
@@ -110,12 +134,12 @@ export default function NuclearVerdictsPage() {
       setIsSubscribed(true);
       localStorage.setItem("ls_subscribed", "1");
 
-      // Fire-and-forget: notify via track-event
-      fetch("/api/track-event", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ event: "heatmap-subscribe", data: { email } }),
-      }).catch(() => {});
+      trackEvent(
+        "subscribe_submit",
+        { page: PAGE_PATH, gate_type: "nuclear-verdicts-gate" },
+        { email, sessionId }
+      );
+      trackEvent("gate_unlock", { page: PAGE_PATH }, { sessionId });
     } catch {
       setStatus("error");
       setErrorMsg("Something went wrong. Please try again.");
@@ -333,7 +357,12 @@ export default function NuclearVerdictsPage() {
               const res = await fetch("/api/subscribe", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ email: subscriberEmail }),
+                body: JSON.stringify({
+                  email: subscriberEmail,
+                  source: "heatmap-gate",
+                  slug: PAGE_PATH,
+                  attribution: getAttribution(),
+                }),
               });
               const data = await res.json();
               if (!res.ok) {
@@ -344,11 +373,12 @@ export default function NuclearVerdictsPage() {
               setStatus("success");
               setIsSubscribed(true);
               localStorage.setItem("ls_subscribed", "1");
-              fetch("/api/track-event", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ event: "heatmap-subscribe", data: { email: subscriberEmail } }),
-              }).catch(() => {});
+              trackEvent(
+                "subscribe_submit",
+                { page: PAGE_PATH, gate_type: "heatmap-gate" },
+                { email: subscriberEmail, sessionId }
+              );
+              trackEvent("gate_unlock", { page: PAGE_PATH }, { sessionId });
             } catch {
               setStatus("error");
               setErrorMsg("Something went wrong. Please try again.");
@@ -434,7 +464,7 @@ export default function NuclearVerdictsPage() {
                     }}
                   >
                     Get the full interactive Nuclear Verdicts® Heat Map with detailed state analytics,
-                    trend data, and Judicial Hellhole® overlays — plus weekly litigation intelligence.
+                    trend data, and Judicial Hellhole® overlays, plus litigation intelligence in your inbox.
                   </p>
                   <p
                     style={{
@@ -444,7 +474,7 @@ export default function NuclearVerdictsPage() {
                       margin: "0 0 16px",
                     }}
                   >
-                    Join {ENGAGEMENT_STATS.subscriberCount.toLocaleString()} litigation leaders.
+                    Read by litigation leaders at F500 legal departments and national carriers.
                   </p>
                   <form
                     onSubmit={handleSubscribe}
@@ -548,8 +578,8 @@ export default function NuclearVerdictsPage() {
                 margin: "0 0 20px",
               }}
             >
-              Take the 5-minute Executive Briefing — free maturity assessment
-              for litigation leaders
+              Take the Executive Briefing. 4 minutes. Six questions. A free
+              maturity assessment for litigation leaders.
             </p>
             <a
               href="/briefing"
@@ -577,6 +607,7 @@ export default function NuclearVerdictsPage() {
         <SentinelFooter delay={850} />
       </div>
 
+      <ExitIntentPopup />
       <ThemeToggle />
     </div>
   );

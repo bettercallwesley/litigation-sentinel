@@ -126,7 +126,6 @@ export default function Home() {
             <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
               <span style={{ fontSize: 11, color: SENTINEL.inkMuted }}>
                 {FEATURED_ARTICLE.readTime}
-                {FEATURED_ARTICLE.readers != null && ` · ${FEATURED_ARTICLE.readers.toLocaleString()} readers this week`}
               </span>
               <span
                 style={{

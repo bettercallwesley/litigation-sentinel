@@ -18,11 +18,9 @@ export interface NewsletterArticle {
   trending?: boolean;
 }
 
-export const ISSUE = {
-  number: 12,
-  date: "March 6, 2026",
-  headline: "The Litigation Intelligence Era Is Here",
-};
+// ISSUE is exported at the bottom of this file: its date is DERIVED from the
+// newest article record (B7, WES-PROXY-5: computation over reminder), with a
+// build-failing staleness assertion on the issue-number bump record.
 
 export const FEATURED_ARTICLE: NewsletterArticle = {
   slug: "judge-fires-both-sides-ai",
@@ -34,7 +32,6 @@ export const FEATURED_ARTICLE: NewsletterArticle = {
   readTime: "4 min read",
   author: "Wesley Todd",
   date: "June 13, 2026",
-  readers: 2210,
   trending: true,
   content: [
     { type: "paragraph", text: "On June 8, 2026, Senior U.S. District Judge Sharion Aycock looked at the briefs filed on both sides of her courtroom and called one lawyer's conduct \"a prime example of the risk associated with serving as a rubberstamp when acting as local counsel.\" Then she did something no federal judge had done before. She [removed every attorney from the case](https://www.abajournal.com/news/article/federal-judge-terminates-4-plaintiff-and-defense-attorneys-over-ai-errors). Plaintiff and defense. All four." },
@@ -64,7 +61,6 @@ export const LITIGATION_MANAGEMENT_DEAD_ARTICLE: NewsletterArticle = {
   readTime: "8 min read",
   author: "Wes Todd",
   date: "February 12, 2026",
-  readers: 2847,
   trending: true,
   content: [
     // --- Section 1: The Era of Tracking Spend and Hoping for the Best Is Over ---
@@ -309,7 +305,6 @@ export const SC_AI_HALLUCINATION_ARTICLE: NewsletterArticle = {
   readTime: "7 min read",
   author: "Wes Todd",
   date: "April 25, 2026",
-  readers: 0,
   trending: true,
   content: [
     { type: "heading", text: "What Happened: A Letter From a Top-Five Firm to a Federal Judge" },
@@ -445,7 +440,6 @@ export const ARTICLES: NewsletterArticle[] = [
     readTime: "4 min read",
     author: "Wesley Todd",
     date: "June 13, 2026",
-    readers: 2210,
     trending: true,
     content: [
       { type: "paragraph", text: "On June 8, 2026, Senior U.S. District Judge Sharion Aycock looked at the briefs filed on both sides of her courtroom and called one lawyer's conduct \"a prime example of the risk associated with serving as a rubberstamp when acting as local counsel.\" Then she did something no federal judge had done before. She [removed every attorney from the case](https://www.abajournal.com/news/article/federal-judge-terminates-4-plaintiff-and-defense-attorneys-over-ai-errors). Plaintiff and defense. All four." },
@@ -475,7 +469,6 @@ export const ARTICLES: NewsletterArticle[] = [
     readTime: "4 min read",
     author: "Wesley Todd",
     date: "June 13, 2026",
-    readers: 1873,
     trending: false,
     content: [
       { type: "paragraph", text: "On June 3, 2026, a Van Nuys jury handed Brian Panish a [$176 million verdict](https://www.mpacorn.com/articles/jury-tags-grossman-erickson-with-additional-22-17m-in-punitive-damages/) against Rebecca Grossman and Scott Erickson. The number was already a record. Then the trial did not end." },
@@ -502,7 +495,6 @@ export const ARTICLES: NewsletterArticle[] = [
     readTime: "5 min read",
     author: "Wesley Todd",
     date: "June 13, 2026",
-    readers: 1622,
     trending: false,
     content: [
       { type: "paragraph", text: "In Hendersonville, on a workday in 2021, a concrete block retaining wall at a plumbing supply business on Spartanburg Highway came down on three men. One died where he stood. Two more were crushed and lived. Five years later, on May 19, 2026, a Henderson County jury put a number on what that wall did, and lawyer John McCabe walked out with [$101 million](https://nclawyersweekly.com/2026/05/27/jury-returns-record-award-in-tragic-retaining-wall-failure-case/) in compensatory damages." },
@@ -530,7 +522,6 @@ export const ARTICLES: NewsletterArticle[] = [
     readTime: "4 min read",
     author: "Wesley Todd",
     date: "June 13, 2026",
-    readers: 1758,
     trending: false,
     content: [
       { type: "paragraph", text: "On June 10, 2026, Florida's Fourth District Court of Appeal handed AmGUARD Insurance Company a loss it had already paid for. AmGUARD wrote the check on the underlying $31,330 verdict. It argued that the check closed the matter. The Fourth District said the check closed nothing. The bad-faith suit AmGUARD thought it had bought its way out of is alive again, and the carrier's own defense theory is what put it there." },
@@ -555,7 +546,6 @@ export const ARTICLES: NewsletterArticle[] = [
     readTime: "5 min read",
     author: "Wesley Todd",
     date: "June 13, 2026",
-    readers: 2041,
     trending: false,
     content: [
       { type: "paragraph", text: "On December 19, 2023, an email landed in the inbox of a Texas builder. It looked like the steel vendor. It asked for payment on two open invoices. The next day Perry & Perry Builders wired the money. First $601,866.25. Then $272,997.45. The two transfers went out less than one minute apart. Both went to fraudsters." },
@@ -583,7 +573,6 @@ export const ARTICLES: NewsletterArticle[] = [
     readTime: "5 min read",
     author: "Wesley Todd",
     date: "June 5, 2026",
-    readers: 2213,
     trending: true,
     content: [
       { type: "paragraph", text: "A personal-injury claimant testified, the complaint says, that he was hurt badly enough he could not dress himself without help. Greater New York Mutual Insurance Company says it then produced a photo of the same man at a bar, and that when asked about it he confirmed he was out celebrating a soccer tournament his team had won. On January 27, 2026, the carrier dropped that photo into a federal racketeering complaint in Brooklyn. The image, Greater New York Mutual alleges, captures eleven people it says are responsible for twelve injury lawsuits, in a single frame." },
@@ -610,7 +599,6 @@ export const ARTICLES: NewsletterArticle[] = [
     readTime: "5 min read",
     author: "Wesley Todd",
     date: "June 5, 2026",
-    readers: 1874,
     trending: false,
     content: [
       { type: "paragraph", text: "On June 3, 2026, three judges of the Ninth Circuit put quotation marks around a case name to make a point. \"Eduardo v. Garland, 28 F.4th 742 (9th Cir. 2022),\" the panel wrote, was a case that \"do not exist and never existed.\" So was \"Lay v. Holder, 729 F.3d 962 (9th Cir. 2013).\" Both had been cited to the court in a brief signed by a member of its bar. \"We add quotation marks to the names of fabricated cases,\" the [order](https://cdn.ca9.uscourts.gov/datastore/opinions/2026/06/03/24-4790.pdf) reads, \"to distinguish them from real cases.\"" },
@@ -634,7 +622,6 @@ export const ARTICLES: NewsletterArticle[] = [
     readTime: "5 min read",
     author: "Wesley Todd",
     date: "June 5, 2026",
-    readers: 1955,
     trending: false,
     content: [
       { type: "paragraph", text: "On February 5, 2026, in Chicago, Circuit Judge Nancy L. Maldonado wrote a separate concurrence to say out loud what the majority opinion had left between the lines. \"Having turned the courtroom into a trading floor, and calculated that continued litigation was more profitable than settlement, Burford wrested total control over the settlement of Sysco's claims.\" She was describing a litigation funder that had sunk more than $140 million into a price-fixing fight and then refused to let the company it bankrolled walk away with $50 million." },
@@ -657,7 +644,6 @@ export const ARTICLES: NewsletterArticle[] = [
     readTime: "5 min read",
     author: "Wesley Todd",
     date: "June 5, 2026",
-    readers: 1689,
     trending: false,
     content: [
       { type: "paragraph", text: "On June 17, 2026, a New York lawsuit lender like Oasis Financial that breaks the new rules does not pay a fine and move on. It eats the loan: a willful violator [waives its right to recover both the funded amount and any and all charges](https://www.nysenate.gov/legislation/bills/2025/S1104), the statute's plain way of saying the funder forfeits its entire stake, principal included. The funded amount, the interest, every charge stacked on top, gone. That is the day the math changes on a roughly $20-billion asset class." },
@@ -680,7 +666,6 @@ export const ARTICLES: NewsletterArticle[] = [
     readTime: "5 min read",
     author: "Wesley Todd",
     date: "June 5, 2026",
-    readers: 2087,
     trending: false,
     content: [
       { type: "paragraph", text: "On April 25, 2019, George McGee dropped his phone at roughly 62 miles an hour on Card Sound Road, a two-lane stretch outside Key Largo, and bent to retrieve it. His 2019 Tesla Model S, Autopilot engaged, kept going. The crash that followed would end in a $243 million judgment against Tesla that a federal judge refused to touch. The car blew through a stop sign and a flashing red light and slammed into the back of a parked Chevrolet Tahoe. Naibel Benavides Leon, 22, was standing beside that SUV on the shoulder. She was killed. Dillon Angulo, standing with her, took a traumatic brain injury he is still living with. The date was April 25, 2019." },
@@ -704,7 +689,6 @@ export const ARTICLES: NewsletterArticle[] = [
     readTime: "5 min read",
     author: "Wesley Todd",
     date: "June 1, 2026",
-    readers: 2317,
     trending: true,
     content: [
       { type: "paragraph", text: "On February 23, 2026, Judge Sam A. Lindsay of the [Northern District of Texas](https://www.txnd.uscourts.gov/) ruled that the [ransomware endorsement HSB Specialty wrote into CiCi Enterprises' cyber policy](https://www.insurancebusinessmag.com/us/news/cyber/court-blocks-hsbs-ransomware-sublimit-in-firstofitskind-cyber-ruling-567006.aspx) \"contains no explicit language subjecting Insuring Agreement D. Cyber Extortion to the sub-limit.\" If the carrier \"intended for the Ransomware Endorsement to modify 'Cyber Extortion' coverage,\" Lindsay wrote, \"[it] should have included language in the endorsement to that effect.\" That holding gutted the only number HSB had been fighting to enforce." },
@@ -737,7 +721,6 @@ export const ARTICLES: NewsletterArticle[] = [
     readTime: "5 min read",
     author: "Wesley Todd",
     date: "June 1, 2026",
-    readers: 1847,
     trending: true,
     content: [
       { type: "paragraph", text: "On March 3, 2026, the North Carolina Business Court told Watts Guerra LLC that its bad-faith case against its own insurance company could go to trial. \"Even when an insurer does not breach the insurance contract because it ultimately indemnifies its insured,\" Judge Adam Conrad wrote, [\"it can be liable in tort for engaging in bad faith during the claims handling process.\"](https://storage.courtlistener.com/pdf/2026/03/03/watts_guerra_llc_v._series_1_of_oxford_ins._co._nc_llc.pdf) The line reads like boilerplate. It is not. The insured suing for bad faith was a plaintiffs' firm. The carrier it was suing was a captive the firm had stood up to insure its own lawsuits. And the lawyer running the offense was Bill Carmody of Susman Godfrey." },
@@ -763,7 +746,6 @@ export const ARTICLES: NewsletterArticle[] = [
     readTime: "5 min read",
     author: "Wesley Todd",
     date: "June 1, 2026",
-    readers: 1622,
     trending: false,
     content: [
       { type: "paragraph", text: "In a Medford, Oregon courtroom this spring, U.S. Magistrate Judge Mark D. Clarke wrote that the case in front of him was [\"a notorious outlier in both degree and volume.\"](https://www.abajournal.com/news/article/oregon-federal-judge-hands-down-110000-penalty-for-ai-errors) Then he handed down the largest AI-hallucination sanction in the history of American courts. The number was $110,000. The dismissed claim behind it was worth $12 million." },
@@ -791,7 +773,6 @@ export const ARTICLES: NewsletterArticle[] = [
     readTime: "5 min read",
     author: "Wesley Todd",
     date: "June 1, 2026",
-    readers: 2038,
     trending: true,
     content: [
       { type: "paragraph", text: "Steffan Robert Mick was pronounced dead at 6:58 p.m. on a January 2025 evening, twenty-two minutes after a 42-foot trailer crossed his lane on a farm-to-market road near Midland, Texas. \"The evidence showed that this crash was not the result of one isolated mistake,\" Rob Ammons told the jury in [Ector County](https://texaslawbook.net/trucking-co-hit-with-49m-jury-verdict-in-west-texas/). \"OPG Logistics had no real safety program, no driver training infrastructure and no meaningful system for making sure its drivers followed mandatory hours-of-service rules.\"" },
@@ -825,7 +806,6 @@ export const ARTICLES: NewsletterArticle[] = [
     readTime: "5 min read",
     author: "Wesley Todd",
     date: "June 1, 2026",
-    readers: 1934,
     trending: false,
     content: [
       { type: "paragraph", text: "On May 13, 2026, U.S. District Judge Mark Kearney sat in Philadelphia and refused to throw out Uber's racketeering case against the plaintiffs' firm [Simon & Simon, P.C.](https://www.insurancejournal.com/news/east/2026/05/13/869609.htm), writing that \"Uber's pleaded facts viewed in their totality support a reasonable inference the lawyers and doctors acted with fraudulent intent, or at minimum reckless disregard for the truth, in using the mails and interstate wires to transmit false or misleading medical documents in furtherance of the alleged scheme.\" That sentence does more than keep a complaint alive. It hands Uber a key to the firm's filing cabinets." },
@@ -852,7 +832,6 @@ export const ARTICLES: NewsletterArticle[] = [
     readTime: "11 min read",
     author: "Wesley Todd",
     date: "May 19, 2026",
-    readers: 1284,
     trending: true,
     content: [
       { type: "paragraph", text: "William Savitt opened the defense on April 27 with two clauses. The advisory jury answered question one Monday in 1 hour 53 minutes." },
@@ -914,7 +893,6 @@ export const ARTICLES: NewsletterArticle[] = [
     readTime: "13 min read",
     author: "Wesley Todd",
     date: "May 19, 2026",
-    readers: 2143,
     trending: true,
     content: [
       { type: "heading", text: "Kavanaugh's six sentences and a 72 billion dollar industry that did not see them coming" },
@@ -977,7 +955,6 @@ export const ARTICLES: NewsletterArticle[] = [
     readTime: "8 min read",
     author: "Wes Todd",
     date: "May 15, 2026",
-    readers: 3284,
     trending: true,
     content: [
       { type: "heading", text: "The bench reprimand and the one-sentence directed-verdict pre-commitment" },
@@ -1025,7 +1002,6 @@ export const ARTICLES: NewsletterArticle[] = [
     readTime: "9 min read",
     author: "Wes Todd",
     date: "May 15, 2026",
-    readers: 2614,
     trending: true,
     content: [
       { type: "heading", text: "What Was Announced and What Was Not" },
@@ -1078,7 +1054,6 @@ export const ARTICLES: NewsletterArticle[] = [
     readTime: "7 min read",
     author: "Wes Todd",
     date: "May 15, 2026",
-    readers: 1847,
     trending: false,
     content: [
       { type: "heading", text: "What Rakoff Held" },
@@ -1112,7 +1087,6 @@ export const ARTICLES: NewsletterArticle[] = [
     readTime: "8 min read",
     author: "Wes Todd",
     date: "May 15, 2026",
-    readers: 2147,
     trending: true,
     content: [
       { type: "heading", text: "What Happened: Four Firms, One Attorney, Thirty Defendants" },
@@ -1158,7 +1132,6 @@ export const ARTICLES: NewsletterArticle[] = [
     readTime: "7 min read",
     author: "Wes Todd",
     date: "May 15, 2026",
-    readers: 2381,
     trending: true,
     content: [
       { type: "heading", text: "The 9-0 That Trucking Trade Press Will Frame Too Narrowly" },
@@ -1197,7 +1170,6 @@ export const ARTICLES: NewsletterArticle[] = [
     readTime: "9 min read",
     author: "Wes Todd",
     date: "May 15, 2026",
-    readers: 1893,
     trending: false,
     content: [
       { type: "heading", text: "The Scoreboard, as of This Week" },
@@ -1245,7 +1217,6 @@ export const ARTICLES: NewsletterArticle[] = [
     readTime: "9 min read",
     author: "Wes Todd",
     date: "May 6, 2026",
-    readers: 3247,
     trending: true,
     content: [
       { type: "heading", text: "Greg Brockman's journal is now the case" },
@@ -1379,7 +1350,6 @@ export const ARTICLES: NewsletterArticle[] = [
     readTime: "8 min read",
     author: "Wes Todd",
     date: "May 1, 2026",
-    readers: 1428,
     trending: true,
     content: [
       { type: "heading", text: "Musk Stepped Down. Then the Judge Drew a Line." },
@@ -1516,7 +1486,6 @@ export const ARTICLES: NewsletterArticle[] = [
     readTime: "8 min read",
     author: "Wes Todd",
     date: "April 30, 2026",
-    readers: 1847,
     trending: true,
     content: [
       { type: "heading", text: "The Cross That Will Travel" },
@@ -1630,7 +1599,6 @@ export const ARTICLES: NewsletterArticle[] = [
     readTime: "10 min read",
     author: "Wes Todd",
     date: "April 29, 2026",
-    readers: 3478,
     trending: true,
     content: [
       { type: "heading", text: "The Founder Who Showed Up" },
@@ -1815,7 +1783,6 @@ export const ARTICLES: NewsletterArticle[] = [
     readTime: "10 min read",
     author: "Wes Todd",
     date: "April 3, 2026",
-    readers: 783,
     trending: false,
     content: [
       // --- Section 1: The Three Questions Boards Cannot Answer ---
@@ -2069,7 +2036,6 @@ export const ARTICLES: NewsletterArticle[] = [
     readTime: "10 min read",
     author: "Wes Todd",
     date: "March 6, 2026",
-    readers: 856,
     trending: true,
     content: [
       { type: "heading", text: "The Bill That Changes the Equation" },
@@ -2134,7 +2100,6 @@ export const ARTICLES: NewsletterArticle[] = [
     readTime: "9 min read",
     author: "Wes Todd",
     date: "February 24, 2026",
-    readers: 1247,
     trending: true,
     content: [
       { type: "heading", text: "A Federal Judge Just Made Your AI Conversations Discoverable" },
@@ -2301,7 +2266,6 @@ export const ARTICLES: NewsletterArticle[] = [
     author: "Wes Todd",
     date: "February 10, 2026",
     linksTo: "nuclear-verdicts",
-    readers: 1631,
   },
   {
     slug: "quarterly-attorney-report-lying",
@@ -2313,7 +2277,6 @@ export const ARTICLES: NewsletterArticle[] = [
     readTime: "5 min",
     author: "Wes Todd",
     date: "February 7, 2026",
-    readers: 1943,
     content: [
       // Section 1 — Opening
       { type: "heading", text: "Not on Purpose. But the Damage Is the Same." },
@@ -2493,7 +2456,6 @@ export const ARTICLES: NewsletterArticle[] = [
     author: "Wes Todd",
     date: "February 5, 2026",
     linksTo: "nuclear-verdicts",
-    readers: 1187,
   },
   {
     slug: "build-litigation-intelligence-stack",
@@ -2506,7 +2468,6 @@ export const ARTICLES: NewsletterArticle[] = [
     author: "Wes Todd",
     date: "February 3, 2026",
     linksTo: "council",
-    readers: 892,
   },
   {
     slug: "outside-counsel-performance-top-10-percent",
@@ -2518,7 +2479,6 @@ export const ARTICLES: NewsletterArticle[] = [
     readTime: "5 min",
     author: "Wes Todd",
     date: "January 31, 2026",
-    readers: 743,
   },
   {
     slug: "morgan-and-morgan-eating-your-lunch",
@@ -2530,7 +2490,6 @@ export const ARTICLES: NewsletterArticle[] = [
     readTime: "9 min read",
     author: "Wes Todd",
     date: "January 29, 2026",
-    readers: 1054,
     content: [
       // --- Section 1: The Biggest Law Firm You Have Never Worried About Enough ---
       { type: "heading", text: "The Biggest Law Firm You Have Never Worried About Enough" },
@@ -2788,7 +2747,6 @@ export const TRIAL_ARTICLE: NewsletterArticle = {
     "They picked their ten hardest cases. Ran real data through real dashboards. Within two weeks, they found three cases that should have settled months ago and two attorneys who were consistently underperforming. The math was hard to argue with.",
   readTime: "6 min",
   linksTo: "trial",
-  readers: 1412,
 };
 
 export const CARRIER_RICO_ARTICLE: NewsletterArticle = {
@@ -2801,7 +2759,6 @@ export const CARRIER_RICO_ARTICLE: NewsletterArticle = {
   readTime: "7 min read",
   author: "Wes Todd",
   date: "April 16, 2026",
-  readers: 3221,
   trending: true,
   content: [
     // --- Section 1: What Happened ---
@@ -2934,7 +2891,6 @@ export const CHUBB_GREENBERG_ARTICLE: NewsletterArticle = {
   readTime: "4 min read",
   author: "Wesley Todd",
   date: "May 22, 2026",
-  readers: 1847,
   content: [
     {
       type: "paragraph",
@@ -2993,7 +2949,6 @@ export const TAKEDA_885M_ARTICLE: NewsletterArticle = {
   readTime: "5 min read",
   author: "Wesley Todd",
   date: "May 22, 2026",
-  readers: 2103,
   content: [
     { type: "heading", text: "The Verdict" },
     {
@@ -3053,7 +3008,6 @@ export const WTW_HOWDEN_ARTICLE: NewsletterArticle = {
   readTime: "5 min read",
   author: "Wesley Todd",
   date: "May 22, 2026",
-  readers: 1623,
   content: [
     {
       type: "paragraph",
@@ -3117,7 +3071,6 @@ export const CARRIER_RICO_SCOREBOARD_ARTICLE: NewsletterArticle = {
   readTime: "5 min read",
   author: "Wesley Todd",
   date: "May 22, 2026",
-  readers: 1789,
   content: [
     { type: "heading", text: "The Fraudemic Scoreboard at Mid-Year 2026" },
     {
@@ -3184,7 +3137,6 @@ export const THIRD_PARTY_FUNDING_ARTICLE: NewsletterArticle = {
   readTime: "5 min read",
   author: "Wesley Todd",
   date: "May 22, 2026",
-  readers: 2156,
   content: [
     {
       type: "paragraph",
@@ -3271,7 +3223,6 @@ export const MORGAN_MORGAN_ARTICLE: NewsletterArticle = {
   readTime: "4 min read",
   author: "Wesley Todd",
   date: "May 23, 2026",
-  readers: 2204,
   content: [
     {
       type: "paragraph",
@@ -3330,7 +3281,6 @@ export const SAFETY_NATIONAL_ARTICLE: NewsletterArticle = {
   readTime: "4 min read",
   author: "Wesley Todd",
   date: "May 23, 2026",
-  readers: 1683,
   content: [
     {
       type: "paragraph",
@@ -3425,6 +3375,48 @@ export const ALL_ARTICLES: NewsletterArticle[] = [
   MORGAN_MORGAN_ARTICLE,
   SAFETY_NATIONAL_ARTICLE,
 ];
+
+// ─ B7: masthead ISSUE, derived, never hand-frozen ─
+// The date a visitor sees is computed from the newest article record, so it
+// moves automatically with every Friday content run. The issue number stays a
+// constant, but the staleness assertion below fails the build when articles
+// outrun the bump record by more than 21 days, so a frozen masthead can never
+// ship silently again (the March 6 freeze ran three months undetected).
+const ISSUE_NUMBER = 12;
+// Update this ISO date whenever ISSUE_NUMBER is bumped.
+const ISSUE_NUMBER_BUMPED = "2026-06-11";
+const ISSUE_STALENESS_LIMIT_DAYS = 21;
+
+const NEWEST_ARTICLE_TS = ALL_ARTICLES.reduce((max, a) => {
+  if (!a.date) return max;
+  const t = Date.parse(a.date);
+  return Number.isNaN(t) ? max : Math.max(max, t);
+}, 0);
+
+if (NEWEST_ARTICLE_TS === 0) {
+  throw new Error("ISSUE derivation failed: no parseable article dates in ALL_ARTICLES.");
+}
+
+if (
+  NEWEST_ARTICLE_TS - Date.parse(ISSUE_NUMBER_BUMPED) >
+  ISSUE_STALENESS_LIMIT_DAYS * 86400000
+) {
+  throw new Error(
+    `ISSUE is stale: newest article is dated ${new Date(NEWEST_ARTICLE_TS).toDateString()} ` +
+      `but ISSUE_NUMBER ${ISSUE_NUMBER} was last bumped ${ISSUE_NUMBER_BUMPED}. ` +
+      `Bump ISSUE_NUMBER and ISSUE_NUMBER_BUMPED in src/data/newsletter-articles.ts.`
+  );
+}
+
+export const ISSUE = {
+  number: ISSUE_NUMBER,
+  date: new Date(NEWEST_ARTICLE_TS).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  }),
+  headline: "The Litigation Intelligence Era Is Here",
+};
 
 export function getArticleBySlug(slug: string): NewsletterArticle | undefined {
   return ALL_ARTICLES.find((a) => a.slug === slug);

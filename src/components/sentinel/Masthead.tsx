@@ -68,6 +68,22 @@ export default function Masthead() {
       >
         {ISSUE.date}
       </div>
+      <div style={{ marginTop: 10 }}>
+        <a
+          href="/subscribe"
+          style={{
+            fontSize: 11,
+            color: SENTINEL.accent,
+            fontFamily: FONTS.sans,
+            fontWeight: 600,
+            letterSpacing: "0.06em",
+            textTransform: "uppercase",
+            textDecoration: "none",
+          }}
+        >
+          Subscribe Free &rarr;
+        </a>
+      </div>
     </div>
   );
 }
