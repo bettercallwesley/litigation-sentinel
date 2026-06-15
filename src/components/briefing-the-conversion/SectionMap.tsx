@@ -42,7 +42,7 @@ export default function SectionMap() {
           </p>
         </FadeIn>
 
-        <NuclearVerdictsHeatMap isPreview={false} />
+        <NuclearVerdictsHeatMap isPreview={false} defaultVerdictsShown={10} />
 
         <FadeIn>
           <p

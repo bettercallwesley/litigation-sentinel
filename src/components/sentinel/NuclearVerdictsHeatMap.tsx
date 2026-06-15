@@ -795,7 +795,16 @@ function MapLegend() {
 
 // ─── Notable Verdicts Table ──────────────────────────────────────────────────
 
-function NotableVerdictsTable() {
+function NotableVerdictsTable({
+  defaultShown = 10,
+}: {
+  defaultShown?: number;
+}) {
+  const total = NOTABLE_VERDICTS.length;
+  const collapsible = defaultShown < total;
+  const [showAll, setShowAll] = useState(false);
+  const visibleCount = showAll || !collapsible ? total : defaultShown;
+  const marquee = collapsible && !showAll;
   return (
     <div
       style={{
@@ -876,9 +885,15 @@ function NotableVerdictsTable() {
             </tr>
           </thead>
           <tbody>
-            {NOTABLE_VERDICTS.map((v, i) => (
+            {[...NOTABLE_VERDICTS]
+              .sort((a, b) => b.amount - a.amount)
+              // Sort required: raw data-file order is not amount-descending
+              // (tail entries out of order), so a naive slice would drop a
+              // larger verdict and keep a smaller one.
+              .slice(0, visibleCount)
+              .map((v, i) => (
               <tr
-                key={`${v.caseName}-${i}`}
+                key={`${v.caseName}-${v.year}-${v.amount}`}
                 style={{
                   borderBottom: `1px solid ${SENTINEL.border}`,
                 }}
@@ -900,7 +915,7 @@ function NotableVerdictsTable() {
                     color:
                       v.amount >= 1000 ? SENTINEL.rose : SENTINEL.ink,
                     fontFamily: FONTS.serif,
-                    fontSize: 14,
+                    fontSize: marquee && i < 5 ? 16 : 14,
                     whiteSpace: "nowrap",
                   }}
                 >
@@ -1022,6 +1037,53 @@ function NotableVerdictsTable() {
           </tbody>
         </table>
       </div>
+      {collapsible && (
+        <div
+          role="button"
+          aria-expanded={showAll}
+          tabIndex={0}
+          onClick={() => setShowAll((s) => !s)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              setShowAll((s) => !s);
+            }
+          }}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: 6,
+            marginTop: 12,
+            padding: "15px 0",
+            cursor: "pointer",
+            fontFamily: FONTS.sans,
+            fontSize: 11,
+            fontWeight: 600,
+            letterSpacing: "0.06em",
+            textTransform: "uppercase",
+            color: SENTINEL.accent,
+            background: "transparent",
+            border: "none",
+            width: "100%",
+            userSelect: "none",
+          }}
+        >
+          <span
+            style={{
+              display: "inline-block",
+              transition: "transform 0.2s ease",
+              transform: showAll ? "rotate(180deg)" : "rotate(0deg)",
+              fontSize: 10,
+            }}
+          >
+            {"▼"}
+          </span>
+          {showAll
+            ? `Show top ${defaultShown} verdicts`
+            : `Show all ${total} verdicts`}
+        </div>
+      )}
     </div>
   );
 }
@@ -1411,10 +1473,12 @@ export default function NuclearVerdictsHeatMap({
   isPreview = false,
   onSubscribe,
   subscribeStatus,
+  defaultVerdictsShown = NOTABLE_VERDICTS.length,
 }: {
   isPreview?: boolean;
   onSubscribe?: (email: string) => void;
   subscribeStatus?: string;
+  defaultVerdictsShown?: number;
 }) {
   const [gateEmail, setGateEmail] = useState("");
   const [hoveredState, setHoveredState] = useState<string | null>(null);
@@ -2369,7 +2433,7 @@ export default function NuclearVerdictsHeatMap({
           {/* ─── Notable Verdicts Table ─── */}
           <FadeIn delay={700}>
             <div style={{ marginTop: 24 }}>
-              <NotableVerdictsTable />
+              <NotableVerdictsTable defaultShown={defaultVerdictsShown} />
             </div>
           </FadeIn>
 
