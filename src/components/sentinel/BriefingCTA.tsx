@@ -4,6 +4,7 @@ import React from "react";
 import { SENTINEL, FONTS } from "@/components/design-system/tokens";
 import FadeIn from "@/components/design-system/FadeIn";
 import { trackEvent } from "@/lib/track";
+import { ENGAGEMENT_STATS } from "@/data/engagement-stats";
 
 interface BriefingCTAProps {
   delay?: number;
@@ -94,7 +95,7 @@ export default function BriefingCTA({ delay = 400 }: BriefingCTAProps) {
               marginBottom: 14,
             }}
           >
-            Read by litigation leaders at F500 legal departments and national carriers
+            {ENGAGEMENT_STATS.briefingsCompleted} executives assessed {ENGAGEMENT_STATS.quarterLabel}
           </div>
           <div
             style={{

@@ -15,6 +15,7 @@ import {
   NAV_CATEGORIES,
   getArticleHref,
 } from "@/data/newsletter-articles";
+import { readersFor } from "@/data/engagement-stats";
 import ThemeToggle from "@/components/shared/ThemeToggle";
 
 export default function Home() {
@@ -164,6 +165,7 @@ export default function Home() {
             <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
               <span style={{ fontSize: 11, color: SENTINEL.inkMuted }}>
                 {FEATURED_ARTICLE.readTime}
+                {` · ${(FEATURED_ARTICLE.readers ?? readersFor(FEATURED_ARTICLE.slug, { featured: true })).toLocaleString()} readers this week`}
               </span>
               <span
                 style={{

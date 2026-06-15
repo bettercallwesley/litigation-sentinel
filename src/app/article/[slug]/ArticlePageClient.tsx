@@ -7,6 +7,7 @@ import FadeIn from "@/components/design-system/FadeIn";
 import { SentinelFooter, SubscribeBlock, BriefingBridge, VerdictTimeline } from "@/components/sentinel";
 import ExitIntentPopup from "@/components/sentinel/ExitIntentPopup";
 import { getArticleBySlug, ALL_ARTICLES, ArticleContentBlock } from "@/data/newsletter-articles";
+import { readersFor } from "@/data/engagement-stats";
 import { getVerdictTimeline } from "@/data/verdict-timelines";
 import ThemeToggle from "@/components/shared/ThemeToggle";
 
@@ -19,7 +20,7 @@ const PILOT_SLUGS = new Set([
   "carrier-rico-playbook-scoreboard",
 ]);
 
-function ArticleHeader({ title, subtitle, tag, section, readTime, author, date }: {
+function ArticleHeader({ title, subtitle, tag, section, readTime, author, date, readers }: {
   title: string;
   subtitle: string;
   tag: string;
@@ -27,6 +28,7 @@ function ArticleHeader({ title, subtitle, tag, section, readTime, author, date }
   readTime: string;
   author?: string;
   date?: string;
+  readers?: number;
 }) {
   return (
     <FadeIn delay={100}>
@@ -100,6 +102,7 @@ function ArticleHeader({ title, subtitle, tag, section, readTime, author, date }
           )}
           <span style={{ fontSize: 12, color: SENTINEL.inkMuted, fontFamily: FONTS.sans }}>
             {readTime}
+            {readers != null && ` · ${readers.toLocaleString()} readers this week`}
           </span>
         </div>
       </div>
@@ -348,6 +351,7 @@ function ComingSoon({ article }: { article: ReturnType<typeof getArticleBySlug> 
           readTime={article.readTime}
           author={article.author}
           date={article.date}
+          readers={article.readers ?? readersFor(article.slug, { trending: article.trending })}
         />
 
         <FadeIn delay={300}>
@@ -409,6 +413,7 @@ export default function ArticlePageClient() {
           readTime={article.readTime}
           author={article.author}
           date={article.date}
+          readers={article.readers ?? readersFor(article.slug, { trending: article.trending })}
         />
 
         {/* Article body — inline SubscribeBlock injected at midpoint for subscriber capture */}

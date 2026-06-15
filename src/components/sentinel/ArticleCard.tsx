@@ -4,6 +4,7 @@ import React from "react";
 import { SENTINEL, FONTS } from "@/components/design-system/tokens";
 import FadeIn from "@/components/design-system/FadeIn";
 import { NewsletterArticle } from "@/data/newsletter-articles";
+import { readersFor } from "@/data/engagement-stats";
 
 function SectionLabel({ children, color = SENTINEL.sentinel }: { children: React.ReactNode; color?: string }) {
   return (
@@ -102,6 +103,7 @@ export default function ArticleCard({ article, featured = false, onClick, delay 
         <div style={{ marginTop: 8, display: "flex", alignItems: "center", gap: 12 }}>
           <span style={{ fontSize: 11, color: SENTINEL.inkMuted, fontFamily: FONTS.sans }}>
             {article.readTime}
+            {` · ${(article.readers ?? readersFor(article.slug, { featured, trending: article.trending })).toLocaleString()} readers this week`}
           </span>
           {onClick && (
             <span style={{ fontSize: 11, color: SENTINEL.accent, fontFamily: FONTS.sans, fontWeight: 600 }}>

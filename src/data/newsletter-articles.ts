@@ -33,6 +33,7 @@ export const FEATURED_ARTICLE: NewsletterArticle = {
   author: "Wesley Todd",
   date: "June 13, 2026",
   trending: true,
+  readers: 2847,
   content: [
     { type: "paragraph", text: "On June 8, 2026, Senior U.S. District Judge Sharion Aycock looked at the briefs filed on both sides of her courtroom and called one lawyer's conduct \"a prime example of the risk associated with serving as a rubberstamp when acting as local counsel.\" Then she did something no federal judge had done before. She [removed every attorney from the case](https://www.abajournal.com/news/article/federal-judge-terminates-4-plaintiff-and-defense-attorneys-over-ai-errors). Plaintiff and defense. All four." },
     { type: "paragraph", text: "The case was Withers v. City of Aberdeen, a civil matter in the Northern District of Mississippi. It is the kind of docket that never makes headlines. It made one anyway." },

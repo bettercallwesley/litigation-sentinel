@@ -5,6 +5,7 @@ import { SENTINEL, FONTS } from "@/components/design-system/tokens";
 import FadeIn from "@/components/design-system/FadeIn";
 import { getAttribution } from "@/lib/attribution";
 import { trackEvent } from "@/lib/track";
+import { ENGAGEMENT_STATS } from "@/data/engagement-stats";
 
 interface SubscribeBlockProps {
   delay?: number;
@@ -147,6 +148,18 @@ export default function SubscribeBlock({ delay = 700, source = "subscribe-block"
           prose, no consultant filler. Read by litigation leaders at F500 legal departments and
           national carriers. Free.
         </p>
+        <div
+          style={{
+            fontSize: 12,
+            color: SENTINEL.sentinelAccent,
+            fontFamily: FONTS.sans,
+            fontWeight: 600,
+            letterSpacing: "0.04em",
+            margin: "0 0 16px",
+          }}
+        >
+          Join {ENGAGEMENT_STATS.subscriberCount.toLocaleString()} litigation leaders who read it weekly.
+        </div>
         <form
           onSubmit={handleSubmit}
           style={{
