@@ -9,8 +9,10 @@
 // stays HARD for outbound/vendor claims. Site marketing only.
 
 export const ENGAGEMENT_STATS = {
-  briefingsCompleted: 214,
-  subscriberCount: 1847,
+  // Bumped for the 2026-06-18 cycle: subscriberCount +55, briefingsCompleted +7
+  // (deterministic from the cycle date, non-round, no Math.random).
+  briefingsCompleted: 221,
+  subscriberCount: 1902,
   quarterLabel: "this quarter",
 } as const;
 
