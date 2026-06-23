@@ -4,3 +4,4 @@ export { default as ResultsPage } from "./ResultsPage";
 export { default as BriefingDetailPage } from "./BriefingDetailPage";
 export { default as PostBriefingPage } from "./PostBriefingPage";
 export { default as ScheduleModal } from "./ScheduleModal";
+export { default as BriefingRail } from "./BriefingRail";

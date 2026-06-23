@@ -95,7 +95,6 @@ export default function AssessmentPage({ onComplete }: AssessmentPageProps) {
               }}
             >
               <Badge color={COLORS.rose}>{q.painPoint}</Badge>
-              <Badge color={COLORS.accent}>CaseGlide: {q.feature}</Badge>
             </div>
 
             <h2
@@ -132,6 +131,7 @@ export default function AssessmentPage({ onComplete }: AssessmentPageProps) {
                           ? COLORS.surfaceHover
                           : COLORS.surface,
                       border: `1px solid ${isSelected ? COLORS.accent : isHovered ? COLORS.borderLight : COLORS.border}`,
+                      borderLeft: `3px solid ${isSelected ? COLORS.accent : "transparent"}`,
                       borderRadius: 12,
                       cursor: "pointer",
                       textAlign: "left",
@@ -195,6 +195,28 @@ export default function AssessmentPage({ onComplete }: AssessmentPageProps) {
             )}
           </div>
         </FadeIn>
+      </div>
+
+      {/* Trust footer, shown on every question screen */}
+      <div
+        style={{
+          padding: "16px 0 28px",
+          maxWidth: 800,
+          margin: "0 auto",
+          width: "100%",
+          textAlign: "center",
+        }}
+      >
+        <span
+          style={{
+            fontSize: 12,
+            color: COLORS.textMuted,
+            fontFamily: FONTS.sans,
+            letterSpacing: "0.02em",
+          }}
+        >
+          Your answers are encrypted in transit and processed only by CaseGlide.
+        </span>
       </div>
     </div>
   );

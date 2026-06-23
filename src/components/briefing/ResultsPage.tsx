@@ -1,10 +1,12 @@
 "use client";
 
-// E1 flagship rebuild (reconciled spec, EXPERIENCE 1, 2026-06-11).
-// Score reveal clones SectionVerdict's opener from the Tricura briefing.
-// The gate is a sealed-case-file treatment: the real dimension breakdown
-// renders visibly behind a blur with a SEALED stamp, and the email field
-// is the unsealing action. The centered form-card is dead.
+// E1 flagship rebuild (reconciled spec, EXPERIENCE 1, 2026-06-11; verdict
+// dossier + gate-integrity upgrade 2026-06-23).
+// Score reveal clones SectionVerdict's opener. The gate is a sealed-case-file
+// treatment: a redacted skeleton renders behind a blur with a SEALED stamp, and
+// the email field is the unsealing action. The real dimension-by-dimension
+// dossier only enters the DOM after the file is unsealed, so the seal is
+// enforced by what renders, not by a cosmetic blur.
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
@@ -12,6 +14,13 @@ import { COLORS, FONTS, MATURITY_LEVELS } from "@/components/design-system/token
 import { CaseGlideLogo, FadeIn } from "@/components/design-system";
 import { ASSESSMENT_QUESTIONS } from "@/data/assessment-questions";
 import { NATIONAL_TRENDS } from "@/data/nuclear-verdicts";
+import {
+  VERDICT_MATURITY,
+  DOSSIER_CONSEQUENCE,
+  PILLAR_DOSSIER_LABEL,
+  bandFor,
+  synthesisLine,
+} from "@/data/briefing-copy";
 import { getAttribution } from "@/lib/attribution";
 import { trackEvent } from "@/lib/track";
 import {
@@ -33,6 +42,13 @@ const PILLAR_LABELS: Record<string, string> = {
   ai: "ON-DEMAND INTELLIGENCE",
 };
 
+const PILLAR_ORDER = ["docket", "precedent", "ai"];
+
+interface DossierEntry {
+  pillar: string;
+  level: number;
+}
+
 // ─── Score reveal: full-viewport band, SectionVerdict clone ──────────────────
 
 function ScoreReveal({
@@ -48,7 +64,7 @@ function ScoreReveal({
   const [ref, inView] = useInViewOnce<HTMLDivElement>(0.2);
   const value = useCountUp(avgScore, inView, 1800, reduced);
   const done = value >= avgScore - 0.001;
-  const maturity = MATURITY_LEVELS[maturityLevel];
+  const verdict = VERDICT_MATURITY[maturityLevel];
 
   return (
     <section
@@ -116,7 +132,7 @@ function ScoreReveal({
             margin: "44px auto 0",
           }}
         >
-          {`Level ${maturityLevel}. ${maturity.label}.`}
+          {`Level ${maturityLevel}. ${verdict.word}.`}
         </h1>
       </FadeIn>
 
@@ -131,7 +147,7 @@ function ScoreReveal({
             margin: "26px auto 0",
           }}
         >
-          {`${maturity.desc}. The breakdown below shows where this file is strong, and where it is exposed.`}
+          {`${verdict.line} The breakdown below shows where this file is strong, and where it is exposed.`}
         </p>
       </FadeIn>
 
@@ -152,64 +168,57 @@ function ScoreReveal({
   );
 }
 
-// ─── Dimension bars on the L1 rose to L5 gold ramp ───────────────────────────
+// ─── Verdict dossier: one entry per pillar, level + consequence + ramp bar ────
 
-function DimensionBars({
-  results,
+function VerdictDossier({
+  entries,
   active,
   reduced,
 }: {
-  results: { id: string; painPoint: string; feature: string; score: number }[];
+  entries: DossierEntry[];
   active: boolean;
   reduced: boolean;
 }) {
   return (
-    <div style={{ display: "grid", gap: 14 }}>
-      {results.map((q, i) => {
-        const m = MATURITY_LEVELS[q.score];
-        const pct = (q.score / 5) * 100;
+    <div style={{ display: "grid", gap: 16 }}>
+      {entries.map((e, i) => {
+        const m = MATURITY_LEVELS[e.level];
+        const verdict = VERDICT_MATURITY[e.level];
+        const consequence = DOSSIER_CONSEQUENCE[e.pillar][bandFor(e.level)];
+        const pct = (e.level / 5) * 100;
         return (
           <div
-            key={q.id}
+            key={e.pillar}
             style={{
-              padding: "16px 18px",
+              padding: "20px 22px",
               background: COLORS.surface,
               border: `1px solid ${COLORS.border}`,
-              borderRadius: 12,
+              borderLeft: `3px solid ${m.color}`,
+              borderRadius: 14,
             }}
           >
             <div
               style={{
-                display: "flex",
-                alignItems: "baseline",
-                justifyContent: "space-between",
-                gap: 12,
-                marginBottom: 10,
-                flexWrap: "wrap",
+                fontFamily: FONTS.mono,
+                fontSize: 12,
+                letterSpacing: "0.12em",
+                color: m.color,
+                marginBottom: 12,
               }}
             >
-              <span
-                style={{
-                  fontSize: 14,
-                  fontWeight: 500,
-                  color: COLORS.textPrimary,
-                  fontFamily: FONTS.sans,
-                }}
-              >
-                {q.painPoint}
-              </span>
-              <span
-                style={{
-                  fontFamily: FONTS.mono,
-                  fontSize: 12,
-                  color: m.color,
-                  fontVariantNumeric: "tabular-nums",
-                  letterSpacing: "0.08em",
-                }}
-              >
-                {`${q.score}/5 ${m.label.toUpperCase()}`}
-              </span>
+              {`${PILLAR_DOSSIER_LABEL[e.pillar]}, LEVEL ${e.level}. ${verdict.word.toUpperCase()}.`}
             </div>
+            <p
+              style={{
+                fontFamily: FONTS.serif,
+                fontSize: 16,
+                lineHeight: 1.6,
+                color: COLORS.textPrimary,
+                margin: "0 0 16px",
+              }}
+            >
+              {consequence}
+            </p>
             <div
               style={{
                 height: 6,
@@ -238,6 +247,61 @@ function DimensionBars({
   );
 }
 
+// ─── Sealed skeleton: pillar labels only, no levels, no consequence, no ARIA ──
+// Renders while gated. Carries no real score data, so the seal holds even if
+// the blur is removed.
+
+function DossierSkeleton() {
+  return (
+    <div style={{ display: "grid", gap: 16 }} aria-hidden>
+      {PILLAR_ORDER.map((pillar) => (
+        <div
+          key={pillar}
+          style={{
+            padding: "20px 22px",
+            background: COLORS.surface,
+            border: `1px solid ${COLORS.border}`,
+            borderLeft: `3px solid ${COLORS.textMuted}`,
+            borderRadius: 14,
+          }}
+        >
+          <div
+            style={{
+              fontFamily: FONTS.mono,
+              fontSize: 12,
+              letterSpacing: "0.12em",
+              color: COLORS.textMuted,
+              marginBottom: 14,
+            }}
+          >
+            {`${PILLAR_LABELS[pillar]}, LEVEL ##. SEALED.`}
+          </div>
+          {[0, 1].map((line) => (
+            <div
+              key={line}
+              style={{
+                height: 10,
+                borderRadius: 4,
+                background: COLORS.border,
+                marginBottom: 10,
+                width: line === 0 ? "100%" : "72%",
+              }}
+            />
+          ))}
+          <div
+            style={{
+              height: 6,
+              borderRadius: 100,
+              background: COLORS.border,
+              marginTop: 8,
+            }}
+          />
+        </div>
+      ))}
+    </div>
+  );
+}
+
 // ─── Curve panel: gold marker against the 2020 to 2025 national trend ────────
 
 function CurvePanel({
@@ -245,7 +309,6 @@ function CurvePanel({
 }: {
   maturityLevel: number;
 }) {
-  const maturity = MATURITY_LEVELS[maturityLevel];
   const maxDamages = Math.max(...NATIONAL_TRENDS.map((t) => t.totalDamages));
   const chartW = 100;
   const chartH = 60;
@@ -263,6 +326,7 @@ function CurvePanel({
 
   const first = NATIONAL_TRENDS[0];
   const last = NATIONAL_TRENDS[NATIONAL_TRENDS.length - 1];
+  const verdict = VERDICT_MATURITY[maturityLevel];
 
   return (
     <div
@@ -410,7 +474,7 @@ function CurvePanel({
           letterSpacing="0.12em"
           fontFamily={FONTS.mono}
         >
-          {`YOUR DESK. L${maturityLevel} ${maturity.label.toUpperCase()}`}
+          {`YOUR DESK. L${maturityLevel} ${verdict.word.toUpperCase()}`}
         </text>
       </svg>
 
@@ -453,7 +517,7 @@ export default function ResultsPage({
   const avgScore = totalScore / ASSESSMENT_QUESTIONS.length;
   const maturityLevel = Math.min(5, Math.max(1, Math.round(avgScore)));
 
-  // Weakest pillar for the kicker context.
+  // Pillar aggregates drive both the pressure-point kicker and the dossier.
   const pillarTotals: Record<string, { sum: number; n: number }> = {};
   for (const q of ASSESSMENT_QUESTIONS) {
     const s = answers[q.id] || 1;
@@ -461,16 +525,22 @@ export default function ResultsPage({
     pillarTotals[q.pillar].sum += s;
     pillarTotals[q.pillar].n += 1;
   }
-  const weakestPillar = Object.entries(pillarTotals).sort(
+  const sortedPillars = Object.entries(pillarTotals).sort(
     (a, b) => a[1].sum / a[1].n - b[1].sum / b[1].n
-  )[0][0];
+  );
+  const weakestPillar = sortedPillars[0][0];
+  const strongestPillar = sortedPillars[sortedPillars.length - 1][0];
 
-  const questionResults = ASSESSMENT_QUESTIONS.map((q) => ({
-    id: q.id,
-    painPoint: q.painPoint,
-    feature: q.feature,
-    score: answers[q.id] || 1,
-  }));
+  const pillarScore: Record<string, number> = {};
+  for (const [pillar, { sum, n }] of Object.entries(pillarTotals)) {
+    pillarScore[pillar] = Math.min(5, Math.max(1, Math.round(sum / n)));
+  }
+  const dossierEntries: DossierEntry[] = PILLAR_ORDER.filter(
+    (p) => pillarScore[p] !== undefined
+  ).map((p) => ({ pillar: p, level: pillarScore[p] }));
+
+  const firstVerdicts = NATIONAL_TRENDS[0].totalVerdicts;
+  const lastVerdicts = NATIONAL_TRENDS[NATIONAL_TRENDS.length - 1].totalVerdicts;
 
   const handleUnseal = async () => {
     if (!captureEmail || !captureEmail.includes("@")) {
@@ -549,7 +619,7 @@ export default function ResultsPage({
           padding: "72px 24px 96px",
         }}
       >
-        {/* 2. THE GATE: the real breakdown, visibly sealed */}
+        {/* 2. THE GATE: real dossier renders only after unseal */}
         <div ref={fileRef} style={{ position: "relative", marginBottom: 64 }}>
           <div
             style={{
@@ -562,141 +632,201 @@ export default function ResultsPage({
             }}
           >
             {isGated
-              ? "DIMENSION BREAKDOWN. SEALED PENDING IDENTIFICATION."
-              : "DIMENSION BREAKDOWN. UNSEALED."}
+              ? "VERDICT DOSSIER. SEALED PENDING IDENTIFICATION."
+              : "VERDICT DOSSIER. UNSEALED."}
           </div>
 
-          <div
-            aria-hidden={isGated}
-            style={{
-              filter: isGated ? "blur(9px)" : "blur(0px)",
-              transition: reduced ? "none" : "filter 0.9s cubic-bezier(0.22, 1, 0.36, 1)",
-              pointerEvents: isGated ? "none" : "auto",
-              userSelect: isGated ? "none" : "auto",
-            }}
-          >
-            <DimensionBars
-              results={questionResults}
-              active={fileInView && !isGated}
-              reduced={reduced}
-            />
-          </div>
-
-          {/* Sealed-file overlay: stamp + the unsealing action */}
-          {isGated && (
-            <div
-              style={{
-                position: "absolute",
-                inset: 0,
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                justifyContent: "center",
-                gap: 26,
-                padding: 24,
-                background:
-                  "linear-gradient(180deg, rgba(10,14,26,0.2) 0%, rgba(10,14,26,0.55) 100%)",
-              }}
-            >
+          {isGated ? (
+            <>
               <div
                 style={{
-                  fontFamily: FONTS.mono,
-                  fontSize: "clamp(18px, 4vw, 26px)",
-                  letterSpacing: "0.35em",
-                  color: COLORS.gold,
-                  border: `2px solid ${COLORS.gold}`,
-                  outline: `1px solid ${COLORS.gold}`,
-                  outlineOffset: 4,
-                  padding: "10px 26px 10px 32px",
-                  transform: "rotate(-7deg)",
-                  background: "rgba(10,14,26,0.7)",
-                  boxShadow: `0 0 40px ${COLORS.goldGlow}`,
+                  filter: "blur(9px)",
+                  transition: reduced
+                    ? "none"
+                    : "filter 0.9s cubic-bezier(0.22, 1, 0.36, 1)",
+                  pointerEvents: "none",
+                  userSelect: "none",
                 }}
               >
-                SEALED
+                <DossierSkeleton />
               </div>
 
-              <div style={{ width: "100%", maxWidth: 440, textAlign: "center" }}>
+              {/* Sealed-file overlay: stamp + the unsealing action */}
+              <div
+                style={{
+                  position: "absolute",
+                  inset: 0,
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: 26,
+                  padding: 24,
+                  background:
+                    "linear-gradient(180deg, rgba(10,14,26,0.2) 0%, rgba(10,14,26,0.55) 100%)",
+                }}
+              >
                 <div
                   style={{
-                    display: "flex",
-                    gap: 10,
-                    flexWrap: "wrap",
-                    justifyContent: "center",
+                    fontFamily: FONTS.mono,
+                    fontSize: "clamp(18px, 4vw, 26px)",
+                    letterSpacing: "0.35em",
+                    color: COLORS.gold,
+                    border: `2px solid ${COLORS.gold}`,
+                    outline: `1px solid ${COLORS.gold}`,
+                    outlineOffset: 4,
+                    padding: "10px 26px 10px 32px",
+                    transform: "rotate(-7deg)",
+                    background: "rgba(10,14,26,0.7)",
+                    boxShadow: `0 0 40px ${COLORS.goldGlow}`,
                   }}
                 >
-                  <input
-                    type="email"
-                    placeholder="work email"
-                    value={captureEmail}
-                    onChange={(e) => setCaptureEmail(e.target.value)}
-                    disabled={captureStatus === "loading"}
-                    onKeyDown={(e) => {
-                      if (e.key === "Enter") handleUnseal();
-                    }}
+                  SEALED
+                </div>
+
+                <div style={{ width: "100%", maxWidth: 460, textAlign: "center" }}>
+                  <div
                     style={{
-                      flex: "1 1 200px",
-                      minWidth: 0,
-                      padding: "13px 4px",
-                      background: "transparent",
-                      border: "none",
-                      borderBottom: `1px solid ${COLORS.borderLight}`,
-                      color: COLORS.textPrimary,
-                      fontSize: 15,
-                      fontFamily: FONTS.mono,
-                      letterSpacing: "0.04em",
-                      outline: "none",
-                      textAlign: "center",
-                    }}
-                  />
-                  <button
-                    onClick={handleUnseal}
-                    disabled={captureStatus === "loading"}
-                    style={{
-                      padding: "13px 28px",
-                      background: COLORS.gold,
-                      color: COLORS.midnight,
-                      border: "none",
-                      borderRadius: 10,
-                      fontSize: 13,
-                      fontWeight: 700,
-                      letterSpacing: "0.08em",
-                      textTransform: "uppercase",
-                      fontFamily: FONTS.sans,
-                      cursor: captureStatus === "loading" ? "wait" : "pointer",
-                      opacity: captureStatus === "loading" ? 0.7 : 1,
+                      display: "flex",
+                      gap: 10,
+                      flexWrap: "wrap",
+                      justifyContent: "center",
                     }}
                   >
-                    {captureStatus === "loading" ? "Unsealing..." : "Unseal the File"}
-                  </button>
-                </div>
-                {captureStatus === "error" && captureError && (
+                    <input
+                      type="email"
+                      placeholder="work email"
+                      value={captureEmail}
+                      onChange={(e) => setCaptureEmail(e.target.value)}
+                      disabled={captureStatus === "loading"}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter") handleUnseal();
+                      }}
+                      style={{
+                        flex: "1 1 200px",
+                        minWidth: 0,
+                        padding: "13px 4px",
+                        background: "transparent",
+                        border: "none",
+                        borderBottom: `1px solid ${COLORS.borderLight}`,
+                        color: COLORS.textPrimary,
+                        fontSize: 15,
+                        fontFamily: FONTS.mono,
+                        letterSpacing: "0.04em",
+                        outline: "none",
+                        textAlign: "center",
+                      }}
+                    />
+                    <button
+                      onClick={handleUnseal}
+                      disabled={captureStatus === "loading"}
+                      style={{
+                        padding: "13px 28px",
+                        background: COLORS.gold,
+                        color: COLORS.midnight,
+                        border: "none",
+                        borderRadius: 10,
+                        fontSize: 13,
+                        fontWeight: 700,
+                        letterSpacing: "0.08em",
+                        textTransform: "uppercase",
+                        fontFamily: FONTS.sans,
+                        cursor: captureStatus === "loading" ? "wait" : "pointer",
+                        opacity: captureStatus === "loading" ? 0.7 : 1,
+                      }}
+                    >
+                      {captureStatus === "loading" ? "Unsealing..." : "Unseal the File"}
+                    </button>
+                  </div>
+                  {captureStatus === "error" && captureError && (
+                    <p
+                      style={{
+                        fontSize: 13,
+                        color: COLORS.rose,
+                        margin: "12px 0 0",
+                        fontFamily: FONTS.sans,
+                      }}
+                    >
+                      {captureError}
+                    </p>
+                  )}
                   <p
                     style={{
-                      fontSize: 13,
-                      color: COLORS.rose,
-                      margin: "12px 0 0",
+                      fontSize: 12,
+                      color: COLORS.textMuted,
+                      margin: "14px 0 0",
+                      lineHeight: 1.6,
                       fontFamily: FONTS.sans,
                     }}
                   >
-                    {captureError}
+                    Your work email opens the full dimension-by-dimension record.
+                    <br />
+                    Encrypted in transit, processed only by CaseGlide, never sold.
                   </p>
-                )}
-                <p
+                </div>
+              </div>
+            </>
+          ) : (
+            <FadeIn>
+              {/* Emerald unseal strip, cloned from SectionCaseClerk */}
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 12,
+                  marginBottom: 18,
+                  padding: "12px 14px",
+                  border: `1px solid ${COLORS.emerald}`,
+                  background: COLORS.emeraldGlow,
+                  borderRadius: 8,
+                }}
+              >
+                <span
                   style={{
-                    fontSize: 12,
-                    color: COLORS.textMuted,
-                    margin: "14px 0 0",
-                    lineHeight: 1.6,
-                    fontFamily: FONTS.sans,
+                    fontFamily: FONTS.mono,
+                    fontSize: 11,
+                    letterSpacing: "0.18em",
+                    color: COLORS.emerald,
+                    border: `1px solid ${COLORS.emerald}`,
+                    borderRadius: 4,
+                    padding: "3px 8px",
+                    whiteSpace: "nowrap",
                   }}
                 >
-                  Your work email unseals the dimension-by-dimension record. Confidential.
-                  <br />
-                  Read by litigation leaders at F500 legal departments and national carriers.
-                </p>
+                  {"FILE UNSEALED"}
+                </span>
+                <span
+                  style={{
+                    fontFamily: FONTS.sans,
+                    fontSize: 13,
+                    color: COLORS.textPrimary,
+                    lineHeight: 1.5,
+                  }}
+                >
+                  {"Three dimensions, scored and read in your own voice. Here is where the file stands."}
+                </span>
               </div>
-            </div>
+
+              <VerdictDossier
+                entries={dossierEntries}
+                active={fileInView}
+                reduced={reduced}
+              />
+
+              <p
+                style={{
+                  fontFamily: FONTS.serif,
+                  fontSize: 17,
+                  lineHeight: 1.6,
+                  color: COLORS.textSecondary,
+                  margin: "22px 0 0",
+                  borderLeft: `2px solid ${COLORS.gold}`,
+                  paddingLeft: 14,
+                }}
+              >
+                {synthesisLine(strongestPillar, weakestPillar, firstVerdicts, lastVerdicts)}
+              </p>
+            </FadeIn>
           )}
         </div>
 
@@ -751,17 +881,19 @@ export default function ResultsPage({
             onClick={onSchedule}
             style={{
               marginTop: 22,
-              padding: "10px 18px",
+              padding: "12px 20px",
               background: "transparent",
               color: COLORS.textSecondary,
               border: `1px solid ${COLORS.border}`,
               borderRadius: 10,
               fontSize: 13,
+              lineHeight: 1.5,
+              maxWidth: 420,
               cursor: "pointer",
               fontFamily: FONTS.sans,
             }}
           >
-            Or schedule a briefing for a time you pick
+            Or take 15 minutes with Wes Todd, CaseGlide&apos;s founder. No deck, he will drive your numbers live.
           </button>
         </div>
       </div>
