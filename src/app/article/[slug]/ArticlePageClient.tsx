@@ -18,6 +18,11 @@ const PILOT_SLUGS = new Set([
   "morgan-morgan-mx2-harvard-pro-hac-denied",
   "musk-verdict-savitt-calendar-gambit",
   "carrier-rico-playbook-scoreboard",
+  // SCF Phase 1 flagships: carry the per-article BriefingBridge (?src=) hand-off.
+  "litigation-management-is-dead",
+  "how-top-insurers-solve-litigation-with-less-tech",
+  "quarterly-attorney-report-lying",
+  "morgan-and-morgan-eating-your-lunch",
 ]);
 
 function ArticleHeader({ title, subtitle, tag, section, readTime, author, date, readers }: {
