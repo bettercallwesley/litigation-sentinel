@@ -107,8 +107,7 @@ export default function ActivationPage() {
                         >
                           {m.name}
                         </h3>
-                        {isActive && <Badge color={COLORS.accent}>In Progress</Badge>}
-                        {isDone && <Badge color={COLORS.emerald}>Complete</Badge>}
+                        {isActive && <Badge color={COLORS.accent}>Starts here</Badge>}
                       </div>
                       <span style={{ fontSize: 12, color: COLORS.textMuted, fontWeight: 500 }}>
                         {m.week}

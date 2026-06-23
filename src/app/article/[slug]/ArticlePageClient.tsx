@@ -4,7 +4,7 @@ import React from "react";
 import { useParams } from "next/navigation";
 import { SENTINEL, FONTS } from "@/components/design-system/tokens";
 import FadeIn from "@/components/design-system/FadeIn";
-import { SentinelFooter, SubscribeBlock, BriefingBridge, VerdictTimeline } from "@/components/sentinel";
+import { SentinelFooter, SubscribeBlock, BriefingBridge, CouncilBridge, VerdictTimeline } from "@/components/sentinel";
 import ExitIntentPopup from "@/components/sentinel/ExitIntentPopup";
 import { getArticleBySlug, ALL_ARTICLES, ArticleContentBlock } from "@/data/newsletter-articles";
 import { readersFor } from "@/data/engagement-stats";
@@ -18,6 +18,18 @@ const PILOT_SLUGS = new Set([
   "morgan-morgan-mx2-harvard-pro-hac-denied",
   "musk-verdict-savitt-calendar-gambit",
   "carrier-rico-playbook-scoreboard",
+  // SCF Phase 1 flagships: carry the per-article BriefingBridge (?src=) hand-off.
+  "litigation-management-is-dead",
+  "how-top-insurers-solve-litigation-with-less-tech",
+  "quarterly-attorney-report-lying",
+  "morgan-and-morgan-eating-your-lunch",
+]);
+
+// SCF Phase 2: the Council-process flagship hands to /council, not /briefing
+// (genre-spec named exception). It renders CouncilBridge INSTEAD OF the generic
+// /briefing fallback, so the article still owns exactly one funnel hand-off.
+const COUNCIL_CTA_SLUGS = new Set([
+  "build-litigation-intelligence-stack",
 ]);
 
 function ArticleHeader({ title, subtitle, tag, section, readTime, author, date, readers }: {
@@ -443,7 +455,9 @@ export default function ArticlePageClient() {
             BriefingBridge (?src= attribution + case-file framing); every other
             article keeps the generic card. */}
         <FadeIn delay={350}>
-          {PILOT_SLUGS.has(slug) ? (
+          {COUNCIL_CTA_SLUGS.has(slug) ? (
+            <CouncilBridge slug={slug} />
+          ) : PILOT_SLUGS.has(slug) ? (
             <BriefingBridge slug={slug} />
           ) : (
             <div

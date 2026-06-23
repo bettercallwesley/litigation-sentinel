@@ -6,17 +6,12 @@ import { Card, FadeIn } from "@/components/design-system";
 import { MILESTONES } from "@/data/milestones";
 
 interface OverviewPageProps {
-  clientName: string;
-  week: number;
   onNav: (page: string) => void;
   onSchedule?: () => void;
 }
 
-export default function OverviewPage({ clientName, week, onNav, onSchedule }: OverviewPageProps) {
-  const activeMilestone = MILESTONES.find((m) => m.status === "active") || MILESTONES[0];
-  const completedCount = MILESTONES.filter((m) => m.status === "completed").length;
-  const dataProgress = 35;
-  const teamEngagement = 72;
+export default function OverviewPage({ onNav, onSchedule }: OverviewPageProps) {
+  const firstStep = MILESTONES.find((m) => m.status === "active") || MILESTONES[0];
 
   return (
     <div>
@@ -31,15 +26,16 @@ export default function OverviewPage({ clientName, week, onNav, onSchedule }: Ov
               fontFamily: FONTS.serif,
             }}
           >
-            Welcome to Council
+            The activation process
           </h1>
-          <p style={{ fontSize: 14, color: COLORS.textSecondary, margin: 0 }}>
-            {clientName ? `${clientName} · ` : ""}Week {week} of 12
+          <p style={{ fontSize: 14, color: COLORS.textSecondary, margin: 0, lineHeight: 1.6, maxWidth: 600 }}>
+            How a litigation intelligence layer gets built on the systems you
+            already run. No replacement, no rip-out. Walk it end to end below.
           </p>
         </div>
       </FadeIn>
 
-      {/* This Week's Priority */}
+      {/* Where it starts */}
       <FadeIn delay={80}>
         <Card
           style={{
@@ -60,7 +56,7 @@ export default function OverviewPage({ clientName, week, onNav, onSchedule }: Ov
                   letterSpacing: "0.06em",
                 }}
               >
-                This Week&apos;s Priority
+                Where it starts
               </span>
             </div>
             <h3
@@ -71,7 +67,7 @@ export default function OverviewPage({ clientName, week, onNav, onSchedule }: Ov
                 margin: "0 0 8px",
               }}
             >
-              {activeMilestone.name}
+              {firstStep.name}
             </h3>
             <p
               style={{
@@ -81,7 +77,7 @@ export default function OverviewPage({ clientName, week, onNav, onSchedule }: Ov
                 margin: "0 0 16px",
               }}
             >
-              {activeMilestone.description}
+              {firstStep.description}
             </p>
             <div
               className="council-milestone-tracks"
@@ -105,10 +101,10 @@ export default function OverviewPage({ clientName, week, onNav, onSchedule }: Ov
                     marginBottom: 6,
                   }}
                 >
-                  👥 Your Team This Week
+                  👥 What your team does
                 </div>
                 <p style={{ fontSize: 13, color: COLORS.textSecondary, lineHeight: 1.5, margin: 0 }}>
-                  {activeMilestone.teamTask}
+                  {firstStep.teamTask}
                 </p>
               </div>
               <div
@@ -129,32 +125,30 @@ export default function OverviewPage({ clientName, week, onNav, onSchedule }: Ov
                     marginBottom: 6,
                   }}
                 >
-                  👔 Executive This Week
+                  👔 What the executive sponsor does
                 </div>
                 <p style={{ fontSize: 13, color: COLORS.textSecondary, lineHeight: 1.5, margin: 0 }}>
-                  {activeMilestone.execTask}
+                  {firstStep.execTask}
                 </p>
               </div>
             </div>
-            {week <= 3 && (
-              <button
-                onClick={() => onNav("data")}
-                style={{
-                  marginTop: 14,
-                  padding: "10px 20px",
-                  background: COLORS.accent,
-                  border: "none",
-                  borderRadius: 8,
-                  color: "#fff",
-                  fontSize: 13,
-                  fontWeight: 600,
-                  cursor: "pointer",
-                  fontFamily: FONTS.sans,
-                }}
-              >
-                Start: Map Your Data Sources →
-              </button>
-            )}
+            <button
+              onClick={() => onNav("data")}
+              style={{
+                marginTop: 14,
+                padding: "10px 20px",
+                background: COLORS.accent,
+                border: "none",
+                borderRadius: 8,
+                color: "#fff",
+                fontSize: 13,
+                fontWeight: 600,
+                cursor: "pointer",
+                fontFamily: FONTS.sans,
+              }}
+            >
+              See how data mapping works →
+            </button>
           </div>
         </Card>
       </FadeIn>
@@ -172,32 +166,32 @@ export default function OverviewPage({ clientName, week, onNav, onSchedule }: Ov
         >
           {[
             {
-              label: "Data Loaded",
-              value: `${dataProgress}%`,
-              sub: "Precedent + Docket",
-              color: dataProgress > 50 ? COLORS.emerald : COLORS.amber,
-              action: "dashboards",
+              label: "Your data",
+              value: "Mapped",
+              sub: "Precedent + docket, in place",
+              color: COLORS.accent,
+              action: "data",
             },
             {
-              label: "Milestones",
-              value: `${completedCount}/${MILESTONES.length}`,
-              sub: "Completed",
+              label: "The plan",
+              value: `${MILESTONES.length} steps`,
+              sub: "Across roughly 90 days",
               color: COLORS.gold,
               action: "activation",
             },
             {
-              label: "Team Activity",
-              value: `${teamEngagement}%`,
-              sub: "Engagement rate",
+              label: "Counsel",
+              value: "Calibrated",
+              sub: "By venue and opponent",
               color: COLORS.emerald,
               action: null,
             },
             {
-              label: "Next Check-In",
-              value: "Fri",
-              sub: "Feb 14, 2:00 PM",
-              color: COLORS.accent,
-              action: null,
+              label: "Your portfolio",
+              value: "Visible",
+              sub: "Live, not quarterly",
+              color: COLORS.amber,
+              action: "dashboards",
             },
           ].map((stat, i) => (
             <Card
@@ -223,7 +217,7 @@ export default function OverviewPage({ clientName, week, onNav, onSchedule }: Ov
         </div>
       </FadeIn>
 
-      {/* Your CaseGlide Team */}
+      {/* Dedicated advisor */}
       <FadeIn delay={220}>
         <Card style={{ marginBottom: 20 }}>
           <div
@@ -246,37 +240,23 @@ export default function OverviewPage({ clientName, week, onNav, onSchedule }: Ov
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  fontSize: 16,
+                  fontSize: 18,
                   fontWeight: 600,
                   color: "#fff",
                 }}
               >
-                LR
+                ◆
               </div>
               <div>
                 <div style={{ fontSize: 14, fontWeight: 500, color: COLORS.textPrimary }}>
-                  Liana Rodriguez
+                  A dedicated Council advisor
                 </div>
                 <div style={{ fontSize: 12, color: COLORS.textMuted }}>
-                  Your Council Advisor · liana@caseglide.com
+                  Every activation runs with one, from data mapping to live dashboards
                 </div>
               </div>
             </div>
             <div style={{ display: "flex", gap: 8 }}>
-              <button
-                style={{
-                  padding: "8px 16px",
-                  background: COLORS.surface,
-                  border: `1px solid ${COLORS.border}`,
-                  borderRadius: 8,
-                  color: COLORS.textSecondary,
-                  fontSize: 12,
-                  cursor: "pointer",
-                  fontFamily: FONTS.sans,
-                }}
-              >
-                Message
-              </button>
               <button
                 onClick={() => onSchedule?.()}
                 style={{
@@ -291,7 +271,7 @@ export default function OverviewPage({ clientName, week, onNav, onSchedule }: Ov
                   fontFamily: FONTS.sans,
                 }}
               >
-                Schedule Call
+                Schedule a walkthrough
               </button>
             </div>
           </div>

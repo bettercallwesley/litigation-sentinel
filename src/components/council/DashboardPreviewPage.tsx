@@ -23,8 +23,8 @@ export default function DashboardPreviewPage() {
           Dashboard Preview
         </h1>
         <p style={{ fontSize: 14, color: COLORS.textSecondary, margin: "0 0 20px" }}>
-          Toggle between your current data progress and the full vision of what your dashboards will
-          look like at completion.
+          Toggle between what the dashboard looks like during activation and the full vision once
+          your data is in.
         </p>
       </FadeIn>
 
@@ -63,7 +63,7 @@ export default function DashboardPreviewPage() {
                 fontFamily: FONTS.sans,
               }}
             >
-              Your Progress
+              During activation
             </button>
             <button
               onClick={() => setShowVision(true)}
@@ -136,10 +136,10 @@ function DocketProgress() {
           <ProgressRing value={42} max={100} size={40} color={COLORS.amber} />
           <div>
             <div style={{ fontSize: 13, fontWeight: 500, color: COLORS.textPrimary }}>
-              42% of open cases loaded
+              Illustrative, mid-activation: 42% of open cases loaded
             </div>
             <div style={{ fontSize: 12, color: COLORS.textMuted }}>
-              87 of 208 active matters — insights are partial
+              87 of 208 active matters. Insights are partial
             </div>
           </div>
         </div>
@@ -257,7 +257,7 @@ function DocketVision() {
         >
           <span style={{ fontSize: 14 }}>✦</span>
           <span style={{ fontSize: 12, fontWeight: 600, color: COLORS.gold }}>
-            Full Vision — What your Docket Dashboard will look like
+            Full Vision: What your Docket Dashboard will look like
           </span>
         </div>
       </Card>
@@ -520,10 +520,10 @@ function PrecedentProgress() {
           <ProgressRing value={28} max={100} size={40} color={COLORS.gold} />
           <div>
             <div style={{ fontSize: 13, fontWeight: 500, color: COLORS.textPrimary }}>
-              28% of closed cases loaded
+              Illustrative, mid-activation: 28% of closed cases loaded
             </div>
             <div style={{ fontSize: 12, color: COLORS.textMuted }}>
-              156 of 560 resolved matters — performance scoring building
+              156 of 560 resolved matters. Performance scoring building
             </div>
           </div>
         </div>
@@ -538,7 +538,7 @@ function PrecedentProgress() {
               textTransform: "uppercase",
             }}
           >
-            Attorney Performance — Early Signal
+            Attorney Performance: Early Signal
           </span>
         </div>
         <div
@@ -651,7 +651,7 @@ function PrecedentVision() {
         >
           <span style={{ fontSize: 14 }}>✦</span>
           <span style={{ fontSize: 12, fontWeight: 600, color: COLORS.gold }}>
-            Full Vision — What your Precedent Dashboard will look like
+            Full Vision: What your Precedent Dashboard will look like
           </span>
         </div>
       </Card>
@@ -715,7 +715,7 @@ function PrecedentVision() {
             marginBottom: 14,
           }}
         >
-          Cycle Time Efficiency — Days Improved
+          Cycle Time Efficiency: Days Improved
         </div>
         <div style={{ display: "flex", gap: 8, overflowX: "auto", paddingBottom: 4 }}>
           {[

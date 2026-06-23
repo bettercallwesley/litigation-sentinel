@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { COLORS, FONTS } from "@/components/design-system/tokens";
 import { CaseGlideLogo } from "@/components/design-system";
 import {
@@ -27,8 +27,12 @@ export default function CouncilRoute() {
   const [page, setPage] = useState<Page>("overview");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [showSchedule, setShowSchedule] = useState(false);
-  const clientName = "Acme Insurance";
-  const currentWeek = 3;
+  const [src, setSrc] = useState<string | null>(null);
+
+  useEffect(() => {
+    const param = new URLSearchParams(window.location.search).get("src");
+    if (param) setSrc(param);
+  }, []);
 
   const navigateTo = (p: string) => {
     setPage(p as Page);
@@ -89,7 +93,7 @@ export default function CouncilRoute() {
               COUNCIL
             </div>
             <div style={{ fontSize: 9, color: COLORS.textMuted }}>
-              {clientName} · Week {currentWeek}
+              The activation process
             </div>
           </div>
         </div>
@@ -122,34 +126,6 @@ export default function CouncilRoute() {
             padding: "8px 12px",
           }}
         >
-          {/* Progress bar */}
-          <div style={{ padding: "8px 8px 12px" }}>
-            <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 4 }}>
-              <span style={{ fontSize: 11, color: COLORS.textMuted }}>
-                Week {currentWeek} of 12
-              </span>
-              <span style={{ fontSize: 11, color: COLORS.accent }}>
-                {Math.round((currentWeek / 12) * 100)}%
-              </span>
-            </div>
-            <div
-              style={{
-                height: 4,
-                background: COLORS.border,
-                borderRadius: 2,
-                overflow: "hidden",
-              }}
-            >
-              <div
-                style={{
-                  width: `${(currentWeek / 12) * 100}%`,
-                  height: "100%",
-                  background: COLORS.accent,
-                  borderRadius: 2,
-                }}
-              />
-            </div>
-          </div>
           {NAV_ITEMS.map((item) => {
             const isActive = page === item.id;
             return (
@@ -222,29 +198,11 @@ export default function CouncilRoute() {
 
           <div style={{ padding: "14px 20px", borderBottom: `1px solid ${COLORS.border}` }}>
             <div style={{ fontSize: 13, fontWeight: 500, color: COLORS.textPrimary }}>
-              {clientName}
+              A guided preview
             </div>
-            <div style={{ fontSize: 11, color: COLORS.textMuted }}>
-              Week {currentWeek} of 12
-            </div>
-            <div
-              style={{
-                marginTop: 8,
-                height: 4,
-                background: COLORS.border,
-                borderRadius: 2,
-                overflow: "hidden",
-              }}
-            >
-              <div
-                style={{
-                  width: `${(currentWeek / 12) * 100}%`,
-                  height: "100%",
-                  background: COLORS.accent,
-                  borderRadius: 2,
-                  transition: "width 0.5s",
-                }}
-              />
+            <div style={{ fontSize: 11, color: COLORS.textMuted, lineHeight: 1.5, marginTop: 2 }}>
+              The path from the data you already keep to portfolio-level
+              intelligence. No login, no commitment.
             </div>
           </div>
 
@@ -291,7 +249,7 @@ export default function CouncilRoute() {
           }}
         >
           {page === "overview" && (
-            <OverviewPage clientName={clientName} week={currentWeek} onNav={navigateTo} onSchedule={() => setShowSchedule(true)} />
+            <OverviewPage onNav={navigateTo} onSchedule={() => setShowSchedule(true)} />
           )}
           {page === "data" && <DataReadinessPage />}
           {page === "activation" && <ActivationPage />}
@@ -301,7 +259,10 @@ export default function CouncilRoute() {
       </div>
 
       {showSchedule && (
-        <ScheduleModal onClose={() => setShowSchedule(false)} source="council" />
+        <ScheduleModal
+          onClose={() => setShowSchedule(false)}
+          source={src ? `council:${src}` : "council"}
+        />
       )}
 
       <ThemeToggle />
