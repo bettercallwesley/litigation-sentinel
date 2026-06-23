@@ -2321,11 +2321,70 @@ export const ARTICLES: NewsletterArticle[] = [
     tag: "How-To",
     title: "How to Build a Litigation Intelligence Stack Without Replacing Your Claims System",
     subtitle:
-      "The best implementations layer intelligence on top of what you already have. Here's the architecture that actually works — and the one mistake that derails the whole thing.",
-    readTime: "7 min",
+      "The best implementations layer intelligence on top of the claims system you already run. The one mistake that derails the whole thing is treating it as a system to replace instead of a layer to build.",
+    readTime: "8 min read",
     author: "Wes Todd",
     date: "February 3, 2026",
-    linksTo: "council",
+    readers: 1394,
+    content: [
+      { type: "paragraph", text: "\"The Company continues to believe that it is necessary to replace these systems to remain competitive.\" That line is from [Kemper Corporation's annual report](https://www.sec.gov/Archives/edgar/data/860748/000086074816000146/kmpr-20151231201510k.htm), filed with the SEC in February 2016. The systems it refers to are the ones Kemper had just spent two years and $65.7 million trying to replace, and then walked away from." },
+      { type: "paragraph", text: "The write-offs are itemized in the filing. $54.6 million in 2014, when the property and casualty arm decided its new policy administration system would not be finished. Another $11.1 million in 2015, when it abandoned the billing system that was supposed to follow. Two projects. Two write-offs. And a closing sentence that concedes the company still has to do the thing it just failed to do." },
+      { type: "paragraph", text: "Sit with the shape of that. A serious insurer committed real money and two years to replacing its core systems, got nothing it could use, and came out the other side believing it still needs to replace them. The money did not buy the capability. It bought a newer plan to chase the same capability." },
+      { type: "heading", text: "This is not a Kemper problem" },
+      { type: "paragraph", text: "[The Hartford](https://www.sec.gov/Archives/edgar/data/874766/000095012312003120/c25396e10vk.htm) discontinued a policy administration software project in 2011 and wrote off $113 million before taxes. North Carolina set out to replace the system that pays its Medicaid claims; [the state's own auditor](https://www.auditor.nc.gov/documents/reports/infosystems/isa-2013-4410-0) found the contract ran from $265 million to $484 million and that the program failed to fully test the system before it went live. The pattern is not an insurance pattern or a government pattern. It is a large-systems pattern. [McKinsey and the University of Oxford](https://www.mckinsey.com/capabilities/tech-and-ai/our-insights/delivering-large-scale-it-projects-on-time-on-budget-and-on-value) studied large IT projects and found they run, on average, 45 percent over budget and 7 percent over schedule while delivering 56 percent less value than predicted." },
+      { type: "paragraph", text: "Read that last figure again. Not 56 percent less on time. 56 percent less value. The thing the project was for, cut by more than half, after the budget was already gone." },
+      { type: "paragraph", text: "So the question worth asking before anyone signs the next replacement contract is a plain one. What were you actually trying to buy?" },
+      { type: "heading", text: "You were never buying a system" },
+      { type: "paragraph", text: "If you run a legal department or a claims organization with a few hundred to a few thousand open matters, you already have a system of record. It tracks your files. It holds your documents. When the board asks why litigation outcomes are not improving, the reflex is to decide the system is the problem and to go shopping for a replacement. That reflex is the Kemper move. It is expensive, and it is usually wrong." },
+      { type: "paragraph", text: "The system is not why your outcomes are flat. The reason is what the system was never asked to tell you. [Thomson Reuters' 2025 Legal Department Operations Index](https://www.thomsonreuters.com/en-us/posts/corporates/2025-ldo-index-legal-success-metrics/) found that the service-centric measures, the quality of legal outcomes, cycle time, and cost avoided, are tracked by fewer than one in five legal departments. Almost everyone tracks spend. Almost no one tracks whether the spend bought a good result." },
+      { type: "paragraph", text: "That is the real gap, and a new system of record does not close it. You track spend, not outcome quality. You read narratives from outside counsel that arrive a quarter after the decisions they describe were already made. You have no way to say whether the firm on your highest-exposure matter wins this kind of case, in this venue, against this opponent, more often than the firm you passed over. You walk into mediation without a read on where the case is actually heading. Replacing the claims system moves that same blind data into a newer box. The blindness moves with it." },
+      { type: "pullquote", text: "The money did not buy the capability. It bought a newer plan to chase the same capability." },
+      { type: "paragraph", text: "If your highest-exposure matter went to mediation next month, could you say today whether the lawyer handling it wins this kind of case, in this venue, against this opponent, more often than the lawyer you did not assign? Not how much you have spent on it. The odds. If the answer is no, then the thing you are missing was never going to arrive in a new system. It lives in a layer you have not built yet." },
+      { type: "heading", text: "Build the layer, not the replacement" },
+      { type: "paragraph", text: "Litigation intelligence is not a system of record you migrate to. It is a layer that reads the systems you already run and turns what is buried in them into something you can act on. Real-time visibility across the whole portfolio instead of a quarterly snapshot. Counsel performance calibrated by venue, by case difficulty, by opposing counsel, instead of a spend report. The trajectory of a case's severity before you sit down at mediation, instead of after. None of that requires you to tear out the system that already holds your matters." },
+      { type: "paragraph", text: "It also avoids the trap that kills the replacement projects. Insurance trade press keeps [describing the same pattern](https://www.insurancethoughtleadership.com/going-digital/legacy-systems-modernize-or-overhaul): the new platform cannot fully replicate what the old one quietly did, so cutover never finishes, and you pay to run both while the promised return never lands. A layer has no cutover. Nothing gets ripped out, so nothing has to be perfectly replaced first. You keep your system of record and you build intelligence on top of it. That is the difference between a two-year program with a write-off at the end and a working capability in weeks." },
+      { type: "paragraph", text: "The mistake in the subtitle of this piece, the one that derails the whole thing, is treating litigation intelligence as a system to replace instead of a layer to build. Get that backward and you are Kemper. Get it right and the work is mostly about activating data you already keep. Map what your systems already capture. Turn it into portfolio signal. Calibrate it against real outcomes. Put it in front of the people who decide which lawyer gets which case." },
+      { type: "paragraph", text: "Kemper spent $65.7 million to replace its systems and concluded, in writing, that it still needed to replace them. The capability it wanted was never going to be inside the system. It was always in the layer above it. So is yours." },
+    ],
+    sources: [
+      {
+        claim:
+          "$54.6M (2014, policy administration system) + $11.1M (2015, billing system) abandoned core-system replacement write-offs; verbatim 'The Company continues to believe that it is necessary to replace these systems to remain competitive.'",
+        locator: "Kemper Corporation FY2015 Form 10-K, filed February 12, 2016",
+        url: "https://www.sec.gov/Archives/edgar/data/860748/000086074816000146/kmpr-20151231201510k.htm",
+      },
+      {
+        claim:
+          "$113M pre-tax write-off of a discontinued policy administration software project (Q2 2011)",
+        locator: "The Hartford Financial Services Group FY2011 Form 10-K, filed February 24, 2012",
+        url: "https://www.sec.gov/Archives/edgar/data/874766/000095012312003120/c25396e10vk.htm",
+      },
+      {
+        claim:
+          "NCTracks Medicaid claims-system replacement contract grew from $265M to $484M; auditor found the Department 'failed to fully test the system' before the July 1, 2013 go-live",
+        locator: "North Carolina Office of the State Auditor, Report ISA-2013-4410, May 22, 2013",
+        url: "https://www.auditor.nc.gov/documents/reports/infosystems/isa-2013-4410-0",
+      },
+      {
+        claim:
+          "Large IT projects run on average 45% over budget and 7% over schedule while delivering 56% less value than predicted",
+        locator:
+          "McKinsey & Company with the University of Oxford, 'Delivering large-scale IT projects on time, on budget, and on value'",
+        url: "https://www.mckinsey.com/capabilities/tech-and-ai/our-insights/delivering-large-scale-it-projects-on-time-on-budget-and-on-value",
+      },
+      {
+        claim:
+          "Service-centric metrics (quality of legal outcomes, cycle time, cost avoided) are captured by fewer than 20% of legal departments; spend metrics dominate",
+        locator: "Thomson Reuters Institute, 2025 Legal Department Operations (LDO) Index, October 8, 2025",
+        url: "https://www.thomsonreuters.com/en-us/posts/corporates/2025-ldo-index-legal-success-metrics/",
+      },
+      {
+        claim:
+          "Insurers stuck running a legacy system and its replacement in parallel: the replacement cannot replicate embedded legacy logic, cutover never completes, the carrier pays to run two systems and the ROI never lands",
+        locator: "Insurance Thought Leadership, 'Legacy Systems: Modernize or Overhaul?'",
+        url: "https://www.insurancethoughtleadership.com/going-digital/legacy-systems-modernize-or-overhaul",
+      },
+    ],
   },
   {
     slug: "outside-counsel-performance-top-10-percent",
