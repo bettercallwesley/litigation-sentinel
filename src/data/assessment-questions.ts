@@ -12,19 +12,25 @@ export interface AssessmentQuestion {
   options: AssessmentOption[];
 }
 
+// Five-question briefing (2026-06-23 rebuild). Distribution: 2 docket / 2
+// precedent / 1 ai, which preserves the weakest-pillar math. Old `data_capture`
+// folded into Q5. Score math is unchanged: page.tsx and route.ts both divide by
+// ASSESSMENT_QUESTIONS.length. Ids are held stable so Beehiiv custom-field
+// mapping and the results breakdown keep working.
 export const ASSESSMENT_QUESTIONS: AssessmentQuestion[] = [
   {
     id: "open_visibility",
     painPoint: "Open Case Visibility",
     feature: "Docket Dashboard",
     pillar: "docket",
-    question: "Right now, can you see which open cases need your attention — over budget, aging past 12 or 18 months, stalled negotiations, or approaching a key event like mediation or trial?",
+    question:
+      "A case is sliding. Over budget, aging past 18 months, stalled after mediation. Today, how do you find out?",
     options: [
-      { score: 1, label: "No — we rely on outside counsel to flag issues, or we discover them reactively" },
-      { score: 2, label: "Partially — we track some metrics in spreadsheets, but it's manual and incomplete" },
-      { score: 3, label: "We have dashboards, but they require manual updates and don't surface exceptions automatically" },
-      { score: 4, label: "We have real-time dashboards with alerts for budget, aging, and key milestones" },
-      { score: 5, label: "We have intelligent dashboards that proactively flag intervention opportunities based on case patterns" },
+      { score: 1, label: "Outside counsel tells us, or we find out when it is already a problem" },
+      { score: 2, label: "Someone pulls it together by hand from spreadsheets, when asked" },
+      { score: 3, label: "We have dashboards, but they are stale and do not flag the exception" },
+      { score: 4, label: "A real-time view flags budget, aging, and milestones as they break" },
+      { score: 5, label: "The system surfaces the intervention before we would have thought to look" },
     ],
   },
   {
@@ -32,13 +38,14 @@ export const ASSESSMENT_QUESTIONS: AssessmentQuestion[] = [
     painPoint: "Intervention & Settlement Readiness",
     feature: "Docket Dashboard",
     pillar: "docket",
-    question: "Can you identify which cases are ready to settle, which have stalled post-mediation, or where a particular plaintiff firm is creating outsized exposure?",
+    question:
+      "Which of your open cases is ready to settle today, and which plaintiff firm is quietly running up your exposure? Can you answer right now?",
     options: [
-      { score: 1, label: "No — we don't have that data consolidated in a way that surfaces those patterns" },
-      { score: 2, label: "We can answer some of these, but it takes days of manual review to compile" },
-      { score: 3, label: "We have reporting that covers some of this, but it's not real-time or comprehensive" },
-      { score: 4, label: "We can see settlement readiness, negotiation gaps, and firm-level patterns in a single view" },
-      { score: 5, label: "Our system proactively recommends intervention points and flags negotiation anomalies" },
+      { score: 1, label: "No, that data is not consolidated anywhere we can see it" },
+      { score: 2, label: "Yes, after a few days of manual review" },
+      { score: 3, label: "Partly, our reporting covers some of it, not in real time" },
+      { score: 4, label: "Yes, settlement readiness and firm-level patterns in one view" },
+      { score: 5, label: "The system flags the negotiation anomaly before we ask" },
     ],
   },
   {
@@ -46,13 +53,14 @@ export const ASSESSMENT_QUESTIONS: AssessmentQuestion[] = [
     painPoint: "Outcome Measurement",
     feature: "Precedent Dashboard",
     pillar: "precedent",
-    question: "For your resolved cases, can you determine whether an outcome was good — not just what was spent, but whether you got value relative to liability, damages, venue, and strategy used?",
+    question:
+      "When a case closes, can you tell a good outcome from an expensive one, value relative to liability, venue, and the strategy you ran?",
     options: [
-      { score: 1, label: "We track legal spend, but we can't connect it to outcome quality or case characteristics" },
-      { score: 2, label: "We have basic outcome data, but it's not structured enough to draw conclusions" },
-      { score: 3, label: "We measure outcomes and spend, but can't calibrate value by venue, judge, or strategy" },
-      { score: 4, label: "We have structured outcome data with liability, damages, negotiations, and venue — and can benchmark" },
-      { score: 5, label: "We can fully calibrate outcome value against all case variables and use it to predict future performance" },
+      { score: 1, label: "We know what we spent, we cannot say whether it was a win" },
+      { score: 2, label: "We have outcome data, but not structured enough to judge" },
+      { score: 3, label: "We track outcome and spend, but cannot calibrate by venue or strategy" },
+      { score: 4, label: "Structured outcomes we can benchmark by liability, damages, and venue" },
+      { score: 5, label: "We calibrate every variable and use it to predict the next case" },
     ],
   },
   {
@@ -60,13 +68,14 @@ export const ASSESSMENT_QUESTIONS: AssessmentQuestion[] = [
     painPoint: "Attorney Performance & Selection",
     feature: "Precedent Dashboard",
     pillar: "precedent",
-    question: "Can you measure the value your defense attorneys deliver — not just their rates, but their outcomes relative to case difficulty, and use that to assign the right attorney to the right case?",
+    question:
+      "Do you know which of your defense attorneys actually wins the hard cases, and do you staff the next one accordingly?",
     options: [
-      { score: 1, label: "We know what they bill, but we can't objectively measure outcome quality by attorney" },
-      { score: 2, label: "We have some outcome data, but it's not structured to compare attorneys fairly" },
-      { score: 3, label: "We benchmark attorneys on spend and cycle time, but lack outcome-calibrated performance data" },
-      { score: 4, label: "We measure attorney performance across spend, outcomes, and case characteristics — and use it for assignments" },
-      { score: 5, label: "AI-driven performance scoring that accounts for case complexity, venue, and liability — fully integrated into counsel selection" },
+      { score: 1, label: "We know their rates, we cannot rank them on outcomes" },
+      { score: 2, label: "Some outcome data, not structured to compare fairly" },
+      { score: 3, label: "We compare on spend and cycle time, not outcome adjusted for difficulty" },
+      { score: 4, label: "We measure outcome by case difficulty and staff to it" },
+      { score: 5, label: "Performance scoring accounts for venue and liability, wired into selection" },
     ],
   },
   {
@@ -74,27 +83,14 @@ export const ASSESSMENT_QUESTIONS: AssessmentQuestion[] = [
     painPoint: "On-Demand Intelligence",
     feature: "Chambers & Chronicle",
     pillar: "ai",
-    question: "When you need an instant answer about your portfolio — or a case timeline for a board meeting — how quickly can you get it?",
+    question:
+      "It is the morning of the board meeting. You need the portfolio's exposure and a clean case timeline. How long until you have it, and is the underlying data even there?",
     options: [
-      { score: 1, label: "Someone has to compile it manually — hours or days" },
-      { score: 2, label: "We have reports, but they require manual updates and can't handle ad hoc questions" },
-      { score: 3, label: "We have dashboards, but narrative summaries and timelines are still manual" },
-      { score: 4, label: "We can query the portfolio flexibly and auto-generate case timelines with human review" },
-      { score: 5, label: "AI generates instant answers to any portfolio question and produces board-ready narratives on demand" },
-    ],
-  },
-  {
-    id: "data_capture",
-    painPoint: "Data Foundation",
-    feature: "Case Updates & CG Intelligence",
-    pillar: "ai",
-    question: "How does the structured case data that powers all of this — liability assessments, strategy, milestone details — actually get into your system?",
-    options: [
-      { score: 1, label: "It doesn't — most of that information lives in emails and attorney notes, unstructured" },
-      { score: 2, label: "We ask for it manually, but compliance is inconsistent and the data is incomplete" },
-      { score: 3, label: "We have structured intake forms, but they're static and disconnected from case stage" },
-      { score: 4, label: "Dynamic, milestone-aware requests capture the right data at the right time" },
-      { score: 5, label: "Intelligent requests adapt to case context, and AI extracts data from any document or communication automatically" },
+      { score: 1, label: "Hours or days, and half of it lives in emails and attorney notes" },
+      { score: 2, label: "We have reports, but they cannot answer the question we are actually asked" },
+      { score: 3, label: "Dashboards exist, the narrative and timeline are still built by hand" },
+      { score: 4, label: "We query the portfolio and auto-build timelines with a human check" },
+      { score: 5, label: "Instant answers and board-ready narratives, on demand" },
     ],
   },
 ];

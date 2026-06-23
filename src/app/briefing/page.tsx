@@ -8,6 +8,7 @@ import {
   AssessmentPage,
   ResultsPage,
   ScheduleModal,
+  BriefingRail,
 } from "@/components/briefing";
 import ThemeToggle from "@/components/shared/ThemeToggle";
 import { trackEvent } from "@/lib/track";
@@ -33,6 +34,16 @@ function BriefingFlow() {
   const [showSchedule, setShowSchedule] = useState(false);
   const startedRef = useRef(false);
 
+  // Phase rail index: CONTEXT(0) / ASSESSMENT(1) / RESULTS(2) / NEXT(3).
+  // Opening the schedule modal advances the rail to NEXT.
+  const activeIndex = showSchedule
+    ? 3
+    : phase === "landing"
+      ? 0
+      : phase === "assessment"
+        ? 1
+        : 2;
+
   return (
     <div
       style={{
@@ -43,6 +54,26 @@ function BriefingFlow() {
         position: "relative",
       }}
     >
+      <style>{`
+        .brief-main { padding-left: 44px; }
+        .brief-rail-desktop { display: flex; }
+        .brief-rail-mobile { display: none !important; }
+        @media (max-width: 760px) {
+          .brief-main { padding-left: 0; padding-top: 36px; }
+          .brief-rail-desktop { display: none !important; }
+          .brief-rail-mobile { display: flex !important; }
+        }
+        @media (max-width: 430px) {
+          .brief-rail-mobile { justify-content: flex-start !important; overflow-x: auto; gap: 5px !important; padding: 0 12px; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .brief-main *, .brief-rail-desktop *, .brief-rail-mobile * { animation: none !important; transition: none !important; }
+        }
+      `}</style>
+
+      <BriefingRail activeIndex={activeIndex} />
+
+      <main className="brief-main">
       {phase === "landing" && (
         <LandingPage
           onStart={() => {
@@ -76,6 +107,7 @@ function BriefingFlow() {
           onSchedule={() => setShowSchedule(true)}
         />
       )}
+      </main>
 
       {showSchedule && (
         <ScheduleModal

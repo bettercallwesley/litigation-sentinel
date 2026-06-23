@@ -1,6 +1,17 @@
 import { NextRequest, NextResponse } from "next/server";
+import { createHash } from "node:crypto";
 
 const SITE_ORIGIN = "https://litigationsentinel.com";
+
+/**
+ * Truncated SHA-256 of the email, used as a non-reversible correlation key in
+ * logs. Lets us trace one visitor's events across log lines without ever
+ * writing their email, name, title, or company to disk (Codex security pass,
+ * 2026-06-23). No new dependency: node:crypto is built in.
+ */
+function emailRef(email: string): string {
+  return createHash("sha256").update(email.toLowerCase().trim()).digest("hex").slice(0, 12);
+}
 
 const QUESTION_LABELS: Record<string, string> = {
   open_visibility: "Open Case Visibility",
@@ -136,13 +147,14 @@ async function notifyWes(payload: {
       }),
     });
     if (!res.ok) {
-      const errBody = await res.text().catch(() => "");
-      console.error(`[BRIEFING_NOTIFY_ERROR] status=${res.status} ${errBody}`);
+      // Do not log the Resend error body: it can echo the to/subject (name +
+      // email). Status only.
+      console.error(`[BRIEFING_NOTIFY_ERROR] status=${res.status}`);
     } else {
-      console.log(`[BRIEFING_NOTIFY_OK] ${payload.email}`);
+      console.log(`[BRIEFING_NOTIFY_OK] ref=${emailRef(payload.email)}`);
     }
   } catch (err) {
-    console.error("[BRIEFING_NOTIFY_ERROR]", err);
+    console.error("[BRIEFING_NOTIFY_ERROR]", err instanceof Error ? err.message : "error");
   }
 }
 
@@ -194,26 +206,31 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Valid email required" }, { status: 400 });
     }
 
-    // Structured log for monitoring (replaces Resend notification)
+    // topGaps is computed for the Resend notify to Wes (a private inbox, not a
+    // log). It is never written to the structured log below.
     let maturityLevel: number | null = null;
-    const logData: Record<string, unknown> = { email };
-    if (name) logData.name = name;
-    if (title) logData.title = title;
-    if (company) logData.company = company;
-    if (source) logData.source = source;
-    if (program) logData.program = program;
+    let topGaps = "";
     if (answers) {
       const scores = Object.values(answers) as number[];
       const avg = scores.reduce((a, b) => a + b, 0) / scores.length;
       maturityLevel = Math.min(5, Math.max(1, Math.round(avg)));
-      logData.maturityLevel = maturityLevel;
-      logData.topGaps = Object.entries(answers)
+      topGaps = Object.entries(answers)
         .map(([id, score]) => ({ label: QUESTION_LABELS[id] || id, score }))
         .sort((a, b) => (a.score as number) - (b.score as number))
         .slice(0, 3)
         .map((g) => `${g.label} (${g.score}/5)`)
         .join(", ");
     }
+
+    // PII-redacted structured log (Codex security pass, 2026-06-23): only the
+    // non-reversible email ref + non-PII operational fields. No email, name,
+    // title, company, or topGaps reach the log.
+    const ref = emailRef(email);
+    const logData: Record<string, unknown> = { ref };
+    if (typeof gate_type === "string" && gate_type) logData.gate_type = gate_type;
+    if (typeof source === "string" && source) logData.source = source;
+    if (typeof program === "string" && program) logData.program = program;
+    if (maturityLevel !== null) logData.maturityLevel = maturityLevel;
     console.log(`[BRIEFING_REQUEST] ${JSON.stringify(logData)} | ${new Date().toISOString()}`);
 
     // Subscribe to Beehiiv newsletter (source of truth)
@@ -300,10 +317,12 @@ export async function POST(req: NextRequest) {
         }
       );
       if (!beehiivRes.ok) {
-        const errBody = await beehiivRes.json().catch(() => ({}));
-        console.error(`[BRIEFING_BEEHIIV_ERROR] status=${beehiivRes.status} email=${email}`, errBody);
+        // Drain and discard the body: Beehiiv error JSON can echo the email.
+        // Log status + non-reversible ref only.
+        await beehiivRes.json().catch(() => ({}));
+        console.error(`[BRIEFING_BEEHIIV_ERROR] status=${beehiivRes.status} ref=${ref}`);
       } else {
-        console.log(`[BRIEFING_BEEHIIV_OK] email=${email}`);
+        console.log(`[BRIEFING_BEEHIIV_OK] ref=${ref}`);
       }
     }
 
@@ -314,11 +333,11 @@ export async function POST(req: NextRequest) {
       const suppression = classifySuppression(email, typeof company === "string" ? company : "");
       if (suppression.suppressed) {
         console.log(
-          `[BRIEFING_NOTIFY_SUPPRESSED] email=${email} layer=${suppression.layer}`
+          `[BRIEFING_NOTIFY_SUPPRESSED] ref=${ref} layer=${suppression.layer}`
         );
       } else {
         if (suppression.review) {
-          console.log(`[BRIEFING_NOTIFY_REVIEW] suppression_review=true email=${email}`);
+          console.log(`[BRIEFING_NOTIFY_REVIEW] suppression_review=true ref=${ref}`);
         }
         await notifyWes({
           name: typeof name === "string" ? name : undefined,
@@ -326,14 +345,15 @@ export async function POST(req: NextRequest) {
           company: typeof company === "string" ? company : undefined,
           title: typeof title === "string" ? title : undefined,
           maturityLevel,
-          topGaps: typeof logData.topGaps === "string" ? logData.topGaps : undefined,
+          topGaps: topGaps || undefined,
         });
       }
     }
 
     return NextResponse.json({ success: true });
   } catch (err) {
-    console.error("Briefing capture error:", err);
+    // Log the message only, never the raw error/request body (may carry PII).
+    console.error("Briefing capture error:", err instanceof Error ? err.message : "error");
     return NextResponse.json({ error: "Something went wrong" }, { status: 500 });
   }
 }
