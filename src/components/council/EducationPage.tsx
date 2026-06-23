@@ -24,7 +24,7 @@ export default function EducationPage() {
           Education &amp; Enablement
         </h1>
         <p style={{ fontSize: 14, color: COLORS.textSecondary, margin: "0 0 24px" }}>
-          Curated content delivered to each track throughout the 90-day engagement — building feature
+          Curated content each track receives during the 90 days. Building feature
           knowledge and executive confidence in parallel.
         </p>
       </FadeIn>
@@ -79,7 +79,6 @@ export default function EducationPage() {
       {/* Content List */}
       <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
         {content.map((item, i) => {
-          const isPast = item.week <= 2;
           return (
             <FadeIn key={i} delay={100 + i * 50}>
               <Card
@@ -123,13 +122,7 @@ export default function EducationPage() {
                     <span>Week {item.week}</span>
                   </div>
                 </div>
-                {isPast ? (
-                  <Badge color={COLORS.emerald}>Delivered</Badge>
-                ) : item.week <= 3 ? (
-                  <Badge color={COLORS.accent}>This Week</Badge>
-                ) : (
-                  <Badge color={COLORS.textMuted}>Upcoming</Badge>
-                )}
+                <Badge color={COLORS.textMuted}>Week {item.week}</Badge>
               </Card>
             </FadeIn>
           );

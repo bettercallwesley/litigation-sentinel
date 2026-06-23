@@ -426,9 +426,9 @@ export default function DataReadinessPage() {
                   margin: 0,
                 }}
               >
-                All four data categories are mapped. Your CaseGlide team will use this plan to begin
-                data activation. You&apos;ll see data start appearing in your Precedent and Docket
-                dashboards within the next 2-3 weeks.
+                Once all four data categories are mapped, the CaseGlide team uses the plan to begin
+                data activation. Data starts appearing in the Precedent and Docket dashboards within
+                the first 2-3 weeks.
               </p>
             </div>
           </Card>
