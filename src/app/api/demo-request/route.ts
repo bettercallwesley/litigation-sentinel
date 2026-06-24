@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { appendCapture } from "@/lib/captureLedger";
 
 const SITE_ORIGIN = "https://litigationsentinel.com";
 
@@ -249,7 +250,8 @@ export async function POST(req: NextRequest) {
   }
 
   if (suppression.suppressed) {
-    // Courteous generic thank-you. Never notify, never queue, no Beehiiv.
+    // Courteous generic thank-you. Never notify, never queue, no Beehiiv,
+    // no ledger: a suppressed law firm is never a reportable hand-raiser.
     return NextResponse.json({ success: true });
   }
 
@@ -258,6 +260,21 @@ export async function POST(req: NextRequest) {
   if (newsletterOptIn) {
     await beehiivOptIn(email, attribution);
   }
+
+  // Objective E (reporting only): record the hand-raiser on the durable
+  // capture ledger so COS can report demo requests and flag warm inbound.
+  // Best-effort, fail-soft, never changes the response. Demo requesters who
+  // do NOT opt into the newsletter exist only here (Beehiiv never sees them).
+  await appendCapture({
+    email,
+    tool: "demo-request",
+    gate_type: newsletterOptIn ? "demo-opt-in" : "demo-request",
+    ts: new Date().toISOString(),
+    company: company || undefined,
+    utm_source: attribution.utm_source,
+    utm_campaign: attribution.utm_campaign,
+    referrer_first: attribution.referrer_first,
+  });
 
   return NextResponse.json({ success: true });
 }
