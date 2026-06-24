@@ -257,7 +257,16 @@ function ContentBlock({ block, index }: { block: ArticleContentBlock; index: num
 }
 
 function RelatedArticles({ currentSlug }: { currentSlug: string }) {
-  const related = ALL_ARTICLES.filter((a) => a.slug && a.slug !== currentSlug).slice(0, 3);
+  const FLAGSHIP_SLUG = "build-litigation-intelligence-stack";
+  const flagship = ALL_ARTICLES.find((a) => a.slug === FLAGSHIP_SLUG);
+  const fill = ALL_ARTICLES
+    .filter((a) => a.slug && a.slug !== currentSlug && a.slug !== FLAGSHIP_SLUG)
+    .slice(0, 3);
+  // Append the conversion flagship as the LAST card on every OTHER article,
+  // keeping the existing related articles above it (3 + flagship = 4). On the
+  // flagship's own page, fall back to the default first-3 so it never self-links.
+  const related =
+    flagship && currentSlug !== FLAGSHIP_SLUG ? [...fill, flagship] : fill.slice(0, 3);
   if (related.length === 0) return null;
 
   return (
