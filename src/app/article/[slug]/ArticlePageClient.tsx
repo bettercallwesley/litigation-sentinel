@@ -6,7 +6,7 @@ import { SENTINEL, FONTS } from "@/components/design-system/tokens";
 import FadeIn from "@/components/design-system/FadeIn";
 import { SentinelFooter, SubscribeBlock, BriefingBridge, CouncilBridge, VerdictTimeline } from "@/components/sentinel";
 import ExitIntentPopup from "@/components/sentinel/ExitIntentPopup";
-import { getArticleBySlug, ALL_ARTICLES, ArticleContentBlock } from "@/data/newsletter-articles";
+import { getArticleBySlug, ALL_ARTICLES, FLAGSHIP_SLUG, ArticleContentBlock } from "@/data/newsletter-articles";
 import { readersFor } from "@/data/engagement-stats";
 import { getVerdictTimeline } from "@/data/verdict-timelines";
 import ThemeToggle from "@/components/shared/ThemeToggle";
@@ -257,7 +257,8 @@ function ContentBlock({ block, index }: { block: ArticleContentBlock; index: num
 }
 
 function RelatedArticles({ currentSlug }: { currentSlug: string }) {
-  const FLAGSHIP_SLUG = "build-litigation-intelligence-stack";
+  // FLAGSHIP_SLUG is imported from the data file — one source of truth shared
+  // with FEATURED_ARTICLE (the homepage hero), never redefined locally.
   const flagship = ALL_ARTICLES.find((a) => a.slug === FLAGSHIP_SLUG);
   const fill = ALL_ARTICLES
     .filter((a) => a.slug && a.slug !== currentSlug && a.slug !== FLAGSHIP_SLUG)

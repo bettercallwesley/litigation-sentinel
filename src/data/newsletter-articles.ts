@@ -23,40 +23,13 @@ export interface NewsletterArticle {
 // newest article record (B7, WES-PROXY-5: computation over reminder), with a
 // build-failing staleness assertion on the issue-number bump record.
 
-export const FEATURED_ARTICLE: NewsletterArticle = {
-  slug: "parris-52m-santa-clarita-truck",
-  section: "Litigation Strategy",
-  tag: "Nuclear Verdicts",
-  title: "PARRIS Won $52.1M After the Insurer Offered Nothing to Start",
-  subtitle:
-    "A trucking insurer opened a catastrophic-injury case by denying liability and offering nothing, betting an independent-contractor shield would hold. The jury read the denial as the evidence and answered with $52.1 million.",
-  readTime: "4 min read",
-  author: "Wesley Todd",
-  date: "June 18, 2026",
-  trending: true,
-  readers: 2363,
-  content: [
-    { type: "paragraph", text: "\"Offered nothing.\" That is how the [PARRIS Law Firm](https://www.prnewswire.com/news-releases/parris-law-firm-obtains-52-million-verdict-in-catastrophic-semi-truck-collision-trial-302804727.html) described the defense posture at the start of this case. Santa Clarita, June 18. A Los Angeles jury came back with $52.1 million." },
-    { type: "paragraph", text: "The crash was a semi-truck and a motorcyclist. The trucking defendant did not want to own it. So the insurer reached for the oldest shield in the commercial-auto playbook. The driver was an independent contractor, the argument went. Not our man. Not our liability." },
-    { type: "paragraph", text: "The jury did not buy it." },
-    { type: "paragraph", text: "The math is worth sitting with. $45.6 million in compensatory damages. Then a separate $6.5 million in punitives stacked on top. Punitive damages are not paid for a bad crash. They are paid for bad conduct. The jury was not punishing the collision. It was punishing the choice that came after it." },
-    { type: "paragraph", text: "That is the part defense counsel keep missing." },
-    { type: "paragraph", text: "When the insurer opened by denying liability and offering nothing, it did not buy time. It built the plaintiff's closing argument. R. Rex Parris has tried cases in this county for four decades. His firm, with Khail Parris and Curtis Crawford on the trial team, did the obvious thing. They told the jury the story of a defendant who looked at a catastrophically injured person and reached for a technicality instead of a checkbook. The independent-contractor theory stopped being a legal defense. It became the evidence. It became the predicate." },
-    { type: "paragraph", text: "This is the move that should worry anyone defending a commercial-auto file." },
-    { type: "paragraph", text: "The independent-contractor classification is everywhere. Trucking, gig delivery, staffing, last-mile logistics. It is the structure that lets a large enterprise put thousands of drivers on the road while holding the liability at arm's length. On paper it is a clean wall between the company and the man behind the wheel. In front of a jury after a catastrophic injury, that wall reads as something colder. It reads as a company that built its whole operation so it would never have to answer for the harm." },
-    { type: "paragraph", text: "The classification did not hold here. It rarely holds when the injury is severe and the denial is reflexive." },
-    { type: "paragraph", text: "For a general counsel watching this from inside a large enterprise, the stakes are not academic. The independent-contractor liability shield is the load-bearing assumption under a lot of risk transfer. It assumes a court, and then a jury, will respect the paper. When that assumption fails at trial, the exposure does not cap at the policy limit anyone modeled. It runs to whatever number twelve people decide is fair, plus whatever they decide is deserved." },
-    { type: "paragraph", text: "Look at the structure of what happened. The defense led with the strongest legal argument it had. Lawyers love the independent-contractor defense because it can end a case before damages ever come up. No agency, no vicarious liability, no payout. Clean exit. But it is an all-or-nothing bet. You are telling the jury that the right answer is zero. That the injured rider should walk away with nothing because of how the contracts were drafted." },
-    { type: "paragraph", text: "Juries hate that bet when they can see the injury." },
-    { type: "paragraph", text: "So the defense was left arguing a paperwork theory to a room full of people looking at a man whose life had been wrecked. Once the jury rejected the shield, there was no fallback story. No partial responsibility. No reduced number. The denial had burned the middle ground. There was only the full freight and the punitive layer on top." },
-    { type: "pullquote", text: "A carrier denies. A firm reframes the denial as contempt for the injured party. A jury answers the contempt with a number nobody reserved for." },
-    { type: "paragraph", text: "This is the denial-as-predicate trap, and it is not unique to Parris or to Santa Clarita. It is the engine under the whole nuclear-verdict curve. Eight-figure jury awards against commercial defendants have climbed hard since 2020, and the climb is not a run of bad luck. They are the visible result of a strategy that keeps backfiring the same way. A carrier denies. A firm reframes the denial as contempt for the injured party. A jury answers the contempt with a number nobody reserved for." },
-    { type: "paragraph", text: "The $52.1 million is what that curve looks like up close. One file. One denial. One independent-contractor theory that read as principle in a deposition and as cruelty in a courtroom." },
-    { type: "paragraph", text: "The case is on the [Los Angeles Superior Court docket as No. 21STCV20196](https://www.prnewswire.com/news-releases/parris-law-firm-obtains-52-million-verdict-in-catastrophic-semi-truck-collision-trial-302804727.html). The [firm's account of the verdict](https://www.prnewswire.com/news-releases/parris-law-firm-obtains-52-million-verdict-in-catastrophic-semi-truck-collision-trial-302804727.html) is short on apology and long on the word that started it." },
-    { type: "paragraph", text: "The defense offered nothing. The jury offered $52.1 million." },
-    { type: "paragraph", text: "Sometimes nothing is the most expensive number on the table." },
-  ],
-};
+// THE FLAGSHIP (evergreen, singular): the permanent conversion cornerstone.
+// This slug is the homepage hero, the "next to read" pin on every other
+// article, and the canonical SCF exemplar. It is NOT the PARRIS article.
+// FEATURED_ARTICLE is DERIVED from this slug below (after ALL_ARTICLES is
+// assembled) so there is exactly one source of truth for "the flagship."
+// Reversal of the prior PARRIS-hero lock (Wes directive 2026-06-24).
+export const FLAGSHIP_SLUG = "build-litigation-intelligence-stack";
 
 export const LITIGATION_MANAGEMENT_DEAD_ARTICLE: NewsletterArticle = {
   slug: "litigation-management-is-dead",
@@ -3375,7 +3348,6 @@ export const SAFETY_NATIONAL_ARTICLE: NewsletterArticle = {
 
 export const ALL_ARTICLES: NewsletterArticle[] = [
   CARRIER_RICO_ARTICLE,
-  FEATURED_ARTICLE,
   LITIGATION_MANAGEMENT_DEAD_ARTICLE,
   ...ARTICLES,
   TRIAL_ARTICLE,
@@ -3387,6 +3359,19 @@ export const ALL_ARTICLES: NewsletterArticle[] = [
   MORGAN_MORGAN_ARTICLE,
   SAFETY_NATIONAL_ARTICLE,
 ];
+
+// FEATURED_ARTICLE (the homepage hero) is DERIVED from the single FLAGSHIP_SLUG
+// source of truth, never hand-inlined. The build fails loudly if the slug is
+// missing so the homepage can never render an undefined hero.
+export const FEATURED_ARTICLE: NewsletterArticle = (() => {
+  const found = ALL_ARTICLES.find((a) => a.slug === FLAGSHIP_SLUG);
+  if (!found) {
+    throw new Error(
+      `FEATURED_ARTICLE derivation failed: FLAGSHIP_SLUG "${FLAGSHIP_SLUG}" not found in ALL_ARTICLES.`
+    );
+  }
+  return found;
+})();
 
 // ─ B7: masthead ISSUE, derived, never hand-frozen ─
 // The date a visitor sees is computed from the newest article record, so it
