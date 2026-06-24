@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import { ConversionPage } from "@/components/briefing-the-conversion";
 
-// Private prospect briefing. Server component so it can carry metadata:
-// noindex/nofollow, no canonical, linked from nowhere, no sitemap entry.
+// Litigation Intelligence Command Center: the private, gated prospect demo.
+// Server component so it can carry metadata: noindex/nofollow, no canonical,
+// linked from nowhere, no sitemap entry. Kept unlisted on purpose.
 
 export const metadata: Metadata = {
-  title: "Briefing",
+  title: "Litigation Intelligence Command Center",
   robots: {
     index: false,
     follow: false,
@@ -15,6 +16,6 @@ export const metadata: Metadata = {
   alternates: { canonical: null },
 };
 
-export default function BriefingTheConversionRoute() {
+export default function CommandCenterRoute() {
   return <ConversionPage />;
 }
