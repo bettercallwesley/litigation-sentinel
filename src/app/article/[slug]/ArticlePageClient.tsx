@@ -263,11 +263,11 @@ function RelatedArticles({ currentSlug }: { currentSlug: string }) {
   const fill = ALL_ARTICLES
     .filter((a) => a.slug && a.slug !== currentSlug && a.slug !== FLAGSHIP_SLUG)
     .slice(0, 3);
-  // Append the conversion flagship as the LAST card on every OTHER article,
-  // keeping the existing related articles above it (3 + flagship = 4). On the
+  // Surface the conversion flagship as the FIRST, emphasized "Read this next"
+  // card on every OTHER article, keeping related articles after it. On the
   // flagship's own page, fall back to the default first-3 so it never self-links.
   const related =
-    flagship && currentSlug !== FLAGSHIP_SLUG ? [...fill, flagship] : fill.slice(0, 3);
+    flagship && currentSlug !== FLAGSHIP_SLUG ? [flagship, ...fill] : fill.slice(0, 3);
   if (related.length === 0) return null;
 
   return (
@@ -284,7 +284,7 @@ function RelatedArticles({ currentSlug }: { currentSlug: string }) {
             marginBottom: 20,
           }}
         >
-          Continue Reading
+          Read this next
         </h3>
         {related.map((article) => (
           <a
@@ -292,7 +292,8 @@ function RelatedArticles({ currentSlug }: { currentSlug: string }) {
             href={article.content ? `/article/${article.slug}` : undefined}
             style={{
               display: "block",
-              padding: "16px 0",
+              padding: article.slug === FLAGSHIP_SLUG ? "16px 0 16px 14px" : "16px 0",
+              borderLeft: article.slug === FLAGSHIP_SLUG ? `3px solid ${SENTINEL.sentinelAccent}` : undefined,
               borderBottom: `1px solid ${SENTINEL.border}`,
               textDecoration: "none",
               cursor: article.content ? "pointer" : "default",
@@ -309,7 +310,7 @@ function RelatedArticles({ currentSlug }: { currentSlug: string }) {
                 {article.tag}
               </span>
             </div>
-            <h4 style={{ fontSize: 15, fontFamily: FONTS.serif, fontWeight: 500, color: SENTINEL.ink, margin: "0 0 4px", lineHeight: 1.35 }}>
+            <h4 style={{ fontSize: 15, fontFamily: FONTS.serif, fontWeight: 500, color: article.slug === FLAGSHIP_SLUG ? SENTINEL.sentinel : SENTINEL.ink, margin: "0 0 4px", lineHeight: 1.35 }}>
               {article.title}
             </h4>
             <span style={{ fontSize: 11, color: SENTINEL.inkMuted, fontFamily: FONTS.sans }}>
