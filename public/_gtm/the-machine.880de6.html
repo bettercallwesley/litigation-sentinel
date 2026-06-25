@@ -1,0 +1,981 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CaseGlide: The Marketing Machine, One Lead's Journey</title>
+<style>
+  :root{
+    --bg:#06091A; --panel:#0C1428; --panel-2:#111D35; --divider:#1E2D4A;
+    --body:#EAE6DF; --muted:#B8B2A8; --caption:#72695E;
+    --grey:#39455F; --grey-line:#4A5773; --grey-fill:#141E33;
+    --amber:#E8C97A; --amber-dark:#C19A3E; --amber-wash:rgba(232,201,122,0.08);
+    --pink:#D97070; --green:#5BAD84;
+    --mono:'Menlo','IBM Plex Mono',ui-monospace,monospace;
+    --serif:'Didot','Playfair Display',Georgia,serif;
+    --sans:'Helvetica Neue','Inter',system-ui,-apple-system,sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--body);font-family:var(--sans)}
+  body{font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased}
+  a{color:var(--amber)}
+  .wrap{max-width:1320px;margin:0 auto;padding:22px 26px 90px}
+
+  /* ---------- header ---------- */
+  header.top{display:flex;align-items:flex-start;justify-content:space-between;gap:24px;flex-wrap:wrap;border-bottom:0.6pt solid var(--divider);padding-bottom:16px;margin-bottom:18px}
+  .brand-eyebrow{font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--amber-dark);margin:0 0 7px}
+  h1.title{font-family:var(--serif);font-weight:700;font-size:30px;line-height:1.06;letter-spacing:-.4px;margin:0;max-width:18ch}
+  h1.title .accent{font-style:italic;color:var(--amber)}
+  .subtitle{color:var(--muted);font-size:13.5px;margin:9px 0 0;max-width:62ch}
+  .head-right{display:flex;flex-direction:column;align-items:flex-end;gap:12px}
+
+  /* legend */
+  .legend{display:flex;flex-direction:column;gap:6px;font-size:12px;color:var(--muted)}
+  .legend .lg-line{display:flex;align-items:center;gap:8px}
+  .sw{width:15px;height:15px;border-radius:3px;flex:0 0 auto}
+  .sw.grey{background:var(--grey-fill);border:1.4pt solid var(--grey-line)}
+  .sw.acc{background:var(--amber);border:1.4pt solid var(--amber)}
+  .sw.warm{background:transparent;border:1.4pt solid var(--amber-dark)}
+  .legend b{color:var(--body);font-weight:700}
+
+  /* mode toggle */
+  .modewrap{display:flex;align-items:center;gap:10px}
+  .modebtn{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;
+    border:1pt solid var(--divider);background:var(--panel-2);color:var(--muted);padding:8px 13px;border-radius:6px}
+  .modebtn b{color:var(--amber);font-weight:700}
+  .modehint{font-family:var(--mono);font-size:10px;color:var(--caption);letter-spacing:.06em}
+
+  /* ---------- stage / master diagram ---------- */
+  .stagecard{position:relative;border:0.6pt solid var(--divider);background:linear-gradient(180deg,#070B1E,#05081A);border-radius:10px;padding:14px 16px 8px;margin-bottom:18px;overflow:hidden}
+  .lane-tag{position:absolute;font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--caption)}
+  .stage{position:relative;width:100%;aspect-ratio:1280/720;min-height:420px}
+  svg.edges{position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none}
+
+  .node{position:absolute;transform:translate(-50%,-50%);z-index:2;cursor:pointer;
+    width:11.6%;min-width:120px;text-align:center;transition:transform .12s ease}
+  .node:hover{transform:translate(-50%,-50%) scale(1.04)}
+  .node .box{border-radius:8px;padding:10px 9px;background:var(--grey-fill);border:1.4pt solid var(--grey-line);position:relative}
+  .node .nlabel{font-weight:700;font-size:12.5px;color:#C9D2E4;line-height:1.15}
+  .node .nsub{font-size:9.5px;color:var(--caption);margin-top:3px;line-height:1.2;font-family:var(--mono);letter-spacing:.02em}
+  .node .ntag{position:absolute;top:-8px;left:9px;font-family:var(--mono);font-size:8px;letter-spacing:.12em;text-transform:uppercase;
+    background:var(--bg);color:var(--caption);padding:1px 5px;border-radius:3px;border:0.5pt solid var(--divider)}
+
+  /* warm machine nodes - gold outline (downstream of hand-raise) */
+  .node.warm .box{background:#0E1830;border-color:var(--amber-dark);box-shadow:0 0 0 1px rgba(193,154,62,.18)}
+  .node.warm .nlabel{color:var(--amber)}
+  .node.warm .nsub{color:var(--amber-dark)}
+
+  /* hand-raise ignition node */
+  .node.ignite .box{background:radial-gradient(circle at 50% 35%,rgba(232,201,122,.22),#0E1830);border:1.6pt solid var(--amber);clip-path:polygon(50% 0,100% 28%,100% 72%,50% 100%,0 72%,0 28%);padding:18px 9px}
+  .node.ignite .nlabel{color:var(--amber);font-size:13px}
+  .node.ignite .nsub{color:var(--amber-dark)}
+
+  /* Wes decision nodes - shield/diamond, solid gold */
+  .node.wes{width:13.4%}
+  .node.wes .box{background:linear-gradient(180deg,#F0D58C,#D9B45E);border:1.6pt solid var(--amber);color:#1A1305;
+    clip-path:polygon(50% 0,100% 18%,100% 82%,50% 100%,0 82%,0 18%);padding:16px 13px}
+  .node.wes .nlabel{color:#241A06;font-size:10.6px;letter-spacing:-.1px;line-height:1.22}
+  .node.wes .nsub{color:#5A4413;font-family:var(--sans);font-weight:700;font-size:9px;margin-top:4px}
+  .node.wes .ntag{background:var(--amber-dark);color:#1A1305;border-color:var(--amber)}
+
+  /* terminal */
+  .node.terminal .box{background:linear-gradient(180deg,#13371F,#0C2417);border:1.6pt solid var(--green)}
+  .node.terminal .nlabel{color:#9FE6BE}
+  .node.terminal .nsub{color:var(--green)}
+
+  /* small marker nodes */
+  .node.marker{width:8%;min-width:78px}
+  .node.marker .box{padding:7px 5px;border-style:dashed}
+  .node.marker .nlabel{font-size:10px}
+
+  /* active node highlight */
+  .node.active .box{outline:2px solid var(--amber);outline-offset:3px}
+  .node.active .nlabel{text-shadow:0 0 12px rgba(232,201,122,.4)}
+
+  /* lane dim when a door is chosen */
+  .stage.door-push .lane-pull .node:not(.shared){opacity:.4}
+  .stage.door-pull .lane-push .node:not(.shared){opacity:.4}
+
+  .ignite-caption{position:absolute;z-index:2;font-family:var(--serif);font-style:italic;color:var(--muted);font-size:12.5px;
+    max-width:200px;text-align:center;pointer-events:none}
+
+  /* ---------- door picker ---------- */
+  .doorveil{position:absolute;inset:0;z-index:30;background:rgba(4,6,16,.93);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;border-radius:10px;backdrop-filter:blur(2px)}
+  .door-h{font-family:var(--serif);font-size:23px;text-align:center;margin:0;max-width:30ch}
+  .door-h .accent{color:var(--amber);font-style:italic}
+  .door-sub{color:var(--muted);font-size:13px;margin:-8px 0 4px;text-align:center;max-width:54ch}
+  .doors{display:flex;gap:20px;flex-wrap:wrap;justify-content:center}
+  .door{width:280px;cursor:pointer;border:1.4pt solid var(--grey-line);background:var(--grey-fill);border-radius:10px;padding:20px 20px 18px;transition:.15s}
+  .door:hover{border-color:var(--amber);background:#0E1830;transform:translateY(-3px)}
+  .door .dk{font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:var(--amber-dark);text-transform:uppercase}
+  .door .dh{font-family:var(--serif);font-size:21px;margin:8px 0 6px;color:var(--body)}
+  .door .dd{font-size:12.5px;color:var(--muted);line-height:1.45}
+  .door .dlead{margin-top:11px;font-size:11px;color:var(--amber);font-family:var(--mono);letter-spacing:.04em}
+  .door-skip{font-family:var(--mono);font-size:11px;color:var(--caption);cursor:pointer;letter-spacing:.08em;border:none;background:none;text-decoration:underline}
+
+  /* ---------- layout below diagram ---------- */
+  .lead-banner{display:flex;align-items:center;gap:14px;border:0.6pt solid var(--divider);border-left:3pt solid var(--amber);
+    background:var(--amber-wash);border-radius:8px;padding:12px 16px;margin-bottom:18px}
+  .lead-banner .avatar{width:42px;height:42px;border-radius:50%;flex:0 0 auto;background:linear-gradient(135deg,#26344f,#0e1830);
+    border:1.4pt solid var(--amber-dark);display:flex;align-items:center;justify-content:center;font-family:var(--serif);color:var(--amber);font-size:18px;font-weight:700}
+  .lead-banner .lb-name{font-weight:700;font-size:14px}
+  .lead-banner .lb-role{color:var(--muted);font-size:12px}
+  .lead-banner .lb-state{margin-left:auto;font-family:var(--mono);font-size:11px;color:var(--amber);text-align:right;letter-spacing:.04em}
+
+  .cols{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start}
+  @media(max-width:960px){.cols{grid-template-columns:1fr}}
+  .section{border:0.6pt solid var(--divider);background:var(--panel);border-radius:10px;padding:16px 18px;margin-bottom:18px}
+  .section h2{font-family:var(--serif);font-size:18px;margin:0 0 4px;color:var(--body)}
+  .section .s-sub{color:var(--muted);font-size:12px;margin:0 0 14px}
+  .eyebrow{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--amber-dark);margin:0 0 6px}
+
+  /* zoom panel */
+  #zoom{min-height:200px}
+  .zoom-head{display:flex;align-items:baseline;gap:10px;border-bottom:0.6pt solid var(--divider);padding-bottom:9px;margin-bottom:12px}
+  .zoom-step{font-family:var(--mono);font-size:11px;color:var(--amber-dark);letter-spacing:.1em}
+  .zoom-title{font-family:var(--serif);font-size:19px;color:var(--body)}
+  .zoom-role{margin-left:auto;font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:3px 7px;border-radius:4px;border:0.6pt solid var(--divider);color:var(--muted)}
+  .zoom-role.r-push{color:#9fb6e6;border-color:#2c3c5e}
+  .zoom-role.r-pull{color:#c6a6e6;border-color:#3c2c5e}
+  .zoom-role.r-warm{color:var(--amber);border-color:var(--amber-dark)}
+  .zoom-role.r-wes{color:#1A1305;background:var(--amber);border-color:var(--amber)}
+  .zoom-desc{font-size:13.5px;color:var(--body);margin-bottom:12px}
+  .zoom-desc b{color:var(--amber)}
+  .mech{font-family:var(--mono);font-size:11px;color:var(--muted);background:var(--bg);border-left:2pt solid var(--amber-dark);padding:7px 11px;margin:10px 0;line-height:1.5}
+  .mech .ml{color:var(--amber-dark);text-transform:uppercase;letter-spacing:.1em;font-size:9px;display:block;margin-bottom:3px}
+  .internal-only{display:none}
+  body.mode-internal .internal-only{display:block}
+  .int-block{margin-top:12px;border:0.6pt dashed var(--amber-dark);background:rgba(232,201,122,.04);border-radius:7px;padding:10px 13px}
+  .int-block .il{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--amber-dark);margin-bottom:6px}
+  .int-block .stack{font-size:12px;color:var(--muted);line-height:1.55}
+  .int-block code{font-family:var(--mono);font-size:11px;color:var(--amber);background:#0A1124;padding:1px 4px;border-radius:3px}
+
+  .zoom-nav{display:flex;align-items:center;gap:10px;margin-top:16px;border-top:0.6pt solid var(--divider);padding-top:12px}
+  .znav{font-family:var(--mono);font-size:11px;letter-spacing:.08em;cursor:pointer;border:1pt solid var(--divider);background:var(--panel-2);color:var(--body);padding:7px 13px;border-radius:6px}
+  .znav:hover{border-color:var(--amber)}
+  .znav[disabled]{opacity:.35;cursor:default}
+  .znav.primary{border-color:var(--amber-dark);color:var(--amber)}
+  .zpos{margin-left:auto;font-family:var(--mono);font-size:10px;color:var(--caption)}
+
+  /* ---------- artifact mocks ---------- */
+  .artifact{border:0.6pt solid var(--divider);border-radius:8px;overflow:hidden;margin-top:6px;background:#080C1C}
+  .art-bar{display:flex;align-items:center;gap:7px;padding:7px 11px;background:#0E1628;border-bottom:0.6pt solid var(--divider);font-family:var(--mono);font-size:10px;color:var(--muted);letter-spacing:.04em}
+  .art-dot{width:9px;height:9px;border-radius:50%;background:#2b3550}
+  .art-body{padding:13px 15px}
+  .lbl-from{font-size:11px;color:var(--caption);font-family:var(--mono)}
+  .subjline{font-weight:700;font-size:13.5px;margin:5px 0 9px;color:var(--body)}
+  .emailtext{font-size:13px;color:#D8D2C8;line-height:1.6}
+  .emailtext p{margin:0 0 9px}
+  .sig{color:var(--muted);font-size:12.5px}
+
+  /* command center mock */
+  .cc{background:linear-gradient(180deg,#070B1A,#0A1020);border-radius:8px;padding:0;overflow:hidden;border:0.6pt solid var(--divider)}
+  .cc-spine{display:flex;font-family:var(--mono);font-size:9px;letter-spacing:.08em;color:var(--caption);border-bottom:0.6pt solid var(--divider)}
+  .cc-spine span{flex:1;text-align:center;padding:7px 2px;border-right:0.6pt solid var(--divider)}
+  .cc-spine span:last-child{border-right:none}
+  .cc-spine span.on{color:var(--amber);background:rgba(232,201,122,.06)}
+  .cc-hero{padding:18px 16px;text-align:center}
+  .cc-place{font-family:var(--mono);font-size:10px;letter-spacing:.18em;color:var(--amber-dark)}
+  .cc-num{font-family:var(--serif);font-size:38px;color:var(--amber);margin:6px 0 4px;letter-spacing:-1px}
+  .cc-line{font-size:12px;color:var(--muted);max-width:34ch;margin:0 auto}
+  .cc-inbox{border-top:0.6pt solid var(--divider);padding:11px 14px;background:#0A0E1E}
+  .cc-inbox .ci-h{font-family:var(--mono);font-size:9px;letter-spacing:.1em;color:var(--pink);margin-bottom:7px}
+  .ci-row{font-size:11px;color:#B9C0D2;padding:4px 0;border-bottom:0.5pt solid #131c30;display:flex;justify-content:space-between;gap:8px}
+  .ci-row .ci-s{color:var(--caption);font-family:var(--mono);font-size:9px}
+  .cc-close{padding:13px 15px;border-top:0.6pt solid var(--divider);background:rgba(232,201,122,.04)}
+  .cc-close .ccx{font-size:12.5px;color:var(--body);line-height:1.5}
+
+  /* pdf one-pager mock */
+  .pdf{background:#F4F1EA;color:#1b1b1b;border-radius:6px;padding:16px 18px;font-family:Georgia,serif;border:0.6pt solid #c9c2b3}
+  .pdf .pconf{font-family:var(--mono);font-size:8px;letter-spacing:.2em;color:#9a7b2e;text-transform:uppercase}
+  .pdf .ptitle{font-size:17px;font-weight:700;margin:6px 0 2px;color:#111}
+  .pdf .preader{font-size:11px;color:#555;margin-bottom:11px}
+  .pdf .pscore{display:flex;align-items:center;gap:12px;border-top:1.4pt solid #9a7b2e;border-bottom:1.4pt solid #9a7b2e;padding:9px 0;margin:8px 0}
+  .pdf .pscore .pv{font-size:30px;font-weight:700;color:#9a7b2e;font-family:Georgia,serif}
+  .pdf .pscore .pl{font-size:11px;color:#444;line-height:1.35}
+  .pdf .prow{display:flex;gap:9px;font-size:11px;margin:5px 0;color:#222}
+  .pdf .ptag{flex:0 0 64px;font-family:var(--mono);font-size:8px;letter-spacing:.06em;padding:2px 0;text-transform:uppercase}
+  .pdf .ptag.s{color:#2e7d4f}.pdf .ptag.x{color:#b5483f}
+
+  /* calendar invite mock */
+  .cal{border:0.6pt solid var(--divider);border-radius:8px;overflow:hidden}
+  .cal-top{background:#0E2417;border-bottom:1.4pt solid var(--green);padding:11px 15px}
+  .cal-top .cw{font-family:var(--mono);font-size:9px;letter-spacing:.14em;color:var(--green);text-transform:uppercase}
+  .cal-top .ct{font-size:15px;font-weight:700;color:#9FE6BE;margin-top:4px}
+  .cal-body{padding:12px 15px;font-size:12.5px;color:var(--body)}
+  .cal-body .cr{display:flex;gap:9px;margin:5px 0}
+  .cal-body .ck{flex:0 0 74px;color:var(--caption);font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.06em;padding-top:1px}
+
+  /* linkedin post mock */
+  .li{border:0.6pt solid var(--divider);border-radius:8px;background:#0A0F1E;overflow:hidden}
+  .li-top{display:flex;gap:9px;align-items:center;padding:11px 13px;border-bottom:0.6pt solid var(--divider)}
+  .li-av{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,#26344f,#0e1830);border:1pt solid var(--amber-dark);flex:0 0 auto;display:flex;align-items:center;justify-content:center;font-family:var(--serif);color:var(--amber);font-weight:700;font-size:14px}
+  .li-id .lin{font-size:12.5px;font-weight:700}
+  .li-id .lim{font-size:10px;color:var(--caption);font-family:var(--mono)}
+  .li-text{padding:12px 14px;font-size:13px;line-height:1.55;color:#D8D2C8}
+  .li-text .hook{color:var(--body);font-weight:700}
+  .li-cta{font-size:11px;color:var(--amber-dark);font-family:var(--mono);padding:0 14px 13px}
+
+  /* ---------- step cards ---------- */
+  .cardgrid{display:grid;grid-template-columns:repeat(5,1fr);gap:11px}
+  @media(max-width:1100px){.cardgrid{grid-template-columns:repeat(3,1fr)}}
+  @media(max-width:680px){.cardgrid{grid-template-columns:repeat(2,1fr)}}
+  .scard{border:0.6pt solid var(--divider);background:var(--grey-fill);border-radius:8px;padding:12px;cursor:pointer;transition:.13s;position:relative}
+  .scard:hover{border-color:var(--amber);transform:translateY(-2px)}
+  .scard.warm{background:#0E1830;border-color:var(--amber-dark)}
+  .scard .sc-n{font-family:var(--serif);font-size:20px;color:var(--amber-dark);line-height:1}
+  .scard .sc-rail{font-family:var(--mono);font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:var(--caption);position:absolute;top:11px;right:11px}
+  .scard .sc-t{font-weight:700;font-size:13px;margin:7px 0 4px}
+  .scard .sc-d{font-size:11px;color:var(--muted);line-height:1.4}
+
+  /* ---------- gate diagrams ---------- */
+  .gate{border:0.6pt solid var(--amber-dark);background:rgba(232,201,122,.04);border-radius:9px;padding:14px 16px;margin-bottom:14px}
+  .gate-h{font-family:var(--mono);font-size:10px;letter-spacing:.12em;color:var(--amber);text-transform:uppercase;margin-bottom:4px}
+  .gate-trig{font-size:12px;color:var(--muted);margin-bottom:11px}
+  .gate-opts{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+  .gopt{border:1pt solid var(--divider);border-radius:7px;padding:10px 11px;background:#0A1020}
+  .gopt.lead{border-color:var(--amber);box-shadow:0 0 0 1px rgba(232,201,122,.15)}
+  .gopt .gk{font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--amber);font-weight:700}
+  .gopt .gv{font-size:11px;color:var(--muted);margin-top:4px;line-height:1.4}
+  .gopt .gpick{font-family:var(--mono);font-size:8px;color:var(--green);letter-spacing:.1em;margin-top:6px;text-transform:uppercase}
+
+  /* ---------- cadence micrographics ---------- */
+  .cad4{display:flex;gap:0;align-items:flex-start;margin-top:6px}
+  .cad4 .ct{flex:1;text-align:center;position:relative;padding-top:22px}
+  .cad4 .ct::before{content:'';position:absolute;top:8px;left:0;right:0;height:2px;background:var(--grey-line)}
+  .cad4 .ct .cdot{position:absolute;top:3px;left:50%;transform:translateX(-50%);width:11px;height:11px;border-radius:50%;background:var(--grey-line);border:2px solid var(--bg)}
+  .cad4 .ct .cday{font-family:var(--mono);font-size:11px;color:var(--amber);font-weight:700}
+  .cad4 .ct .clab{font-size:10.5px;color:var(--muted);margin-top:3px;line-height:1.3;padding:0 4px}
+  .cbar{display:flex;gap:9px;margin-top:8px}
+  .cbar .cb{flex:1;border:0.6pt solid var(--divider);border-radius:7px;padding:11px;text-align:center;background:var(--grey-fill)}
+  .cbar .cb .cbn{font-family:var(--serif);font-size:26px;color:var(--amber)}
+  .cbar .cb .cbl{font-size:10.5px;color:var(--muted);margin-top:2px}
+  .cbar .cb .cbm{font-family:var(--mono);font-size:8.5px;color:var(--caption);margin-top:4px;letter-spacing:.04em}
+
+  /* ---------- reach ledger merge ---------- */
+  .merge{display:grid;grid-template-columns:1fr 34px 1fr;gap:8px;align-items:center;margin-top:8px}
+  @media(max-width:680px){.merge{grid-template-columns:1fr}}
+  .sig-in{display:flex;flex-direction:column;gap:7px}
+  .sig-chip{border:0.6pt solid var(--divider);border-radius:6px;padding:8px 10px;background:var(--grey-fill);font-size:11px}
+  .sig-chip .sc-src{font-family:var(--mono);font-size:8.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--caption);display:block;margin-bottom:2px}
+  .sig-chip b{color:var(--body)}
+  .merge-arrow{text-align:center;color:var(--amber);font-size:20px;font-family:var(--mono)}
+  @media(max-width:680px){.merge-arrow{transform:rotate(90deg);margin:4px 0}}
+  .one-row{border:1.4pt solid var(--amber-dark);border-radius:8px;padding:11px 13px;background:#0E1830}
+  .one-row .or-h{font-family:var(--mono);font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--amber-dark);margin-bottom:6px}
+  .one-row .or-k{font-family:var(--mono);font-size:11px;color:var(--amber)}
+  .one-row .or-d{font-size:11px;color:var(--muted);margin-top:5px;line-height:1.45}
+  .one-row .or-d b{color:var(--body)}
+
+  /* ---------- mini-map ---------- */
+  #minimap{position:fixed;right:16px;bottom:16px;z-index:25;width:212px;border:0.6pt solid var(--divider);background:rgba(6,9,26,.94);border-radius:9px;padding:9px 10px;backdrop-filter:blur(3px);box-shadow:0 8px 30px rgba(0,0,0,.5)}
+  #minimap .mm-h{font-family:var(--mono);font-size:8px;letter-spacing:.14em;text-transform:uppercase;color:var(--caption);display:flex;justify-content:space-between;margin-bottom:6px}
+  #minimap .mm-here{color:var(--amber)}
+  .mm-stage{position:relative;width:100%;aspect-ratio:1280/720}
+  .mm-stage svg{position:absolute;inset:0;width:100%;height:100%}
+  .mm-dot{position:absolute;transform:translate(-50%,-50%);width:7px;height:7px;border-radius:2px;background:var(--grey-line);border:1px solid #05081a}
+  .mm-dot.warm{background:var(--amber-dark)}
+  .mm-dot.wes{background:var(--amber);border-radius:50%}
+  .mm-dot.ignite{background:var(--amber);border-radius:50%}
+  .mm-dot.terminal{background:var(--green)}
+  .mm-dot.active{outline:2px solid var(--amber);outline-offset:1px;width:9px;height:9px}
+  .mm-min{cursor:pointer;color:var(--caption)}
+  @media(max-width:760px){#minimap{display:none}}
+
+  .footnote{font-size:11px;color:var(--caption);margin-top:6px;line-height:1.5}
+  .footnote code{font-family:var(--mono);color:var(--amber-dark)}
+</style>
+</head>
+<body class="mode-external">
+<div class="wrap">
+
+  <header class="top">
+    <div>
+      <p class="brand-eyebrow">CaseGlide &middot; Go-To-Market Operating Map</p>
+      <h1 class="title">Two cold systems<br>become <span class="accent">one warm process</span></h1>
+      <p class="subtitle">Follow one lead from a first touch, a post or a cold email, all the way to a booked meeting with the CEO. The machine runs almost all of it. The CEO touches it twice.</p>
+    </div>
+    <div class="head-right">
+      <div class="legend" aria-label="legend">
+        <div class="lg-line"><span class="sw grey"></span><span><b>grey = the machine runs it</b></span></div>
+        <div class="lg-line"><span class="sw acc"></span><span><b>accent = Wes decides</b></span></div>
+        <div class="lg-line"><span class="sw warm"></span><span>warm outline = downstream of the hand-raise</span></div>
+      </div>
+      <div class="modewrap">
+        <span class="modehint">press I to toggle</span>
+        <button class="modebtn" id="modeBtn" onclick="toggleMode()">View: <b id="modeLabel">EXTERNAL</b></button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===================== MASTER DIAGRAM ===================== -->
+  <div class="stagecard">
+    <span class="lane-tag" style="left:18px;top:10px">PUSH lane &middot; cold email</span>
+    <span class="lane-tag" style="left:18px;top:43%">PULL lane &middot; content + LinkedIn</span>
+    <span class="lane-tag" style="left:18px;bottom:8px;color:var(--amber-dark)">WARM spine &middot; the gold ignites here, and only here</span>
+    <div class="stage" id="stage">
+      <svg class="edges" id="edges" viewBox="0 0 1280 720" preserveAspectRatio="none"></svg>
+      <!-- nodes injected by JS -->
+      <div class="ignite-caption" id="igCap"></div>
+
+      <div class="doorveil" id="doorveil">
+        <p class="door-h">One lead. <span class="accent">Two doors in.</span> Pick where the story starts.</p>
+        <p class="door-sub">Real leads take one rail, never both. The two cold systems run separately and converge at a single shared gate, the hand-raise. After that, every lead walks the same warm spine.</p>
+        <div class="doors">
+          <div class="door" onclick="pickDoor('push')">
+            <div class="dk">Door 1 &middot; PUSH</div>
+            <div class="dh">The cold email</div>
+            <div class="dd">We source the right person, verify the address, and run a four-touch sequence. She replies to one of them.</div>
+            <div class="dlead">Walk Dana in cold &rarr;</div>
+          </div>
+          <div class="door" onclick="pickDoor('pull')">
+            <div class="dk">Door 2 &middot; PULL</div>
+            <div class="dh">The LinkedIn post</div>
+            <div class="dd">We publish a story she cannot scroll past, it reaches her feed, she engages, then subscribes. (Default narrated path.)</div>
+            <div class="dlead">Walk Dana in warm &rarr;</div>
+          </div>
+        </div>
+        <button class="door-skip" onclick="pickDoor(null)">or just explore the whole map</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- lead banner -->
+  <div class="lead-banner">
+    <div class="avatar">DW</div>
+    <div>
+      <div class="lb-name">Dana Whitfield</div>
+      <div class="lb-role">VP, Litigation Management &middot; Fortune 500 risk organization (composite of real prospects)</div>
+    </div>
+    <div class="lb-state" id="leadState">Stranger. Has never heard of CaseGlide.</div>
+  </div>
+
+  <div class="cols">
+    <!-- ZOOM PANEL -->
+    <div class="section" id="zoomSection">
+      <p class="eyebrow">Zoom &middot; the real artifact at this step</p>
+      <div id="zoom">
+        <div class="zoom-desc" style="color:var(--muted)">Pick a door above, or click any node on the map, to see exactly what Dana sees at that step.</div>
+      </div>
+    </div>
+
+    <!-- STEP CARDS -->
+    <div class="section">
+      <p class="eyebrow">The ten steps, end to end</p>
+      <h2>One uniform card per step</h2>
+      <p class="s-sub">Six cold steps across two separate rails, one shared gate, three warm steps. Click any card to zoom it.</p>
+      <div class="cardgrid" id="cardgrid"></div>
+    </div>
+  </div>
+
+  <!-- DECISION GATES -->
+  <div class="section">
+    <p class="eyebrow">The two places the machine stops and waits</p>
+    <h2>Wes decides twice. That is the entire under-one-hour-a-day model.</h2>
+    <p class="s-sub">Every grey and gold-outline step runs without him. These two gold gates are the only decisions that reach his phone. He answers each in one word.</p>
+    <div class="gate">
+      <div class="gate-h">Wes Gate 1 &middot; after the first interested reply</div>
+      <div class="gate-trig">Dana replies to the warm note. The machine does not guess what to do next. It hands Wes exactly three choices and waits.</div>
+      <div class="gate-opts">
+        <div class="gopt"><div class="gk">CALL</div><div class="gv">Set up the call now.</div></div>
+        <div class="gopt lead"><div class="gk">BRIEFING</div><div class="gv">Send the interactive briefing first so she walks in oriented.</div><div class="gpick">Dana's path</div></div>
+        <div class="gopt"><div class="gk">MEET</div><div class="gv">Skip ahead and meet right now.</div></div>
+      </div>
+    </div>
+    <div class="gate">
+      <div class="gate-h">Wes Gate 2 &middot; after she replies to the briefing</div>
+      <div class="gate-trig">Dana engages with the Command Center and replies. Again the machine stops and hands Wes three choices.</div>
+      <div class="gate-opts">
+        <div class="gopt"><div class="gk">ACCEPT</div><div class="gv">Take the meeting now.</div></div>
+        <div class="gopt lead"><div class="gk">ASSESS</div><div class="gv">Send the executive briefing and the one-page result first, then meet.</div><div class="gpick">Dana's path</div></div>
+        <div class="gopt"><div class="gk">MEET</div><div class="gv">Meet without the extra step.</div></div>
+      </div>
+    </div>
+    <p class="footnote">Everything between and around these two gates, sourcing, verifying, sending, publishing, scheduling, triaging replies, generating the one-page result, runs on its own.</p>
+  </div>
+
+  <!-- CADENCE MICROGRAPHICS -->
+  <div class="cols">
+    <div class="section">
+      <p class="eyebrow">PUSH cadence</p>
+      <h2>The cold four-touch</h2>
+      <p class="s-sub">One sequence, four touches, spread so it never reads as a blast. Dana answered touch three.</p>
+      <div class="cad4">
+        <div class="ct"><span class="cdot"></span><div class="cday">Day 0</div><div class="clab">Touch 1<br>the opener</div></div>
+        <div class="ct"><span class="cdot"></span><div class="cday">Day 3</div><div class="clab">Touch 2<br>the angle</div></div>
+        <div class="ct"><span class="cdot" style="background:var(--amber);border-color:var(--bg)"></span><div class="cday">Day 7</div><div class="clab">Touch 3<br>the proof</div></div>
+        <div class="ct"><span class="cdot"></span><div class="cday">Day 11</div><div class="clab">Touch 4<br>the breakup</div></div>
+      </div>
+      <p class="footnote">Follow-ups send before new first-touches every day, so the people already in the sequence are never starved.</p>
+    </div>
+    <div class="section">
+      <p class="eyebrow">PULL cadence</p>
+      <h2>The weekly content engine</h2>
+      <p class="s-sub">What the machine produces and ships every single week, on a fixed schedule.</p>
+      <div class="cbar">
+        <div class="cb"><div class="cbn">10</div><div class="cbl">LinkedIn posts</div><div class="cbm">2/day, Mon to Fri</div></div>
+        <div class="cb"><div class="cbn">5</div><div class="cbl">Sentinel articles</div><div class="cbm">trial-drama lens</div></div>
+        <div class="cb"><div class="cbn">1</div><div class="cbl">Newsletter</div><div class="cbm">leads to the deepest piece</div></div>
+      </div>
+      <p class="footnote internal-only" style="color:var(--amber-dark)">Internal: posts scheduled via Buffer at 07:30 and 12:30 ET; newsletter via Beehiiv; every link UTM-tagged for attribution.</p>
+      <p class="footnote">Posts go out twice a day, every weekday. One of them is the franchise story that earns the most subscribers.</p>
+    </div>
+  </div>
+
+  <!-- REACH LEDGER MERGE -->
+  <div class="section">
+    <p class="eyebrow">Why no one ever gets hit twice</p>
+    <h2>One row per person</h2>
+    <p class="s-sub">Dana threw off two signals from two different systems. They do not become two outreach efforts. They collapse into one record, keyed to the person, so she is reached once, in one thread, by the inbox she already knows.</p>
+    <div class="merge">
+      <div class="sig-in">
+        <div class="sig-chip"><span class="sc-src">PULL signal</span>She <b>reacted and commented</b> on the Monday post, then <b>subscribed</b>.</div>
+        <div class="sig-chip"><span class="sc-src">PUSH signal</span>She was also <b>in the cold sequence</b> and <b>opened touch two</b>.</div>
+      </div>
+      <div class="merge-arrow">&rarr;</div>
+      <div class="one-row">
+        <div class="or-h">reach ledger &middot; one keyed record</div>
+        <div class="or-k">key: dana.whitfield (one person)</div>
+        <div class="or-d"><b>rail:</b> warm &nbsp; <b>source:</b> engaged &nbsp; <b>stage:</b> 1<br>Every later signal updates this same row. A person provably reached is never selected to be reached again.</div>
+        <div class="int-block internal-only" style="margin-top:9px">
+          <div class="il">internal</div>
+          <div class="stack">Store: <code>state/reach-ledger.json</code>, keyed by lowercased email or LinkedIn slug. "Delivered" has one representation in code (<code>engaged_state._is_delivered</code>); every send selector consults it. A deploy-gate test runs the live ledger through both selectors so a person carrying only a legacy <code>sent_ts</code> can never be re-emailed.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <p class="footnote" style="text-align:center;margin-top:26px">
+    CaseGlide go-to-market operating map &middot; one composite lead, source-grounded artifacts &middot;
+    <span class="internal-only" style="color:var(--amber-dark)">INTERNAL VIEW: stack, identities, caps and cadence shown.</span>
+    <span id="extNote">EXTERNAL VIEW: architecture and what the lead sees. Press I for the internal diligence view.</span>
+  </p>
+</div>
+
+<!-- ===================== MINI-MAP ===================== -->
+<div id="minimap">
+  <div class="mm-h"><span>MAP</span><span class="mm-here" id="mmHere">pick a door</span></div>
+  <div class="mm-stage" id="mmStage"><svg id="mmEdges" viewBox="0 0 1280 720" preserveAspectRatio="none"></svg></div>
+</div>
+
+<script>
+/* ============================================================
+   ONE source of truth: every node. The master diagram, the
+   mini-map, the step cards and the zoom panel all read this.
+   coords are in a 1280 x 720 space.
+   role: push | pull | shared(ignite) | wes | warm | terminal
+   ============================================================ */
+const NODES = [
+  // PUSH lane (cold email) - grey machine
+  {id:'source', role:'push', x:135, y:96, label:'Source', sub:'find the right person', tag:'PUSH 1'},
+  {id:'verify', role:'push', x:360, y:96, label:'Verify', sub:'confirm the address', tag:'PUSH 2'},
+  {id:'seq',    role:'push', x:585, y:96, label:'Four-touch sequence', sub:'day 0 / 3 / 7 / 11', tag:'PUSH 3'},
+  {id:'pushmark', role:'push', x:778, y:96, label:'she replies', sub:'', tag:'', marker:true},
+  // PULL lane (content) - grey machine
+  {id:'create', role:'pull', x:135, y:300, label:'Create', sub:'stories worth reading', tag:'PULL 1'},
+  {id:'distribute', role:'pull', x:360, y:300, label:'Distribute', sub:'2/day, Mon to Fri', tag:'PULL 2'},
+  {id:'engage', role:'pull', x:585, y:300, label:'Engage', sub:'react, comment, subscribe', tag:'PULL 3'},
+  {id:'pullmark', role:'pull', x:778, y:300, label:'she subscribes', sub:'', tag:'', marker:true},
+  // SHARED gate - ignition
+  {id:'handraise', role:'shared', x:965, y:198, label:'HAND-RAISE', sub:'reply / click / subscribe / demo', tag:'', ignite:true, shared:true},
+  // WARM spine
+  {id:'approve', role:'wes', x:120, y:560, label:'Approve', sub:'WES', tag:'WES'},
+  {id:'warm1', role:'warm', x:312, y:560, label:'Warm low-ask note', sub:'want to know more?', tag:'WARM 1'},
+  {id:'gate1', role:'wes', x:500, y:560, label:'CALL / BRIEFING / MEET', sub:'WES GATE 1', tag:'GATE'},
+  {id:'cc', role:'warm', x:690, y:560, label:'Command Center', sub:'in-thread, interactive', tag:'WARM 2'},
+  {id:'gate2', role:'wes', x:878, y:560, label:'ACCEPT / ASSESS / MEET', sub:'WES GATE 2', tag:'GATE'},
+  {id:'brief', role:'warm', x:1058, y:560, label:'Executive briefing + PDF', sub:'one-page result', tag:'WARM 3'},
+  {id:'meeting', role:'terminal', x:1200, y:380, label:'MEETING BOOKED', sub:'with Wes, CEO', tag:'DONE'},
+];
+const N = Object.fromEntries(NODES.map(n=>[n.id,n]));
+
+// edges: [from, to, gold?]  gold = downstream of hand-raise
+const EDGES = [
+  ['source','verify',0],['verify','seq',0],['seq','pushmark',0],['pushmark','handraise',0],
+  ['create','distribute',0],['distribute','engage',0],['engage','pullmark',0],['pullmark','handraise',0],
+  ['handraise','approve',1],
+  ['approve','warm1',1],['warm1','gate1',1],['gate1','cc',1],['cc','gate2',1],['gate2','brief',1],['brief','meeting',1],
+];
+
+// the two walkable paths (both end at MEETING BOOKED)
+const WARM_TAIL = ['handraise','approve','warm1','gate1','cc','gate2','brief','meeting'];
+const PATHS = {
+  push: ['source','verify','seq','pushmark',...WARM_TAIL],
+  pull: ['create','distribute','engage','pullmark',...WARM_TAIL],
+};
+
+/* ---------- lead state caption per node ---------- */
+const LEAD_STATE = {
+  source:'Stranger. We believe she has the problem.',
+  verify:'Stranger. Now reachable.',
+  seq:'Cold. Three emails have arrived. She is curious.',
+  pushmark:'She raised her hand. Cold becomes warm.',
+  create:'Stranger, scrolling her feed.',
+  distribute:'Stranger. The story is now in front of her.',
+  engage:'Reacting. She is paying attention.',
+  pullmark:'She raised her hand. Stranger becomes lead.',
+  handraise:'WARM. One person, one record, one thread.',
+  approve:'Approved by Wes. The machine may now reach her.',
+  warm1:'Warm. She got a short, human note.',
+  gate1:'She replied. Wes chose BRIEFING.',
+  cc:'Engaged. She is exploring her own numbers.',
+  gate2:'She replied again. Wes chose ASSESS.',
+  brief:'Deep. She has the briefing and her one-page result.',
+  meeting:'BOOKED. Stranger to meeting with the CEO.',
+};
+
+/* ============================================================
+   ZOOM CONTENT: title, role, what-she-sees (ext), internal.
+   Artifacts are source-grounded (real copy from the engines
+   and the live Command Center).
+   ============================================================ */
+const ART = {};
+ART.source = {
+  title:'Source', step:'PUSH 1', role:'push',
+  desc:'The machine finds the people most likely to have the problem CaseGlide solves: the leaders who own litigation and claims inside large organizations. Dana fits the profile, and we have never contacted her.',
+  mech:['Targeting','Fortune 500 legal leaders (General Counsel, heads of litigation) as primary; claims leadership as secondary. Only people we have not already contacted.'],
+  int:'Stack: Apollo people-search plus enrichment, against ICP segments C1 General Counsel/CLO, C2 Risk/Claims, C3 Legal Ops, C4 Insurance-IT. People-search is free, so we dedup against the contacted and suppressed list <b>before</b> spending any enrichment credit. A per-run credit budget tops a multi-day buffer so supply never runs dry; a brand-new market stays a Wes decision.'
+};
+ART.verify = {
+  title:'Verify', step:'PUSH 2', role:'push',
+  desc:'Before anything is sent, the address is confirmed deliverable. A bad address never gets a send, so the sending reputation stays clean and the real people keep landing in the inbox.',
+  mech:['Gate','Only verified addresses pass. A confirmed hard bounce is purged so it can never bounce a second time.'],
+  int:'Verified-email gate (<code>email_status == "verified"</code>) before any send. A bounce-sync sweeps the campaigns each run, adds hard bounces to suppression and strips them from the verified manifest, so a poisoned slice self-purges before the send gate re-checks.'
+};
+ART.seq = {
+  title:'Four-touch sequence', step:'PUSH 3', role:'push',
+  desc:'Dana enters a four-touch cold sequence spread over about two weeks. Each touch comes at the problem from a different angle. She does not reply to the first two. Touch three, the one carrying proof, lands.',
+  artifact:'cold4',
+  mech:['Cadence','Day 0 opener, day 3 angle, day 7 proof, day 11 polite breakup. Same person, one thread, never a blast.'],
+  int:'Sent through the cold-email platform from warmed sending domains. Daily cap covers the whole campaign and follow-ups fire before new first-touches; the cap is raised up to +50% per run toward the warmed ceiling, never above what the inboxes prove they can fill. Sending identities and per-mailbox caps live in the internal view.'
+};
+ART.pushmark = {
+  title:'The cold reply', step:'PUSH', role:'push',
+  desc:'Dana replies to touch three. That reply is the hand-raise. Her cold record is now a warm lead, and she merges into the same single warm spine every lead walks.',
+  mech:['Convergence','One rail ends here. From this point the PUSH lead and the PULL lead are treated identically.'],
+  int:'Her reply is detected by the read-only inbox triage, classified as a genuine prospect reply (a reply to one of our threads, from a sender we actually emailed), and forwarded to Wes with a drafted response gated for his GO.'
+};
+ART.create = {
+  title:'Create', step:'PULL 1', role:'pull',
+  desc:'Every week the machine writes stories about real litigation drama: named verdicts, real courtrooms, real consequences. Not advice, not a pitch. A story Dana cannot scroll past. This is what earns the right to her attention.',
+  artifact:'article',
+  mech:['Output','5 articles, 1 newsletter, 10 posts every week. Trial-drama lens, never a compliance lecture.'],
+  int:'Produced by the Friday content council. Topic-stack driven, every opener and headline must score 8/10 or higher on a captivation rubric (verbatim quote, named protagonist, date and place, dollar figure, cliffhanger), and a fair-report legal gate runs on named-adversary posts.'
+};
+ART.distribute = {
+  title:'Distribute', step:'PULL 2', role:'pull',
+  desc:'The week of stories is scheduled out: two LinkedIn posts a day, every weekday, plus the newsletter. Dana sees the Monday franchise story, the one engineered to travel furthest, in her feed.',
+  artifact:'lipost',
+  mech:['Schedule','Two posts a day, Monday to Friday. Morning and midday.'],
+  int:'Posts scheduled via Buffer at 07:30 and 12:30 ET; the newsletter ships via Beehiiv. Every outbound link is UTM-tagged so a subscribe can be attributed back to the post that earned it.'
+};
+ART.engage = {
+  title:'Engage', step:'PULL 3', role:'pull',
+  desc:'Dana reacts to the post, then leaves a comment. A few days later she gives us her email through the subscribe gate. She came to us. That is the strongest possible signal.',
+  mech:['Signal','A reaction, a comment, a follow, and finally a subscribe. Each one raises her hand a little higher.'],
+  int:'LinkedIn engagers are harvested (reactions, comments, follows). Subscribe gates land in the newsletter list, which is the authoritative store of who handed us their email and through which tool.'
+};
+ART.pullmark = {
+  title:'The subscribe', step:'PULL', role:'pull',
+  desc:'Dana subscribes. That is her hand-raise on the content rail. Stranger becomes lead, and she merges into the exact same warm spine as the cold-email lead.',
+  mech:['Convergence','One rail ends here. PULL and PUSH now share one process, one record, one thread.'],
+  int:'A LinkedIn-only engager (no email yet) is enriched to a verified work email and seeded onto the email rail as source "linkedin". Roughly four in five engagers resolve to a verified email. The fragile direct-message path is retired from the daily flow.'
+};
+ART.handraise = {
+  title:'The hand-raise', step:'THE GATE', role:'shared',
+  desc:'This is the one place the two cold systems meet. A reply, a click, a subscribe, or a demo request: any of them is a hand-raise. The grey machine has done its job. From here the gold process begins, and it only begins after a real human raised a hand.',
+  mech:['One record','Every hand-raiser, from either rail, becomes one person-keyed row. No one is ever worked by both lanes at once.'],
+  int:'Hand-raisers from all sources (cold replies, post clicks, newsletter subscribes, Command Center assessments, demo requests) key into one store: <code>state/reach-ledger.json</code>. Deduped against the delivered ledger, so a person who already got a touch is never re-surfaced.'
+};
+ART.approve = {
+  title:'Approve', step:'WES', role:'wes',
+  desc:'Before the machine sends a single warm message, the full list of who it wants to reach is put in front of Wes. He approves it. This is the gate that guarantees no wrong person, no current client, ever gets a warm email by accident.',
+  mech:['The one approval','The machine emails Wes the exact send list. It then reaches only the names he approved. Never a superset.'],
+  int:'An approval gate freezes the would-send recipient list and emails it to Wes; the engine sends only the approved subset (the send-set is always a subset of the approved set). Client and defense-firm suppression also run at send. One approval per cycle; Wes never hand-sends.'
+};
+ART.warm1 = {
+  title:'Warm low-ask note', step:'WARM 1', role:'warm',
+  desc:'Dana gets a short, human, new-thread email. No deck, no calendar link, no pitch. Just one low-friction question: want to know more? It reads like a person wrote it, because the whole machine exists to earn this one honest moment.',
+  artifact:'warmemail',
+  mech:['Stage 1','The warm opener. Reply if interested. Nothing else asked.'],
+  int:'Stage 1 of a three-stage funnel carried as a field on the reach-ledger. Sent from the sending identity\'s own logged-in mailbox with a Sent-folder read-back as the only proof that counts. A no-double-send gate makes re-emailing a delivered person impossible.'
+};
+ART.gate1 = {
+  title:'Wes Gate 1', step:'WES GATE', role:'wes',
+  desc:'Dana replies: yes, tell me more. The machine does not guess. It stops and hands Wes three choices: set up the call now (CALL), send the interactive briefing first so she walks in oriented (BRIEFING), or just meet right now (MEET). Wes replies one word: BRIEFING.',
+  artifact:'gate1',
+  mech:['Decision point','A genuine reply is a decision, never an auto-advance. The lead holds at stage 1 until Wes picks.'],
+  int:'The reply is detected by triage and Wes is teed exactly two options plus the MEET exception, in his own words. The funnel pointer stays at stage 1 until he picks BRIEFING, which advances the lead 1 to 2 only when the gated briefing actually lands. A guard prevents a re-tee on a second reply.'
+};
+ART.cc = {
+  title:'Interactive Command Center', step:'WARM 2', role:'warm',
+  desc:'On Wes\'s word, the machine replies in the same thread and shares the Command Center: a private, interactive walk through a real nuclear-verdict file. Dana sees the chaos of how the case is run today, then sees it organized. She is looking at her own world.',
+  artifact:'commandcenter',
+  mech:['Stage 2','Shared in-thread, never a second cold touch. Interactive, private, unlisted.'],
+  int:'Stage 2 shares the interactive Command Center at <code>litigationsentinel.com/command-center</code>, delivered in-thread on Wes\'s BRIEFING GO so it is freshly approved. The page is noindex/nofollow and linked from nowhere; a redirect covers already-sent links.'
+};
+ART.gate2 = {
+  title:'Wes Gate 2', step:'WES GATE', role:'wes',
+  desc:'Dana replies to the Command Center. The machine stops a second time and hands Wes three choices: accept the meeting now (ACCEPT), send the executive briefing and her one-page result first then meet (ASSESS), or meet without it (MEET). Wes replies: ASSESS.',
+  artifact:'gate2',
+  mech:['Decision point','The reply to the briefing is the meeting trigger. The machine never books on its own.'],
+  int:'The reply tees Wes a two-option decision (ACCEPT, or ASSESS = send stage 3 first) plus the MEET exception. The stage-3 email is drafted and gated, awaiting his one-word GO. A guard prevents a re-tee.'
+};
+ART.brief = {
+  title:'Executive briefing + one-page PDF', step:'WARM 3', role:'warm',
+  desc:'Dana gets a private, confidential executive briefing, and the machine makes good on a promise: a one-page PDF of her own result. Her litigation-readiness level, where her file is strong, where it is exposed. Real value in her hands before any meeting.',
+  artifact:'pdf',
+  mech:['Stage 3','The meeting prerequisite. Private and confidential. The promised one-pager is generated and delivered, not a hoop.'],
+  int:'Stage 3 links the executive briefing at <code>litigationsentinel.com/briefing</code> and promises a one-page PDF of the recipient\'s results. No auto-PDF exists on the site, so it is generated by <code>render_assessment_pdf.py</code> and emailed from the sending identity\'s rail. A duplicate and asset guard blocks any near-duplicate or wrong-link body before it can send.'
+};
+ART.meeting = {
+  title:'Meeting booked', step:'DONE', role:'terminal',
+  desc:'Dana takes the meeting with Wes Todd, the CEO. A complete stranger two weeks ago, sourced or scrolling, now sitting across from the founder, oriented, with her own numbers already in front of her. That is the whole machine, end to end.',
+  artifact:'calendar',
+  mech:['Outcome','One stranger, one of two doors, one warm process, one booked meeting. The CEO touched it twice.'],
+  int:'The booked meeting is logged to the CRM (engagement-triggered logging only, not every send). The sales motion takes over from here.'
+};
+
+/* ============================================================
+   ARTIFACT RENDERERS (source-grounded sample artifacts)
+   ============================================================ */
+function artLipost(){return `
+<div class="li">
+  <div class="li-top"><div class="li-av">LS</div><div class="li-id">
+    <div class="lin">Litigation Sentinel</div><div class="lim">Monday &middot; 07:30 ET &middot; the franchise story</div></div></div>
+  <div class="li-text"><span class="hook">Bexar County, Texas. A bar over-served one customer for a few dollars. The jury answered with $831 million.</span>
+
+Koozies Icehouse did not lose this case at trial. It lost it eighteen months earlier, in an inbox, when a $20,000 demand sat unanswered while the file moved from adjuster to adjuster.
+
+Nobody read the room. By the time anyone did, the number was not $20,000 anymore.</div>
+  <div class="li-cta">No link in the post. The story carries it. (Comment to get the full file.)</div>
+</div>
+<p class="footnote internal-only" style="color:var(--amber-dark)">Internal: franchise named-adversary format. Villain name plus a dollar figure inside the first 140 characters. No in-body link. Fair-report legal gate passed.</p>`;}
+
+function artArticle(){return `
+<div class="artifact">
+  <div class="art-bar"><span class="art-dot"></span>litigationsentinel.com/article</div>
+  <div class="art-body">
+    <div class="lbl-from">SENTINEL &middot; TRIAL-DRAMA</div>
+    <div class="subjline" style="font-size:16px;font-family:var(--serif)">A Bar Tab of a Few Dollars. An $831 Million Verdict. The Eighteen Months In Between.</div>
+    <div class="emailtext">
+      <p>Bexar County, Texas. June 2025. The jury in <i>Mendez v. Koozies Icehouse</i> deliberated for less than a day before it returned $831 million against a single neighborhood bar.</p>
+      <p>"They had every chance to make this right and they ignored us," plaintiff's counsel told the court. The record shows he was not exaggerating. A $20,000 demand had gone out early. The counter, when it finally came, was $800.</p>
+      <p>Most people think nuclear verdicts come from bad facts. They come from bad timing.</p>
+    </div>
+  </div>
+</div>`;}
+
+function artWarmemail(){return `
+<div class="artifact">
+  <div class="art-bar"><span class="art-dot"></span>new message &middot; her inbox</div>
+  <div class="art-body">
+    <div class="lbl-from">From: CaseGlide &nbsp;|&nbsp; To: Dana Whitfield</div>
+    <div class="subjline">Quick one on the litigation side</div>
+    <div class="emailtext">
+      <p>Dana,</p>
+      <p>You commented on the Bexar County piece, so this is probably on your mind already. Most of the big-verdict stories we cover do not start with bad facts. They start with a file nobody could see clearly in time.</p>
+      <p>We built something for exactly that problem. I will not pitch it here.</p>
+      <p>Want to know more? Just reply.</p>
+      <p class="sig">- The CaseGlide team</p>
+    </div>
+  </div>
+</div>
+<p class="footnote internal-only" style="color:var(--amber-dark)">Internal: Stage 1 copy. No briefing link, no calendar, no call. Sent from a sending identity\'s own logged-in mailbox; the persona names are shown only in the internal view.</p>`;}
+
+function artGate1(){return `
+<div class="gate" style="margin:0">
+  <div class="gate-h">What reaches Wes: one decision</div>
+  <div class="gate-trig">"Dana Whitfield replied to your note: <i>Yes, what is it?</i> How do you want to play it?"</div>
+  <div class="gate-opts">
+    <div class="gopt"><div class="gk">CALL</div><div class="gv">Set up the call now.</div></div>
+    <div class="gopt lead"><div class="gk">BRIEFING</div><div class="gv">Send the interactive briefing first.</div><div class="gpick">Wes replied BRIEFING</div></div>
+    <div class="gopt"><div class="gk">MEET</div><div class="gv">Meet right now.</div></div>
+  </div>
+</div>`;}
+
+function artGate2(){return `
+<div class="gate" style="margin:0">
+  <div class="gate-h">What reaches Wes: one decision</div>
+  <div class="gate-trig">"Dana went through the Command Center and replied: <i>This is exactly our problem.</i> Next move?"</div>
+  <div class="gate-opts">
+    <div class="gopt"><div class="gk">ACCEPT</div><div class="gv">Take the meeting now.</div></div>
+    <div class="gopt lead"><div class="gk">ASSESS</div><div class="gv">Send the executive briefing and one-pager first.</div><div class="gpick">Wes replied ASSESS</div></div>
+    <div class="gopt"><div class="gk">MEET</div><div class="gv">Meet without it.</div></div>
+  </div>
+</div>`;}
+
+function artCommandCenter(){return `
+<div class="cc">
+  <div class="cc-spine"><span class="on">EMAIL</span><span>UPDATE</span><span>TIMELINE</span><span>ANSWER</span><span>DECISION</span></div>
+  <div class="cc-hero">
+    <div class="cc-place">BEXAR COUNTY, TEXAS. JUNE 2025.</div>
+    <div class="cc-num">$831,000,000</div>
+    <div class="cc-line">Mendez v. Koozies Icehouse. A bar over-served one customer. The jury answered with $831 million. Scroll. The file is below.</div>
+  </div>
+  <div class="cc-inbox">
+    <div class="ci-h">INBOX &middot; LIEBECK FILE (7 UNREAD) &middot; the way every case still runs</div>
+    <div class="ci-row"><span>FW: FW: Liebeck - ICA attached (ICA_v3_FINAL_revised.docx)</span><span class="ci-s">20 pages</span></div>
+    <div class="ci-row"><span>RE: RE: RE: settlement authority?</span><span class="ci-s">circling back</span></div>
+    <div class="ci-row"><span>Reserve question: do we have a current number on this one?</span><span class="ci-s">unread</span></div>
+    <div class="ci-row"><span>Demand: $20,000. Counter: $800. Both numbers are in here somewhere.</span><span class="ci-s">attachment</span></div>
+  </div>
+  <div class="cc-close">
+    <div class="ccx">If this is the problem you have been describing, the next step is small. Reply to the email. Tell us which screen you want to see with your own numbers on it.</div>
+  </div>
+</div>
+<p class="footnote internal-only" style="color:var(--amber-dark)">Internal: this is the live /command-center page ("The Conversion"). External view replaces "Reply to Sarah\'s email" with "Reply to the email" so no sending identity is exposed.</p>`;}
+
+function artPdf(){return `
+<div class="pdf">
+  <div class="pconf">Private and confidential &middot; prepared for D. Whitfield</div>
+  <div class="ptitle">Your Litigation-Readiness Result</div>
+  <div class="preader">One page. Your file, scored on how fast it would move under pressure.</div>
+  <div class="pscore">
+    <div class="pv">Tier 3</div>
+    <div class="pl">Readiness level: <b>exposed on timing</b>. Strong facts, slow file. The Mendez pattern is present.</div>
+  </div>
+  <div class="prow"><span class="ptag s">Strong</span><span>Coverage and reserve discipline are well documented across the book.</span></div>
+  <div class="prow"><span class="ptag x">Exposed</span><span>Early demands sit an average of 38 days before a first substantive response.</span></div>
+  <div class="prow"><span class="ptag x">Exposed</span><span>No single view of a file: status lives across forwarded email threads and attachments.</span></div>
+</div>
+<p class="footnote">The promised one-page PDF, generated for the recipient and emailed before any meeting. Real value, not a hoop.</p>`;}
+
+function artCalendar(){return `
+<div class="cal">
+  <div class="cal-top"><div class="cw">Calendar invite &middot; accepted</div><div class="ct">CaseGlide &times; Dana Whitfield: litigation review</div></div>
+  <div class="cal-body">
+    <div class="cr"><span class="ck">With</span><span>Wesley Todd, CEO, CaseGlide</span></div>
+    <div class="cr"><span class="ck">Guest</span><span>Dana Whitfield, VP Litigation Management</span></div>
+    <div class="cr"><span class="ck">Notes</span><span>She arrives oriented. Her one-page result is already in her inbox. No cold intro needed.</span></div>
+    <div class="cr"><span class="ck">Path in</span><span id="calPath">Door: PULL (LinkedIn post). 14 days, stranger to booked.</span></div>
+  </div>
+</div>`;}
+
+const ART_RENDER = {cold4:artCold4, article:artArticle, lipost:artLipost, warmemail:artWarmemail,
+  gate1:artGate1, gate2:artGate2, commandcenter:artCommandCenter, pdf:artPdf, calendar:artCalendar};
+
+function artCold4(){return `
+<div class="cad4">
+  <div class="ct"><span class="cdot"></span><div class="cday">Day 0</div><div class="clab">Opener<br>no reply</div></div>
+  <div class="ct"><span class="cdot"></span><div class="cday">Day 3</div><div class="clab">New angle<br>opened it</div></div>
+  <div class="ct"><span class="cdot" style="background:var(--amber);border-color:var(--bg)"></span><div class="cday">Day 7</div><div class="clab">Proof<br><b style="color:var(--amber)">she replies</b></div></div>
+  <div class="ct"><span class="cdot"></span><div class="cday">Day 11</div><div class="clab">Breakup<br>not needed</div></div>
+</div>
+<p class="footnote">Four touches, one thread, spread over about two weeks. Dana answered the third.</p>`;}
+
+/* ============================================================
+   RENDER: master diagram nodes + edges
+   ============================================================ */
+const VBW=1280, VBH=720;
+const stage=document.getElementById('stage');
+const svg=document.getElementById('edges');
+
+function nodeEl(n){
+  const el=document.createElement('div');
+  el.className='node '+ (n.marker?'marker ':'') + (n.role==='shared'?'shared ':'') +
+    (n.ignite?'ignite ':'') + (n.role==='wes'?'wes ':'') + (n.role==='warm'?'warm ':'') +
+    (n.role==='terminal'?'terminal ':'');
+  el.style.left=(n.x/VBW*100)+'%';
+  el.style.top=(n.y/VBH*100)+'%';
+  el.id='node-'+n.id;
+  el.innerHTML=`<div class="box">${n.tag?`<span class="ntag">${n.tag}</span>`:''}<div class="nlabel">${n.label}</div>${n.sub?`<div class="nsub">${n.sub}</div>`:''}</div>`;
+  el.onclick=()=>openNode(n.id,true);
+  return el;
+}
+NODES.forEach(n=>stage.appendChild(nodeEl(n)));
+
+function edgePath(a,b){
+  // orthogonal-ish connector in viewBox space
+  if(a.id==='handraise'&&b.id==='approve'){
+    // route down and around to the start of the warm spine
+    return `M ${a.x} ${a.y+40} C ${a.x} ${a.y+150}, ${b.x} ${b.y-190}, ${b.x} ${b.y-44}`;
+  }
+  // markers into hand-raise: gentle curve
+  if(b.id==='handraise'){
+    return `M ${a.x+38} ${a.y} Q ${(a.x+b.x)/2+30} ${(a.y+b.y)/2}, ${b.x-46} ${b.y}`;
+  }
+  return `M ${a.x+62} ${a.y} L ${b.x-62} ${b.y}`;
+}
+function drawEdges(){
+  let h='';
+  // arrow markers
+  h+=`<defs>
+    <marker id="ah-grey" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#4A5773"/></marker>
+    <marker id="ah-gold" markerWidth="10" markerHeight="10" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#C19A3E"/></marker>
+  </defs>`;
+  EDGES.forEach(([from,to,gold])=>{
+    const a=N[from],b=N[to];
+    const d=edgePath(a,b);
+    const col=gold?'#C19A3E':'#39455F';
+    const mk=gold?'url(#ah-gold)':'url(#ah-grey)';
+    const w=gold?2.4:1.8;
+    const dash=gold?'':'';
+    h+=`<path d="${d}" fill="none" stroke="${col}" stroke-width="${w}" marker-end="${mk}" ${dash?`stroke-dasharray="${dash}"`:''} opacity="${gold?0.95:0.75}"/>`;
+  });
+  svg.innerHTML=h;
+}
+drawEdges();
+window.addEventListener('resize',drawEdges);
+
+// ignite caption
+const igCap=document.getElementById('igCap');
+igCap.textContent='two cold systems become one warm process';
+igCap.style.left=(N.handraise.x/VBW*100)+'%';
+igCap.style.top=((N.handraise.y+86)/VBH*100)+'%';
+igCap.style.transform='translateX(-50%)';
+
+/* ---------- mini-map ---------- */
+const mmStage=document.getElementById('mmStage'), mmEdges=document.getElementById('mmEdges');
+(function buildMini(){
+  let h=`<defs></defs>`;
+  EDGES.forEach(([from,to,gold])=>{
+    const a=N[from],b=N[to];
+    h+=`<line x1="${a.x}" y1="${a.y}" x2="${b.x}" y2="${b.y}" stroke="${gold?'#C19A3E':'#39455F'}" stroke-width="${gold?7:5}" opacity="${gold?.9:.6}"/>`;
+  });
+  mmEdges.innerHTML=h;
+  NODES.forEach(n=>{
+    const d=document.createElement('div');
+    d.className='mm-dot '+(n.ignite?'ignite ':'')+(n.role==='wes'?'wes ':'')+(n.role==='warm'?'warm ':'')+(n.role==='terminal'?'terminal ':'');
+    d.style.left=(n.x/VBW*100)+'%'; d.style.top=(n.y/VBH*100)+'%';
+    d.id='mm-'+n.id;
+    d.title=n.label; d.onclick=()=>openNode(n.id,true);
+    mmStage.appendChild(d);
+  });
+})();
+
+/* ============================================================
+   STEP CARDS (10 uniform)
+   ============================================================ */
+const STEP_CARDS=['source','verify','seq','create','distribute','engage','handraise','warm1','cc','brief'];
+const cardgrid=document.getElementById('cardgrid');
+STEP_CARDS.forEach((id,i)=>{
+  const a=ART[id], n=N[id];
+  const warm = (n.role==='warm'||n.role==='shared');
+  const c=document.createElement('div');
+  c.className='scard '+(warm?'warm':'');
+  c.innerHTML=`<span class="sc-rail">${a.step}</span><div class="sc-n">${String(i+1).padStart(2,'0')}</div>
+    <div class="sc-t">${a.title}</div><div class="sc-d">${a.mech[1]}</div>`;
+  c.onclick=()=>openNode(id,true);
+  cardgrid.appendChild(c);
+});
+
+/* ============================================================
+   STATE: mode, door, current node, walk
+   ============================================================ */
+let mode='external', door=null, current=null, activePath=null, pathIdx=-1;
+
+function toggleMode(){ setMode(mode==='external'?'internal':'external'); }
+function setMode(m){
+  mode=m;
+  document.body.classList.toggle('mode-internal',m==='internal');
+  document.body.classList.toggle('mode-external',m==='external');
+  document.getElementById('modeLabel').textContent=m.toUpperCase();
+  document.getElementById('modeBtn').style.borderColor = m==='internal'?'var(--amber-dark)':'var(--divider)';
+  if(current) renderZoom(current); // re-render to add/remove internal block
+}
+
+function pickDoor(which){
+  door=which;
+  document.getElementById('doorveil').style.display='none';
+  stage.classList.remove('door-push','door-pull');
+  if(which){
+    stage.classList.add('door-'+which);
+    activePath=PATHS[which];
+    pathIdx=0;
+    // brief pulse-walk down the chosen rail
+    pulseWalk(activePath);
+    openNode(activePath[0],false);
+    setLeadState(activePath[0]);
+    const cp=document.getElementById('calPath');
+  } else {
+    activePath=null; pathIdx=-1;
+    openNode('handraise',false);
+  }
+  // set calendar path text
+}
+function pulseWalk(path){
+  path.forEach((id,i)=>{
+    setTimeout(()=>{
+      const el=document.getElementById('node-'+id);
+      if(!el)return;
+      el.animate([{boxShadow:'0 0 0 0 rgba(232,201,122,.6)'},{boxShadow:'0 0 0 14px rgba(232,201,122,0)'}],{duration:520});
+    }, i*150);
+  });
+}
+
+function setLeadState(id){
+  document.getElementById('leadState').textContent = LEAD_STATE[id]||'';
+  document.getElementById('mmHere').textContent = (N[id]?N[id].label:'').toLowerCase();
+}
+
+function openNode(id, scroll){
+  current=id;
+  // active highlight
+  document.querySelectorAll('.node.active').forEach(e=>e.classList.remove('active'));
+  document.querySelectorAll('.mm-dot.active').forEach(e=>e.classList.remove('active'));
+  const ne=document.getElementById('node-'+id); if(ne) ne.classList.add('active');
+  const me=document.getElementById('mm-'+id); if(me) me.classList.add('active');
+  // sync path index if node is on the active path
+  if(activePath){ const k=activePath.indexOf(id); if(k>=0) pathIdx=k; }
+  renderZoom(id);
+  setLeadState(id);
+  // calendar path label
+  const cp=document.getElementById('calPath');
+  if(cp) cp.textContent = (door==='push'?'Door: PUSH (cold email). 14 days, stranger to booked.':door==='pull'?'Door: PULL (LinkedIn post). 14 days, stranger to booked.':'Either door leads here. 14 days, stranger to booked.');
+  if(scroll){ const zs=document.getElementById('zoomSection'); if(window.innerWidth<960) zs.scrollIntoView({behavior:'smooth',block:'start'}); }
+  updateUrl();
+}
+
+function renderZoom(id){
+  const a=ART[id]; if(!a)return;
+  const roleClass={push:'r-push',pull:'r-pull',shared:'r-warm',warm:'r-warm',wes:'r-wes',terminal:'r-warm'}[a.role]||'';
+  const roleLabel={push:'PUSH lane',pull:'PULL lane',shared:'shared gate',warm:'warm spine',wes:'WES decides',terminal:'outcome'}[a.role]||'';
+  let h=`<div class="zoom-head"><span class="zoom-step">${a.step}</span><span class="zoom-title">${a.title}</span><span class="zoom-role ${roleClass}">${roleLabel}</span></div>`;
+  h+=`<div class="zoom-desc">${a.desc}</div>`;
+  if(a.mech){h+=`<div class="mech"><span class="ml">${a.mech[0]}</span>${a.mech[1]}</div>`;}
+  if(a.artifact && ART_RENDER[a.artifact]){ h+=ART_RENDER[a.artifact](); }
+  if(a.int){h+=`<div class="int-block internal-only"><div class="il">Internal &middot; stack, identities, caps</div><div class="stack">${a.int}</div></div>`;}
+  // nav
+  const onPath = activePath && activePath.indexOf(id)>=0;
+  const idx = onPath?activePath.indexOf(id):-1;
+  const prevId = onPath&&idx>0?activePath[idx-1]:null;
+  const nextId = onPath&&idx<activePath.length-1?activePath[idx+1]:null;
+  h+=`<div class="zoom-nav">
+    <button class="znav" ${prevId?'':'disabled'} onclick="${prevId?`openNode('${prevId}',false)`:''}">&larr; back</button>
+    <button class="znav primary" ${nextId?'':'disabled'} onclick="${nextId?`openNode('${nextId}',false)`:''}">walk forward &rarr;</button>
+    <span class="zpos">${onPath?`step ${idx+1} of ${activePath.length}`:'free explore'}</span>
+  </div>`;
+  document.getElementById('zoom').innerHTML=h;
+}
+
+/* ---------- URL state (for deep links + screenshots) ---------- */
+function updateUrl(){
+  const p=new URLSearchParams();
+  if(door)p.set('door',door);
+  if(mode==='internal')p.set('mode','internal');
+  if(current)p.set('node',current);
+  history.replaceState(null,'','?'+p.toString());
+}
+function initFromUrl(){
+  const p=new URLSearchParams(location.search);
+  if(p.get('mode')==='internal') setMode('internal');
+  const d=p.get('door');
+  if(d==='push'||d==='pull'){ pickDoor(d); }
+  else if(p.has('door')||p.get('node')){ pickDoor(null); }
+  const node=p.get('node');
+  if(node && N[node]) openNode(node,false);
+}
+
+/* ---------- keyboard ---------- */
+document.addEventListener('keydown',e=>{
+  if(e.key==='i'||e.key==='I'){ toggleMode(); }
+  if(e.key==='ArrowRight'&&activePath&&pathIdx<activePath.length-1){ openNode(activePath[pathIdx+1],false); }
+  if(e.key==='ArrowLeft'&&activePath&&pathIdx>0){ openNode(activePath[pathIdx-1],false); }
+});
+
+initFromUrl();
+</script>
+</body>
+</html>
