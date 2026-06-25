@@ -71,6 +71,7 @@ export const NATIONAL_TRENDS: NationalTrendData[] = [
   { year: 2023, totalVerdicts: 89, totalDamages: 14.5, medianVerdict: 44, thermonuclearCount: 27, billionPlusCount: 3 },
   { year: 2024, totalVerdicts: 135, totalDamages: 31.3, medianVerdict: 51, thermonuclearCount: 49, billionPlusCount: 5 },
   { year: 2025, totalVerdicts: 149, totalDamages: 25.1, medianVerdict: 46, thermonuclearCount: 33, billionPlusCount: 5 },
+  { year: 2026, totalVerdicts: 34, totalDamages: 6.9, medianVerdict: 61, thermonuclearCount: 15, billionPlusCount: 1 }, // 2026 YTD tracked from public reporting, not full-year national data
 ];
 
 // ─── Case Type Breakdown (2024–2025) ──────────────────────────────────────────────
@@ -581,6 +582,13 @@ export const KEY_STATS = {
   thermonuclearCount2025: 33, // $100M+ verdicts
   billionPlusCount2025: 5,
   statesWithActivity2025: 28, // states with 2025 nuclear verdicts
+  // 2026 YTD Tracked Data (computed from year === 2026 NOTABLE_VERDICTS rows; public-reporting tracker, not a national total)
+  totalVerdicts2026: 34,
+  totalDamages2026: 6.9, // billions (sum $6,883.2M across tracked 2026 rows)
+  medianVerdict2026: 61, // millions (exact median 61.05M across tracked 2026 rows)
+  thermonuclearCount2026: 15, // $100M+ tracked 2026 verdicts
+  billionPlusCount2026: 1,
+  statesWithActivity2026: 17, // distinct states among tracked 2026 rows
   // 2024 Complete Data (Marathon Strategies 2025 Report)
   totalVerdicts2024: 135,
   totalDamages2024: 31.3, // billions
