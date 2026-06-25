@@ -2290,72 +2290,106 @@ export const ARTICLES: NewsletterArticle[] = [
   },
   {
     slug: "build-litigation-intelligence-stack",
-    section: "Litigation Tech",
-    tag: "How-To",
-    title: "How to Build a Litigation Intelligence Stack Without Replacing Your Claims System",
+    section: "Litigation Strategy",
+    tag: "Special Report",
+    title: "\"Probably Carcinogenic.\" Bayer Bought Monsanto for $63 Billion in 2018.",
     subtitle:
-      "The best implementations layer intelligence on top of the claims system you already run. The one mistake that derails the whole thing is treating it as a system to replace instead of a layer to build.",
-    readTime: "8 min read",
+      "The warning was public three years before the deal closed. So was the science disputing it. What Bayer could not see was the size of the liability that fight would become.",
+    readTime: "9 min read",
     author: "Wes Todd",
-    date: "February 3, 2026",
-    readers: 1394,
+    date: "June 24, 2026",
+    readers: 3214,
     content: [
-      { type: "paragraph", text: "\"The Company continues to believe that it is necessary to replace these systems to remain competitive.\" That line is from [Kemper Corporation's annual report](https://www.sec.gov/Archives/edgar/data/860748/000086074816000146/kmpr-20151231201510k.htm), filed with the SEC in February 2016. The systems it refers to are the ones Kemper had just spent two years and $65.7 million trying to replace, and then walked away from." },
-      { type: "paragraph", text: "The write-offs are itemized in the filing. $54.6 million in 2014, when the property and casualty arm decided its new policy administration system would not be finished. Another $11.1 million in 2015, when it abandoned the billing system that was supposed to follow. Two projects. Two write-offs. And a closing sentence that concedes the company still has to do the thing it just failed to do." },
-      { type: "paragraph", text: "Sit with the shape of that. A serious insurer committed real money and two years to replacing its core systems, got nothing it could use, and came out the other side believing it still needs to replace them. The money did not buy the capability. It bought a newer plan to chase the same capability." },
-      { type: "heading", text: "This is not a Kemper problem" },
-      { type: "paragraph", text: "[The Hartford](https://www.sec.gov/Archives/edgar/data/874766/000095012312003120/c25396e10vk.htm) discontinued a policy administration software project in 2011 and wrote off $113 million before taxes. North Carolina set out to replace the system that pays its Medicaid claims; [the state's own auditor](https://www.auditor.nc.gov/documents/reports/infosystems/isa-2013-4410-0) found the contract ran from $265 million to $484 million and that the program failed to fully test the system before it went live. The pattern is not an insurance pattern or a government pattern. It is a large-systems pattern. [McKinsey and the University of Oxford](https://www.mckinsey.com/capabilities/tech-and-ai/our-insights/delivering-large-scale-it-projects-on-time-on-budget-and-on-value) studied large IT projects and found they run, on average, 45 percent over budget and 7 percent over schedule while delivering 56 percent less value than predicted." },
-      { type: "paragraph", text: "Read that last figure again. Not 56 percent less on time. 56 percent less value. The thing the project was for, cut by more than half, after the budget was already gone." },
-      { type: "paragraph", text: "So the question worth asking before anyone signs the next replacement contract is a plain one. What were you actually trying to buy?" },
-      { type: "heading", text: "You were never buying a system" },
-      { type: "paragraph", text: "If you run a legal department or a claims organization with a few hundred to a few thousand open matters, you already have a system of record. It tracks your files. It holds your documents. When the board asks why litigation outcomes are not improving, the reflex is to decide the system is the problem and to go shopping for a replacement. That reflex is the Kemper move. It is expensive, and it is usually wrong." },
-      { type: "paragraph", text: "The system is not why your outcomes are flat. The reason is what the system was never asked to tell you. [Thomson Reuters' 2025 Legal Department Operations Index](https://www.thomsonreuters.com/en-us/posts/corporates/2025-ldo-index-legal-success-metrics/) found that the service-centric measures, the quality of legal outcomes, cycle time, and cost avoided, are tracked by fewer than one in five legal departments. Almost everyone tracks spend. Almost no one tracks whether the spend bought a good result." },
-      { type: "paragraph", text: "That is the real gap, and a new system of record does not close it. You track spend, not outcome quality. You read narratives from outside counsel that arrive a quarter after the decisions they describe were already made. You have no way to say whether the firm on your highest-exposure matter wins this kind of case, in this venue, against this opponent, more often than the firm you passed over. You walk into mediation without a read on where the case is actually heading. Replacing the claims system moves that same blind data into a newer box. The blindness moves with it." },
-      { type: "pullquote", text: "The money did not buy the capability. It bought a newer plan to chase the same capability." },
-      { type: "paragraph", text: "If your highest-exposure matter went to mediation next month, could you say today whether the lawyer handling it wins this kind of case, in this venue, against this opponent, more often than the lawyer you did not assign? Not how much you have spent on it. The odds. If the answer is no, then the thing you are missing was never going to arrive in a new system. It lives in a layer you have not built yet." },
-      { type: "heading", text: "Build the layer, not the replacement" },
-      { type: "paragraph", text: "Litigation intelligence is not a system of record you migrate to. It is a layer that reads the systems you already run and turns what is buried in them into something you can act on. Real-time visibility across the whole portfolio instead of a quarterly snapshot. Counsel performance calibrated by venue, by case difficulty, by opposing counsel, instead of a spend report. The trajectory of a case's severity before you sit down at mediation, instead of after. None of that requires you to tear out the system that already holds your matters." },
-      { type: "paragraph", text: "It also avoids the trap that kills the replacement projects. Insurance trade press keeps [describing the same pattern](https://www.insurancethoughtleadership.com/going-digital/legacy-systems-modernize-or-overhaul): the new platform cannot fully replicate what the old one quietly did, so cutover never finishes, and you pay to run both while the promised return never lands. A layer has no cutover. Nothing gets ripped out, so nothing has to be perfectly replaced first. You keep your system of record and you build intelligence on top of it. That is the difference between a two-year program with a write-off at the end and a working capability in weeks." },
-      { type: "paragraph", text: "The mistake in the subtitle of this piece, the one that derails the whole thing, is treating litigation intelligence as a system to replace instead of a layer to build. Get that backward and you are Kemper. Get it right and the work is mostly about activating data you already keep. Map what your systems already capture. Turn it into portfolio signal. Calibrate it against real outcomes. Put it in front of the people who decide which lawyer gets which case." },
-      { type: "paragraph", text: "Kemper spent $65.7 million to replace its systems and concluded, in writing, that it still needed to replace them. The capability it wanted was never going to be inside the system. It was always in the layer above it. So is yours." },
+      { type: "paragraph", text: "\"Probably carcinogenic to humans.\" That is how [the World Health Organization's cancer research agency](https://iarc.who.int/featured-news/media-centre-iarc-news-glyphosate/) described glyphosate, the active ingredient in the weed killer Roundup, in March 2015. The United States Environmental Protection Agency studied the same chemical and reached the opposite conclusion, that glyphosate is [\"not likely to be carcinogenic to humans.\"](https://www.epa.gov/ingredients-used-pesticide-products/glyphosate) Both findings sat in the public record. In 2018, [Bayer paid sixty-three billion dollars](https://www.bayer.com/media/en-us/bayer-closes-monsanto-acquisition/) for the company that made Roundup." },
+      { type: "paragraph", text: "Sixty-four days after the deal closed, a jury in San Francisco returned [the first Roundup cancer verdict](https://law.justia.com/cases/california/court-of-appeal/2020/a155940.html), two hundred eighty-nine million dollars, to a dying school groundskeeper named Dewayne Johnson. Courts later reduced his award to about twenty million dollars on appeal. The market did not wait for the appeal. The next trading day, [Bayer's stock fell more than ten percent](https://www.cbsnews.com/news/bayer-shares-slump-after-289m-monsanto-roundup-verdict/) in a single session, on a verdict handed down in a courtroom three thousand miles from its headquarters." },
+      { type: "paragraph", text: "The two findings that framed the entire fight were available before Bayer wired the money. What no one had reduced to a single number was the size of the liability a public scientific dispute like that would generate in front of juries, year after year. Bayer priced the company as a chemistry and seed business. The market repriced it as a litigation business the morning after the first verdict. By June 2020, Bayer had announced [settlement agreements worth up to 10.9 billion dollars](https://www.bayer.com/media/en-us/bayer-announces-agreements-to-resolve-major-legacy-monsanto-litigation/) to resolve about three quarters of the Roundup litigation then pending, out of roughly 125,000 filed and unfiled claims." },
+      { type: "heading", text: "You are probably running the same blind spot" },
+      { type: "paragraph", text: "If you sit at the top of a legal department or a claims organization, you are managing somewhere between a few hundred and a few thousand open matters right now. You have a system of record. It holds your files, your documents, your spend. When the board asks why outcomes are not improving, the reflex is to assume the system is the problem and go shopping for a new one. That reflex is the expensive one, and it is usually aimed at the wrong target." },
+      { type: "paragraph", text: "The system is not why your outcomes are flat. The reason is what no one ever asked the system to tell you. [Thomson Reuters' 2025 Legal Department Operations Index](https://www.thomsonreuters.com/en-us/posts/corporates/2025-ldo-index-legal-success-metrics/) found that the service-centric measures, the quality of legal outcomes, cycle time, and cost avoided, are tracked by fewer than one in five legal departments. Almost everyone tracks spend. Almost no one tracks whether the spend bought a good result. You are watching the meter. You are not watching the road." },
+      { type: "paragraph", text: "That is what managing claims looks like. You track what each matter costs. You read narratives from outside counsel that arrive a quarter after the decisions they describe were already made. You have no way to say whether the firm on your highest-exposure matter wins this kind of case, in this venue, against this opponent, more often than the firm you passed over. You walk into mediation with no read on where the case is actually heading. None of that is a record-keeping failure. It is a seeing failure. And it does not register as a problem until it registers as a verdict." },
+      { type: "paragraph", text: "When it registers, it does not show up small anymore. In 2024 there were [135 corporate verdicts of ten million dollars or more](https://marathonstrategies.com/report/corporate-verdicts-go-thermonuclear-2025-edition/) in the United States, totaling 31.3 billion dollars. [The dollar value of those verdicts more than doubled](https://www.insurancejournal.com/news/national/2025/05/22/824792.htm) in a single year. These are the numbers that turn one unwatched matter into a board-level event." },
+      { type: "paragraph", text: "Roundup itself never stopped generating them. In January 2024, almost six years after the Johnson verdict, [a Philadelphia jury awarded a single plaintiff 2.25 billion dollars](https://www.bayer.com/en/litigation-statement/mckivison) in a Roundup case. A trial court later cut that award to 400 million dollars, and the matter is on appeal. Read the first number again. One plaintiff. One product. Years after Bayer had announced settlements meant to resolve most of this." },
+      { type: "paragraph", text: "It is not a chemical-company problem either. In February 2025, [a federal jury in Georgia returned 2.5 billion dollars in punitive damages](https://www.gpb.org/news/2025/02/17/columbus-jury-renders-verdict-in-25-billion-lawsuit-against-ford-motor-company) against Ford over a single pickup-truck roof collapse. Ford is appealing and calls the award extreme. The pattern under all of these is the same. A liability that was visible, in some form, long before the verdict. Priced clearly by the people on the other side of it, and not yet reduced to a single defensible number by the people who would have to pay." },
+      { type: "pullquote", text: "Bayer priced it as a chemistry business. The market repriced it as a litigation business overnight." },
+      { type: "heading", text: "Seeing is a different job than managing" },
+      { type: "paragraph", text: "Litigation intelligence is not a new system you migrate to. It is the ability to see your exposure the way the market eventually will, before the market does it for you. Real visibility across the whole portfolio instead of a quarterly snapshot. Counsel performance calibrated by venue, by case difficulty, by opposing counsel, instead of a spend report. The trajectory of a matter's severity before you sit down at mediation, instead of after. None of that requires you to tear out the system you already run. It is a layer that reads what you already keep and turns it into something you can act on." },
+      { type: "heading", text: "The four stages, and what breaks when you skip one" },
+      { type: "paragraph", text: "Most organizations are not one decision away from this. They are a few stages away, and the stages do not skip. Here is the ladder, and the specific thing that breaks if you try to jump it." },
+      { type: "paragraph", text: "Stage one is Recordkeeping. You have a system that holds your matters and your spend. Almost everyone is here. Nothing is wrong with it, except that it answers what a matter cost and nothing harder. Move past it without cleaning up the data first, and every later stage inherits numbers you cannot trust." },
+      { type: "paragraph", text: "Stage two is Visibility. Your open portfolio becomes a live picture instead of a quarterly report. Aging matters, budget exceptions, and cases heading for trial surface on their own instead of in a status call. This requires mapping what your systems already capture and agreeing on the few fields that actually matter. Skip it and you will still learn about the runaway matter a quarter late, which is the exact failure that costs the most." },
+      { type: "paragraph", text: "Stage three is Calibration. You build a record of how cases like yours actually resolve, by venue, by opponent, by the lawyer who handled them. This requires your closed-case history, not just your open files. Skip it and you keep assigning your highest-exposure matter on reputation and relationship, with no way to know whether the firm you trust wins this kind of case where it is being tried." },
+      { type: "paragraph", text: "Stage four is Exposure. You can state, as a number you would defend to a board, what a matter or a portfolio could actually cost, and watch that number move before mediation rather than after. This is the kind of view the Bayer and Monsanto timeline puts on display. It requires the first three. There is no shortcut to it, because it is built out of them." },
+      { type: "paragraph", text: "You can place yourself on that ladder in about thirty seconds. Pick your single highest-exposure matter right now. Can you say, today, whether the lawyer handling it wins this kind of case, in this venue, against this opponent, more often than the lawyer you did not assign? Can you say where its severity is heading before you reach mediation? Can you watch it move without asking anyone? If the honest answer is no, you are not at stage four. You are managing that matter. You are not seeing it." },
+      { type: "paragraph", text: "So here is the question worth sitting with. If your highest-exposure matter went to mediation next month, could you put a number on what it could cost you, and defend that number today, without waiting on a quarterly report or a call with outside counsel? Not how much you have spent on it. What it could cost. If you cannot, the exposure is already there. You just cannot see it yet." },
+      { type: "paragraph", text: "There is a working version of what seeing it looks like. You can [walk through a live litigation portfolio the way the intelligence layer would show it to you](https://www.litigationsentinel.com/command-center), with the exception flags, the counsel calibration, and the exposure view in one place. It takes a few minutes. It is the difference between reading the meter and watching the road." },
+      { type: "paragraph", text: "The findings that would define this fight were public three years before the deal closed. The market read them as money the morning after the first verdict, sixty-four days in. The exposure was there the whole time. The only question was who would see it first. See it first." },
     ],
     sources: [
       {
         claim:
-          "$54.6M (2014, policy administration system) + $11.1M (2015, billing system) abandoned core-system replacement write-offs; verbatim 'The Company continues to believe that it is necessary to replace these systems to remain competitive.'",
-        locator: "Kemper Corporation FY2015 Form 10-K, filed February 12, 2016",
-        url: "https://www.sec.gov/Archives/edgar/data/860748/000086074816000146/kmpr-20151231201510k.htm",
+          "Bayer completed its acquisition of Monsanto on June 7, 2018, for $63 billion including debt.",
+        locator: "Bayer AG press release, 'Bayer closes Monsanto acquisition,' June 7, 2018",
+        url: "https://www.bayer.com/media/en-us/bayer-closes-monsanto-acquisition/",
       },
       {
         claim:
-          "$113M pre-tax write-off of a discontinued policy administration software project (Q2 2011)",
-        locator: "The Hartford Financial Services Group FY2011 Form 10-K, filed February 24, 2012",
-        url: "https://www.sec.gov/Archives/edgar/data/874766/000095012312003120/c25396e10vk.htm",
+          "First Roundup cancer verdict, Johnson v. Monsanto, San Francisco Superior Court, August 10, 2018: jury awarded ~$289M ($39.3M compensatory + $250M punitive); reduced to ~$78.5M (October 2018) and affirmed at ~$20.5M on appeal.",
+        locator: "California Court of Appeal, First Appellate District, No. A155940, July 20, 2020",
+        url: "https://law.justia.com/cases/california/court-of-appeal/2020/a155940.html",
       },
       {
         claim:
-          "NCTracks Medicaid claims-system replacement contract grew from $265M to $484M; auditor found the Department 'failed to fully test the system' before the July 1, 2013 go-live",
-        locator: "North Carolina Office of the State Auditor, Report ISA-2013-4410, May 22, 2013",
-        url: "https://www.auditor.nc.gov/documents/reports/infosystems/isa-2013-4410-0",
+          "Bayer shares fell more than 10% (about 11% in intraday trading) on August 13, 2018, the first trading day after the Johnson verdict.",
+        locator: "CBS News / Associated Press, August 13, 2018",
+        url: "https://www.cbsnews.com/news/bayer-shares-slump-after-289m-monsanto-roundup-verdict/",
       },
       {
         claim:
-          "Large IT projects run on average 45% over budget and 7% over schedule while delivering 56% less value than predicted",
-        locator:
-          "McKinsey & Company with the University of Oxford, 'Delivering large-scale IT projects on time, on budget, and on value'",
-        url: "https://www.mckinsey.com/capabilities/tech-and-ai/our-insights/delivering-large-scale-it-projects-on-time-on-budget-and-on-value",
+          "On June 24, 2020, Bayer announced agreements totaling $10.1B to $10.9B to resolve about 75% of then-current Roundup litigation, out of roughly 125,000 filed and unfiled claims.",
+        locator: "Bayer AG press release, June 24, 2020",
+        url: "https://www.bayer.com/media/en-us/bayer-announces-agreements-to-resolve-major-legacy-monsanto-litigation/",
       },
       {
         claim:
-          "Service-centric metrics (quality of legal outcomes, cycle time, cost avoided) are captured by fewer than 20% of legal departments; spend metrics dominate",
-        locator: "Thomson Reuters Institute, 2025 Legal Department Operations (LDO) Index, October 8, 2025",
+          "IARC classified glyphosate as 'probably carcinogenic to humans' (Group 2A) in March 2015.",
+        locator: "IARC (WHO), Monographs Volume 112; IARC news, March 20, 2015",
+        url: "https://iarc.who.int/featured-news/media-centre-iarc-news-glyphosate/",
+      },
+      {
+        claim:
+          "The U.S. EPA concluded glyphosate is 'not likely to be carcinogenic to humans' (2020 interim registration review decision).",
+        locator: "U.S. Environmental Protection Agency, Glyphosate",
+        url: "https://www.epa.gov/ingredients-used-pesticide-products/glyphosate",
+      },
+      {
+        claim:
+          "A Philadelphia jury awarded $2.25B in McKivison v. Monsanto on January 26, 2024; the trial court reduced the award to $400M (June 2024); the matter is on appeal.",
+        locator: "Bayer litigation statement, McKivison v. Monsanto",
+        url: "https://www.bayer.com/en/litigation-statement/mckivison",
+      },
+      {
+        claim:
+          "A Georgia federal jury returned $2.5B in punitive damages against Ford over an F-250 roof-crush case; judgment entered February 14, 2025; Ford is appealing and calls the award extreme. Brogdon v. Ford, M.D. Ga. No. 4:23-cv-88.",
+        locator: "Georgia Public Broadcasting, February 17, 2025",
+        url: "https://www.gpb.org/news/2025/02/17/columbus-jury-renders-verdict-in-25-billion-lawsuit-against-ford-motor-company",
+      },
+      {
+        claim:
+          "135 corporate nuclear verdicts ($10M+) in 2024 totaling $31.3B; dollar value up about 116% year over year (verdict count up about 52%).",
+        locator: "Marathon Strategies, 'Corporate Verdicts Go Thermonuclear: 2025 Edition' (2024 data), May 2025",
+        url: "https://marathonstrategies.com/report/corporate-verdicts-go-thermonuclear-2025-edition/",
+      },
+      {
+        claim:
+          "Corroboration of the 2024 nuclear-verdict figures: 135 verdicts, $31.3B total, a 116% jump in dollar value and a 52% rise in count over 2023.",
+        locator: "Insurance Journal, May 22, 2025 (reporting Marathon Strategies)",
+        url: "https://www.insurancejournal.com/news/national/2025/05/22/824792.htm",
+      },
+      {
+        claim:
+          "Service-centric metrics (quality of legal outcomes, cycle time, cost avoided) are tracked by fewer than one in five legal departments; spend metrics dominate.",
+        locator: "Thomson Reuters Institute, 2025 Legal Department Operations (LDO) Index",
         url: "https://www.thomsonreuters.com/en-us/posts/corporates/2025-ldo-index-legal-success-metrics/",
-      },
-      {
-        claim:
-          "Insurers stuck running a legacy system and its replacement in parallel: the replacement cannot replicate embedded legacy logic, cutover never completes, the carrier pays to run two systems and the ROI never lands",
-        locator: "Insurance Thought Leadership, 'Legacy Systems: Modernize or Overhaul?'",
-        url: "https://www.insurancethoughtleadership.com/going-digital/legacy-systems-modernize-or-overhaul",
       },
     ],
   },
