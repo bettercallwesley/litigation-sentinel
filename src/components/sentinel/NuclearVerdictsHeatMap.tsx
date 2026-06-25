@@ -11,6 +11,7 @@ import {
   getRiskTextColor,
   KEY_STATS,
   NATIONAL_TRENDS,
+  NOTABLE_VERDICTS,
   CASE_TYPE_BREAKDOWN,
   JUDICIAL_HELLHOLES,
   JUDICIAL_HELLHOLE_WATCH_LIST,
@@ -1055,6 +1056,110 @@ function KeyFindings() {
   );
 }
 
+// ─── Landmark 2026 Verdicts (always-rendered, public-reporting tracker) ──────
+
+function Notable2026Strip() {
+  const rows = NOTABLE_VERDICTS.filter((v) => v.year === 2026)
+    .sort((a, b) => b.amount - a.amount)
+    .slice(0, 8);
+  if (rows.length === 0) return null;
+  return (
+    <div
+      style={{
+        padding: "20px",
+        background: SENTINEL.surface,
+        border: `1px solid ${SENTINEL.border}`,
+        borderRadius: 14,
+        position: "relative",
+        overflow: "hidden",
+        marginBottom: 32,
+      }}
+    >
+      <div
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          right: 0,
+          height: 3,
+          background: `linear-gradient(90deg, ${SENTINEL.sentinelAccent}, ${SENTINEL.accent}, ${SENTINEL.sentinelAccent})`,
+          borderRadius: "14px 14px 0 0",
+        }}
+      />
+      <div
+        style={{
+          fontSize: 9,
+          fontWeight: 700,
+          letterSpacing: "0.15em",
+          textTransform: "uppercase",
+          color: SENTINEL.sentinelAccent,
+          fontFamily: FONTS.sans,
+          marginBottom: 4,
+        }}
+      >
+        Landmark 2026 Verdicts
+      </div>
+      <div
+        style={{
+          fontSize: 10,
+          color: SENTINEL.inkMuted,
+          fontFamily: FONTS.sans,
+          marginBottom: 14,
+        }}
+      >
+        Tracked from public reporting through June 2026 &middot; Not exhaustive
+      </div>
+      {rows.map((v) => (
+        <div
+          key={v.caseName}
+          style={{
+            display: "flex",
+            gap: 12,
+            padding: "10px 0",
+            borderBottom: `1px solid ${SENTINEL.border}`,
+            alignItems: "baseline",
+          }}
+        >
+          <span
+            style={{
+              fontSize: 14,
+              fontFamily: FONTS.serif,
+              fontWeight: 700,
+              color: SENTINEL.rose,
+              flexShrink: 0,
+              minWidth: 78,
+            }}
+          >
+            {v.amountLabel}
+          </span>
+          <div style={{ flex: 1, minWidth: 0 }}>
+            <div
+              style={{
+                fontSize: 12,
+                fontWeight: 600,
+                color: SENTINEL.ink,
+                fontFamily: FONTS.sans,
+              }}
+            >
+              {v.caseName}
+            </div>
+            <div
+              style={{
+                fontSize: 11,
+                color: SENTINEL.inkMuted,
+                fontFamily: FONTS.sans,
+                marginTop: 2,
+              }}
+            >
+              {v.state} &middot; {v.caseType}
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 // ─── Main Component ──────────────────────────────────────────────────────────
 
 export default function NuclearVerdictsHeatMap({
@@ -1290,6 +1395,11 @@ export default function NuclearVerdictsHeatMap({
             color={SENTINEL.rose}
           />
         </div>
+      </FadeIn>
+
+      {/* ─── Landmark 2026 Verdicts (always shown, public-reporting tracker) ─── */}
+      <FadeIn delay={250}>
+        <Notable2026Strip />
       </FadeIn>
 
       {/* ─── Dark Map Panel ─── */}
