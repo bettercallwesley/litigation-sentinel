@@ -54,9 +54,53 @@ export default function Home() {
           ))}
         </div>
 
+        {/* Nuclear Verdicts Dashboard — PRIMARY hero conversion surface.
+            Cloned from the Executive Briefing slim bar for co-equal visual
+            parity, placed FIRST in the hero band, above the flagship. Links to
+            the public /nuclear-verdicts preview (view-first, subscribe-to-keep). */}
+        <FadeIn delay={60}>
+          <a
+            href="/nuclear-verdicts"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              flexWrap: "wrap",
+              gap: 10,
+              padding: "12px 20px",
+              margin: "14px 0 0",
+              textDecoration: "none",
+              borderBottom: `1px solid ${SENTINEL.border}`,
+            }}
+          >
+            <span
+              style={{
+                fontSize: 10,
+                fontWeight: 700,
+                letterSpacing: "0.14em",
+                textTransform: "uppercase",
+                color: SENTINEL.sentinelAccent,
+                fontFamily: FONTS.mono,
+              }}
+            >
+              Nuclear Verdicts Dashboard
+            </span>
+            <span style={{ fontSize: 13, color: SENTINEL.inkLight, fontFamily: FONTS.sans }}>
+              Verdict risk by state, mapped against the national nuclear-verdict curve.
+            </span>
+            <span style={{ fontSize: 13, fontWeight: 600, color: SENTINEL.sentinel, fontFamily: FONTS.sans }}>
+              Explore the dashboard →
+            </span>
+          </a>
+        </FadeIn>
+
+        {/* Hero subscribe capture attributed to the dashboard surface
+            (source=homepage-hero-dashboard). Real Beehiiv 2xx gates subscribe. */}
+        <SubscribeBlock source="homepage-hero-dashboard" delay={80} />
+
         {/* Hero secondary CTA — above the fold, secondary to the featured
             story. Carries ?src=homepage-hero so briefing_start attributes it. */}
-        <FadeIn delay={80}>
+        <FadeIn delay={100}>
           <a
             href="/briefing?src=homepage-hero"
             style={{
