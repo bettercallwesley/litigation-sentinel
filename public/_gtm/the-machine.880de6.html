@@ -285,6 +285,68 @@
 
   .footnote{font-size:11px;color:var(--caption);margin-top:6px;line-height:1.5}
   .footnote code{font-family:var(--mono);color:var(--amber-dark)}
+
+  /* ---------- LIVE METRICS COCKPIT (internal-mode only) ---------- */
+  :root{--rag-green:#5BAD84;--rag-amber:#E8C97A;--rag-red:#D97070;--rag-grey:#6B7488}
+  .rag-green{color:var(--rag-green)} .rag-amber{color:var(--rag-amber)} .rag-red{color:var(--rag-red)} .rag-grey{color:var(--rag-grey)}
+  .dot.green,.bg-green{background:var(--rag-green)} .dot.amber,.bg-amber{background:var(--rag-amber)}
+  .dot.red,.bg-red{background:var(--rag-red)} .dot.grey,.bg-grey{background:var(--rag-grey)}
+
+  /* top KPI band */
+  .kpiband{display:none;grid-template-columns:repeat(4,1fr);gap:12px;margin:0 0 18px}
+  body.mode-internal .kpiband{display:grid}
+  @media(max-width:880px){.kpiband{grid-template-columns:repeat(2,1fr)}}
+  .kpi{position:relative;border:0.6pt solid var(--divider);border-left:3px solid var(--rag-grey);border-radius:9px;padding:11px 13px;background:var(--panel)}
+  .kpi.green{border-left-color:var(--rag-green)} .kpi.amber{border-left-color:var(--rag-amber)} .kpi.red{border-left-color:var(--rag-red)} .kpi.grey{border-left-color:var(--rag-grey)}
+  .kpi.hero{background:var(--amber-wash)}
+  .kpi .kl{font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--caption)}
+  .kpi .kv{font-family:var(--serif);font-size:22px;color:var(--body);margin:3px 0 2px;line-height:1.05}
+  .kpi.green .kv{color:#9FE6BE} .kpi.amber .kv{color:var(--amber)} .kpi.red .kv{color:#F0A9A9}
+  .kpi .kd{font-size:10.5px;color:var(--muted);line-height:1.35}
+  .kpi .khero{position:absolute;top:9px;right:11px;font-family:var(--mono);font-size:7px;letter-spacing:.14em;color:#1A1305;background:var(--amber-dark);padding:1px 5px;border-radius:3px}
+  .kpi .kl{padding-right:38px}
+
+  /* per-node rag dot + metric chip (internal only) */
+  .rag-dot{position:absolute;top:-6px;right:-6px;width:11px;height:11px;border-radius:50%;border:2px solid var(--bg);display:none;z-index:3}
+  body.mode-internal .rag-dot{display:block}
+  .node-metric{display:none;margin-top:6px;padding-top:5px;border-top:0.5pt solid rgba(255,255,255,.08);font-family:var(--mono);font-size:9.5px;color:var(--body);line-height:1.25}
+  body.mode-internal .node-metric{display:block}
+  .node-metric .mlab{color:var(--caption);font-size:8px;letter-spacing:.04em;display:block}
+  .node.wes .node-metric,.node.wes .mlab{color:#3a2c08}
+  .node.wes .node-metric{border-top-color:rgba(0,0,0,.18)}
+
+  /* cockpit section */
+  #metricsSection{display:none}
+  body.mode-internal #metricsSection{display:block}
+  .asof{font-family:var(--mono);font-size:10px;color:var(--caption);margin:0 0 12px;letter-spacing:.03em}
+  .asof b{color:var(--amber-dark)}
+  .mgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+  @media(max-width:760px){.mgrid{grid-template-columns:1fr}}
+  .mrow{border:0.6pt solid var(--divider);border-left:3px solid var(--rag-grey);border-radius:7px;padding:10px 12px;background:var(--grey-fill)}
+  .mrow.green{border-left-color:var(--rag-green)} .mrow.amber{border-left-color:var(--rag-amber)} .mrow.red{border-left-color:var(--rag-red)} .mrow.grey{border-left-color:var(--rag-grey)}
+  .mrow .mh{display:flex;align-items:baseline;gap:8px}
+  .mrow .mdot{width:8px;height:8px;border-radius:50%;flex:0 0 auto;position:relative;top:-1px}
+  .mrow .mt{font-weight:700;font-size:12px;color:var(--body)}
+  .mrow .mlane{margin-left:auto;font-family:var(--mono);font-size:7.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--caption)}
+  .mrow .mhead{font-family:var(--serif);font-size:18px;color:var(--amber);margin:5px 0 1px}
+  .mrow .msub{font-size:10px;color:var(--muted)}
+  .mrow .mdetail{margin-top:7px;font-size:10.5px;color:var(--muted);line-height:1.5}
+  .mrow .mdetail .di{display:block} .mrow .mdetail .dk{color:var(--caption)}
+  .mrow .mni{color:var(--rag-grey);font-style:italic}
+  .mrow .mnote{margin-top:6px;font-size:9.5px;color:var(--caption);font-style:italic;line-height:1.4}
+
+  /* warm funnel + conversions */
+  .funnel{margin-top:6px}
+  .frow{display:flex;align-items:center;gap:10px;margin:5px 0}
+  .frow .fl{flex:0 0 86px;font-size:11px;color:var(--muted)}
+  .frow .fbar{height:18px;background:linear-gradient(90deg,var(--amber-dark),var(--amber));border-radius:3px;min-width:2px}
+  .frow .fn{font-family:var(--mono);font-size:12px;color:var(--body);font-weight:700}
+  .convrow{display:flex;gap:14px;flex-wrap:wrap;margin-top:10px;font-family:var(--mono);font-size:10.5px;color:var(--muted)}
+  .convrow b{color:var(--amber)}
+  .absbox{margin-top:12px;border:0.6pt dashed var(--rag-grey);border-radius:7px;padding:9px 12px;background:rgba(107,116,136,.06)}
+  .absbox .al{font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--rag-grey);margin-bottom:5px}
+  .absbox .ai{font-size:10.5px;color:var(--muted);margin:2px 0}
+  .absbox .ai b{color:var(--body)}
 </style>
 </head>
 <body class="mode-external">
@@ -308,6 +370,12 @@
       </div>
     </div>
   </header>
+
+  <!-- live metrics JSON, injected by scripts/marketing_machine_metrics.py -->
+  <script id="machine-metrics" type="application/json">{"generated_ts":"2026-06-25T23:29:01.147162+00:00","as_of":{"cascade":"2026-06-25","reach_ledger":"rolling (read live)","subscribers":"2026-06-18","posts":"2026-06-18"},"kpis":[{"id":"handraisers","label":"New hand-raisers this run","hero":true,"value":"+1","detail":"25 total on the site (Command Center 3, subscribe 22)","rag":"green"},{"id":"pace","label":"Top cut first-touched by Aug 1","value":"1,742 of 4,500","detail":"ETA 2026-07-23 vs target 2026-07-31; 134/day vs 103/day required","rag":"green"},{"id":"coldfill","label":"Cold fill yesterday","value":"148 of 200 (74.0%)","detail":"75% bar missed","rag":"amber"},{"id":"warm","label":"Warm prospects reached","value":"222 of 503","detail":"1 new warm reply waiting, run /pipeline-mvp","rag":"amber"}],"segments":{"source":{"headline":"3,147 staged","label":"Deduped lead runway","rag":"green","status":"live","detail":[{"label":"Verified prospects in the cut","value":"9,210","status":"live","source":"verified-manifest.json"},{"label":"By source (first-touch landing)","value":"CG-C1-GC-CLO-R2026 4, CG-C1-canary-1lead 1","status":"live","source":""}],"subsegments":[],"note":null},"verify":{"headline":"100 / 98 / 100 / 100 warmup","label":"Mailbox warmup health","rag":"green","status":"live","detail":[{"label":"Bounces suppressed this run","value":"27 suppressed, 27 purged","status":"live","source":"mission-answer.bounce_sync"}],"subsegments":[],"note":null},"seq":{"headline":"148 of 200 (74.0%)","label":"Sent yesterday vs cap","rag":"amber","status":"live","detail":[{"label":"Hit the 75% fill bar?","value":"No (74.0% < 75%)","status":"live","source":"mission-answer.answer_1"},{"label":"Today's cap","value":"200","status":"live","source":"mission-answer.answer_2"}],"subsegments":[{"label":"Per mailbox","value":"jessicathompson 37, lizbecker 37, sarahjohnson 37, mikepatton 37","status":"live","source":"yesterday-sends.per_mailbox_sends"}],"note":null},"create":{"headline":"10 posts","label":"LinkedIn posts produced this cycle","rag":"green","status":"live","detail":[{"label":"Articles & newsletter receipts","value":"not yet instrumented","status":"not_yet_instrumented","source":"no per-cycle article/newsletter receipts file is emitted"}],"subsegments":[],"note":null},"distribute":{"headline":"10 scheduled","label":"Posts scheduled to the queue","rag":"green","status":"live","detail":[{"label":"LinkedIn post performance","value":"not yet instrumented","status":"not_yet_instrumented","source":"linkedin-performance-log.md is an empty template; no T+72h pulls"}],"subsegments":[],"note":null},"engage":{"headline":"82 subscribers","label":"Active newsletter subscribers","rag":"grey","status":"live","detail":[{"label":"Newsletter open / click","value":"not yet instrumented","status":"not_yet_instrumented","source":"issue-performance-log.md cells empty past Issue #3"},{"label":"LinkedIn engagement rate","value":"not yet instrumented","status":"not_yet_instrumented","source":"no filled analytics rows"}],"subsegments":[],"note":"subscriber count synced 2026-06-18 (snapshot may be stale)"},"handraise":{"headline":"+1 new","label":"New hand-raisers since last run","rag":"green","status":"live","detail":[{"label":"Total hand-raisers on the site","value":"25","status":"live","source":"site-capture.total_hand_raisers"},{"label":"Already in the outbound cut","value":"1 overlap","status":"live","source":"site-capture.overlap_with_outbound_cut"}],"subsegments":[{"label":"Per tool","value":"Command Center 3, subscribe 22","status":"live","source":"site-capture.per_tool"},{"label":"Demo-only requests","value":"not yet instrumented","status":"not_yet_instrumented","source":"site-capture ledger_status = NO_STORE; not on a durable ledger"}],"note":null},"approve":{"headline":"232 approved","label":"Approved of 503 surfaced","rag":"green","status":"live","detail":[{"label":"Surfaced (candidate pool)","value":"503","status":"live","source":"reach-ledger.surfaced_ts"},{"label":"Reached (delivered)","value":"222","status":"live","source":"reach-ledger delivered"}],"subsegments":[{"label":"By source","value":"linkedin 326, historical 130, beehiiv 40, pipedrive 6, gmail_inbound 1","status":"live","source":"reach-ledger.source"},{"label":"By rail","value":"linkedin 281, email 222","status":"live","source":"reach-ledger.rail"}],"note":null},"warm1":{"headline":"221 at Stage 1","label":"First warm touch delivered","rag":"green","status":"live","detail":[{"label":"Total reached (any stage)","value":"222","status":"live","source":"reach-ledger delivered"}],"subsegments":[],"note":null},"gate1":{"headline":"1 advanced","label":"Advanced past Stage 1","rag":"green","status":"live","detail":[],"subsegments":[],"note":"Honest live count from stages_sent transitions; no separate gate-decision log."},"cc":{"headline":"0 at Stage 2","label":"Command Center delivered","rag":"amber","status":"live","detail":[],"subsegments":[],"note":"Genuine live 0 if the warm engine has not sent a Stage 2 yet \u2014 real, not fabricated."},"gate2":{"headline":"1 advanced","label":"Advanced past Stage 2","rag":"green","status":"live","detail":[],"subsegments":[],"note":null},"brief":{"headline":"1 at Stage 3","label":"Briefing delivered","rag":"green","status":"live","detail":[],"subsegments":[],"note":null},"meeting":{"headline":"not yet instrumented","label":"Meetings booked","rag":"grey","status":"not_yet_instrumented","detail":[],"subsegments":[],"note":"No source records a booked meeting. Nearest live signals: 1 new warm reply, 3 Command Center submits. Neither is a booking."}},"warm_funnel":[{"stage":"Surfaced","count":503},{"stage":"Approved","count":232},{"stage":"Reached","count":222},{"stage":"Stage 1","count":221},{"stage":"Stage 2","count":0},{"stage":"Stage 3","count":1}],"conversions":[{"from":"Surfaced","to":"Approved","pct":46.1},{"from":"Approved","to":"Reached","pct":95.7},{"from":"Reached","to":"Stage 2","pct":null}],"warm_backlog":{"waiting":281,"oldest_age_days":7.48925996380787,"rag":"red"},"absences":[{"node":"meeting","reason":"no source records a booked meeting"},{"node":"create","reason":"no per-cycle article/newsletter receipts file"},{"node":"distribute","reason":"LinkedIn performance log is an empty template"},{"node":"engage","reason":"newsletter performance log blank past Issue #3"},{"node":"handraise","reason":"demo-only hand-raisers not on a durable ledger"}],"counts":{"live":13,"not_yet_instrumented":1}}</script>
+
+  <!-- top KPI band (internal mode only) -->
+  <div class="kpiband" id="kpiband"></div>
 
   <!-- ===================== MASTER DIAGRAM ===================== -->
   <div class="stagecard">
@@ -442,6 +510,26 @@
           <div class="il">internal</div>
           <div class="stack">Store: <code>state/reach-ledger.json</code>, keyed by lowercased email or LinkedIn slug. "Delivered" has one representation in code (<code>engaged_state._is_delivered</code>); every send selector consults it. A deploy-gate test runs the live ledger through both selectors so a person carrying only a legacy <code>sent_ts</code> can never be re-emailed.</div>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LIVE METRICS COCKPIT (internal mode only) -->
+  <div class="section" id="metricsSection">
+    <p class="eyebrow">Live metrics &middot; internal cockpit</p>
+    <h2>Where the machine stands right now</h2>
+    <p class="s-sub">Real current statistics, one read per segment, with a red / amber / green health flag. Every number traces to a live source file; anything not yet wired shows as not instrumented, never a guess. Refresh with <code>/machine-metrics</code>.</p>
+    <p class="asof" id="metricsAsof"></p>
+    <div class="mgrid" id="metricsGrid"></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px">
+      <div>
+        <p class="eyebrow">Warm funnel (one row per person)</p>
+        <div class="funnel" id="warmFunnel"></div>
+        <div class="convrow" id="warmConv"></div>
+      </div>
+      <div>
+        <p class="eyebrow">Not yet instrumented (honest gaps)</p>
+        <div class="absbox" id="absBox"></div>
       </div>
     </div>
   </div>
@@ -974,6 +1062,63 @@ document.addEventListener('keydown',e=>{
   if(e.key==='ArrowRight'&&activePath&&pathIdx<activePath.length-1){ openNode(activePath[pathIdx+1],false); }
   if(e.key==='ArrowLeft'&&activePath&&pathIdx>0){ openNode(activePath[pathIdx-1],false); }
 });
+
+/* ============================================================
+   LIVE METRICS COCKPIT - reads the injected #machine-metrics JSON
+   and renders the KPI band, per-node RAG dots/chips, and the
+   per-segment cockpit. Internal-mode only (CSS gated). If no
+   metrics are injected yet, it no-ops silently.
+   ============================================================ */
+function renderMetrics(){
+  const holder=document.getElementById('machine-metrics');
+  let M; try{ M=JSON.parse(holder.textContent); }catch(e){ M=null; }
+  if(!M || !M.segments || !Object.keys(M.segments).length) return;
+
+  const ao=M.as_of||{};
+  document.getElementById('metricsAsof').innerHTML=
+    `As of cold run <b>${ao.cascade||'?'}</b> &middot; warm ledger read live &middot; subscribers synced <b>${ao.subscribers||'?'}</b> &middot; ${M.counts.live} live / ${M.counts.not_yet_instrumented} not instrumented`;
+
+  document.getElementById('kpiband').innerHTML=(M.kpis||[]).map(k=>
+    `<div class="kpi ${k.rag} ${k.hero?'hero':''}">${k.hero?'<span class="khero">HERO</span>':''}<div class="kl">${k.label}</div><div class="kv">${k.value}</div><div class="kd">${k.detail||''}</div></div>`).join('');
+
+  const order=['source','verify','seq','create','distribute','engage','handraise','approve','warm1','gate1','cc','gate2','brief','meeting'];
+  for(const id of order){
+    const s=M.segments[id]; if(!s) continue;
+    const el=document.getElementById('node-'+id); if(!el) continue;
+    const box=el.querySelector('.box'); if(!box) continue;
+    let dot=box.querySelector('.rag-dot'); if(!dot){ dot=document.createElement('span'); box.appendChild(dot); }
+    dot.className='rag-dot '+s.rag;
+    let chip=box.querySelector('.node-metric'); if(!chip){ chip=document.createElement('div'); box.appendChild(chip); }
+    chip.className='node-metric';
+    chip.innerHTML=`<span class="mlab">${s.label}</span>${s.headline}`;
+  }
+
+  const laneOf={push:'PUSH',pull:'PULL',shared:'SHARED',wes:'WARM',warm:'WARM',terminal:'WARM'};
+  const detHTML=arr=>(arr||[]).map(d=>{
+    const ni=d.status&&d.status!=='live';
+    return `<span class="di"><span class="dk">${d.label}:</span> <span class="${ni?'mni':''}">${d.value}</span></span>`;
+  }).join('');
+  document.getElementById('metricsGrid').innerHTML=order.filter(id=>M.segments[id]).map(id=>{
+    const s=M.segments[id];
+    const title=(N[id]&&N[id].label)||id;
+    const lane=laneOf[(N[id]||{}).role]||'';
+    return `<div class="mrow ${s.rag}"><div class="mh"><span class="mdot ${s.rag}"></span><span class="mt">${title}</span><span class="mlane">${lane}</span></div>`+
+      `<div class="mhead ${s.status!=='live'?'mni':''}">${s.headline}</div><div class="msub">${s.label}</div>`+
+      (s.detail&&s.detail.length?`<div class="mdetail">${detHTML(s.detail)}</div>`:'')+
+      (s.subsegments&&s.subsegments.length?`<div class="mdetail">${detHTML(s.subsegments)}</div>`:'')+
+      (s.note?`<div class="mnote">${s.note}</div>`:'')+`</div>`;
+  }).join('');
+
+  const fn=M.warm_funnel||[]; const mx=Math.max(1,...fn.map(f=>f.count||0));
+  document.getElementById('warmFunnel').innerHTML=fn.map(f=>
+    `<div class="frow"><span class="fl">${f.stage}</span><span class="fbar" style="width:${Math.round((f.count||0)/mx*230)}px"></span><span class="fn">${f.count}</span></div>`).join('');
+  document.getElementById('warmConv').innerHTML=(M.conversions||[]).map(c=>
+    `${c.from} to ${c.to}: <b>${c.pct!=null?c.pct+'%':'n/a'}</b>`).join(' &middot; ');
+
+  document.getElementById('absBox').innerHTML='<div class="al">held honest, not faked</div>'+
+    (M.absences||[]).map(a=>`<div class="ai"><b>${a.node}</b>: ${a.reason}</div>`).join('');
+}
+renderMetrics();
 
 initFromUrl();
 </script>
