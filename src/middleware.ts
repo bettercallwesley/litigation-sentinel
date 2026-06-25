@@ -13,6 +13,41 @@ import { NextRequest, NextResponse } from "next/server";
 const ATTRIBUTION_COOKIE = "ls_attribution";
 const MAX_AGE_SECONDS = 90 * 24 * 60 * 60; // 90 days
 
+/**
+ * Password gate for the unlisted CaseGlide GTM journey tour.
+ *
+ * Clean share URL is `/the-machine`; the content lives at an unguessable
+ * static path that the gate rewrites to once the password is correct. Both the
+ * clean URL and the static path are gated, so the page cannot be reached by
+ * guessing either one. Password is low-bar by design (this is a marketing
+ * leave-behind, not secret material): any username, password must match.
+ */
+const GATE_PASSWORD = "1234";
+const GATE_CLEAN_PATH = "/the-machine";
+const GATE_CONTENT_PATH = "/_gtm/the-machine.880de6.html";
+const GATE_PATHS = new Set([GATE_CLEAN_PATH, GATE_CONTENT_PATH]);
+
+function passwordOk(req: NextRequest): boolean {
+  const auth = req.headers.get("authorization");
+  if (!auth || !auth.startsWith("Basic ")) return false;
+  try {
+    const decoded = atob(auth.slice(6));
+    return decoded.slice(decoded.indexOf(":") + 1) === GATE_PASSWORD;
+  } catch {
+    return false;
+  }
+}
+
+function passwordPrompt(): NextResponse {
+  return new NextResponse("This page is private. Enter the password to continue.", {
+    status: 401,
+    headers: {
+      "WWW-Authenticate": 'Basic realm="CaseGlide GTM tour", charset="UTF-8"',
+      "Cache-Control": "no-store",
+    },
+  });
+}
+
 const UTM_KEYS = [
   "utm_source",
   "utm_medium",
@@ -34,6 +69,15 @@ function externalReferrer(req: NextRequest): string | null {
 }
 
 export function middleware(req: NextRequest) {
+  // Password gate runs before attribution. Gated paths never set the cookie.
+  if (GATE_PATHS.has(req.nextUrl.pathname)) {
+    if (!passwordOk(req)) return passwordPrompt();
+    if (req.nextUrl.pathname === GATE_CLEAN_PATH) {
+      return NextResponse.rewrite(new URL(GATE_CONTENT_PATH, req.url));
+    }
+    return NextResponse.next();
+  }
+
   const res = NextResponse.next();
 
   // First-touch wins: never overwrite an existing attribution cookie.
