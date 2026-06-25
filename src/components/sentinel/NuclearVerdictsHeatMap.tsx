@@ -171,7 +171,7 @@ function TrendChart() {
           marginBottom: 4,
         }}
       >
-        6-Year Trend (2020–2025)
+        7-Year Trend (2020-2026)
       </div>
       <div
         style={{
@@ -181,7 +181,7 @@ function TrendChart() {
           marginBottom: 14,
         }}
       >
-        Marathon Strategies &middot; Preliminary 2025 Data
+        2020-2025 Marathon Strategies &middot; 2026 YTD tracked from public reporting
       </div>
       <svg
         viewBox={`-8 -4 ${chartW + 16} ${chartH + 24}`}
@@ -1373,25 +1373,25 @@ export default function NuclearVerdictsHeatMap({
         >
           <StatCard
             label="Nuclear Verdicts&reg;"
-            value={KEY_STATS.totalVerdicts2025.toString()}
-            subtext={`2025 YTD · ${KEY_STATS.yoyVerdictGrowth2024}% YoY growth`}
+            value={KEY_STATS.totalVerdicts2026.toString()}
+            subtext="2026 YTD tracked from public reporting"
             color={SENTINEL.rose}
           />
           <StatCard
             label="Total Damages"
-            value={`$${KEY_STATS.totalDamages2025}B`}
-            subtext={`2025 YTD · ${KEY_STATS.yoyDamagesGrowth2024}% YoY growth`}
+            value={`$${KEY_STATS.totalDamages2026}B`}
+            subtext="2026 YTD tracked from public reporting"
             color={SENTINEL.sentinel}
           />
           <StatCard
             label="Median Verdict"
-            value={`$${KEY_STATS.medianVerdict2025}M`}
-            subtext="2025 YTD · Down 6% from prior year"
+            value={`$${KEY_STATS.medianVerdict2026}M`}
+            subtext="2026 YTD tracked from public reporting"
           />
           <StatCard
             label="$100M+ Verdicts"
-            value={KEY_STATS.thermonuclearCount2025.toString()}
-            subtext={`Including ${KEY_STATS.billionPlusCount2025} over $1B`}
+            value={KEY_STATS.thermonuclearCount2026.toString()}
+            subtext={`Including ${KEY_STATS.billionPlusCount2026} over $1B`}
             color={SENTINEL.rose}
           />
         </div>
