@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="robots" content="noindex,nofollow">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>CaseGlide: The Marketing Machine, One Lead's Journey</title>
+<meta name="robots" content="noindex,nofollow">
+<title>CaseGlide: Cold Prospect to Booked Meeting. The Machine Runs It.</title>
 <style>
   :root{
     --bg:#06091A; --panel:#0C1428; --panel-2:#111D35; --divider:#1E2D4A;
@@ -93,12 +93,59 @@
   .node.active .box{outline:2px solid var(--amber);outline-offset:3px}
   .node.active .nlabel{text-shadow:0 0 12px rgba(232,201,122,.4)}
 
-  /* lane dim when a door is chosen */
-  .stage.door-push .lane-pull .node:not(.shared){opacity:.4}
-  .stage.door-pull .lane-push .node:not(.shared){opacity:.4}
+  /* ---------- camera (holds BOTH coordinate layers: svg edges + DIV nodes + travel) ---------- */
+  .camera{position:absolute;inset:0;transform-origin:0 0;transform:translate(0,0) scale(1);
+    transition:transform .62s cubic-bezier(.33,0,.2,1);will-change:transform}
+  body.reduced-motion .camera{transition:none}
+  /* travel overlay: token + pre-trace, ABOVE nodes (z-index 3) so it never hides behind them */
+  svg.travel{position:absolute;inset:0;width:100%;height:100%;z-index:3;pointer-events:none}
+  .pretrace{fill:none;stroke:var(--amber);stroke-width:1.4;opacity:.16;stroke-dasharray:5 7;stroke-linecap:round}
+  .tok{transition:opacity .25s ease}
+  .tok .tok-ring{fill:rgba(232,201,122,.16);stroke:var(--amber);stroke-width:2}
+  .tok .tok-core{fill:var(--amber)}
+  .tok.cold .tok-ring{stroke:#9fb6e6;fill:rgba(159,182,230,.14)} .tok.cold .tok-core{fill:#9fb6e6}
+  .tok-label{font-family:var(--mono);font-size:13px;fill:#1A1305;font-weight:700;text-anchor:middle}
+
+  /* focus + context: dim non-selected on explicit selection only (never hover/autoplay) */
+  .camera.focus .node:not(.active){opacity:.55;filter:saturate(.62)}
+  .camera.focus #edges{opacity:.34}
+  .camera.focus .node.active{opacity:1}
+  .camera.focus .node .rag-dot{opacity:1}   /* never hide the health dot */
+  body.reduced-motion .node{transition:none}
 
   .ignite-caption{position:absolute;z-index:2;font-family:var(--serif);font-style:italic;color:var(--muted);font-size:12.5px;
     max-width:200px;text-align:center;pointer-events:none}
+
+  /* ---------- guided-walk controls (overlay, OUTSIDE camera so they never transform) ---------- */
+  .stage-controls{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);z-index:20;display:flex;gap:9px;align-items:center}
+  .walkbtn{font-family:var(--sans);font-weight:700;font-size:13px;letter-spacing:.01em;cursor:pointer;
+    border:1.4pt solid var(--amber);background:linear-gradient(180deg,#F0D58C,#D9B45E);color:#1A1305;
+    padding:10px 18px;border-radius:8px;box-shadow:0 6px 20px rgba(0,0,0,.45);display:flex;align-items:center;gap:8px;transition:.14s}
+  .walkbtn:hover{transform:translateY(-2px);box-shadow:0 9px 26px rgba(0,0,0,.5)}
+  .walkbtn .wb-play{font-size:11px}
+  .walkbtn.hint{animation:walkpulse 2.4s ease-in-out infinite}
+  @keyframes walkpulse{0%,100%{box-shadow:0 6px 20px rgba(0,0,0,.45)}50%{box-shadow:0 6px 28px rgba(232,201,122,.5)}}
+  body.reduced-motion .walkbtn.hint{animation:none}
+  .ctlbtn{font-family:var(--mono);font-size:11px;letter-spacing:.06em;cursor:pointer;border:1pt solid var(--divider);
+    background:rgba(8,12,28,.86);color:var(--muted);padding:9px 13px;border-radius:7px;backdrop-filter:blur(3px)}
+  .ctlbtn:hover{border-color:var(--amber);color:var(--amber)}
+  .ctlbtn[hidden]{display:none}
+
+  /* leverage callout: the hero device, always visible in BOTH modes */
+  .leverage{display:flex;align-items:center;gap:13px;border:0.6pt solid var(--amber-dark);border-left:3pt solid var(--amber);
+    background:var(--amber-wash);border-radius:9px;padding:11px 16px;margin:0 0 14px}
+  .leverage .lv-ratio{font-family:var(--serif);font-size:25px;color:var(--amber);line-height:1;white-space:nowrap;letter-spacing:-.4px}
+  .leverage .lv-ratio b{color:#9FE6BE}
+  .leverage .lv-txt{font-size:13px;color:var(--body);line-height:1.4}
+  .leverage .lv-txt b{color:var(--amber);font-weight:700}
+  @media(max-width:680px){.leverage{flex-direction:column;align-items:flex-start;gap:6px}.leverage .lv-ratio{font-size:21px}}
+
+  /* gloss: plain-language tooltip on insider terms, zero cost to expert precision */
+  .gloss{border-bottom:1px dotted var(--amber-dark);cursor:help;position:relative}
+  .gloss:hover::after{content:attr(data-gloss);position:absolute;left:0;bottom:135%;z-index:40;white-space:normal;width:max-content;max-width:230px;
+    font-family:var(--sans);font-weight:400;font-size:11.5px;line-height:1.4;letter-spacing:0;text-transform:none;color:var(--body);
+    background:#0A1124;border:0.6pt solid var(--amber-dark);border-radius:7px;padding:7px 10px;box-shadow:0 8px 24px rgba(0,0,0,.55)}
+  .gloss:hover::before{content:'';position:absolute;left:14px;bottom:128%;z-index:40;border:5px solid transparent;border-top-color:var(--amber-dark)}
 
   /* ---------- door picker ---------- */
   .doorveil{position:absolute;inset:0;z-index:30;background:rgba(4,6,16,.93);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;border-radius:10px;backdrop-filter:blur(2px)}
@@ -360,14 +407,14 @@
   <header class="top">
     <div>
       <p class="brand-eyebrow">CaseGlide &middot; Go-To-Market Operating Map</p>
-      <h1 class="title">Two cold systems<br>become <span class="accent">one warm process</span></h1>
-      <p class="subtitle">Follow one lead from a first touch, a post or a cold email, all the way to a booked meeting with the CEO. The machine runs almost all of it. The CEO touches it twice.</p>
+      <h1 class="title">Cold prospect to booked meeting.<br>The machine runs it. <span class="accent">A human decides exactly twice.</span></h1>
+      <p class="subtitle">This is how CaseGlide takes a cold prospect to a booked meeting with almost no human time. Grey is the machine running itself. Gold is the two decisions a human makes. Watch one lead go the whole way.</p>
     </div>
     <div class="head-right">
       <div class="legend" aria-label="legend">
         <div class="lg-line"><span class="sw grey"></span><span><b>grey = the machine runs it</b></span></div>
-        <div class="lg-line"><span class="sw acc"></span><span><b>accent = Wes decides</b></span></div>
-        <div class="lg-line"><span class="sw warm"></span><span>warm outline = downstream of the hand-raise</span></div>
+        <div class="lg-line"><span class="sw acc"></span><span><b>gold = a human decides</b></span></div>
+        <div class="lg-line"><span class="sw warm"></span><span>warm outline = after the <span class="gloss" data-gloss="Hand-raise: the moment a cold prospect signals interest by replying, clicking, subscribing, or asking for a demo. The warm sequence only starts after a real person raises a hand.">hand-raise</span></span></div>
       </div>
       <div class="modewrap">
         <span class="modehint">press I to toggle</span>
@@ -377,39 +424,32 @@
   </header>
 
   <!-- live metrics JSON, injected by scripts/marketing_machine_metrics.py -->
-  <script id="machine-metrics" type="application/json">{"generated_ts":"2026-06-26T11:16:32.809186+00:00","as_of":{"cascade":"2026-06-26","reach_ledger":"rolling (read live)","subscribers":"2026-06-26","posts":"2026-06-18"},"kpis":[{"id":"handraisers","label":"New hand-raisers this run","hero":true,"value":"+1","detail":"26 total on the site (Command Center 3, subscribe 22, other 1)","rag":"green"},{"id":"pace","label":"Top cut first-touched by Aug 1","value":"1,851 of 4,500","detail":"ETA 2026-07-20 vs target 2026-07-31; 168/day vs 102/day required","rag":"green"},{"id":"coldfill","label":"Cold fill yesterday","value":"no data","detail":"","rag":"grey"},{"id":"warm","label":"Warm prospects reached","value":"222 of 503","detail":"281 surfaced not yet reached, oldest 8d","rag":"green"}],"segments":{"source":{"headline":"3,147 staged","label":"Deduped lead runway","rag":"green","status":"live","detail":[{"label":"Verified prospects in the cut","value":"9,207","status":"live","source":"verified-manifest.json"},{"label":"By source (first-touch landing)","value":"CG-C1-GC-CLO-R2026 4, CG-C1-canary-1lead 1","status":"live","source":""}],"subsegments":[],"note":null},"verify":{"headline":"100 / 98 / 100 / 100 warmup","label":"Mailbox warmup health","rag":"green","status":"live","detail":[{"label":"Bounces suppressed this run","value":"0 suppressed, 0 purged","status":"live","source":"mission-answer.bounce_sync"}],"subsegments":[],"note":null},"seq":{"headline":"no data","label":"Sent yesterday vs cap","rag":"grey","status":"live","detail":[{"label":"Hit the None% fill bar?","value":"No (None% < None%)","status":"live","source":"mission-answer.answer_1"},{"label":"Today's cap","value":"200","status":"live","source":"mission-answer.answer_2"}],"subsegments":[{"label":"Per mailbox","value":"lizbecker 37, mikepatton 37, jessicathompson 37, sarahjohnson 37","status":"live","source":"yesterday-sends.per_mailbox_sends"}],"note":null},"create":{"headline":"10 posts","label":"LinkedIn posts produced this cycle","rag":"green","status":"live","detail":[{"label":"Articles & newsletter receipts","value":"not yet instrumented","status":"not_yet_instrumented","source":"no per-cycle article/newsletter receipts file is emitted"}],"subsegments":[],"note":null},"distribute":{"headline":"10 scheduled","label":"Posts scheduled to the queue","rag":"green","status":"live","detail":[{"label":"LinkedIn post performance","value":"not yet instrumented","status":"not_yet_instrumented","source":"linkedin-performance-log.md is an empty template; no T+72h pulls"}],"subsegments":[],"note":null},"engage":{"headline":"90 subscribers","label":"Active newsletter subscribers","rag":"green","status":"live","detail":[{"label":"Newsletter open / click","value":"not yet instrumented","status":"not_yet_instrumented","source":"issue-performance-log.md cells empty past Issue #3"},{"label":"LinkedIn engagement rate","value":"not yet instrumented","status":"not_yet_instrumented","source":"no filled analytics rows"}],"subsegments":[],"note":"subscriber count synced 2026-06-26 (snapshot may be stale)"},"handraise":{"headline":"+1 new","label":"New hand-raisers since last run","rag":"green","status":"live","detail":[{"label":"Total hand-raisers on the site","value":"26","status":"live","source":"site-capture.total_hand_raisers"},{"label":"Already in the outbound cut","value":"1 overlap","status":"live","source":"site-capture.overlap_with_outbound_cut"}],"subsegments":[{"label":"Per tool","value":"Command Center 3, subscribe 22, other 1","status":"live","source":"site-capture.per_tool"},{"label":"Demo-only requests","value":"not yet instrumented","status":"not_yet_instrumented","source":"site-capture ledger_status = NO_STORE; not on a durable ledger"}],"note":null},"approve":{"headline":"232 approved","label":"Approved of 503 surfaced","rag":"green","status":"live","detail":[{"label":"Surfaced (candidate pool)","value":"503","status":"live","source":"reach-ledger.surfaced_ts"},{"label":"Reached (delivered)","value":"222","status":"live","source":"reach-ledger delivered"}],"subsegments":[{"label":"By source","value":"linkedin 326, historical 130, beehiiv 40, pipedrive 6, gmail_inbound 1","status":"live","source":"reach-ledger.source"},{"label":"By rail","value":"linkedin 281, email 222","status":"live","source":"reach-ledger.rail"}],"note":null},"warm1":{"headline":"221 at Stage 1","label":"First warm touch delivered","rag":"green","status":"live","detail":[{"label":"Total reached (any stage)","value":"222","status":"live","source":"reach-ledger delivered"}],"subsegments":[],"note":null},"gate1":{"headline":"1 advanced","label":"Advanced past Stage 1","rag":"green","status":"live","detail":[],"subsegments":[],"note":"Honest live count from stages_sent transitions; no separate gate-decision log."},"cc":{"headline":"0 at Stage 2","label":"Command Center delivered","rag":"amber","status":"live","detail":[],"subsegments":[],"note":"Genuine live 0 if the warm engine has not sent a Stage 2 yet \u2014 real, not fabricated."},"gate2":{"headline":"1 advanced","label":"Advanced past Stage 2","rag":"green","status":"live","detail":[],"subsegments":[],"note":null},"brief":{"headline":"1 at Stage 3","label":"Briefing delivered","rag":"green","status":"live","detail":[],"subsegments":[],"note":null},"meeting":{"headline":"not yet instrumented","label":"Meetings booked","rag":"grey","status":"not_yet_instrumented","detail":[],"subsegments":[],"note":"No source records a booked meeting. Nearest live signals: 0 new warm reply, 3 Command Center submits. Neither is a booking."}},"warm_funnel":[{"stage":"Surfaced","count":503},{"stage":"Approved","count":232},{"stage":"Reached","count":222},{"stage":"Stage 1","count":221},{"stage":"Stage 2","count":0},{"stage":"Stage 3","count":1}],"conversions":[{"from":"Surfaced","to":"Approved","pct":46.1},{"from":"Approved","to":"Reached","pct":95.7},{"from":"Reached","to":"Stage 2","pct":null}],"warm_backlog":{"waiting":281,"oldest_age_days":7.980598743217593,"rag":"red"},"absences":[{"node":"meeting","reason":"no source records a booked meeting"},{"node":"create","reason":"no per-cycle article/newsletter receipts file"},{"node":"distribute","reason":"LinkedIn performance log is an empty template"},{"node":"engage","reason":"newsletter performance log blank past Issue #3"},{"node":"handraise","reason":"demo-only hand-raisers not on a durable ledger"}],"counts":{"live":13,"not_yet_instrumented":1}}</script>
+  <script id="machine-metrics" type="application/json">{"generated_ts":"2026-06-26T15:06:55.429989+00:00","as_of":{"cascade":"2026-06-26","reach_ledger":"rolling (read live)","subscribers":"2026-06-26","posts":"2026-06-26"},"kpis":[{"id":"handraisers","label":"New hand-raisers this run","hero":true,"value":"+1","detail":"26 total on the site (Command Center 3, subscribe 22, other 1)","rag":"green"},{"id":"pace","label":"Top cut first-touched by Aug 1","value":"1,851 of 4,500","detail":"ETA 2026-07-20 vs target 2026-07-31; 168/day vs 102/day required","rag":"green"},{"id":"coldfill","label":"Cold fill yesterday","value":"no data","detail":"","rag":"grey"},{"id":"warm","label":"Warm prospects reached","value":"228 of 509","detail":"281 surfaced not yet reached, oldest 8d","rag":"green"}],"segments":{"source":{"headline":"3,147 staged","label":"Deduped lead runway","rag":"green","status":"live","detail":[{"label":"Verified prospects in the cut","value":"9,207","status":"live","source":"verified-manifest.json"},{"label":"By source (first-touch landing)","value":"CG-C1-GC-CLO-R2026 4, CG-C1-canary-1lead 1","status":"live","source":""}],"subsegments":[],"note":null},"verify":{"headline":"100 / 98 / 100 / 100 warmup","label":"Mailbox warmup health","rag":"green","status":"live","detail":[{"label":"Bounces suppressed this run","value":"0 suppressed, 0 purged","status":"live","source":"mission-answer.bounce_sync"}],"subsegments":[],"note":null},"seq":{"headline":"no data","label":"Sent yesterday vs cap","rag":"grey","status":"live","detail":[{"label":"Hit the None% fill bar?","value":"No (None% < None%)","status":"live","source":"mission-answer.answer_1"},{"label":"Today's cap","value":"200","status":"live","source":"mission-answer.answer_2"}],"subsegments":[{"label":"Per mailbox","value":"lizbecker 37, mikepatton 37, jessicathompson 37, sarahjohnson 37","status":"live","source":"yesterday-sends.per_mailbox_sends"}],"note":null},"create":{"headline":"10 posts","label":"LinkedIn posts produced this cycle","rag":"green","status":"live","detail":[{"label":"Articles & newsletter receipts","value":"not yet instrumented","status":"not_yet_instrumented","source":"no per-cycle article/newsletter receipts file is emitted"}],"subsegments":[],"note":null},"distribute":{"headline":"10 scheduled","label":"Posts scheduled to the queue","rag":"green","status":"live","detail":[{"label":"LinkedIn post performance","value":"not yet instrumented","status":"not_yet_instrumented","source":"linkedin-performance-log.md is an empty template; no T+72h pulls"}],"subsegments":[],"note":null},"engage":{"headline":"90 subscribers","label":"Active newsletter subscribers","rag":"green","status":"live","detail":[{"label":"Newsletter open / click","value":"not yet instrumented","status":"not_yet_instrumented","source":"issue-performance-log.md cells empty past Issue #3"},{"label":"LinkedIn engagement rate","value":"not yet instrumented","status":"not_yet_instrumented","source":"no filled analytics rows"}],"subsegments":[],"note":"subscriber count synced 2026-06-26 (snapshot may be stale)"},"handraise":{"headline":"+1 new","label":"New hand-raisers since last run","rag":"green","status":"live","detail":[{"label":"Total hand-raisers on the site","value":"26","status":"live","source":"site-capture.total_hand_raisers"},{"label":"Already in the outbound cut","value":"1 overlap","status":"live","source":"site-capture.overlap_with_outbound_cut"}],"subsegments":[{"label":"Per tool","value":"Command Center 3, subscribe 22, other 1","status":"live","source":"site-capture.per_tool"},{"label":"Demo-only requests","value":"not yet instrumented","status":"not_yet_instrumented","source":"site-capture ledger_status = NO_STORE; not on a durable ledger"}],"note":null},"approve":{"headline":"239 approved","label":"Approved of 509 surfaced","rag":"green","status":"live","detail":[{"label":"Surfaced (candidate pool)","value":"509","status":"live","source":"reach-ledger.surfaced_ts"},{"label":"Reached (delivered)","value":"228","status":"live","source":"reach-ledger delivered"}],"subsegments":[{"label":"By source","value":"linkedin 327, historical 130, beehiiv 45, pipedrive 6, gmail_inbound 1","status":"live","source":"reach-ledger.source"},{"label":"By rail","value":"linkedin 281, email 228","status":"live","source":"reach-ledger.rail"}],"note":null},"warm1":{"headline":"227 at Stage 1","label":"First warm touch delivered","rag":"green","status":"live","detail":[{"label":"Total reached (any stage)","value":"228","status":"live","source":"reach-ledger delivered"}],"subsegments":[],"note":null},"gate1":{"headline":"1 advanced","label":"Advanced past Stage 1","rag":"green","status":"live","detail":[],"subsegments":[],"note":"Honest live count from stages_sent transitions; no separate gate-decision log."},"cc":{"headline":"0 at Stage 2","label":"Command Center delivered","rag":"amber","status":"live","detail":[],"subsegments":[],"note":"Genuine live 0 if the warm engine has not sent a Stage 2 yet \u2014 real, not fabricated."},"gate2":{"headline":"1 advanced","label":"Advanced past Stage 2","rag":"green","status":"live","detail":[],"subsegments":[],"note":null},"brief":{"headline":"1 at Stage 3","label":"Briefing delivered","rag":"green","status":"live","detail":[],"subsegments":[],"note":null},"meeting":{"headline":"not yet instrumented","label":"Meetings booked","rag":"grey","status":"not_yet_instrumented","detail":[],"subsegments":[],"note":"No source records a booked meeting. Nearest live signals: 0 new warm reply, 3 Command Center submits. Neither is a booking."}},"warm_funnel":[{"stage":"Surfaced","count":509},{"stage":"Approved","count":239},{"stage":"Reached","count":228},{"stage":"Stage 1","count":227},{"stage":"Stage 2","count":0},{"stage":"Stage 3","count":1}],"conversions":[{"from":"Surfaced","to":"Approved","pct":47.0},{"from":"Approved","to":"Reached","pct":95.4},{"from":"Reached","to":"Stage 2","pct":null}],"warm_backlog":{"waiting":281,"oldest_age_days":8.140582778125,"rag":"red"},"absences":[{"node":"meeting","reason":"no source records a booked meeting"},{"node":"create","reason":"no per-cycle article/newsletter receipts file"},{"node":"distribute","reason":"LinkedIn performance log is an empty template"},{"node":"engage","reason":"newsletter performance log blank past Issue #3"},{"node":"handraise","reason":"demo-only hand-raisers not on a durable ledger"}],"counts":{"live":13,"not_yet_instrumented":1}}</script>
 
   <!-- top KPI band (internal mode only) -->
   <div class="kpiband" id="kpiband"></div>
 
+  <!-- ===================== LEVERAGE CALLOUT (hero device, both modes) ===================== -->
+  <div class="leverage">
+    <div class="lv-ratio"><span style="color:#9FE6BE">all machine</span> &nbsp;/&nbsp; <span style="color:var(--amber)">2 human</span></div>
+    <div class="lv-txt">Every grey step below runs without a person. The only two gold moments are the decisions a human makes: <b>approve who to reach</b>, then <b>say go on the meeting</b>. A whole funnel against two decisions. That ratio is the entire under-one-hour-a-day model.</div>
+  </div>
+
   <!-- ===================== MASTER DIAGRAM ===================== -->
   <div class="stagecard">
-    <span class="lane-tag" style="left:18px;top:10px">PUSH lane &middot; cold email</span>
-    <span class="lane-tag" style="left:18px;top:43%">PULL lane &middot; content + LinkedIn</span>
-    <span class="lane-tag" style="left:18px;bottom:8px;color:var(--amber-dark)">WARM spine &middot; the gold ignites here, and only here</span>
+    <span class="lane-tag" style="left:18px;top:10px">Push lane &middot; cold email &middot; we reach out</span>
+    <span class="lane-tag" style="left:18px;top:43%">Pull lane &middot; content and LinkedIn &middot; they find us</span>
+    <span class="lane-tag" style="left:18px;bottom:8px;color:var(--amber-dark)">Warm spine &middot; the gold ignites here, and only here</span>
     <div class="stage" id="stage">
-      <svg class="edges" id="edges" viewBox="0 0 1280 720" preserveAspectRatio="none"></svg>
-      <!-- nodes injected by JS -->
-      <div class="ignite-caption" id="igCap"></div>
-
-      <div class="doorveil" id="doorveil">
-        <p class="door-h">One lead. <span class="accent">Two doors in.</span> Pick where the story starts.</p>
-        <p class="door-sub">Real leads take one rail, never both. The two cold systems run separately and converge at a single shared gate, the hand-raise. After that, every lead walks the same warm spine.</p>
-        <div class="doors">
-          <div class="door" onclick="pickDoor('push')">
-            <div class="dk">Door 1 &middot; PUSH</div>
-            <div class="dh">The cold email</div>
-            <div class="dd">We source the right person, verify the address, and run a four-touch sequence. She replies to one of them.</div>
-            <div class="dlead">Walk Dana in cold &rarr;</div>
-          </div>
-          <div class="door" onclick="pickDoor('pull')">
-            <div class="dk">Door 2 &middot; PULL</div>
-            <div class="dh">The LinkedIn post</div>
-            <div class="dd">We publish a story she cannot scroll past, it reaches her feed, she engages, then subscribes. (Default narrated path.)</div>
-            <div class="dlead">Walk Dana in warm &rarr;</div>
-          </div>
-        </div>
-        <button class="door-skip" onclick="pickDoor(null)">or just explore the whole map</button>
+      <div class="camera" id="camera">
+        <svg class="edges" id="edges" viewBox="0 0 1280 720" preserveAspectRatio="none"></svg>
+        <svg class="travel" id="travel" viewBox="0 0 1280 720" preserveAspectRatio="none"></svg>
+        <!-- nodes injected by JS into #camera -->
+        <div class="ignite-caption" id="igCap"></div>
+      </div>
+      <div class="stage-controls" id="stageControls">
+        <button class="walkbtn hint" id="walkBtn" onclick="toggleWalk()"><span class="wb-play">&#9654;</span> <span id="walkBtnLabel">Walk one lead through it</span></button>
+        <button class="ctlbtn" id="skipBtn" hidden onclick="endWalk(true)">Explore freely</button>
       </div>
     </div>
   </div>
@@ -429,7 +469,7 @@
     <div class="section" id="zoomSection">
       <p class="eyebrow">Zoom &middot; the real artifact at this step</p>
       <div id="zoom">
-        <div class="zoom-desc" style="color:var(--muted)">Pick a door above, or click any node on the map, to see exactly what Dana sees at that step.</div>
+        <div class="zoom-desc" style="color:var(--muted)">Press <b style="color:var(--amber)">Walk one lead through it</b> to watch one prospect travel the whole machine, or click any node on the map to see exactly what she sees at that step.</div>
       </div>
     </div>
 
@@ -548,7 +588,7 @@
 
 <!-- ===================== MINI-MAP ===================== -->
 <div id="minimap">
-  <div class="mm-h"><span>MAP</span><span class="mm-here" id="mmHere">pick a door</span></div>
+  <div class="mm-h"><span>MAP</span><span class="mm-here" id="mmHere">the whole machine</span></div>
   <div class="mm-stage" id="mmStage"><svg id="mmEdges" viewBox="0 0 1280 720" preserveAspectRatio="none"></svg></div>
 </div>
 
@@ -571,7 +611,7 @@ const NODES = [
   {id:'engage', role:'pull', x:585, y:300, label:'Engage', sub:'react, comment, subscribe', tag:'PULL 3'},
   {id:'pullmark', role:'pull', x:778, y:300, label:'she subscribes', sub:'', tag:'', marker:true},
   // SHARED gate - ignition
-  {id:'handraise', role:'shared', x:965, y:198, label:'HAND-RAISE', sub:'reply / click / subscribe / demo', tag:'', ignite:true, shared:true},
+  {id:'handraise', role:'shared', x:965, y:198, label:'Hand-raise', sub:'reply / click / subscribe / demo', tag:'', ignite:true, shared:true},
   // WARM spine
   {id:'approve', role:'wes', x:120, y:560, label:'Approve', sub:'WES', tag:'WES'},
   {id:'warm1', role:'warm', x:312, y:560, label:'Warm low-ask note', sub:'want to know more?', tag:'WARM 1'},
@@ -740,7 +780,7 @@ ART.meeting = {
   title:'Meeting booked', step:'DONE', role:'terminal',
   desc:'Dana takes the meeting with Wes Todd, the CEO. A complete stranger two weeks ago, sourced or scrolling, now sitting across from the founder, oriented, with her own numbers already in front of her. That is the whole machine, end to end.',
   artifact:'calendar',
-  mech:['Outcome','One stranger, one of two doors, one warm process, one booked meeting. The CEO touched it twice.'],
+  mech:['Outcome','One stranger, one of two lanes, one warm process, one booked meeting. A human decided twice.'],
   int:'The booked meeting is logged to the CRM (engagement-triggered logging only, not every send). The sales motion takes over from here.'
 };
 
@@ -856,7 +896,7 @@ function artCalendar(){return `
     <div class="cr"><span class="ck">With</span><span>Wesley Todd, CEO, CaseGlide</span></div>
     <div class="cr"><span class="ck">Guest</span><span>Dana Whitfield, VP Litigation Management</span></div>
     <div class="cr"><span class="ck">Notes</span><span>She arrives oriented. Her one-page result is already in her inbox. No cold intro needed.</span></div>
-    <div class="cr"><span class="ck">Path in</span><span id="calPath">Door: PULL (LinkedIn post). 14 days, stranger to booked.</span></div>
+    <div class="cr"><span class="ck">Path in</span><span id="calPath">Pull lane (LinkedIn post). 14 days, stranger to booked.</span></div>
   </div>
 </div>`;}
 
@@ -877,7 +917,13 @@ function artCold4(){return `
    ============================================================ */
 const VBW=1280, VBH=720;
 const stage=document.getElementById('stage');
+const camera=document.getElementById('camera');
 const svg=document.getElementById('edges');
+const travel=document.getElementById('travel');
+const SVGNS='http://www.w3.org/2000/svg';
+const REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+if(REDUCED) document.body.classList.add('reduced-motion');
+const IS_MOBILE = window.matchMedia('(max-width: 768px)').matches;
 
 function nodeEl(n){
   const el=document.createElement('div');
@@ -891,7 +937,7 @@ function nodeEl(n){
   el.onclick=()=>openNode(n.id,true);
   return el;
 }
-NODES.forEach(n=>stage.appendChild(nodeEl(n)));
+NODES.forEach(n=>camera.appendChild(nodeEl(n)));
 
 function edgePath(a,b){
   // orthogonal-ish connector in viewBox space
@@ -928,7 +974,7 @@ window.addEventListener('resize',drawEdges);
 
 // ignite caption
 const igCap=document.getElementById('igCap');
-igCap.textContent='two cold systems become one warm process';
+igCap.textContent='both lanes converge here. cold becomes warm.';
 igCap.style.left=(N.handraise.x/VBW*100)+'%';
 igCap.style.top=((N.handraise.y+86)/VBH*100)+'%';
 igCap.style.transform='translateX(-50%)';
@@ -972,6 +1018,8 @@ STEP_CARDS.forEach((id,i)=>{
    STATE: mode, door, current node, walk
    ============================================================ */
 let mode='external', door=null, current=null, activePath=null, pathIdx=-1;
+let walking=false, walkAborted=false, rafId=null, walkTimers=[];
+const CLICK_SCALE = IS_MOBILE ? 2.15 : 1.5;
 
 function toggleMode(){ setMode(mode==='external'?'internal':'external'); }
 function setMode(m){
@@ -983,33 +1031,117 @@ function setMode(m){
   if(current) renderZoom(current); // re-render to add/remove internal block
 }
 
-function pickDoor(which){
-  door=which;
-  document.getElementById('doorveil').style.display='none';
-  stage.classList.remove('door-push','door-pull');
-  if(which){
-    stage.classList.add('door-'+which);
-    activePath=PATHS[which];
-    pathIdx=0;
-    // brief pulse-walk down the chosen rail
-    pulseWalk(activePath);
-    openNode(activePath[0],false);
-    setLeadState(activePath[0]);
-    const cp=document.getElementById('calPath');
-  } else {
-    activePath=null; pathIdx=-1;
-    openNode('handraise',false);
-  }
-  // set calendar path text
+/* ---------- camera: zoom-to-node via CSS transform on the wrapper holding BOTH layers.
+   Never tween the SVG viewBox (it would move edges but not the DIV nodes). ---------- */
+function cameraTo(id, scale){
+  const S=scale||1;
+  if(!id || S<=1){ camera.style.transform='translate(0,0) scale(1)'; return; }
+  const fx=N[id].x/VBW, fy=N[id].y/VBH;          // origin 0,0: translate-% is of the camera's own box
+  camera.style.transform=`translate(${(50-S*fx*100).toFixed(2)}%,${(50-S*fy*100).toFixed(2)}%) scale(${S})`;
 }
-function pulseWalk(path){
-  path.forEach((id,i)=>{
-    setTimeout(()=>{
-      const el=document.getElementById('node-'+id);
-      if(!el)return;
-      el.animate([{boxShadow:'0 0 0 0 rgba(232,201,122,.6)'},{boxShadow:'0 0 0 14px rgba(232,201,122,0)'}],{duration:520});
-    }, i*150);
+function cameraReset(){ camera.style.transform='translate(0,0) scale(1)'; }
+function setFocus(on){ camera.classList.toggle('focus', !!on); } // dim context on explicit select only
+
+/* ---------- ONE path-follow primitive: center-to-center path + getPointAtLength.
+   Powers (a) the journey token, (b) the lane-convergence beat. NOT the edge d-strings. ---------- */
+function centerPathD(ids){ return ids.map((id,i)=>(i?'L ':'M ')+N[id].x+' '+N[id].y).join(' '); }
+function svgPath(d, cls){ const p=document.createElementNS(SVGNS,'path'); p.setAttribute('d',d); p.setAttribute('fill','none'); if(cls){p.setAttribute('class',cls);} else {p.setAttribute('stroke','none');} return p; }
+function makeToken(cls){
+  const g=document.createElementNS(SVGNS,'g'); g.setAttribute('class','tok '+(cls||''));
+  const ring=document.createElementNS(SVGNS,'circle'); ring.setAttribute('class','tok-ring'); ring.setAttribute('r','24');
+  const core=document.createElementNS(SVGNS,'circle'); core.setAttribute('class','tok-core'); core.setAttribute('r','13');
+  const lab=document.createElementNS(SVGNS,'text'); lab.setAttribute('class','tok-label'); lab.setAttribute('y','4'); lab.textContent='D';
+  g.appendChild(ring); g.appendChild(core); g.appendChild(lab); return g;
+}
+function placeTokenAt(g,id){ const n=N[id]; g.setAttribute('transform',`translate(${n.x},${n.y})`); }
+function animTokenAlong(g, ids, ms){
+  return new Promise(res=>{
+    const path=svgPath(centerPathD(ids)); travel.appendChild(path);
+    const len=path.getTotalLength(); let start=null;
+    function step(ts){
+      if(walkAborted){ path.remove(); return res(); }
+      if(start===null) start=ts;
+      const t=Math.min(1,(ts-start)/ms);
+      const e=t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;   // easeInOutQuad
+      const pt=path.getPointAtLength(e*len);
+      g.setAttribute('transform',`translate(${pt.x},${pt.y})`);
+      if(t<1){ rafId=requestAnimationFrame(step); } else { path.remove(); res(); }
+    }
+    rafId=requestAnimationFrame(step);
   });
+}
+function wait(ms){ return new Promise(res=>{ const id=setTimeout(res,ms); walkTimers.push(id); }); }
+
+function drawPretrace(){
+  travel.querySelectorAll('.pretrace').forEach(e=>e.remove());
+  travel.appendChild(svgPath(centerPathD(PATHS.pull),'pretrace'));
+}
+
+/* ---------- guided walk (opt-in): convergence beat, then warm-spine narration ---------- */
+function toggleWalk(){ if(walking) endWalk(true); else startWalk(); }
+function walkBtnTo(label, glyph){
+  document.getElementById('walkBtnLabel').textContent=label;
+  document.getElementById('walkBtn').querySelector('.wb-play').innerHTML=glyph;
+}
+async function startWalk(){
+  endWalk(false);
+  walking=true; walkAborted=false;
+  door='pull'; activePath=PATHS.pull; pathIdx=0;   // keep door/activePath state alive for nav + URL
+  document.getElementById('walkBtn').classList.remove('hint');
+  document.getElementById('skipBtn').hidden=false;
+  walkBtnTo('Stop','&#9632;');
+  cameraReset(); setFocus(false);
+  travel.querySelectorAll('.pretrace').forEach(e=>e.remove());
+
+  if(REDUCED){ return walkReduced(); }
+
+  // BEAT 1 - convergence: two cold tokens (one per lane) race to the hand-raise and merge
+  const tPush=makeToken('cold'), tPull=makeToken('cold');
+  travel.appendChild(tPush); travel.appendChild(tPull);
+  placeTokenAt(tPush,'source'); placeTokenAt(tPull,'create');
+  openNode('source',false,false);
+  await Promise.all([
+    animTokenAlong(tPush, ['source','verify','seq','pushmark','handraise'], 2050),
+    animTokenAlong(tPull, ['create','distribute','engage','pullmark','handraise'], 2050),
+  ]);
+  if(walkAborted) return;
+  tPush.remove(); tPull.remove();
+  openNode('handraise',false,false);
+  const hr=document.getElementById('node-handraise');
+  if(hr) hr.animate([{filter:'brightness(1)'},{filter:'brightness(1.85)'},{filter:'brightness(1)'}],{duration:720});
+  const warm=makeToken(''); travel.appendChild(warm); placeTokenAt(warm,'handraise');
+  await wait(680);
+  if(walkAborted) return;
+
+  // BEAT 2 - one warm token narrates the shared spine, node by node
+  for(let i=1;i<WARM_TAIL.length;i++){
+    if(walkAborted) return;
+    await animTokenAlong(warm, [WARM_TAIL[i-1],WARM_TAIL[i]], 880);
+    if(walkAborted) return;
+    openNode(WARM_TAIL[i],false,false);
+    pathIdx=activePath.indexOf(WARM_TAIL[i]);
+    await wait(560);
+  }
+  walking=false; walkBtnTo('Replay the journey','&#9654;');
+}
+function walkReduced(){
+  const seq=PATHS.pull; let i=0;
+  (function tick(){
+    if(walkAborted||i>=seq.length){ walking=false; walkBtnTo('Replay the journey','&#9654;'); return; }
+    openNode(seq[i],false,false); i++;
+    walkTimers.push(setTimeout(tick,720));
+  })();
+}
+function endWalk(userStopped){
+  walkAborted=true; walking=false;
+  if(rafId) cancelAnimationFrame(rafId);
+  walkTimers.forEach(clearTimeout); walkTimers=[];
+  travel.querySelectorAll('.tok').forEach(e=>e.remove());
+  document.getElementById('skipBtn').hidden=true;
+  walkBtnTo('Walk one lead through it','&#9654;');
+  if(userStopped){ setFocus(false); cameraReset(); }
+  setTimeout(()=>{ walkAborted=false; },30);   // release the abort latch for the next run
+  drawPretrace();
 }
 
 function setLeadState(id){
@@ -1017,7 +1149,12 @@ function setLeadState(id){
   document.getElementById('mmHere').textContent = (N[id]?N[id].label:'').toLowerCase();
 }
 
-function openNode(id, scroll){
+function openNode(id, scroll, zoom){
+  const explicit = (zoom===undefined);          // a real user selection (click/card/arrow), not the walk
+  // click the already-focused node again -> ease back to the whole-map overview
+  if(explicit && id===current && camera.classList.contains('focus')){
+    setFocus(false); cameraReset(); return;
+  }
   current=id;
   // active highlight
   document.querySelectorAll('.node.active').forEach(e=>e.classList.remove('active'));
@@ -1030,7 +1167,9 @@ function openNode(id, scroll){
   setLeadState(id);
   // calendar path label
   const cp=document.getElementById('calPath');
-  if(cp) cp.textContent = (door==='push'?'Door: PUSH (cold email). 14 days, stranger to booked.':door==='pull'?'Door: PULL (LinkedIn post). 14 days, stranger to booked.':'Either door leads here. 14 days, stranger to booked.');
+  if(cp) cp.textContent = (door==='push'?'Push lane (cold email). 14 days, stranger to booked.':door==='pull'?'Pull lane (LinkedIn post). 14 days, stranger to booked.':'Either lane leads here. 14 days, stranger to booked.');
+  // focus + context + camera: explicit selection only (never during the autoplay walk)
+  if(explicit && !walking){ setFocus(true); cameraTo(id, CLICK_SCALE); }
   if(scroll){ const zs=document.getElementById('zoomSection'); if(window.innerWidth<960) zs.scrollIntoView({behavior:'smooth',block:'start'}); }
   updateUrl();
 }
@@ -1038,7 +1177,7 @@ function openNode(id, scroll){
 function renderZoom(id){
   const a=ART[id]; if(!a)return;
   const roleClass={push:'r-push',pull:'r-pull',shared:'r-warm',warm:'r-warm',wes:'r-wes',terminal:'r-warm'}[a.role]||'';
-  const roleLabel={push:'PUSH lane',pull:'PULL lane',shared:'shared gate',warm:'warm spine',wes:'WES decides',terminal:'outcome'}[a.role]||'';
+  const roleLabel={push:'PUSH lane',pull:'PULL lane',shared:'shared gate',warm:'warm spine',wes:'a human decides',terminal:'outcome'}[a.role]||'';
   let h=`<div class="zoom-head"><span class="zoom-step">${a.step}</span><span class="zoom-title">${a.title}</span><span class="zoom-role ${roleClass}">${roleLabel}</span></div>`;
   h+=`<div class="zoom-desc">${a.desc}</div>`;
   if(a.mech){h+=`<div class="mech"><span class="ml">${a.mech[0]}</span>${a.mech[1]}</div>`;}
@@ -1079,7 +1218,7 @@ function renderZoom(id){
   }
 }
 
-/* ---------- URL state (for deep links + screenshots) ---------- */
+/* ---------- URL state: persist only discrete state (mode + door + node), never token position ---------- */
 function updateUrl(){
   const p=new URLSearchParams();
   if(door)p.set('door',door);
@@ -1090,18 +1229,43 @@ function updateUrl(){
 function initFromUrl(){
   const p=new URLSearchParams(location.search);
   if(p.get('mode')==='internal') setMode('internal');
-  const d=p.get('door');
-  if(d==='push'||d==='pull'){ pickDoor(d); }
-  else if(p.has('door')||p.get('node')){ pickDoor(null); }
   const node=p.get('node');
-  if(node && N[node]) openNode(node,false);
+  const deep = (!!node && N[node]) || p.has('door');   // a deep-link / screenshot target
+  activePath=PATHS.pull; pathIdx=-1;                    // canonical default path for arrows/cards
+  drawPretrace();                                       // faint pre-traced route on the still establishing shot
+  if(deep){
+    // deterministic: no pulsing hint, no auto-motion when a node/door is requested
+    document.getElementById('walkBtn').classList.remove('hint');
+    if(node && N[node]) openNode(node,false);
+  } else if(IS_MOBILE){
+    // mobile default = guided single-node camera walk; swipe advances
+    openNode(activePath[0],false);
+  }
 }
+
+/* ---------- mobile: swipe = next / back along the active path (reuses the camera primitive) ---------- */
+let _tsx=null;
+stage.addEventListener('touchstart',e=>{ _tsx=e.changedTouches[0].clientX; },{passive:true});
+stage.addEventListener('touchend',e=>{
+  if(_tsx===null||!activePath) return;
+  const dx=e.changedTouches[0].clientX-_tsx; _tsx=null;
+  if(Math.abs(dx)<42) return;
+  if(walking) endWalk(true);
+  if(dx<0 && pathIdx<activePath.length-1) openNode(activePath[pathIdx+1],false);
+  else if(dx>0 && pathIdx>0) openNode(activePath[pathIdx-1],false);
+},{passive:true});
 
 /* ---------- keyboard ---------- */
 document.addEventListener('keydown',e=>{
-  if(e.key==='i'||e.key==='I'){ toggleMode(); }
-  if(e.key==='ArrowRight'&&activePath&&pathIdx<activePath.length-1){ openNode(activePath[pathIdx+1],false); }
-  if(e.key==='ArrowLeft'&&activePath&&pathIdx>0){ openNode(activePath[pathIdx-1],false); }
+  if(e.key==='i'||e.key==='I'){ toggleMode(); return; }
+  if(e.key==='Escape'){ if(walking) endWalk(true); setFocus(false); cameraReset(); return; }
+  if(e.key===' '){ e.preventDefault(); toggleWalk(); return; }
+  if(e.key==='ArrowRight'||e.key==='ArrowLeft'){
+    if(walking) endWalk(true);
+    if(!activePath) return;
+    if(e.key==='ArrowRight'&&pathIdx<activePath.length-1) openNode(activePath[pathIdx+1],false);
+    if(e.key==='ArrowLeft'&&pathIdx>0) openNode(activePath[pathIdx-1],false);
+  }
 });
 
 /* ============================================================
