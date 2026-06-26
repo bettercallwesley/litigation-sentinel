@@ -157,6 +157,11 @@
   .znav[disabled]{opacity:.35;cursor:default}
   .znav.primary{border-color:var(--amber-dark);color:var(--amber)}
   .zpos{margin-left:auto;font-family:var(--mono);font-size:10px;color:var(--caption)}
+  .asset-link-bar{display:flex;flex-direction:column;gap:8px;margin-top:20px;padding-top:16px;border-top:1px solid var(--divider)}
+  .asset-link-bar a{font-family:var(--mono);font-size:11px;color:var(--amber);text-decoration:none;letter-spacing:0.08em;text-transform:uppercase;display:inline-block;transition:transform 0.15s ease}
+  .asset-link-bar a:hover{transform:translateY(-2px)}
+  .asset-link-bar a::after{content:' \2197';opacity:.85}
+  .asset-link-bar .gated-note{font-size:10px;color:#8899aa;font-family:var(--mono);margin-top:2px}
 
   /* ---------- artifact mocks ---------- */
   .artifact{border:0.6pt solid var(--divider);border-radius:8px;overflow:hidden;margin-top:6px;background:#080C1C}
@@ -619,6 +624,20 @@ const LEAD_STATE = {
    and the live Command Center).
    ============================================================ */
 const ART = {};
+const ASSET_LINKS = {
+  create: {
+    url:'https://www.litigationsentinel.com/article/build-litigation-intelligence-stack',
+    label:'Read the flagship article',
+    secondary: {url:'https://www.litigationsentinel.com/nuclear-verdicts', label:'Open the Nuclear Verdicts dashboard'}
+  },
+  engage: {url:'https://www.litigationsentinel.com/subscribe', label:'View the subscriber page'},
+  cc: {url:'https://www.litigationsentinel.com/command-center', label:'View the Command Center', gated:true},
+  brief: {
+    url:'https://www.litigationsentinel.com/briefing',
+    label:'View the live briefing',
+    secondary: {url:'https://www.litigationsentinel.com/api/download/buyer-guide', label:'Download the buyer guide (PDF)'}
+  }
+};
 ART.source = {
   title:'Source', step:'PUSH 1', role:'push',
   desc:'The machine finds the people most likely to have the problem CaseGlide solves: the leaders who own litigation and claims inside large organizations. Dana fits the profile, and we have never contacted her.',
@@ -1036,6 +1055,28 @@ function renderZoom(id){
     <span class="zpos">${onPath?`step ${idx+1} of ${activePath.length}`:'free explore'}</span>
   </div>`;
   document.getElementById('zoom').innerHTML=h;
+  const assetEntry = ASSET_LINKS[id];
+  if(assetEntry){
+    const bar = document.createElement('div');
+    bar.className = 'asset-link-bar';
+    const a = document.createElement('a');
+    a.href = assetEntry.url; a.target = '_blank'; a.rel = 'noopener';
+    a.textContent = assetEntry.label;
+    bar.appendChild(a);
+    if(assetEntry.gated){
+      const note = document.createElement('span');
+      note.className = 'gated-note';
+      note.textContent = '(demo access required)';
+      bar.appendChild(note);
+    }
+    if(assetEntry.secondary){
+      const a2 = document.createElement('a');
+      a2.href = assetEntry.secondary.url; a2.target = '_blank'; a2.rel = 'noopener';
+      a2.textContent = assetEntry.secondary.label;
+      bar.appendChild(a2);
+    }
+    document.getElementById('zoom').appendChild(bar);
+  }
 }
 
 /* ---------- URL state (for deep links + screenshots) ---------- */
