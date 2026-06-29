@@ -1,4 +1,5 @@
 import { put, list } from "@vercel/blob";
+import { createHash } from "node:crypto";
 
 /**
  * Durable hand-raiser capture ledger (Objective E).
@@ -43,8 +44,10 @@ const LEDGER_PREFIX = "capture-ledger/";
 export interface CaptureEvent {
   /** Lowercased work email the visitor submitted. */
   email: string;
-  /** Which site tool captured it, in COS-readable terms. */
-  tool: "demo-request";
+  /** Which site tool captured it, in COS-readable terms.
+   * "briefing-completed" (2026-06-29) persists the Executive Briefing COMPLETION
+   * (Type 4) so the COS notifications reader can report and email it. */
+  tool: "demo-request" | "briefing-completed";
   /** The raw gate/source string for traceability. */
   gate_type: string;
   /** ISO-8601 capture timestamp. */
@@ -63,7 +66,10 @@ export interface CaptureEvent {
  * or change send behavior. Each event is its own immutable blob keyed by
  * timestamp + email hash, so COS reads the whole ledger by listing the prefix.
  */
-export async function appendCapture(event: CaptureEvent): Promise<boolean> {
+export async function appendCapture(
+  event: CaptureEvent,
+  opts?: { idempotent?: boolean }
+): Promise<boolean> {
   const token = process.env.BLOB_READ_WRITE_TOKEN;
   if (!token) {
     // Loud TODO: capture is not durable until a Blob store is provisioned.
@@ -75,13 +81,32 @@ export async function appendCapture(event: CaptureEvent): Promise<boolean> {
   }
   try {
     const safeEmail = event.email.toLowerCase().trim();
-    // Deterministic-ish key: ISO ts + short email tag. addRandomSuffix keeps
-    // two same-second captures from the same email from colliding.
-    const tag = safeEmail.replace(/[^a-z0-9]/g, "_").slice(0, 40);
-    const key = `${LEDGER_PREFIX}${event.ts}__${tag}.json`;
+    let key: string;
+    let addRandomSuffix: boolean;
+    if (opts?.idempotent) {
+      // F4 idempotency (briefing-completed, 2026-06-29): a DETERMINISTIC key so a
+      // repeat POST (the unseal fires fire-and-forget; React strict-mode / retries
+      // double-fire) overwrites the same blob instead of duplicating it. The COS
+      // reader then sees ONE completion -> one notification, never N. Key buckets by
+      // day so the same person completing twice in a day is one row.
+      const day = (event.ts || "").slice(0, 10);
+      const dedup = createHash("sha256")
+        .update(`${event.tool}|${event.gate_type}|${safeEmail}|${day}`)
+        .digest("hex")
+        .slice(0, 24);
+      key = `${LEDGER_PREFIX}${event.tool}__${dedup}.json`;
+      addRandomSuffix = false;
+    } else {
+      // Default (demo-request): ISO ts + short email tag, random suffix so two
+      // same-second captures from the same email don't collide.
+      const tag = safeEmail.replace(/[^a-z0-9]/g, "_").slice(0, 40);
+      key = `${LEDGER_PREFIX}${event.ts}__${tag}.json`;
+      addRandomSuffix = true;
+    }
     await put(key, JSON.stringify({ ...event, email: safeEmail }), {
       access: "public",
-      addRandomSuffix: true,
+      addRandomSuffix,
+      allowOverwrite: opts?.idempotent === true,
       contentType: "application/json",
       token,
     });
