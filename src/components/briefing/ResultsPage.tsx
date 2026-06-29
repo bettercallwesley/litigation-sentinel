@@ -565,6 +565,15 @@ export default function ResultsPage({
       setCaptureStatus("success");
       setIsGated(false);
       onEmailCaptured?.(captureEmail);
+      // Completion (Type 4): unsealing the file IS completing the Executive Briefing
+      // assessment. Persist it so COS can report + email "completed the assessment".
+      // Fire-and-forget so it never blocks or breaks the unseal UX; the route is
+      // idempotent, so a double-fire (strict mode / retry) records one completion.
+      void fetch("/api/briefing-complete", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: captureEmail, attribution: getAttribution() }),
+      }).catch(() => {});
     } catch {
       setCaptureError("That email did not go through. Check the address and try again.");
       setCaptureStatus("error");
