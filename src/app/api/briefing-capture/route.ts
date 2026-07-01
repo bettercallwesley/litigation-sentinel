@@ -1,5 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createHash } from "node:crypto";
+import { put } from "@vercel/blob";
+import {
+  computeAssessmentResult,
+  captureAssessmentResult,
+  assessmentPrereqsPresent,
+  type AssessmentResult,
+} from "@/lib/assessmentCapture";
+import { signResultsToken } from "@/lib/resultsToken";
 
 const SITE_ORIGIN = "https://litigationsentinel.com";
 
@@ -159,6 +167,102 @@ async function notifyWes(payload: {
 }
 
 /**
+ * Business-alert notify to Wes for a COMPLETED executive assessment. Unlike the
+ * schedule-modal notifyWes above (best-effort, fail-soft), this is durable: if
+ * Resend is absent or fails, it writes a pending-alert blob
+ * (assessment-alerts/{captured_at}.json) so a COS retry can pick it up. The
+ * assessment record is already stored by the time this runs, so a notify
+ * failure never 500s: the completion is safe and COS also discovers it via the
+ * blob list. The email carries the business facts only (no CLI, no deploy
+ * state, no file paths, no HTTP codes). Returns true when Resend accepted.
+ */
+async function notifyWesAssessment(result: AssessmentResult, token: string): Promise<boolean> {
+  const enc = encodeURIComponent(result.email);
+  const resultsUrl = `${SITE_ORIGIN}/results/${token}?email=${enc}`;
+  const scoreLine = (Object.entries(result.answers) as [string, number][])
+    .map(([k, v]) => `  ${QUESTION_LABELS[k] || k}: ${v}/5`)
+    .join("\n");
+  const pillarLine = Object.entries(result.pillar_scores)
+    .map(([k, v]) => `${k} ${v}/5`)
+    .join(", ");
+  const weakest = result.weakest_dims.map((d) => QUESTION_LABELS[d] || d).join(", ");
+  const emailBody = [
+    `New Litigation Sentinel assessment completed by ${result.email}.`,
+    `Completed: ${result.captured_at}`,
+    `Maturity level: ${result.maturity_level}/5`,
+    "",
+    "Scores:",
+    scoreLine,
+    "",
+    `Pillars: ${pillarLine}`,
+    `Weakest areas: ${weakest}`,
+    "",
+    `Their results page: ${resultsUrl}`,
+  ].join("\n");
+
+  const writePendingAlert = async (reason: string) => {
+    try {
+      const blobToken = process.env.BLOB_READ_WRITE_TOKEN;
+      if (!blobToken) return;
+      await put(
+        `assessment-alerts/${result.captured_at}.json`,
+        JSON.stringify({
+          reason,
+          result,
+          resultsUrl,
+          created_at: new Date().toISOString(),
+        }),
+        {
+          access: "public",
+          addRandomSuffix: false,
+          allowOverwrite: true,
+          contentType: "application/json",
+          token: blobToken,
+        }
+      );
+      console.error(`[ASSESSMENT_NOTIFY_PENDING] durable pending-alert written reason=${reason}`);
+    } catch (err) {
+      console.error(
+        "[ASSESSMENT_NOTIFY_PENDING_ERROR]",
+        err instanceof Error ? err.message : "error"
+      );
+    }
+  };
+
+  const resendKey = process.env.RESEND_API_KEY;
+  if (!resendKey) {
+    await writePendingAlert("resend_key_absent");
+    return false;
+  }
+  try {
+    const res = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${resendKey}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        from: "onboarding@resend.dev",
+        to: "wesley@caseglide.com",
+        subject: `Sentinel assessment completed: ${result.email} (level ${result.maturity_level}/5)`,
+        text: emailBody,
+      }),
+    });
+    if (!res.ok) {
+      await writePendingAlert(`resend_status_${res.status}`);
+      console.error(`[ASSESSMENT_NOTIFY_ERROR] status=${res.status}`);
+      return false;
+    }
+    console.log(`[ASSESSMENT_NOTIFY_OK] ref=${emailRef(result.email)}`);
+    return true;
+  } catch (err) {
+    await writePendingAlert("resend_threw");
+    console.error("[ASSESSMENT_NOTIFY_ERROR]", err instanceof Error ? err.message : "error");
+    return false;
+  }
+}
+
+/**
  * Read-before-write: returns true when the subscriber already exists with
  * non-empty source fields, in which case source fields are omitted from the
  * POST (write-once first-touch). Returns false on 404 (new subscriber) or any
@@ -258,6 +362,42 @@ export async function POST(req: NextRequest) {
           ? source
           : "briefing";
 
+    // Assessment-results: durable per-completion capture is a HARD prerequisite,
+    // enforced BEFORE any Beehiiv write or 200. This is the fix for the original
+    // fail-soft bug that silently discarded a prospect's per-dimension results.
+    // Both the Blob store and the HMAC secret are prerequisites for a complete,
+    // linkable deliverable, so a missing either is a loud 500 here.
+    let assessmentResult: AssessmentResult | null = null;
+    let resultsToken = "";
+    if (gateType === "assessment-results") {
+      if (!assessmentPrereqsPresent()) {
+        console.error(
+          `[ASSESSMENT_CAPTURE_FATAL] durable store or signing secret absent; refusing silent result drop ref=${ref}`
+        );
+        return NextResponse.json(
+          { error: "Results service is not configured. Please try again later." },
+          { status: 500 }
+        );
+      }
+      if (!answers || typeof answers !== "object") {
+        return NextResponse.json({ error: "Assessment answers required" }, { status: 400 });
+      }
+      assessmentResult = computeAssessmentResult(
+        email,
+        answers,
+        attribution as Record<string, unknown>
+      );
+      const stored = await captureAssessmentResult(assessmentResult);
+      if (!stored) {
+        console.error(`[ASSESSMENT_CAPTURE_FATAL] durable store write failed ref=${ref}`);
+        return NextResponse.json(
+          { error: "We could not save your results. Please try again." },
+          { status: 500 }
+        );
+      }
+      resultsToken = signResultsToken(email);
+    }
+
     {
       const capturePage = "/briefing";
 
@@ -348,6 +488,13 @@ export async function POST(req: NextRequest) {
           topGaps: topGaps || undefined,
         });
       }
+    }
+
+    // Assessment-results notify: business alert to Wes with the results link.
+    // Durable (writes a pending-alert blob on failure) but never 500s: the
+    // record is already stored above, so the completion is safe regardless.
+    if (gateType === "assessment-results" && assessmentResult) {
+      await notifyWesAssessment(assessmentResult, resultsToken);
     }
 
     return NextResponse.json({ success: true });
