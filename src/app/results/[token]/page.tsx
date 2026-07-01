@@ -90,6 +90,7 @@ export default async function ResultsPage({
           </p>
         </section>
 
+        {bars.length > 0 && (
         <section style={{ marginTop: 32 }}>
           <h2 style={{ fontSize: 18, fontWeight: 700, margin: "0 0 16px" }}>By capability</h2>
           {bars.map((b) => (
@@ -118,6 +119,7 @@ export default async function ResultsPage({
             </div>
           ))}
         </section>
+        )}
 
         {weakest.length > 0 && (
           <section

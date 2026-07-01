@@ -43,7 +43,7 @@ export async function GET(
   const bars = pillarBars(result);
   const weakest = weakestLabels(result);
 
-  const barsHtml = bars
+  const barsRows = bars
     .map(
       (b) => `
       <div class="bar-row">
@@ -54,6 +54,10 @@ export async function GET(
       </div>`
     )
     .join("");
+  const barsHtml =
+    bars.length > 0
+      ? `<div class="section"><div class="eyebrow">By capability</div>${barsRows}</div>`
+      : "";
 
   const weakestHtml =
     weakest.length > 0
@@ -106,10 +110,7 @@ export async function GET(
       <div class="blurb">${esc(descriptor.blurb)}</div>
     </div>
 
-    <div class="section">
-      <div class="eyebrow">By capability</div>
-      ${barsHtml}
-    </div>
+    ${barsHtml}
 
     ${weakestHtml}
 
