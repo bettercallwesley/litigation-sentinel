@@ -9,7 +9,7 @@ import {
 } from "@/lib/assessmentCapture";
 import { signResultsToken } from "@/lib/resultsToken";
 
-const SITE_ORIGIN = "https://litigationsentinel.com";
+const SITE_ORIGIN = "https://www.litigationsentinel.com";
 
 /**
  * Truncated SHA-256 of the email, used as a non-reversible correlation key in

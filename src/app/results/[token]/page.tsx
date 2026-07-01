@@ -13,7 +13,7 @@ import {
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-const SITE_ORIGIN = "https://litigationsentinel.com";
+const SITE_ORIGIN = "https://www.litigationsentinel.com";
 
 export default async function ResultsPage({
   params,
@@ -83,7 +83,7 @@ export default async function ResultsPage({
             <span style={{ fontSize: 26, color: "#6f83a0" }}> / 5</span>
           </div>
           <div style={{ fontSize: 20, fontWeight: 700, marginTop: 4 }}>
-            Level {level}: {descriptor.title}
+            {`Level ${level}: ${descriptor.title}`}
           </div>
           <p style={{ fontSize: 15, color: "#a9b8cc", maxWidth: 520, margin: "12px auto 0" }}>
             {descriptor.blurb}
