@@ -22,7 +22,11 @@ export type SentinelEvent =
   | "demo_request"
   | "upgrade_click"
   | "exit_view"
-  | "exit_submit";
+  | "exit_submit"
+  // B1 subscribe-success forward chain (P4).
+  | "subscribe_success_view"
+  | "subscribe_success_briefing_click"
+  | "subscribe_success_nuclear_click";
 
 type EventProps = Record<string, string | number | boolean>;
 

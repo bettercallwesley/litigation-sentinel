@@ -34,6 +34,10 @@ interface ResultsPageProps {
   src: string;
   onSchedule: () => void;
   onEmailCaptured?: (email: string) => void;
+  /** F1 wiring: advance the funnel to the program-selector phase
+   * (PostBriefingPage). When provided, the terminal CTA advances the phase
+   * instead of routing to /demo; /demo stays reachable as a secondary link. */
+  onAdvance?: () => void;
 }
 
 const PILLAR_LABELS: Record<string, string> = {
@@ -502,6 +506,7 @@ export default function ResultsPage({
   src,
   onSchedule,
   onEmailCaptured,
+  onAdvance,
 }: ResultsPageProps) {
   const router = useRouter();
   const reduced = useReducedMotion();
@@ -582,7 +587,13 @@ export default function ResultsPage({
 
   const handleDemoClick = () => {
     trackEvent("demo_click", { surface: "briefing-results", src });
-    router.push("/demo");
+    // F1: advance to the program selector (PostBriefingPage) when the parent
+    // wired it; otherwise fall back to the /demo route so the CTA never dead-ends.
+    if (onAdvance) {
+      onAdvance();
+    } else {
+      router.push("/demo");
+    }
   };
 
   return (
@@ -874,7 +885,7 @@ export default function ResultsPage({
               boxShadow: `0 4px 28px ${COLORS.goldGlow}`,
             }}
           >
-            {"Take this briefing live →"}
+            {"See your two paths forward →"}
           </button>
           <p
             style={{

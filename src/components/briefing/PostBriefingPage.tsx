@@ -5,6 +5,8 @@ import { COLORS, FONTS } from "@/components/design-system/tokens";
 import { CaseGlideLogo, Badge, FadeIn } from "@/components/design-system";
 import { ASSESSMENT_QUESTIONS } from "@/data/assessment-questions";
 import { getAttribution } from "@/lib/attribution";
+import { trackEvent } from "@/lib/track";
+import { averageScore, recommendProgram } from "@/lib/programSelector";
 
 interface PostBriefingPageProps {
   answers: Record<string, number>;
@@ -12,39 +14,45 @@ interface PostBriefingPageProps {
   onSchedule?: () => void;
 }
 
+// Program selector: the phase AFTER the ResultsPage dossier. The reader has
+// already seen where their file stands and where it is exposed; this is the
+// "here are the two ways forward" step. Copy is founder-led to match
+// ResultsPage's voice ("Wes replies personally"): no consultant-speak, no
+// dollar figures, no pricing, no ROI-model promises (all removed in the
+// 2026-07-02 content pass, which also retired the pre-6/24 "specialist" tone).
 const programs = [
   {
     id: "council",
     name: "Council",
-    tagline: "Strategic advisory engagement — 90 days",
+    tagline: "The guided 90-day activation",
     duration: "90 days",
     color: COLORS.accent,
     glow: COLORS.accentGlow,
     description:
-      "A structured advisory engagement where CaseGlide experts work alongside your team to evaluate fit, design an implementation roadmap, and quantify the ROI of litigation intelligence for your organization.",
+      "CaseGlide works alongside your team to turn the data you already keep into portfolio-level intelligence. We map the path, name the gaps this briefing surfaced, and build toward an executive readout your leadership can act on.",
     includes: [
-      "Dedicated CaseGlide advisor",
-      "Portfolio analysis & gap assessment",
-      "Custom ROI model",
-      "Implementation roadmap",
-      "Executive readout presentation",
+      "A CaseGlide lead who owns the engagement",
+      "Portfolio and gap read on your own data",
+      "A named activation roadmap",
+      "Education for the team who will run it",
+      "An executive readout at the end",
     ],
   },
   {
     id: "trial",
     name: "Trial",
-    tagline: "Hands-on pilot with your data — 30 days",
+    tagline: "The hands-on 30-day proving ground",
     duration: "30 days",
     color: COLORS.emerald,
     glow: COLORS.emeraldGlow,
     description:
-      "A full hands-on pilot using a subset of your actual litigation portfolio. Your team uses CaseGlide daily, with dedicated onboarding, training, and success management throughout.",
+      "A hands-on pilot on a slice of your real portfolio. Your team uses CaseGlide day to day, with onboarding, training, and a close working line to us the whole way through.",
     includes: [
-      "Full platform access",
-      "Data migration for pilot portfolio",
-      "Team onboarding & training",
-      "Weekly success check-ins",
-      "Executive impact report",
+      "Full platform access for the pilot",
+      "Your pilot portfolio loaded and ready",
+      "Team onboarding and training",
+      "Weekly working check-ins",
+      "An impact read you can take upstairs",
     ],
   },
 ];
@@ -53,9 +61,8 @@ export default function PostBriefingPage({ answers, capturedEmail, onSchedule }:
   const [selectedProgram, setSelectedProgram] = useState<string | null>(null);
   const [submitStatus, setSubmitStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
 
-  const totalScore = Object.values(answers).reduce((a, b) => a + b, 0);
-  const avgScore = totalScore / ASSESSMENT_QUESTIONS.length;
-  const recommended = avgScore <= 2.5 ? "council" : "trial";
+  const avgScore = averageScore(answers, ASSESSMENT_QUESTIONS.length);
+  const recommended = recommendProgram(avgScore);
 
   const handleProgramSelect = async (programId: string) => {
     if (selectedProgram === programId) {
@@ -64,6 +71,14 @@ export default function PostBriefingPage({ answers, capturedEmail, onSchedule }:
     }
 
     setSelectedProgram(programId);
+
+    // Durable via P2: fires on the analytics rail AND the Blob event sink so COS
+    // can see which program a completed briefing leaned toward.
+    trackEvent(
+      "upgrade_click",
+      { program: programId, recommended },
+      capturedEmail ? { email: capturedEmail } : undefined
+    );
 
     // If we have a captured email, auto-fire the notification
     if (capturedEmail) {
@@ -309,10 +324,10 @@ export default function PostBriefingPage({ answers, capturedEmail, onSchedule }:
                       }}
                     >
                       {isSelected && submitStatus === "success"
-                        ? "&#10003; Selected — We'll Be In Touch"
+                        ? "✓ Selected. Wes will reach out."
                         : isSelected && submitStatus === "loading"
                           ? "Sending..."
-                          : `Select ${prog.name}`}
+                          : `Choose ${prog.name}`}
                     </button>
                   </div>
                 </div>
@@ -321,7 +336,7 @@ export default function PostBriefingPage({ answers, capturedEmail, onSchedule }:
           })}
         </div>
 
-        {/* Schedule a call CTA — replaces fake shareable URL */}
+        {/* Talk-to-Wes CTA — founder-led, matches ResultsPage voice. */}
         <FadeIn delay={600}>
           <div
             style={{
@@ -339,9 +354,11 @@ export default function PostBriefingPage({ answers, capturedEmail, onSchedule }:
                 color: COLORS.textSecondary,
                 margin: "0 0 16px",
                 fontFamily: FONTS.sans,
+                lineHeight: 1.6,
               }}
             >
-              Want to discuss your results with a litigation intelligence specialist?
+              Not sure which way to go? Take 15 minutes with Wes Todd, CaseGlide&apos;s founder.
+              He will walk your results and help you pick the path that fits.
             </p>
             <button
               onClick={() => onSchedule?.()}
@@ -357,8 +374,25 @@ export default function PostBriefingPage({ answers, capturedEmail, onSchedule }:
                 fontFamily: FONTS.sans,
               }}
             >
-              Schedule a Call
+              Book time with Wes
             </button>
+            <div style={{ marginTop: 16 }}>
+              <a
+                href="/demo"
+                onClick={() =>
+                  trackEvent("demo_click", { surface: "post-briefing" })
+                }
+                style={{
+                  fontSize: 13,
+                  color: COLORS.textMuted,
+                  fontFamily: FONTS.sans,
+                  textDecoration: "underline",
+                  textUnderlineOffset: 2,
+                }}
+              >
+                Or send Wes your details and he will reply personally
+              </a>
+            </div>
           </div>
         </FadeIn>
       </div>

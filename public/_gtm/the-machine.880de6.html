@@ -672,6 +672,7 @@ const NODES = [
   {id:'gate2', role:'wes', x:878, y:560, label:'ACCEPT / ASSESS / MEET', sub:'WES GATE 2', tag:'GATE'},
   {id:'brief', role:'warm', x:1058, y:560, label:'Executive briefing + PDF', sub:'one-page result', tag:'WARM 3'},
   {id:'meeting', role:'terminal', x:1200, y:380, label:'MEETING BOOKED', sub:'with Wes, CEO', tag:'DONE'},
+  {id:'council', role:'terminal', x:1200, y:560, label:'COUNCIL OPPORTUNITY', sub:'the consultative program', tag:'REVENUE'},
 ];
 const N = Object.fromEntries(NODES.map(n=>[n.id,n]));
 
@@ -680,11 +681,11 @@ const EDGES = [
   ['source','verify',0],['verify','seq',0],['seq','pushmark',0],['pushmark','handraise',0],
   ['create','distribute',0],['distribute','engage',0],['engage','pullmark',0],['pullmark','handraise',0],
   ['handraise','approve',1],
-  ['approve','warm1',1],['warm1','gate1',1],['gate1','cc',1],['cc','gate2',1],['gate2','brief',1],['brief','meeting',1],
+  ['approve','warm1',1],['warm1','gate1',1],['gate1','cc',1],['cc','gate2',1],['gate2','brief',1],['brief','meeting',1],['meeting','council',1],
 ];
 
 // the two walkable paths (both end at MEETING BOOKED)
-const WARM_TAIL = ['handraise','approve','warm1','gate1','cc','gate2','brief','meeting'];
+const WARM_TAIL = ['handraise','approve','warm1','gate1','cc','gate2','brief','meeting','council'];
 const PATHS = {
   push: ['source','verify','seq','pushmark',...WARM_TAIL],
   pull: ['create','distribute','engage','pullmark',...WARM_TAIL],
@@ -708,6 +709,7 @@ const LEAD_STATE = {
   gate2:'She replied again. Wes chose ASSESS.',
   brief:'Deep. She has the briefing and her one-page result.',
   meeting:'BOOKED. Stranger to meeting with the CEO.',
+  council:'REVENUE. The consultative Council program opens.',
 };
 
 /* ============================================================
@@ -835,6 +837,12 @@ ART.meeting = {
   artifact:'calendar',
   mech:['Outcome','One stranger, one warm process, one booked meeting. Wes approved it twice, and only twice.'],
   int:'The booked meeting is logged to the CRM (engagement-triggered logging only, not every send). The sales motion takes over from here.'
+};
+ART.council = {
+  title:'Council opportunity', step:'REVENUE', role:'terminal',
+  desc:'The meeting lands well, and the conversation turns to what a guided engagement looks like. Dana becomes a Council opportunity: the consultative program where CaseGlide works alongside her team to turn the data they already keep into portfolio-level intelligence. This is the machine\'s revenue terminal, the point where a community member becomes a program the sales motion can carry.',
+  mech:['Revenue terminal','The Council program is where the warm process converts into a consultative engagement. It is the downstream result of the meeting, not a separate outreach.'],
+  int:'The Council opportunity is tracked from the meeting outcome. The sales motion owns the engagement from here.'
 };
 
 /* ============================================================
@@ -1285,7 +1293,7 @@ function renderMetrics(){
   document.getElementById('kpiband').innerHTML=(M.kpis||[]).map(k=>
     `<div class="kpi ${k.rag} ${k.hero?'hero':''}">${k.hero?'<span class="khero">HERO</span>':''}<div class="kl">${k.label}</div><div class="kv">${k.value}</div><div class="kd">${k.detail||''}</div></div>`).join('');
 
-  const order=['source','verify','seq','create','distribute','engage','handraise','approve','warm1','gate1','cc','gate2','brief','meeting'];
+  const order=['source','verify','seq','create','distribute','engage','handraise','approve','warm1','gate1','cc','gate2','brief','meeting','council'];
   for(const id of order){
     const s=M.segments[id]; if(!s) continue;
     const el=document.getElementById('node-'+id); if(!el) continue;

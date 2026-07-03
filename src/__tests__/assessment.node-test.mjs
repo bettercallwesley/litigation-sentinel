@@ -12,6 +12,9 @@ const { signResultsToken, verifyResultsToken } = await import("../lib/resultsTok
 const { computeAssessmentResult, pickLatest, assessmentPrereqsPresent } = await import(
   "../lib/assessmentCapture.ts"
 );
+const { recommendProgram, averageScore, COUNCIL_THRESHOLD } = await import(
+  "../lib/programSelector.ts"
+);
 
 test("results token: deterministic sign, verify accepts and rejects tampering", () => {
   const email = "Jane.Doe@Example.com";
@@ -70,6 +73,26 @@ test("pickLatest returns newest by captured_at, null on empty", () => {
     mk("2026-06-10T00:00:00.000Z"),
   ]);
   assert.equal(latest.captured_at, "2026-06-24T12:00:00.000Z");
+});
+
+test("recommendProgram: low score -> council, high score -> trial (F1 selector)", () => {
+  // The two anchor cases the plan pins.
+  assert.equal(recommendProgram(2.0), "council", "avg 2.0 recommends Council");
+  assert.equal(recommendProgram(3.0), "trial", "avg 3.0 recommends Trial");
+  // Boundary is inclusive toward Council.
+  assert.equal(recommendProgram(COUNCIL_THRESHOLD), "council", "avg 2.5 recommends Council");
+  assert.equal(recommendProgram(2.5001), "trial", "just above 2.5 recommends Trial");
+  assert.equal(recommendProgram(1.0), "council", "floor recommends Council");
+  assert.equal(recommendProgram(5.0), "trial", "ceiling recommends Trial");
+});
+
+test("averageScore: divides answer sum by question count, not answer count", () => {
+  // 6 questions, only 4 answered -> denominator is the question count (6).
+  const avg = averageScore({ a: 1, b: 2, c: 3, d: 4 }, 6);
+  assert.equal(avg, 10 / 6, "sum 10 over 6 questions");
+  // The low-score path lands on Council end-to-end.
+  assert.equal(recommendProgram(averageScore({ a: 2, b: 2, c: 2 }, 3)), "council");
+  assert.equal(recommendProgram(averageScore({ a: 3, b: 3, c: 3 }, 3)), "trial");
 });
 
 test("assessmentPrereqsPresent: true only when BOTH env vars are set", () => {

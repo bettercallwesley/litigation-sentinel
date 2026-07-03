@@ -7,6 +7,7 @@ import {
   LandingPage,
   AssessmentPage,
   ResultsPage,
+  PostBriefingPage,
   ScheduleModal,
   BriefingRail,
 } from "@/components/briefing";
@@ -14,7 +15,7 @@ import ThemeToggle from "@/components/shared/ThemeToggle";
 import { trackEvent } from "@/lib/track";
 import { ASSESSMENT_QUESTIONS } from "@/data/assessment-questions";
 
-type Phase = "landing" | "assessment" | "results";
+type Phase = "landing" | "assessment" | "results" | "next";
 
 function maturityFromAnswers(answers: Record<string, number>): number {
   const scores = Object.values(answers);
@@ -32,17 +33,23 @@ function BriefingFlow() {
   const [phase, setPhase] = useState<Phase>("landing");
   const [answers, setAnswers] = useState<Record<string, number>>({});
   const [showSchedule, setShowSchedule] = useState(false);
+  // F1 email-state lift: ResultsPage captures the work email at the unseal gate;
+  // PostBriefingPage needs it so a program pick auto-fires the notification
+  // without a second email prompt.
+  const [capturedEmail, setCapturedEmail] = useState<string | null>(null);
   const startedRef = useRef(false);
 
   // Phase rail index: CONTEXT(0) / ASSESSMENT(1) / RESULTS(2) / NEXT(3).
-  // Opening the schedule modal advances the rail to NEXT.
-  const activeIndex = showSchedule
-    ? 3
-    : phase === "landing"
-      ? 0
-      : phase === "assessment"
-        ? 1
-        : 2;
+  // The program selector (PostBriefingPage) IS the NEXT phase; opening the
+  // schedule modal also advances the rail to NEXT.
+  const activeIndex =
+    phase === "next" || showSchedule
+      ? 3
+      : phase === "landing"
+        ? 0
+        : phase === "assessment"
+          ? 1
+          : 2;
 
   return (
     <div
@@ -104,6 +111,15 @@ function BriefingFlow() {
         <ResultsPage
           answers={answers}
           src={src}
+          onSchedule={() => setShowSchedule(true)}
+          onEmailCaptured={(email) => setCapturedEmail(email)}
+          onAdvance={() => setPhase("next")}
+        />
+      )}
+      {phase === "next" && (
+        <PostBriefingPage
+          answers={answers}
+          capturedEmail={capturedEmail}
           onSchedule={() => setShowSchedule(true)}
         />
       )}
