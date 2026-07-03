@@ -6,6 +6,7 @@ import FadeIn from "@/components/design-system/FadeIn";
 import { getAttribution } from "@/lib/attribution";
 import { trackEvent } from "@/lib/track";
 import { ENGAGEMENT_STATS } from "@/data/engagement-stats";
+import SubscribeSuccessCTAs from "./SubscribeSuccessCTAs";
 
 interface SubscribeBlockProps {
   delay?: number;
@@ -92,8 +93,9 @@ export default function SubscribeBlock({ delay = 700, source = "subscribe-block"
               fontFamily: FONTS.sans,
             }}
           >
-            Check your inbox for a welcome from Litigation Sentinel.
+            Check your inbox for a welcome from Litigation Sentinel. While you are here:
           </p>
+          <SubscribeSuccessCTAs surface={`subscribe-block:${source}`} />
         </div>
       </FadeIn>
     );

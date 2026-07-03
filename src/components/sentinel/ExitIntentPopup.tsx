@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { SENTINEL, FONTS } from "@/components/design-system/tokens";
 import { getAttribution } from "@/lib/attribution";
 import { trackEvent } from "@/lib/track";
+import SubscribeSuccessCTAs from "./SubscribeSuccessCTAs";
 
 // B-EXIT (reconciled council B, CONTRARIAN-2): exactly ONE interruption surface.
 // Exit-intent popup on article + nuclear routes only. Dismiss suppresses for
@@ -178,8 +179,9 @@ export default function ExitIntentPopup() {
                 fontFamily: FONTS.sans,
               }}
             >
-              Check your inbox for a welcome from Litigation Sentinel.
+              Check your inbox for a welcome from Litigation Sentinel. While you are here:
             </p>
+            <SubscribeSuccessCTAs surface="exit-intent" />
           </>
         ) : (
           <>
